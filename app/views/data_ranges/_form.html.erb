@@ -1,0 +1,37 @@
+<%= form_with(model: data_range, local: true) do |form| %>
+  <% if data_range.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(data_range.errors.count, "error") %> prohibited this data_range from being saved:</h2>
+
+      <ul>
+      <% data_range.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :feature_id %>
+    <%= form.text_field :feature_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_categorical %>
+    <%= form.check_box :is_categorical %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lower_bound %>
+    <%= form.text_field :lower_bound %>
+  </div>
+
+  <div class="field">
+    <%= form.label :upper_bound %>
+    <%= form.text_field :upper_bound %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  participant: one
+  feature: one
+  weight: 1
+
+two:
+  participant: two
+  feature: two
+  weight: 1

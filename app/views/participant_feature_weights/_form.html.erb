@@ -1,0 +1,32 @@
+<%= form_with(model: participant_feature_weight, local: true) do |form| %>
+  <% if participant_feature_weight.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(participant_feature_weight.errors.count, "error") %> prohibited this participant_feature_weight from being saved:</h2>
+
+      <ul>
+      <% participant_feature_weight.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :participant_id %>
+    <%= form.text_field :participant_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :feature_id %>
+    <%= form.text_field :feature_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :weight %>
+    <%= form.number_field :weight %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

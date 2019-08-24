@@ -1,0 +1,2 @@
+module CategoricalDataOptionsHelper
+end

@@ -1,0 +1,91 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require material_icons
+ *= require overrides
+ */
+
+ $table-striped-color: #FFFFFF;
+ @import url('https://fonts.googleapis.com/css?family=Chivo');
+
+ .nav {
+   background-color: #fbf9f3 !important;
+ }
+
+.wbai {
+  color: black;
+
+}
+
+.wbai:visited{
+  color: black;
+
+}
+ .wbai:hover
+ {
+   background-color: #EDEDED;
+   color: black;
+ }
+
+body {
+ background-color: #FFFFFF;
+ -webkit-font-smoothing: antialiased;
+  height: 100%;
+}
+
+// Pairwise comparison styling
+.scenario_1:hover {
+  background: white;
+}
+
+.scenario_2:hover {
+  background: white;
+}
+// Footer styling
+.footer {
+    background-color: #A9A9A9;
+    margin-top:-4vw;
+    z-index:5;
+    position: relative;
+}
+.logo {
+    width: 20%;
+    height: 40%;
+    display: inline-block;
+    float: left;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+.text-muted{
+    display: inline-block;
+    float: right;
+    color: #ffffff;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+.containeri {
+    width: 96%;
+   height: auto;
+   overflow-y: scroll;
+}
+
+// Navbar code
+.my-navbar{
+ background-color: #DCDCDC;
+}
+.navbar-brand{
+ font-weight: bold;
+ font-size: 1.5em;
+}
+ @import "materialize";

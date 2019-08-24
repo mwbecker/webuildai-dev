@@ -1,0 +1,147 @@
+
+
+* {
+  font-family: 'pragmatica', sans-serif;
+  font-style: normal;
+  font-weight: 200;
+}
+
+
+textarea:focus {
+border-bottom: none!important;
+box-shadow: none!important;
+}
+
+a:hover
+{
+  color: #ffffff;
+}
+
+/* login page styling */
+.login-b1
+{
+  margin-top:-45vw;
+  margin-right: 4vw;
+  width:33%;
+  float:right;
+}
+
+
+.login-b1 span
+{
+  color: #3d6ab1;
+  font-weight: bold;
+  font-size:3em;
+  margin-left:3.5vw;
+}
+
+.login-b1 hr
+{
+  color: white;
+  border-width: 0.25pt;
+  overflow:visible;
+  width: 125%;
+
+
+}
+
+.control-group-id label {
+  color: black;
+  font-weight:bold;
+  font-size: 1.38em;
+  margin-bottom:2.5vh;
+}
+
+
+.control-group-password label {
+  color: black;
+  font-weight:bold;
+  font-size: 1.38em;
+  margin-bottom:2.5vh;
+}
+
+.actions-login input[type=submit]
+{
+  margin-top:12vh;
+  margin-left: 16.5vw;
+  background: #3d6ab1;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 12.5vw;
+  height: 7.5vh;
+  font-weight: bold;
+  font-size: 1.38em;
+  cursor: pointer;
+}
+
+.login-b2 {
+  margin-top:0vh;
+  background: #3d6ab1;
+  float:left;
+  width:63%;
+
+  z-index:3;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+ color: #949494;
+ font-style: italic;
+ font-size: 1.2em;
+ font-weight: normal;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+ color: #949494;
+ font-style: italic;
+ font-size: 1.2em;
+ font-weight: normal;
+}
+
+.login-b1 form
+{
+  margin-left: 3.5vw;
+}
+
+
+.login-b2 h4
+{
+  margin-top:5%;
+  margin-left:4%;
+  font-weight: bold;
+}
+
+.login-b2 p
+{
+  margin-top:5%;
+  margin-left:4%;
+  margin-right:7%;
+  font-size:1.5em;
+  line-height:17pt;
+}
+
+
+/* END OF Login */
+
+
+/* Feature Selection styling */
+
+#feat_select
+{
+  font-size: 3.1em;
+  font-weight:bold;
+}
+
+#hhr
+ {
+   color: white;
+   border-width: 1px;
+   overflow:visible;
+   width: 125%;
+ }
+
+ #range_form
+ {
+   margin-left:10vw;
+   margin-top:-1%;
+   float:right;
+ }

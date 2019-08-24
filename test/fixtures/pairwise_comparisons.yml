@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  participant: one
+  scenario_1: 1
+  scenario_2: 1
+  choice: 1
+
+two:
+  participant: two
+  scenario_1: 1
+  scenario_2: 1
+  choice: 1

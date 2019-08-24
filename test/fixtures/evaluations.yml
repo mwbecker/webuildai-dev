@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  show: false
+  how: MyString
+  fairly: MyString
+  correctly: MyString
+  priorities: MyString
+  previously: MyString
+  situation: MyString
+  resolve: MyString
+  functions: MyString
+  incorrect: MyString
+  alert: MyString
+
+two:
+  show: false
+  how: MyString
+  fairly: MyString
+  correctly: MyString
+  priorities: MyString
+  previously: MyString
+  situation: MyString
+  resolve: MyString
+  functions: MyString
+  incorrect: MyString
+  alert: MyString

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  which: MyString
+  long: MyString
+  service: MyString
+  actively: MyString
+  deactivated: MyString
+  pending: MyString
+  satisified: MyString
+
+two:
+  which: MyString
+  long: MyString
+  service: MyString
+  actively: MyString
+  deactivated: MyString
+  pending: MyString
+  satisified: MyString

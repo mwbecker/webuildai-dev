@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WeBuildAi</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class = "white" >
+     <div class="containeri" style = "height:70%;">
+       <!-- Brand and toggle get grouped for better mobile display -->
+       <div >
+
+         <%= link_to "WeBuildAI", root_path, :class => "wbai", :style => "margin-left:5.9%;font-size:2em;font-weight:bold;" %>
+       </div>
+       <!-- Collect the nav links, forms, and other content for toggling -->
+       <div style = "margin-top:-3.5%;margin-left:83%;">
+         <ul>
+           <li>
+               <%=  link_to "Instructions", new_pairwise_comparison_path, :class => "wbai", :style => "font-size:1.3em;" %>
+           </li>
+           <% if logged_in? %>
+           <li>
+                <%= link_to "Logout", logout_path, :class => "wbai", :style => "font-size:1.3em;" %>
+           </li> <% end %>
+         </ul>
+       </div><!-- /.navbar-collapse -->
+     </div><!-- /.container-fluid -->
+    </nav>
+    <%= yield %>
+    <!-- Footer -->
+<footer class="footer" id="footer">
+ <!-- Copyright -->
+ <div class = "containeri">
+     <div class = "center" style = "margin-left:5%;">
+          <%= image_tag ('CMU_Logo_Horiz_White.png'), :class => "logo" %>
+          <span class = "text-muted"> Questions or comments? Contact dkusbit@gmail.com</span>
+    </div>
+ </div>
+</footer>
+<!-- Footer -->
+<script>
+ $(document).ready(function() {
+     var docHeight = $(window).height();
+     var footerHeight = $('#footer').height();
+     var footerTop = $('#footer').position().top + footerHeight;
+     if (footerTop < docHeight)
+         $('#footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
+ });
+</script>
+  </body>
+</html>

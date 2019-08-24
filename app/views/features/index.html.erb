@@ -1,0 +1,57 @@
+<div style = "width:90%;margin-left:5%;">
+<h1>Add Continuous Feature </h1>
+
+<form action="#">
+  Feature Name:<br>
+  <input id = "feature-name" type="text" name="featurename" value="">
+  <br><br>
+</form>
+
+<a class="waves-effect waves-dark btn" id = "next_btn" style = "width:20%;color:#FFFFFF;"> Next </a>
+<br><br> <br><br>
+<form action="#" id = "bounds" style = "display:none;">
+  Lower bound :<br>
+  <input id = "lower-bound" type="text" name="lower" value="">
+  Upper bound: <br>
+  <input id = "upper-bound" type="text" name="upper" value="">
+  <br><br>
+</form>
+
+<a class="waves-effect waves-dark btn" id = "submit_btn" style = "width:20%;color:#FFFFFF;display:none;"> Submit </a>
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+  $("#next_btn").click(function(event) {
+    $("#bounds").css('display', 'block');
+    $("#submit_btn").css('display', 'block');
+  });
+
+
+
+  $("#submit_btn").click(function(event) {
+    let name = $("#feature-name")[0].value
+    let lower = parseInt($("#lower-bound")[0].value)
+    let upper = parseInt($("#upper-bound")[0].value)
+    let cat = 0
+    let options = "zilch"
+    $.ajax({
+      url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options,
+      type: "post",
+      success: function(){
+        console.log('Saved Successfully');
+        window.location.href = "/pairwise_comparisons/new"
+      },
+      error:function($xhr){
+        console.log($xhr);
+      }
+    });
+  });
+
+
+
+</script>

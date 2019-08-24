@@ -1,0 +1,2 @@
+module ParticipantFeatureWeightsHelper
+end

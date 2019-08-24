@@ -1,0 +1,106 @@
+<div id = "con_con" style = "width:90%;margin-left:5%;display:none">
+  <h4 style = "color:#3d6ab1;font-weight:bold"> Add Continuous Feature</h4> <br>
+  <hr style ='overflow:visible;width:117.5%;margin-left:-9%;color:white;border-width: 1px;'>
+  <br>
+  <form action="#">
+    <label for = "feature-name-1" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Feature Name </label>
+    <input id = "feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name">
+    <p id = "error_1" style = "color:red;margin-top:-1%;display:none"> Feature name cannot be blank <p>
+    <br> <br>
+    <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
+    <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name">
+  </form>
+
+<br>
+<form action="#" id = "bounds" style = "display:block;">
+  <label for = "lower-bound" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Lower Bound </label>
+  <input id = "lower-bound" type="text" name="lower" value="" placeholder="Lower Bound">
+  <p id = "error_2" style = "color:red;margin-top:-1%;display:none">  cannot be blank <p>
+    <p id = "error_4-1" style = "color:red;margin-top:-1%;display:none">  Invalid Range <p>
+
+  <label for = "upper-bound" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Upper Bound </label>
+  <input id = "upper-bound" type="text" name="upper" value="" placeholder="Upper Bound">
+  <p id = "error_3" style = "color:red;margin-top:-3%;display:none"> cannot be blank <p>
+  <p id = "error_4-2" style = "color:red;margin-top:-1%;display:none">  Invalid Range <p>
+
+  <br><br>
+</form>
+
+<p style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh"> Is the information about the request, or the driver? </p> <br>
+<label style = "display:inline;margin-right:5%;">
+ <input id = "req-1" class="with-gap" name="group3" type="radio" checked />
+ <span style = "color:black;font-size:1.3em;">Request</span>
+</label> <br/> <br/>
+<label style = "display:inline;margin-right:5%;">
+  <input id = "driv-1" class="with-gap" name="group3" type="radio" checked />
+  <span style = "color:black;font-size:1.3em;">Driver</span>
+</label>
+<br><br>
+<br> <br> <br>
+
+<a class="waves-effect waves-dark btn" id = "submit_con_btn" style = "width:20%;color:#FFFFFF;display:block;background-color:#3d6ab1"> Submit </a>
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+
+
+  $("#submit_con_btn").click(function(event) {
+    let name = $("#feature-name-1")[0].value
+    let cati = $("#con_category")[0].value
+
+    if (name == "")
+    {
+      $("#error_1").css('display', 'block')
+    }
+    else {
+      $("#error_1").css('display', 'none')
+      var categor;
+      if (($("#req-1")[0]).checked){categor="request"}
+      else {categor="driver"}
+      let lower = parseInt($("#lower-bound")[0].value)
+      if ($("#lower-bound")[0].value == "") {
+        $("#error_2").css('display', 'block')
+        return -1
+      } else {  $("#error_2").css('display', 'none') }
+      let upper = parseInt($("#upper-bound")[0].value)
+      if ($("#upper-bound")[0].value == "") {
+        $("#error_3").css('display', 'block')
+        return -1
+      } else {  $("#error_3").css('display', 'none') }
+       if (upper <= lower) {
+          $("#error_4-1").css('display', 'block')
+          $("#error_4-2").css('display', 'block')
+          return -1;
+     }
+     else {   $("#error_4-1").css('display', 'none')
+       $("#error_4-2").css('display', 'none')}
+
+      let cat = 0
+      let options = "zilch"
+      $.ajax({
+        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+"&category="+categor+"&description="+cati,
+        type: "post",
+        success: function(){
+          console.log('Saved Successfully');
+          modal.style.display = "none";
+          $("#con_con").css('display', 'none')
+          $("#cat_con").css('display', 'none')
+          location.reload();
+
+              },
+        error:function($xhr){
+          console.log($xhr);
+        }
+      });
+     }
+  });
+
+
+
+</script>

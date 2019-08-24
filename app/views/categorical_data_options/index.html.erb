@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Categorical Data Options</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data range</th>
+      <th>Option value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categorical_data_options.each do |categorical_data_option| %>
+      <tr>
+        <td><%= categorical_data_option.data_range %></td>
+        <td><%= categorical_data_option.option_value %></td>
+        <td><%= link_to 'Show', categorical_data_option %></td>
+        <td><%= link_to 'Edit', edit_categorical_data_option_path(categorical_data_option) %></td>
+        <td><%= link_to 'Destroy', categorical_data_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Categorical Data Option', new_categorical_data_option_path %>
