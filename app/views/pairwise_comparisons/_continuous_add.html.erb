@@ -6,9 +6,14 @@
     <label for = "feature-name-1" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Feature Name </label>
     <input id = "feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name">
     <p id = "error_1" style = "color:red;margin-top:-1%;display:none"> Feature name cannot be blank <p>
-    <br> <br>
-    <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
-    <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name">
+    <% if current_user.role == 'admin' %>
+      <br> <br>
+      <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
+      <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name">
+    <% else %>
+      <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
+      <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name" style = "display:none">
+    <% end %>
   </form>
 
 <br>

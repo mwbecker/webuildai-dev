@@ -15,9 +15,16 @@
 
 <p style = "margin-left:10%;font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
 
+<% counter_p1 = 0 %>
 <div style = "margin-left:10%;width:80%" class= "box">
-  <div style = "width:50%;float:left"> <p style = "color:#3d6ab1;font-size:1.1em"> How often the customer tips  </p> <br/>  <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%"> Average rating the customer gives to customers  </p></div>
-  <div style = "width:50%;float:right"> <p style = "color:#3d6ab1;font-size:1.1em"> Nubmer of requests the customer cancelled today  </p> <br/>  <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%"> Distance between the courrier and the restaurant </p></div>
+  <br>
+  <% while counter_p1 < @feats.size %>
+    <div style = "width:50%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats[counter_p1].name %>  </p></div> <br/>  <br/>
+    <% if counter_p1 + 1 < @feats.size %>
+      <div style = "width:50%;float:right;margin-top:-3%"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats[counter_p1+1].name %> </p></div>
+    <% end %>
+    <% counter_p1 += 2 %>
+  <% end %>
   </div>
   <br/>
 <a class="waves-effect waves-dark btn" id = "start_btn_1" style = "float:right;width:12.5%;padding-top:0.7%;padding-bottom:4%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Start </a>

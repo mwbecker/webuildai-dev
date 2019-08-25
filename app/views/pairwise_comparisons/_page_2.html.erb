@@ -19,9 +19,16 @@ York City.) Your answers will be used to help train a new matching algorithm we 
 
 <p style = "margin-left:10%;font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
 
+<% counter_p2 = 0 %>
 <div style = "margin-left:10%;width:80%" class= "box">
-  <div style = "width:50%;float:left"> <p style = "color:#3d6ab1;font-size:1.1em"> How often the customer tips  </p> <br/>  <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%"> Average rating the customer gives to customers  </p></div>
-  <div style = "width:50%;float:right"> <p style = "color:#3d6ab1;font-size:1.1em"> Nubmer of requests the customer cancelled today  </p> <br/>  <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%"> Distance between the courrier and the restaurant </p></div>
+  <br>
+  <% while counter_p2 < @feats_1.size %>
+    <div style = "width:50%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats_1[counter_p2].name %>  </p></div> <br/>  <br/>
+    <% if counter_p2 + 1 < @feats_1.size %>
+      <div style = "width:50%;float:right;margin-top:-3%"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats_1[counter_p2+1].name %> </p></div>
+    <% end %>
+    <% counter_p2 += 2 %>
+  <% end %>
   </div>
   <br/>
 
