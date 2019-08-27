@@ -33,19 +33,43 @@ class ParticipantFeatureWeightsController < ApplicationController
     w =  params[:weight].to_i
     puts pid, fid, w
     puts "madeit"
-    if ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", pid, fid).empty?
+    if ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).empty?
       @participant_feature_weight = ParticipantFeatureWeight.new
       @participant_feature_weight.participant_id = pid
       @participant_feature_weight.feature_id = fid
       @participant_feature_weight.weight = w
+      @participant_feature_weight.method = params[:method]
       @participant_feature_weight.save!
 
     else
-      @participant_feature_weight = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", pid, fid).first
+      @participant_feature_weight = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).first
       @participant_feature_weight.weight = w
+      @participant_feature_weight.method = params[:method]
       @participant_feature_weight.save!
     end
   end
+
+def new_how_ai
+  pid  = params[:participant_id].to_i
+  fid = params[:feature_id].to_i
+  w =  params[:weight].to_i
+  puts pid, fid, w
+  puts "madeit"
+  if ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).empty?
+    @participant_feature_weight = ParticipantFeatureWeight.new
+    @participant_feature_weight.participant_id = pid
+    @participant_feature_weight.feature_id = fid
+    @participant_feature_weight.weight = w
+    @participant_feature_weight.method = params[:method]
+    @participant_feature_weight.save!
+
+  else
+    @participant_feature_weight = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).first
+    @participant_feature_weight.weight = w
+    @participant_feature_weight.method = params[:method]
+    @participant_feature_weight.save!
+  end
+end
 
   # PATCH/PUT /participant_feature_weights/1
   # PATCH/PUT /participant_feature_weights/1.json
@@ -79,6 +103,6 @@ class ParticipantFeatureWeightsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def participant_feature_weight_params
-      params.require(:participant_feature_weight).permit(:participant_id, :feature_id, :weight)
+      params.require(:participant_feature_weight).permit(:participant_id, :feature_id, :weight, :method)
     end
 end

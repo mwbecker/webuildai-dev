@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :get_ranges
   helper_method :get_ranges_2
-
+  helper_method :get_ranges_ai
+  helper_method :get_ranges_ai_2
 
   def get_ranges
     to_ret = Array.new
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
     lenth = fs.size-1
     for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", current_user.id, to_ret[i])
+      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i],"how_you")
       if !w.empty?
         to_ret[i] = w.first.weight
       else
@@ -38,7 +39,7 @@ class ApplicationController < ActionController::Base
     end
     lenth = fs.size-1
     for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", current_user.id, to_ret[i])
+      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i], "how_you")
       if !w.empty?
         to_ret[i] = "0." + ((w.first.weight / 10).floor).to_s if (w.first.weight / 10).floor != 0
         to_ret[i] = 0 if  w.first.weight  == 0
@@ -51,6 +52,44 @@ class ApplicationController < ActionController::Base
     return to_ret.reverse
   end
 
+  def get_ranges_ai
+    to_ret = Array.new
+    fs = Feature.active.all.order(:description)
+    fs.each do |f|
+      to_ret << f.id
+    end
+    lenth = fs.size-1
+    for i in 0..lenth do
+      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i], "how_ai")
+      if !w.empty?
+        to_ret[i] = w.first.weight
+      else
+        to_ret[i] = 0
+      end
+    end
+    return to_ret.reverse
+  end
+
+  def get_ranges_ai_2
+    to_ret = Array.new
+    fs = Feature.active.all.order(:description)
+    fs.each do |f|
+      to_ret << f.id
+    end
+    lenth = fs.size-1
+    for i in 0..lenth do
+      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i], "how_ai")
+      if !w.empty?
+        to_ret[i] = "0." + ((w.first.weight / 10).floor).to_s if (w.first.weight / 10).floor != 0
+        to_ret[i] = 0 if  w.first.weight  == 0
+        to_ret[i] = "0.1" if (w.first.weight  > 0 && (w.first.weight / 10).floor == 0)
+        to_ret[i] = 1 if  (w.first.weight / 10).floor == 10
+      else
+        to_ret[i] = 0
+      end
+    end
+    return to_ret.reverse
+  end
 
   def current_user
     @current_user ||= Participant.find(session[:participant_id]) if session[:participant_id]

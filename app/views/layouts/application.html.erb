@@ -20,9 +20,6 @@
        <!-- Collect the nav links, forms, and other content for toggling -->
        <div style = "margin-top:-3.5%;margin-left:83%;">
          <ul>
-           <li>
-               <%=  link_to "Instructions", new_pairwise_comparison_path, :class => "wbai", :style => "font-size:1.3em;" %>
-           </li>
            <% if logged_in? %>
            <li>
                 <%= link_to "Logout", logout_path, :class => "wbai", :style => "font-size:1.3em;" %>
@@ -35,7 +32,7 @@
     <!-- Footer -->
 <footer class="footer" id="footer">
  <!-- Copyright -->
- <div class = "containeri">
+ <div class = "containeri-foot">
      <div class = "center" style = "margin-left:5%;">
           <%= image_tag ('CMU_Logo_Horiz_White.png'), :class => "logo" %>
           <span class = "text-muted"> Questions or comments? Contact dkusbit@gmail.com</span>

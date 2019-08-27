@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_25_003558) do
+ActiveRecord::Schema.define(version: 2019_08_27_224458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_003558) do
     t.string "description"
     t.string "category"
     t.boolean "active", default: true
+    t.string "added_by"
   end
 
   create_table "pairwise_comparisons", force: :cascade do |t|
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_003558) do
     t.integer "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "method"
     t.index ["feature_id"], name: "index_participant_feature_weights_on_feature_id"
     t.index ["participant_id"], name: "index_participant_feature_weights_on_participant_id"
   end

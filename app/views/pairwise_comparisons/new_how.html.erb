@@ -61,19 +61,19 @@ the time a payment is issued. </p> <br / >
 <div class = "contain" style = "display:none">
 <h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Feature Selection</h1> <p style ="font-weight:lighter;font-size:2.3em;color:#3d6ab1;display:inline;float:right;margin-top:-3%;margin-right:10%;"> About Survey Completed </p>
 <hr id = "hhr">
-<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" > The following cards below contain features we believe your company’s algorithm uses to match drivers with
+<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" >  The following cards below contain features we believe your company’s algorithm uses to match drivers with
 incoming requests. Based on your experiences driving for your company, please select any features that you
-believe your company’s algorithm should use to match drivers with requests. For your selected features, please use
-the sliders on the right to determine how much importance you believe the algorithm should place on each factor. If
-there are features not listed below that you think the algorithm should use, please add them using the button at the
-bottom of the page. Please assign the level of importance to these additional features as well.</p>
+believe your company’s algorithm uses to match drivers with requests. For your selected features, please use
+the sliders on the right to determine how much importance you believe the algorithm places on each factor. If
+there are features not listed below that you think the algorithm uses, please add them using the button at the
+bottom of the page. Please assign the level of importance to these additional features as well. </p>
 <table class = "striped highlight" id = "feat" style = "color: #515151;margin-left:10%;margin-right:5%;width:80%;">
     <thead>
      <th>  </th>
      <th> </th>
     </thead>
-<% a = get_ranges %>
-<% b = get_ranges_2 %>
+<% a = get_ranges_ai %>
+<% b = get_ranges_ai_2 %>
 <% counter = "" %>
 <% @features_all.each do |f| %>
 <tr>
@@ -111,7 +111,8 @@ bottom of the page. Please assign the level of importance to these additional fe
 
 
    <a id = "add" class="btn-floating btn-large waves-effect waves-light" style = "z-index:0;background-color:#3d6ab1;margin-left:10%;"><i class="material-icons">add</i></a> <p style = "font-weight:bold;font-size:1.25em;display:inline;margin-left:1%;"> Add Feature </p>
-<%= link_to 'NEXT', new_how_path, method: :post, :class => "waves-effect waves-dark btn", :style => "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;" %>
+   <a class="waves-effect waves-dark btn" id = "submit_btn" style = "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Submit </a>
+
 
 </div>
 
@@ -204,7 +205,7 @@ bottom of the page. Please assign the level of importance to these additional fe
     console.log(feature)
 
     $.ajax({
-      url: "/weighting?participant_id="+user+"&feature_id="+feature+"&weight="+weight+"&method="+'how_you',
+      url: "/new_how_ai?participant_id="+user+"&feature_id="+feature+"&weight="+weight+"&method="+'how_ai',
       type: "post",
       success: function(){
         console.log('Saved Successfully');
@@ -225,6 +226,7 @@ bottom of the page. Please assign the level of importance to these additional fe
 
   $("#submit_btn").click(function(event){
     //gather_and_submit_weights();
+    change_to_pw();
   });
 
 
