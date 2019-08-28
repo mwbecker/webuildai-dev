@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
 
 
@@ -74,7 +74,7 @@
 
   <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;cursor:pointer;">
     <div class="row">
-      <div class="card ">
+      <div class="card">
         <div class="card-content">
           <h5 style = "color:#3d6ab1"> Scenario B </h5>
           <% if counter_1 < 25 %>
@@ -103,18 +103,18 @@
 
   <form action="#" style = "margin-left:35%;display:none" class = "f-<%= pc.id %>">
        <label style = "display:inline;margin-right:5%;">
-         <input id = "<%=pc.id %>-A" class="with-gap" name="group3" type="radio" checked />
+         <input id = "<%=pc.id %>-A" class="with-gap" name="group3" type="radio" />
          <span>Choose A</span>
        </label>
         <label style = "display:inline;margin-right:5%;">
-          <input id = "<%=pc.id %>-B" class="with-gap" name="group3" type="radio" checked />
+          <input id = "<%=pc.id %>-B" class="with-gap" name="group3" type="radio" />
           <span>Choose B</span>
         </label>
          <label style = "display:inline">
-           <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" checked />
+           <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" />
            <span>Neither</span>
          </label> <br/> <br/>
-         <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —"> <br> <br>
+         <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —" required> <br> <br>
 
  </form>
 
@@ -125,9 +125,20 @@
 </div>
 
 <br><br> <br>
-<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;"> Next Scenario </a>
+<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" onclick="validate_next();"> Next Scenario </a>
 <br><br><br>
 <br><br><br><br>
+<script type="text/javascript">
+
+  function validate_next() {
+    var pc_id = 2;
+    if (document.getElementById(`reason-${pc_id}`)) {
+      alert("Make sure to fill in something for the reason input.");
+    }
+  }
+
+
+</script>
 </div>
 
   <% @pairwise_comparisons.each do |pc| %>

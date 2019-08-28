@@ -81,7 +81,7 @@ bottom of the page. Please assign the level of importance to these additional fe
           <form id = "range_form" action="#">
            <p class="range-field">
              Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
-             <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" onchange="updateTextInput(this.value, this.id);" />
+             <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
            </p>
           </form>
           </div>
@@ -169,7 +169,19 @@ bottom of the page. Please assign the level of importance to these additional fe
 
 
 <script type="text/javascript">
- function updateTextInput(val, f) {
+  function validate_inputs() {
+    var all_inputs = document.getElementsByClassName("range-importance");
+    var i; var all_zero = true;
+    for (i = 0; i < all_inputs.length; i++) {
+      let given_input = all_inputs[i];
+      if (given_input.value !== '0') {
+        all_zero = false;
+      }
+    }
+    return !all_zero;
+  }
+
+  function updateTextInput(val, f) {
          id = Math.abs(parseInt(f.slice(f.length-2, f.length)))
          str = 'textInput' + '-' + id
          console.log(str)
@@ -213,7 +225,11 @@ bottom of the page. Please assign the level of importance to these additional fe
 
   $("#submit_btn").click(function(event){
     //gather_and_submit_weights();
-    change_to_pw();
+    if (validate_inputs()) {
+      change_to_pw();
+    } else {
+      alert("At least one input must have a weight.");
+    }  
   });
 
 
