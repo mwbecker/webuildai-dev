@@ -1,22 +1,22 @@
-<div id = "pg_1" style = "width:90%;margin-left:5%;">
-<h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Pairwise Comparsion Part 1/2</h1>
-<hr style = "margin-left:-15%;color: white;border-width: 1px;overflow:visible;width: 130%;"/>
+<div class="container">
+<h1 id = "feat_select" style = "color:#3d6ab1" >Pairwise Comparsion Part 1/2</h1>
+<hr style="margin-left: -50%; margin-right: -50%;">
 <br>
 
-<p style = "margin-left:10%;color:black;width:75%;font-size:1.5em;line-height:22pt;font-weight:normal;" >Based on the factors you believe the algorithm should consider when matching drivers to requests, we are now going to give you some sets of scenarios. Each set will have two options, and it is up to your discretion to choose which is the better option. Please assume that these scenarios take place in a small, set location (not a large area like New York City.) Your answers will be used to help train a new matching algorithm we are developing for test cases.</p>
+<p style = "color:black;width:75%;font-size:1.5em;line-height:22pt;font-weight:normal;" >Based on the factors you believe the algorithm should consider when matching drivers to requests, we are now going to give you some sets of scenarios. Each set will have two options, and it is up to your discretion to choose which is the better option. Please assume that these scenarios take place in a small, set location (not a large area like New York City.) Your answers will be used to help train a new matching algorithm we are developing for test cases.</p>
 <br> <br> <br>
 
 
-<p style = "margin-left:10%;font-size:2.4em;font-weight:bold;color:#3d6ab1"> Part 1. Personal Preference</p>
-<p style = "margin-left:10%;color:black;width:90%;font-size:1.5em;line-height:17pt;font-weight:normal;" > Between two requests, choose the request you would prefer over the other by comparing different factors </p>
-<p style = "margin-left:10%;color:black;width:90%;font-size:1.5em;line-height:17pt;font-weight:normal;" > Below are the factors you chose previously that are applicable in finding out about your preferences on requests.</p>
+<p style = "font-size:2.4em;font-weight:bold;color:#3d6ab1"> Part 1. Personal Preference</p>
+<p style = "color:black;width:90%;font-size:1.5em;line-height:17pt;font-weight:normal;" > Between two requests, choose the request you would prefer over the other by comparing different factors </p>
+<p style = "color:black;width:90%;font-size:1.5em;line-height:17pt;font-weight:normal;" > Below are the factors you chose previously that are applicable in finding out about your preferences on requests.</p>
 <br>
 <br>
 
-<p style = "margin-left:10%;font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
+<p style = "font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
 
 <% counter_p1 = 0 %>
-<div style = "margin-left:10%;width:80%" class= "box">
+<div style = "width:80%" class= "box">
   <br>
   <% while counter_p1 < @feats.size %>
     <div style = "width:50%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats[counter_p1].name %>  </p></div> <br/>  <br/>
