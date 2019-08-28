@@ -103,15 +103,15 @@
 
   <form action="#" style = "margin-left:35%;display:none" class = "f-<%= pc.id %>">
        <label style = "display:inline;margin-right:5%;">
-         <input id = "<%=pc.id %>-A" class="with-gap" name="group3" type="radio" checked />
+         <input id = "<%=pc.id %>-A" class="with-gap" name="group3" type="radio" />
          <span>Choose A</span>
        </label>
         <label style = "display:inline;margin-right:5%;">
-          <input id = "<%=pc.id %>-B" class="with-gap" name="group3" type="radio" checked />
+          <input id = "<%=pc.id %>-B" class="with-gap" name="group3" type="radio" />
           <span>Choose B</span>
         </label>
          <label style = "display:inline">
-           <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" checked />
+           <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" />
            <span>Neither</span>
          </label> <br/> <br/>
          <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —"> <br> <br>
@@ -131,7 +131,17 @@
 <br><br><br><br>
 </div>
 
-  <% @pairwise_comparisons.each do |pc| %>
+<% @pairwise_comparisons.each do |pc| %>
+  <%# on page load should set all to unchecked %>
+  <script type='text/javascript'>
+     $("#<%= pc.id%>-A").prop('checked', false);
+     $("#<%= pc.id%>-B").prop('checked', false);
+     $("#<%= pc.id%>-N").prop('checked', false);
+     $("#reason-<%= pc.id%>").prop('disabled', true);
+  </script>
+<% end %>
+
+<% @pairwise_comparisons.each do |pc| %>
   <script type="text/javascript">
 
     function post_choice (choice, i) {
@@ -148,28 +158,30 @@
     }
 
      $("#<%= pc.id%>-A").click(function(event){
+        console.log("i hate rails")
         $("#<%= pc.id%>-A").prop('checked', true)
         $("#<%= pc.id%>-B").prop('checked', false)
         $("#<%= pc.id%>-N").prop('checked', false)
+        $("#reason-<%= pc.id%>").prop('disabled', false);
         post_choice(1, parseInt(<%= pc.id%>))
       });
     $("#<%= pc.id%>-B").click(function(event){
-       $("#<%= pc.id%>-B").prop('checked', true)
-       $("#<%= pc.id%>-A").prop('checked', false)
-       $("#<%= pc.id%>-N").prop('checked', false)
-       post_choice(2, parseInt(<%= pc.id%>))
+        $("#<%= pc.id%>-A").prop('checked', false)
+        $("#<%= pc.id%>-B").prop('checked', true)
+        $("#<%= pc.id%>-N").prop('checked', false)
+        $("#reason-<%= pc.id%>").prop('disabled', false);
+        post_choice(2, parseInt(<%= pc.id%>))
      });
 
      $("#<%= pc.id%>-N").click(function(event){
-      $("#<%= pc.id%>-N").prop('checked', true)
-      $("#<%= pc.id%>-A").prop('checked', false)
-      $("#<%= pc.id%>-B").prop('checked', false)
-      post_choice('nil', parseInt(<%= pc.id%>))
+        $("#<%= pc.id%>-A").prop('checked', false)
+        $("#<%= pc.id%>-B").prop('checked', false)
+        $("#<%= pc.id%>-N").prop('checked', true)
+        $("#reason-<%= pc.id%>").prop('disabled', false);
+        post_choice('nil', parseInt(<%= pc.id%>))
      });
   </script>
-  <% end %>
-
-
+<% end %>
 
 
   <script type="text/javascript">
@@ -244,10 +256,6 @@
     [type="radio"]:checked + span:after,
     [type="radio"].with-gap:checked + span:after {
      background-color: #000000;
-    }
-
-    .dogs {
-      display:inline;
     }
 
   </style>
