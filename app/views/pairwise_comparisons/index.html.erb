@@ -15,9 +15,8 @@
 
   $("#start_btn_2").click(function(event){
      $("#pg_2").css('display', 'none');
-     $("#titulo").html("Social Ranking")
-     $("#aller_encompassing").css('display', 'block')
-
+     $("#titulo").html("Social Ranking");
+     $("#aller_encompassing").css('display', 'block');
  });
 </script>
 
@@ -25,11 +24,18 @@
 
 
 <div id = "aller_encompassing" style = "display:none;">
-<h3 id = "titulo" style = "color:#3d6ab1;font-weight:bold;margin-left:15%;"> Individual Preference </h3>
+<h3 id = "titulo" style = "color:#3d6ab1;font-weight:bold;margin-left:15%;"> Personal Preference </h3>
 <h6 id = "counter" style = "float:right;margin-top:-4%;margin-right:4%;font-size:2em;font-weight:lighter;color:grey;"> 1/25 </h6>
-<hr style = "color: white;border-width: 1px;overflow:visible;width: 100%;"/>
+<hr style="color: white;border-width: 1px;overflow:visible;width: 100%;"/>
 <br/>
-<p style = "margin-left:15%;color:black;width:70%;font-size:1.5em;line-height:22pt;font-weight:normal;" >For the first sets of scenarios, we will give you two different requests. Please judge the requests and decide which request you would prefer the A1 to match you with by selecting one of the buttons below. For these sets of scenarios, please assume that the number of customers in demand and traffic conditions have no effect on your decision.</p>
+<p style="margin-left:15%;color:black;width:70%;font-size:1.5em;line-height:22pt;font-weight:normal;">
+  For the scenario set below, please assume that you have your app open and the algorithm notifies
+  you of two potential requests in your area. Please assume that the number of customers in demand
+  and traffic conditions in your area have no effect on your decision. Based on the information you
+  believe the algorithm should consider when assigning requests to drivers, please choose which customer
+  you would prefer the algorithm to match you with. The information about each request below are features
+  you previously chose that are applicable to these sets of scenarios.
+</p>
 <br/> <br/>
 
 <div id = "all_encompassing" class = "0">
@@ -126,7 +132,10 @@
 </div>
 
 <br><br> <br>
-<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;"> Next Scenario </a>
+<%# TODO disable this if nothing inputted %>
+<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
+Next Scenario
+</a>
 <br><br><br>
 <br><br><br><br>
 </div>
