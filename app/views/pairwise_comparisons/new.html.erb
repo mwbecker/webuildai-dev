@@ -1,18 +1,21 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
  <!-- Modal content -->
- <div class="modal-content">
-   <span class="close">&times;</span>
+ <div class="modal-content" style="padding-top: 34px !important;">
+   
    <%= render partial: 'categorical_add.html.erb' %>
    <%= render partial: 'continuous_add.html.erb' %>
 
-   <div id = "modal_cont">
-   <h4 style = "color:#3d6ab1;font-weight:bold"> Add Your Own Feature</h4>
-   <br>
-   <hr style ='margin-left: 24px; margin-right: 24px;'>
-   <br>
-   <p style = "font-weight:bold;font-size:1.25em;" > Categorical features are qualitative.</p>  <p style = "font-size:1.25em;">Examples
-    include gender, race, and neighborhood. </p>
+  <div id = "modal_cont">
+  <div>
+    <h4 style = "color:#3d6ab1;font-weight:bold; display: inline-block"> Add Your Own Feature</h4>
+    <span class="close" style="float: right; padding-top: 6px;">&times;</span>
+  </div>
+
+  <hr style="margin-left: -24px; margin-right: -24px">
+  <br>
+  <p style = "font-weight:bold;font-size:1.25em;" > Categorical features are qualitative.</p>  <p style = "font-size:1.25em;">Examples
+  include gender, race, and neighborhood. </p>
 
 <p style = "font-weight:bold;font-size:1.25em;">Continuous features are quantitative. </p> <p style = "font-size:1.25em;"> Examples
 include income level, the length of a part of a day, and
@@ -21,11 +24,11 @@ the time a payment is issued. </p> <br / >
 
 <form action="#" class = "add_form">
      <label style = "display:inline;margin-right:5%;">
-       <input id = "cat" class="with-gap" name="group3" type="radio" checked />
+       <input id = "cat" class="with-gap" name="group3" type="radio" />
        <span style = "color:black;font-size:1.3em;">Categorical</span>
      </label> <br/> <br/>
       <label style = "display:inline;margin-right:5%;">
-        <input id = "con" class="with-gap" name="group3" type="radio" checked />
+        <input id = "con" class="with-gap" name="group3" type="radio" />
         <span style = "color:black;font-size:1.3em;">Continuous</span>
       </label>
 </form>
@@ -33,6 +36,7 @@ the time a payment is issued. </p> <br / >
 </div>
  </div>
 </div>
+
 
 <style>
   [type="radio"]:checked + span:after,
@@ -46,21 +50,9 @@ the time a payment is issued. </p> <br / >
   }
 </style>
 
-<%= render partial: 'about.html.erb' %>
 
-<script type="text/javascript">
-
-
-  $("#about_next_btn").click(function(event) {
-     $(".contain_1").css('display', 'none');
-     $(".contain").css('display', 'block');
-    });
-
-</script>
-
-<div class = "contain" style = "display:none">
-<h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Feature Selection</h1> <p style ="font-weight:lighter;font-size:2.3em;color:#3d6ab1;display:inline;float:right;margin-top:-3%;margin-right:10%;"> About Survey Completed </p>
-<hr id = "hhr">
+<h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Feature Selection</h1>
+<hr>
 <p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" > The following cards below contain features we believe your company’s algorithm uses to match drivers with
 incoming requests. Based on your experiences driving for your company, please select any features that you
 believe your company’s algorithm uses to match drivers with requests. For your selected features, please use
@@ -70,7 +62,6 @@ bottom of the page. Please assign the level of importance to these additional fe
 <table class = "striped highlight" id = "feat" style = "color: #515151;margin-left:10%;margin-right:5%;width:80%;">
     <thead>
      <th>  </th>
-     <th> </th>
     </thead>
 <% a = get_ranges %>
 <% b = get_ranges_2 %>
@@ -97,9 +88,7 @@ bottom of the page. Please assign the level of importance to these additional fe
         </div>
       </div>
     </td>
-    <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
-    <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
-    <% end %>
+
    </tr>
    <% counter = f.description %>
 <% end %>
@@ -108,13 +97,9 @@ bottom of the page. Please assign the level of importance to these additional fe
 
 <br> <br>
 
-
-
    <a id = "add" class="btn-floating btn-large waves-effect waves-light" style = "z-index:0;background-color:#3d6ab1;margin-left:10%;"><i class="material-icons">add</i></a> <p style = "font-weight:bold;font-size:1.25em;display:inline;margin-left:1%;"> Add Feature </p>
    <a class="waves-effect waves-dark btn" id = "submit_btn" style = "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Submit </a>
 
-
-</div>
 
    <style>
       /* The Modal (background) */
@@ -123,13 +108,12 @@ bottom of the page. Please assign the level of importance to these additional fe
        position: fixed; /* Stay in place */
        z-index: 1; /* Sit on top */
        padding-top: 100px; /* Location of the box */
-       padding-bottom: 80vh;
+       padding-bottom: 2000px;
        left: 0;
        top: 0;
        width: 100%; /* Full width */
        height: 100vh; /* Full height */
-       max-height: calc(100vh - 210px);
-       overflow-y: auto;
+       overflow: auto; /* Enable scroll if needed */
        background-color: rgb(0,0,0); /* Fallback color */
        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
       }
@@ -144,13 +128,23 @@ bottom of the page. Please assign the level of importance to these additional fe
       /* The Close Button */
       .close {
        color: #aaaaaa;
-       float: right;
+       /*float: right;*/
        font-size: 28px;
        font-weight: bold;
       }
       .close:hover,
       .close:focus {
        color: #000;
+       text-decoration: none;
+       cursor: pointer;
+      }
+      .close-opt {
+        color: #aaaaaa;
+        font-size: 15px;
+      }
+      .close-opt:hover,
+      .close-opt:focus {
+       color: black;
        text-decoration: none;
        cursor: pointer;
       }
@@ -168,20 +162,13 @@ bottom of the page. Please assign the level of importance to these additional fe
 
 .row
 {
-  margin-bottom: -3%;
+  margin-bottom: -25px;
 }
 </style>
 
 
 
 <script type="text/javascript">
-
-  if ( <%= raw @survey_complete %> == true) {
-    console.log( <%= raw @survey_complete %>)
-    $(".contain_1").css('display', 'none');
-    $(".contain").css('display', 'block');
-  }
-
  function updateTextInput(val, f) {
          id = Math.abs(parseInt(f.slice(f.length-2, f.length)))
          str = 'textInput' + '-' + id
@@ -243,14 +230,16 @@ bottom of the page. Please assign the level of importance to these additional fe
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
    modal.style.display = "none";
-   $("#con_con").css('display', 'none')
-   $("#cat_con").css('display', 'none')
+   $("#con_con").css('display', 'none');
+   $("#cat_con").css('display', 'none');
 
   }
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
    if (event.target == modal) {
      modal.style.display = "none";
+    $("#con_con").css('display', 'none');
+    $("#cat_con").css('display', 'none');
    }
   }
 
@@ -266,21 +255,3 @@ bottom of the page. Please assign the level of importance to these additional fe
     }
 });
 </script>
-
-<% @features_all.each do |fo| %>
-<script type="text/javascript">
-    $("#yof-<%=fo.id%>").click(function(event){
-      $.ajax({
-        url: "/features/<%=fo.id%>",
-        type: "patch",
-        success: function(){
-          console.log('Saved Successfully');
-          location.reload()
-        },
-        error:function($xhr){
-          console.log($xhr);
-        }
-        });
-      });
-</script>
-<% end %>

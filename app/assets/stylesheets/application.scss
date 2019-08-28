@@ -25,18 +25,33 @@
 
 .wbai {
   color: black;
-
+  font-size: 1.3em;
+  margin-top: 22.5px;
 }
+
 
 .wbai:visited{
-  color: black;
-
+  color: #555;
 }
- .wbai:hover
- {
-   background-color: #EDEDED;
-   color: black;
- }
+
+.wbai:hover {
+  background-color: transparent;
+ color: black;
+}
+
+.brand-text, .brand-text:visited {
+  font-weight: bold;
+  font-size: 2em !important;
+  color: #555;
+  text-decoration: none;
+}
+
+.brand-text:hover {
+  font-weight: bold;
+  background-color: transparent;
+  color: black;
+  text-decoration: none;
+}
 
 body {
  background-color: #FFFFFF;

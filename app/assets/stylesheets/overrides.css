@@ -6,7 +6,6 @@
   font-weight: 200;
 }
 
-
 textarea:focus {
 border-bottom: none!important;
 box-shadow: none!important;
@@ -117,6 +116,23 @@ a:hover
   margin-right:7%;
   font-size:1.5em;
   line-height:17pt;
+}
+
+.modal-header {
+  color:#3d6ab1;
+  font-weight:bold;
+}
+
+.modal-hr {
+  margin-left: -24px; 
+  margin-right: -24px;
+}
+
+.feature-label {
+  color: black;
+  font-weight: bold;
+  font-size: 1.38em;
+  margin-bottom: 0.5vh;
 }
 
 

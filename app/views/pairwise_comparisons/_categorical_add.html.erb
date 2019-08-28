@@ -1,74 +1,166 @@
-<div id = "cat_con" style = "width:90%;margin-left:5%;display:none">
-  <h4 style = "color:#3d6ab1;font-weight:bold"> Add Categorical Feature</h4> <br>
-  <hr style ='overflow:visible;width:117.5%;margin-left:-9%;color:white;border-width: 1px;'>
+<div id = "cat_con" class="container" style = "width: 100%; display: none">
+  <h4 class="modal-header"> Add Categorical Feature </h4>
   <br>
-<form action="#">
-  <label for = "feature-name" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Feature Name </label>
-  <input id = "feature-name" type="text" name="featurename" value="" placeholder="Feature Name">
-  <p id = "error_1_1" style = "color:red;margin-top:-1%;display:none"> Feature name cannot be blank <p>
-
- <% if current_user.role == 'admin' %>
-  <br> <br>
- <label for = "cat_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
- <input id = "cat_category" type="text" name="featurename" value="" placeholder="Category Name">
- <% else %>
- <label for = "cat_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
- <input id = "cat_category" type="text" name="featurename" value="" placeholder="Category Name" style = "display:none">
- <% end %>
-</form>
-
-
-<br>
-<form action="#" id = "opts" style = "display:block;">
-  <div class = "opt-1">
+  <hr class="modal-hr">
   <br>
-  <label for = "opt-1" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Feature Options </label>
-  <input id = "opt-1" type="text" name="opt" value="" placeholder="Option 1">
-  <p id = "error_2_1" style = "color:red;margin-top:-1%;display:none"> cannot be blank <p>
- </div>
-</form>
+  <form>
+
+    <!-- Feature name -->
+    <label for="feature-name-1" class="feature-label">
+      Feature Name
+    </label>
+    <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name" style="width: 90%;">
+    <!-- <p id="error_1" class="error-1-style"> Feature name cannot be blank </p> -->
+
+    <!-- Range (Numeric vs. Percentage) -->
+    <p class="feature-label"> Range Options </p>
+    <p>
+      <label for="tier-option">
+        <input id="tier-option" class="with-gap" type="radio" name="range-group2">
+        <span style = "color:black; font-size:1.3em;">High / Mid / Low
+        <br>
+        <span style="color: #808080;">ex. A person's preference towards a destination.</span>
+        </span>
+      </label>
+    </p>
+
+    <p>
+      <label for="boolean-option">
+        <input id="boolean-option" class="with-gap" type="radio" name="range-group2">
+        <span style = "color:black; font-size:1.3em;">Yes / No
+        <br>
+        <span style="color: #808080;">ex. Does the customer have a pet?</span>
+        </span>
+      </label>
+    </p>
+
+    <p>
+      <label for="freeform-option">
+        <input id="freeform-option" class="with-gap" type="radio" name="range-group2">
+        <span style = "color:black; font-size:1.3em;">Freeform</span>
+      </label>
+    </p>
+
+    <div id="freeform_overall" style="display: none;">
+      <div id="freeform_inputs" count="2">
+        <div id="option-1">
+          <span id="c-1" style="color: #555; font-size: 1.3em;"><span class="close-opt">&times;</span>&nbsp;&nbsp;Option 1&nbsp;&nbsp;&nbsp;</span>
+          <div class="input-field inline">
+            <input id="opt-1" type="text" style="width: 250%;">
+          </div>
+          <br>
+        </div>
+
+        <div id="option-2">
+          <span id="c-2" style="color: #555; font-size: 1.3em;"><i><span class="close-opt">&times;</span>&nbsp;&nbsp;Option 2&nbsp;&nbsp;&nbsp;</i></span>
+          <div class="input-field inline">
+            <input id="opt-2" type="text" style="width: 250%;">
+          </div>
+          <br>
+        </div>
+
+      </div>
+    <a id = "add_cat_btn" class="btn-floating btn-small" style = "background-color:#3d6ab1;margin-left:0%;"><i class="material-icons">add</i></a><p style = "font-weight:bold;font-size:1.15em;display:inline;margin-left:1%;"> Add Option </p>
+    </div>
+    <br>
+
+    <p class="feature-label"> Is this information about the request, or the driver? </p>
+    <p>
+      <label for="request-option">
+        <input id="request-option" class="with-gap" type="radio" name="range-group3">
+        <span style = "color:black; font-size:1.3em;">Request
+        <br>
+        <span style="color: #808080;">ex. Average amount of tips the customer gives.</span>
+        </span>
+      </label>
+    </p>
+
+    <p>
+      <label for="driver-option">
+        <input id="driver-option" class="with-gap" type="radio" name="range-group3">
+        <span style = "color:black; font-size:1.3em;">Driver
+        <br>
+        <span style="color: #808080;">ex. Driver's earning today.</span>
+        </span>
+      </label>
+    </p>
+  <br>
+  </form>
+
+  <a class="btn" id = "submit_cat_btn" style = "width:20%;color:#FFFFFF;display:block;background-color:#3d6ab1"> Submit </a>
 
 
-
-<br>
-<a id = "add_cat_btn" class="btn-floating btn-small waves-effect waves-light" style = "z-index:0;background-color:#3d6ab1;margin-left:0%;"><i class="material-icons">add</i></a> <p style = "font-weight:bold;font-size:1.15em;display:inline;margin-left:1%;"> Add Option </p>
-<br> <br>
-<p style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh"> Is the information about the request, or the driver? </p> <br>
-<label style = "display:inline;margin-right:5%;">
- <input id = "req" class="with-gap" name="group3" type="radio" checked />
- <span style = "color:black;font-size:1.3em;">Request</span>
-</label> <br/> <br/>
-<label style = "display:inline;margin-right:5%;">
-  <input id = "driv" class="with-gap" name="group3" type="radio" checked />
-  <span style = "color:black;font-size:1.3em;">Driver</span>
-</label>
-<br><br>
-<br> <br> <br>
-<a class="waves-effect waves-dark btn" id = "submit_cat_btn" style = "margin-top:-5%;width:20%;color:#FFFFFF;display:block;float:right;background-color:#3d6ab1;"> Submit </a>
 </div>
-
 
 <script type="text/javascript">
 
+  // Add event listeners for the default options for the freeform option
+  document.getElementById("c-1").addEventListener("click", function(event) {
+    var option_id = "option-1";
+    freeform_options = $("#freeform_inputs")[0]
+    freeform_options.removeChild(document.getElementById("option-1"))
+    count = freeform_options.getAttribute("count");
+    freeform_options.setAttribute("count", (count - 1).toString());
 
-
-  $("#add_cat_btn").click(function(event) {
-    let childs = ($("#opts")[0]).children
-    let len = childs.length
-    last_opt = len
-    last_opt = last_opt + 1
-    var txt1 = `  <div class = "opt-${last_opt}"> <input id = "opt-${last_opt}" type="text" name="opt" value="" placeholder="Option ${last_opt}">   <p id = "error_2_${last_opt}" style = "color:red;margin-top:-1%;display:none"> cannot be blank <p> </div>`;
-    $("#opts").append(txt1);
   });
 
+  document.getElementById("c-2").addEventListener("click", function(event) {
+    var option_id = "option-2";
+    freeform_options = $("#freeform_inputs")[0]
+    freeform_options.removeChild(document.getElementById("option-2"))
+    count = freeform_options.getAttribute("count");
+    freeform_options.setAttribute("count", (count - 1).toString());
+
+  });
+
+  $("#add_cat_btn").click(function(event) {
+    let freeform_options = $("#freeform_inputs");
+    let last_opt = parseInt(freeform_options[0].getAttribute("count")) + 1;
+    freeform_options[0].setAttribute("count", last_opt.toString())
+    var new_div = (
+                   '<div id="option-' + last_opt + '">' + '\n' +
+                   '  <span style="color: #555; font-size: 1.3em">' + '\n' +
+                   '    <span id="c-' + last_opt + '" class="close-opt">&times;</span>&nbsp;&nbsp;Option ' + last_opt + '&nbsp;&nbsp;&nbsp;' + '\n' +
+                   '  </span>' + '\n' + 
+                   '  <div class="input-field inline">' + '\n' + 
+                   '    <input id="opt-' + last_opt + '" type="text" style="width: 250%">' + '\n' +
+                   '  </div>' + '\n' + 
+                   '  <br>' + '\n' +
+                   '</div>'
+                   );
+    freeform_options.append(new_div);
+    var new_id = "c-" + last_opt;
+    var close_span = document.getElementById(new_id);
+    close_span.addEventListener("click", function(event) {
+      var option_id = "option-" + last_opt;
+      freeform_options[0].removeChild(document.getElementById(option_id));
+      var new_count = freeform_options[0].getAttribute("count");
+      freeform_options[0].setAttribute("count", (new_count - 1).toString());
+    });
+
+  });
+
+  var freeform_elem = document.getElementById("freeform_overall");
+  $("#freeform-option").click(function(event) {
+    freeform_elem.style = "display: block";
+  })
+
+  $("#tier-option").click(function(event) {
+    freeform_elem.style = "display: none";
+  })
+
+  $("#boolean-option").click(function(event) {
+    freeform_elem.style = "display: none";
+  })
 
   $("#submit_cat_btn").click(function(event) {
-    let name = $("#feature-name")[0].value
-    let cati = $("#cat_category")[0].value
+    console.log("Hit Submit...");
+    let name = $("#feature-name-1")[0].value
+    console.log("Grabbed the name...");;
     if (name == "")
     {
       $("#error_1_1").css('display', 'block')
-      last_opt =   (($("#opts")[0]).children).length
+      last_opt = (($("#opts")[0]).children).length
       for (let i = 0; i < last_opt; i++)
       {
         if (($("#opt-"+(i+1))[0]).value == "")
@@ -76,37 +168,58 @@
         else {  $(`#error_2_${(i+1)}`).css('display', 'none')}
       }
     }
-    else {
-      $("#error_1_1").css('display', 'none')
-      let childs = ($("#opts")[0]).children
-      let len = childs.length
-      last_opt = len
-      var options = ""
-      var errd = false
-      var categor;
-      if (($("#req")[0]).checked){categor="request"}
-      else {categor="driver"}
 
-      for (let i = 0; i < last_opt; i++)
-      {
-        id = i + 1
-        let valu = ($("#opt-"+id)[0]).value
-        if (valu == "")
-        {
-          $(`#error_2_${id}`).css('display', 'block')
-          errd = true
-        } else {  $(`#error_2_${id}`).css('display', 'none')}
-        options = options + valu + "*"
+    else {
+      console.log(`Checked name wasn't empty. The name is: ${name}`);
+      $("#error_1_1").css('display', 'none');
+
+      if (document.getElementById("tier-option").checked) {
+        var options = "High*Low*Mid";
+      } else if (document.getElementById("boolean-option").checked) {
+        var options = "Yes*No"
+      } else if (document.getElementById("freeform-option").checked) {
+        last_opt = parseInt(document.getElementById("freeform_inputs").getAttribute("count"));
+        console.log("Freeform option detected...");
+        var options = "";
+        var i = 0; var count = 0;
+        while (count < last_opt) {
+          id = i + 1;
+          try {
+            let option = document.getElementById("opt-" + id);
+            if (option === "") {
+              $("#error_2_" + id).css('display', 'block');
+              return -1; 
+            } else {
+              $("#error_2_" + id).css('display', 'none');
+              options = options + option + "*";
+            }
+            count++;
+          } catch {
+            i++;
+          }
+        }
+        options = options.slice(0, options.length-1);
+        console.log(`Finished going through the options! Here is the final form: ${options}`);
       }
-      if (errd == true) {return -1}
-      options = options.slice(0, options.length-1)
+      // for (let i = 0; i < last_opt; i++)
+      // {
+      //   id = i + 1
+      //   let valu = ($("#opt-"+id)[0]).value
+      //   if (valu == "")
+      //   {
+      //     $(`#error_2_${id}`).css('display', 'block')
+      //     errd = true
+      //   } else {  $(`#error_2_${id}`).css('display', 'none')}
+      //   options = options + valu + "*"
+      // }
+      // if (errd == true) {return -1}
+      // options = options.slice(0, options.length-1)
       let cat = 1;
 
       let upper = 0;
       let lower = 0;
-
       $.ajax({
-        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+"&category="+categor +"&description="+cati,
+        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options,
         type: "post",
         success: function(){
           console.log('Saved Successfully');
