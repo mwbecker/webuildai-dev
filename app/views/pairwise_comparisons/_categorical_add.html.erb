@@ -154,9 +154,7 @@
   })
 
   $("#submit_cat_btn").click(function(event) {
-    console.log("Hit Submit...");
     let name = $("#feature-name-1")[0].value
-    console.log("Grabbed the name...");;
     if (name == "")
     {
       $("#error_1_1").css('display', 'block')
@@ -170,7 +168,6 @@
     }
 
     else {
-      console.log(`Checked name wasn't empty. The name is: ${name}`);
       $("#error_1_1").css('display', 'none');
 
       if (document.getElementById("tier-option").checked) {
@@ -179,7 +176,6 @@
         var options = "Yes*No"
       } else if (document.getElementById("freeform-option").checked) {
         last_opt = parseInt(document.getElementById("freeform_inputs").getAttribute("count"));
-        console.log("Freeform option detected...");
         var options = "";
         var i = 0; var count = 0;
         while (count < last_opt) {
@@ -199,21 +195,7 @@
           }
         }
         options = options.slice(0, options.length-1);
-        console.log(`Finished going through the options! Here is the final form: ${options}`);
       }
-      // for (let i = 0; i < last_opt; i++)
-      // {
-      //   id = i + 1
-      //   let valu = ($("#opt-"+id)[0]).value
-      //   if (valu == "")
-      //   {
-      //     $(`#error_2_${id}`).css('display', 'block')
-      //     errd = true
-      //   } else {  $(`#error_2_${id}`).css('display', 'none')}
-      //   options = options + valu + "*"
-      // }
-      // if (errd == true) {return -1}
-      // options = options.slice(0, options.length-1)
       let cat = 1;
 
       let upper = 0;
