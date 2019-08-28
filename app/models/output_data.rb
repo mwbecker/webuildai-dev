@@ -75,12 +75,18 @@ class OutputData
 
     result_hash = JSON.dump(result)
     # puts(result_hash)
-    path_name = Rails.root.join("config/output_storage/#{@participant_id}")
+    begin_path = Rails.root.join("config/output_storage")
+    path_name = Rails.root.join("#{begin_path}/#{@participant_id}")
     file_name = "#{@participant_id}-#{DateTime.now}.json"
+
+    if !File.directory? begin_path
+      Dir.mkdir begin_path
+    end
 
     if !File.directory? path_name
       Dir.mkdir path_name
     end
+
     full_file_path = "#{path_name}/#{file_name}"
     contents = JSON.pretty_generate(result)
     File.open(full_file_path, "w") do |f|     
@@ -91,16 +97,4 @@ class OutputData
 
   end
 
-
-
-
-
 end
-
-
-
-
-
-
-
-
