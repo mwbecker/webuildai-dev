@@ -36,6 +36,9 @@ class FeaturesController < ApplicationController
        if params[:description].blank?
          a.description = "Your Own Feature(s) - Continuous"
          a.added_by = current_user.id
+         if params[:company] == "true"
+           a.company = true
+         end
        end
        a.active = true
        a.category = params[:category]
@@ -47,6 +50,9 @@ class FeaturesController < ApplicationController
       if params[:description].blank?
         a.description = "Your Own Feature(s) - Continuous"
         a.added_by = current_user.id
+        if params[:company] ==  "true"
+          a.company = true
+        end
       end
       a.active = true
       a.category = params[:category]
@@ -75,6 +81,9 @@ class FeaturesController < ApplicationController
        if params[:description].blank?
          a.description = "Your Own Feature(s) - Categorical"
          a.added_by = current_user.id
+         if params[:company] ==  "true"
+           a.company = true
+         end
        end
        a.active = true
        a.save!
@@ -88,6 +97,9 @@ class FeaturesController < ApplicationController
       if params[:description].blank?
         a.description = "Your Own Feature(s) - Categorical"
         a.added_by = current_user.id
+        if params[:company] ==  "true"
+          a.company = true
+        end
       end
       a.active = true
       a.category = params[:category]
@@ -142,6 +154,6 @@ class FeaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_params
-      params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description)
+      params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description, :company)
     end
 end

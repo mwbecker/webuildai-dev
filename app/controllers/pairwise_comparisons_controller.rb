@@ -6,7 +6,7 @@ class PairwiseComparisonsController < ApplicationController
   # GET /pairwise_comparisons.json
   def index
     @pairwise_comparisons  = Array.new
-    feats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
+    feats = Feature.personal.request.active.added_by(current_user.id).for_user(current_user.id)
     @feats = feats
     @scenarios = Array.new
     15.times do
@@ -42,7 +42,7 @@ class PairwiseComparisonsController < ApplicationController
 
 
     @pairwise_comparisons_1  = Array.new
-    @feats_1 = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
+    @feats_1 = Feature.driver.active.personal.added_by(current_user.id).for_user(current_user.id)
     @scenarios_1 = Array.new
     feats = @feats_1
     15.times do
@@ -88,7 +88,7 @@ class PairwiseComparisonsController < ApplicationController
   # GET /pairwise_comparisons/new
   def new
     @pairwise_comparison = PairwiseComparison.new
-    @features_all = Feature.all.active.added_by(current_user.id).order(:description)
+    @features_all = Feature.all.active.personal.added_by(current_user.id).order(:description)
     @survey_complete = false
 
   end

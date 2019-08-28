@@ -115,6 +115,7 @@
            <span>Neither</span>
          </label> <br/> <br/>
          <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —"> <br> <br>
+         <p id = "error_r-<%= pc.id %>" style = "margin-left:-27%;color:red;margin-top:-1%;display:none"> Reason cannot be blank </p>
 
  </form>
 
@@ -172,6 +173,9 @@
 
 
   <script type="text/javascript">
+    function isWhitespaceOrEmpty(text) {
+      return !/[^\s]/.test(text);
+    }
 
     let first  = parseInt($("#all_encompassing").children().first()[0].className.match(/\d+/)[0])
     $('.container-' + `${first}`).css('display', 'block')
@@ -182,6 +186,13 @@
       first  = parseInt(<%= @pairwise_comparisons.first.id %>)
       prev =   parseInt($("#all_encompassing")[0].className)
       reason =   "because... " + ($(`#reason-${first+prev}`)[0]).value
+      if ( isWhitespaceOrEmpty(($(`#reason-${first+prev}`)[0]).value)) {
+        $(`#error_r-${first+prev}`).css('display', 'block')
+        return -1;
+      }
+      else {
+          $(`#error_r-${first+prev}`).css('display', 'none')
+      }
       $.ajax({
         url: `/pairwise_comparisons/${first+prev}?reason=`+reason,
         type: "patch",

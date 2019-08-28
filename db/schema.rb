@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_224458) do
+ActiveRecord::Schema.define(version: 2019_08_28_231930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_224458) do
     t.string "category"
     t.boolean "active", default: true
     t.string "added_by"
+    t.boolean "company", default: false
   end
 
   create_table "pairwise_comparisons", force: :cascade do |t|
