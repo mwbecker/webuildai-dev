@@ -2,6 +2,8 @@ require 'set'
 class PairwiseComparisonsController < ApplicationController
   before_action :set_pairwise_comparison, only: [:show, :edit, :update, :destroy]
   before_action :check_login
+
+  NUM_PAIRS =  Rails.env.development? ? 1 : 25
   # GET /pairwise_comparisons
   # GET /pairwise_comparisons.json
   def index
@@ -9,6 +11,7 @@ class PairwiseComparisonsController < ApplicationController
     feats = Feature.personal.request.active.added_by(current_user.id).for_user(current_user.id)
     @feats = feats
     @scenarios = Array.new
+    @num_pairs = NUM_PAIRS
     15.times do
       three_feats = feats.sample(feats.size)
 
@@ -26,7 +29,7 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
     counter = 0
-    while counter < 25
+    while counter < NUM_PAIRS
       group_num = Scenario.all.last.group_id
       tote = @scenarios.size / feats.size
       start = group_num - tote
@@ -62,7 +65,7 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
     counter = 0
-    while counter < 25
+    while counter < NUM_PAIRS
       group_num = Scenario.all.last.group_id
       tote = @scenarios_1.size / feats.size
       start = group_num - tote
