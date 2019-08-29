@@ -44,13 +44,7 @@ cat_dat_opt_1 = CategoricalDataOption.create(data_range_id: data_range_1.id, opt
 cat_dat_opt_2 = CategoricalDataOption.create(data_range_id: data_range_1.id, option_value: "Bannana")
 cat_dat_opt_3 = CategoricalDataOption.create(data_range_id: data_range_1.id, option_value: "Orange")
 
-pfw1 = ParticipantFeatureWeight.create(participant_id: person_one.id, feature_id: a.id, weight: 7)
-pfw2 = ParticipantFeatureWeight.create(participant_id: person_one.id, feature_id: b.id, weight: 0)
-pfw3 = ParticipantFeatureWeight.create(participant_id: person_one.id, feature_id: c.id, weight: 3)
 
-pfw4 = ParticipantFeatureWeight.create(participant_id: person_two.id, feature_id: a.id, weight: 0)
-pfw5 = ParticipantFeatureWeight.create(participant_id: person_two.id, feature_id: b.id, weight: 7)
-pfw6 = ParticipantFeatureWeight.create(participant_id: person_two.id, feature_id: c.id, weight: 3)
 
 
 

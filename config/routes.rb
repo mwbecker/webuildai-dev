@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: :logout
 
   post 'weighting', to: 'participant_feature_weights#weighting', as: :weighting
+  post 'new_how_ai', to: 'participant_feature_weights#new_how_ai', as: :new_how_ai
+  post 'new_how', to: 'pairwise_comparisons#new_how', as: :new_how
+
 
   root :to => "pairwise_comparisons#new"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
