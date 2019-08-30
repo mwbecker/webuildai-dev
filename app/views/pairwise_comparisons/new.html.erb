@@ -1,18 +1,21 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
  <!-- Modal content -->
- <div class="modal-content">
-   <span class="close">&times;</span>
+ <div class="modal-content" style="padding-top: 34px !important;">
+
    <%= render partial: 'categorical_add.html.erb' %>
    <%= render partial: 'continuous_add.html.erb' %>
 
-   <div id = "modal_cont">
-   <h4 style = "color:#3d6ab1;font-weight:bold"> Add Your Own Feature</h4>
-   <br>
-   <hr style ='overflow:visible;width:105.9%;margin-left:-3%;color:white;border-width: 1px;'>
-   <br>
-   <p style = "font-weight:bold;font-size:1.25em;" > Categorical features are qualitative.</p>  <p style = "font-size:1.25em;">Examples
-    include gender, race, and neighborhood. </p>
+  <div id = "modal_cont">
+  <div>
+    <h4 style = "color:#3d6ab1;font-weight:bold; display: inline-block"> Add Your Own Feature</h4>
+    <span class="close" style="float: right; padding-top: 6px;">&times;</span>
+  </div>
+
+  <hr style="margin-left: -24px; margin-right: -24px">
+  <br>
+  <p style = "font-weight:bold;font-size:1.25em;" > Categorical features are qualitative.</p>  <p style = "font-size:1.25em;">Examples
+  include gender, race, and neighborhood. </p>
 
 <p style = "font-weight:bold;font-size:1.25em;">Continuous features are quantitative. </p> <p style = "font-size:1.25em;"> Examples
 include income level, the length of a part of a day, and
@@ -21,11 +24,11 @@ the time a payment is issued. </p> <br / >
 
 <form action="#" class = "add_form">
      <label style = "display:inline;margin-right:5%;">
-       <input id = "cat" class="with-gap" name="group3" type="radio" checked />
+       <input id = "cat" class="with-gap" name="group3" type="radio" />
        <span style = "color:black;font-size:1.3em;">Categorical</span>
      </label> <br/> <br/>
       <label style = "display:inline;margin-right:5%;">
-        <input id = "con" class="with-gap" name="group3" type="radio" checked />
+        <input id = "con" class="with-gap" name="group3" type="radio" />
         <span style = "color:black;font-size:1.3em;">Continuous</span>
       </label>
 </form>
@@ -33,6 +36,7 @@ the time a payment is issued. </p> <br / >
 </div>
  </div>
 </div>
+
 
 <style>
   [type="radio"]:checked + span:after,
@@ -46,38 +50,40 @@ the time a payment is issued. </p> <br / >
   }
 </style>
 
-<%= render partial: 'about.html.erb' %>
 
-<script type="text/javascript">
-
-
-  $("#about_next_btn").click(function(event) {
-     $(".contain_1").css('display', 'none');
-     $(".contain").css('display', 'block');
-    });
 
 </script>
+<%= render partial: 'about.html.erb' %>
 
 <div class = "contain" style = "display:none">
 <h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Feature Selection</h1> <p style ="font-weight:lighter;font-size:2.3em;color:#3d6ab1;display:inline;float:right;margin-top:-3%;margin-right:10%;"> About Survey Completed </p>
 <hr id = "hhr">
-<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" > 
- Whenever you open your company’s app and start driving, an in-app algorithm works to match you with
- potential customers in your given area. This algorithm has two main goals: <br><br>
- 1. Provide rides/deliveries to customers when needed <br>
- 2. Maximizing drivers’ amounts of trips on the system to maximize drivers’ earnings <br><br>
- The boxes below contain features we believe your company’s algorithm uses to match drivers with incoming 
- requests. Based on your experiences driving for your company, <b>please select any features that you believe 
- your company’s algorithm currently considers when matching drivers with requests.</b> For your selected 
- features, please use the sliders on the right to determine how much importance you believe the algorithm 
- places on each factor. If there are features not listed below that you think the algorithm uses, please add your 
- own at the bottom of the page. Please assign the level of importance to these additional features.
+<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" >
+  Whenever you open your company’s app and start driving, an in-app algorithm works to match
+  you with potential customers in your given area. This algorithm has two main goals:
 </p>
-
+<ul style = "margin-left:10%;color:black;width:80%;" >
+  <li class='bullet'>
+    - Provide rides/deliveries to customers when needed
+  </li>
+  <li class="bullet">
+    - Maximizing drivers’ amounts of trips on the system to maximize drivers’ earnings
+  </li>
+</ul>
+<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" >
+ The boxes below contain features we believe your company’s algorithm
+ uses to match drivers with incoming requests. Based on your experiences
+ driving for your company, <b>please select any features that you believe your
+ company’s algorithm should consider when matching drivers with requests.</b>
+ For your selected features, please use the sliders on the right to determine
+ how much importance you believe the algorithm should place on each factor. If there
+ are features not listed below that you think the should algorithm use, please
+ add your own at the bottom of the page.
+ Please assign the level of importance to these additional features.
+</p>
 <table class = "striped highlight" id = "feat" style = "color: #515151;margin-left:10%;margin-right:5%;width:80%;">
     <thead>
      <th>  </th>
-     <th> </th>
     </thead>
 <% a = get_ranges %>
 <% b = get_ranges_2 %>
@@ -97,16 +103,14 @@ the time a payment is issued. </p> <br / >
           <form id = "range_form" action="#">
            <p class="range-field">
              Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
-             <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" onchange="updateTextInput(this.value, this.id);" />
+             <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
            </p>
           </form>
           </div>
         </div>
       </div>
     </td>
-    <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
-    <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
-    <% end %>
+
    </tr>
    <% counter = f.description %>
 <% end %>
@@ -115,12 +119,8 @@ the time a payment is issued. </p> <br / >
 
 <br> <br>
 
-
-
    <a id = "add" class="btn-floating btn-large waves-effect waves-light" style = "z-index:0;background-color:#3d6ab1;margin-left:10%;"><i class="material-icons">add</i></a> <p style = "font-weight:bold;font-size:1.25em;display:inline;margin-left:1%;"> Add Feature </p>
 <%= link_to 'NEXT', new_how_path, method: :post, :class => "waves-effect waves-dark btn", :style => "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;" %>
-
-</div>
 
    <style>
       /* The Modal (background) */
@@ -129,13 +129,12 @@ the time a payment is issued. </p> <br / >
        position: fixed; /* Stay in place */
        z-index: 1; /* Sit on top */
        padding-top: 100px; /* Location of the box */
-       padding-bottom: 80vh;
+       padding-bottom: 2000px;
        left: 0;
        top: 0;
        width: 100%; /* Full width */
        height: 100vh; /* Full height */
-       max-height: calc(100vh - 210px);
-       overflow-y: auto;
+       overflow: auto; /* Enable scroll if needed */
        background-color: rgb(0,0,0); /* Fallback color */
        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
       }
@@ -150,7 +149,7 @@ the time a payment is issued. </p> <br / >
       /* The Close Button */
       .close {
        color: #aaaaaa;
-       float: right;
+       /*float: right;*/
        font-size: 28px;
        font-weight: bold;
       }
@@ -159,6 +158,26 @@ the time a payment is issued. </p> <br / >
        color: #000;
        text-decoration: none;
        cursor: pointer;
+      }
+      .close-opt {
+        color: #aaaaaa;
+        font-size: 15px;
+      }
+      .close-opt:hover,
+      .close-opt:focus {
+       color: black;
+       text-decoration: none;
+       cursor: pointer;
+     }
+      .bullet {
+        font-size: 1.5em;
+        line-height: 17pt;
+        font-weight: normal;
+        padding-left: 10px;
+      }
+      strong {
+        font-weight: bold;
+        font-family: verdana;
       }
 </style>
  <br> <br> <br> <br><br> <br> <br> <br><br> <br> <br> <br>
@@ -174,21 +193,31 @@ the time a payment is issued. </p> <br / >
 
 .row
 {
-  margin-bottom: -3%;
+  margin-bottom: -25px;
 }
 </style>
 
 
 
 <script type="text/javascript">
-
-  if ( <%= session[:about] %> == true) {
-    console.log( <%= raw @survey_complete %>)
+  function validate_inputs() {
+    var all_inputs = document.getElementsByClassName("range-importance");
+    var i; var all_zero = true;
+    for (i = 0; i < all_inputs.length; i++) {
+      let given_input = all_inputs[i];
+      if (given_input.value !== '0') {
+        all_zero = false;
+      }
+    }
+    console.log("Here");
+    return !all_zero;
+}
+  if ( <%= raw session[:about] %> == true) {
     $(".contain_1").css('display', 'none');
     $(".contain").css('display', 'block');
   }
 
- function updateTextInput(val, f) {
+  function updateTextInput(val, f) {
          id = Math.abs(parseInt(f.slice(f.length-2, f.length)))
          str = 'textInput' + '-' + id
          console.log(str)
@@ -232,6 +261,13 @@ the time a payment is issued. </p> <br / >
 
   $("#submit_btn").click(function(event){
     //gather_and_submit_weights();
+    if (validate_inputs()) {
+      console.log('huh');
+      // change_to_pw();
+    } else {
+      alert("At least one input must have a weight.");
+    }
+
   });
 
 
@@ -248,14 +284,16 @@ the time a payment is issued. </p> <br / >
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
    modal.style.display = "none";
-   $("#con_con").css('display', 'none')
-   $("#cat_con").css('display', 'none')
+   $("#con_con").css('display', 'none');
+   $("#cat_con").css('display', 'none');
 
   }
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
    if (event.target == modal) {
      modal.style.display = "none";
+    $("#con_con").css('display', 'none');
+    $("#cat_con").css('display', 'none');
    }
   }
 
@@ -271,21 +309,3 @@ the time a payment is issued. </p> <br / >
     }
 });
 </script>
-
-<% @features_all.each do |fo| %>
-<script type="text/javascript">
-    $("#yof-<%=fo.id%>").click(function(event){
-      $.ajax({
-        url: "/features/<%=fo.id%>",
-        type: "patch",
-        success: function(){
-          console.log('Saved Successfully');
-          location.reload()
-        },
-        error:function($xhr){
-          console.log($xhr);
-        }
-        });
-      });
-</script>
-<% end %>
