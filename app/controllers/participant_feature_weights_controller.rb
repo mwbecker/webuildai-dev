@@ -33,18 +33,18 @@ class ParticipantFeatureWeightsController < ApplicationController
     w =  params[:weight].to_i
     puts pid, fid, w
     puts "madeit"
-    if ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).empty?
+    if ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, "how_you").empty?
       @participant_feature_weight = ParticipantFeatureWeight.new
       @participant_feature_weight.participant_id = pid
       @participant_feature_weight.feature_id = fid
       @participant_feature_weight.weight = w
-      @participant_feature_weight.method = params[:method]
+      @participant_feature_weight.method = "how_you"
       @participant_feature_weight.save!
 
     else
-      @participant_feature_weight = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).first
+      @participant_feature_weight = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, "how_you").first
       @participant_feature_weight.weight = w
-      @participant_feature_weight.method = params[:method]
+      @participant_feature_weight.method = "how_you"
       @participant_feature_weight.save!
     end
   end
@@ -55,18 +55,18 @@ def new_how_ai
   w =  params[:weight].to_i
   puts pid, fid, w
   puts "madeit"
-  if ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).empty?
+  if ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, "how_you").empty?
     @participant_feature_weight = ParticipantFeatureWeight.new
     @participant_feature_weight.participant_id = pid
     @participant_feature_weight.feature_id = fid
     @participant_feature_weight.weight = w
-    @participant_feature_weight.method = params[:method]
+    @participant_feature_weight.method = "how_you"
     @participant_feature_weight.save!
 
   else
-    @participant_feature_weight = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, params[:method]).first
+    @participant_feature_weight = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", pid, fid, "how_you").first
     @participant_feature_weight.weight = w
-    @participant_feature_weight.method = params[:method]
+    @participant_feature_weight.method = "how_you"
     @participant_feature_weight.save!
   end
 end

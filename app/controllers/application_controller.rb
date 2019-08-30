@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def get_ranges
     to_ret = Array.new
-    fs = Feature.all.active.personal.added_by(current_user.id).order(:description)
+    fs = Feature.request.all.active.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 
   def get_ranges_2
     to_ret = Array.new
-    fs = Feature.all.active.personal.added_by(current_user.id).order(:description)
+    fs = Feature.request.all.active.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end
@@ -54,13 +54,13 @@ class ApplicationController < ActionController::Base
 
   def get_ranges_ai
     to_ret = Array.new
-    fs = Feature.all.active.company.added_by(current_user.id).order(:description)
+    fs = Feature.driver.all.active.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end
     lenth = fs.size-1
     for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i], "how_ai")
+      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i], "how_you")
       if !w.empty?
         to_ret[i] = w.first.weight
       else
@@ -72,13 +72,13 @@ class ApplicationController < ActionController::Base
 
   def get_ranges_ai_2
     to_ret = Array.new
-    fs = Feature.all.active.company.added_by(current_user.id).order(:description)
+    fs = Feature.all.driver.active.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end
     lenth = fs.size-1
     for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i], "how_ai")
+      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ? AND method = ?", current_user.id, to_ret[i], "how_you")
       if !w.empty?
         to_ret[i] = "0." + ((w.first.weight / 10).floor).to_s if (w.first.weight / 10).floor != 0
         to_ret[i] = 0 if  w.first.weight  == 0

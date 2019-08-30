@@ -36,11 +36,11 @@ a = Feature.create(name: "A", category: "driver", description: "Logistics")
 b = Feature.create(name: "B", category: "driver", description: "Logistics")
 c = Feature.create(name: "C", category: "request", description: "Speed/Efficacy")
 
-# ### Request Features ###
-# distance1 = Feature.create(name: "The distance to the restaurant/customer's origin", category: "request", description: "Distance / Location")
-# distance2 = Feature.create(name: "The distance from the customer's origin to their destination (if applicable)", category: "request", description: "Distance / Location")
-# distance3 = Feature.create(name: "The distance from the restaurant to the delivery destination (if applicable)", category: "request", description: "Distance / Location")
-# distance4 = Feature.create(name: "The total distance of the driver's entire trip", category: "request", description: "Distance / Location")
+### Request Features ###
+distance1 = Feature.create(name: "The distance to the restaurant/customer's origin", category: "request", description: "Distance / Location")
+distance2 = Feature.create(name: "The distance from the customer's origin to their destination (if applicable)", category: "request", description: "Distance / Location")
+distance3 = Feature.create(name: "The distance from the restaurant to the delivery destination (if applicable)", category: "request", description: "Distance / Location")
+distance4 = Feature.create(name: "The total distance of the driver's entire trip", category: "request", description: "Distance / Location")
 # tip1 = Feature.create(name: "How often the customer tips their drivers", category: "request", description: "Customer Tipping")
 # tip2 = Feature.create(name: "The average monetary amount the customer tips for each ride/delivery", category: "request", description: "Customer Tipping")
 # feedback1 = Feature.create(name: "The customer's rating of their most recent driver", category: "request", description: "Customer Feedback")
@@ -50,11 +50,11 @@ c = Feature.create(name: "C", category: "request", description: "Speed/Efficacy"
 # cancellation1 = Feature.create(name: "The number of requests the customer has cancelled today", category: "request", description: "Customer’s Cancellation Rate")
 # cancellation2 = Feature.create(name: "The number of requests the customer has cancelled since they first started", category: "request", description: "Customer’s Cancellation Rate")
 
-# ### Driver Features ###
-# tenure1 = Feature.create(name: "How long the driver has been working for their company", category: "driver", description: "Tenure")
-# acceptance1 = Feature.create(name: "The driver's total acceptance rate of requests since they first started", category: "driver", description: "Acceptance Rate")
-# acceptance2 = Feature.create(name: "The driver's total acceptance rate of requests today", category: "driver", description: "Acceptance Rate")
-# completion1 = Feature.create(name: "The driver's total completion rate of requests today", category: "driver", description: "Completion Rate")
+### Driver Features ###
+tenure1 = Feature.create(name: "How long the driver has been working for their company", category: "driver", description: "Tenure")
+acceptance1 = Feature.create(name: "The driver's total acceptance rate of requests since they first started", category: "driver", description: "Acceptance Rate")
+acceptance2 = Feature.create(name: "The driver's total acceptance rate of requests today", category: "driver", description: "Acceptance Rate")
+completion1 = Feature.create(name: "The driver's total completion rate of requests today", category: "driver", description: "Completion Rate")
 # completion2 = Feature.create(name: "The driver's total completion rate of requests since they first started", category: "driver", description: "Completion Rate")
 # earnings1 = Feature.create(name: "The driver's total earnings since they first started", category: "driver", description: "Earnings")
 # earnings2 = Feature.create(name: "The driver's total earnings today", category: "driver", description: "Earnings")
@@ -75,11 +75,11 @@ data_range_2 = DataRange.create(feature_id: b.id, is_categorical: false, lower_b
 data_range_3 = DataRange.create(feature_id: c.id, is_categorical: false, lower_bound: 1, upper_bound: 25)
 
 
-# ### Data Range for Request Features ###
-# data_range_distance1 = DataRange.create(feature_id: distance1.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
-# data_range_distance2 = DataRange.create(feature_id: distance2.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
-# data_range_distance3 = DataRange.create(feature_id: distance3.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
-# data_range_distance4 = DataRange.create(feature_id: distance4.id, is_categorical: false, lower_bound: 0, upper_bound: 140)
+### Data Range for Request Features ###
+data_range_distance1 = DataRange.create(feature_id: distance1.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
+data_range_distance2 = DataRange.create(feature_id: distance2.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
+data_range_distance3 = DataRange.create(feature_id: distance3.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
+data_range_distance4 = DataRange.create(feature_id: distance4.id, is_categorical: false, lower_bound: 0, upper_bound: 140)
 # data_range_tips1 = DataRange.create(feature_id: tips1.id, is_categorical: false, lower_bound: 0, upper_bound: 100)
 # data_range_tips2 = DataRange.create(feature_id: tips2.id, is_categorical: false, lower_bound: 0, upper_bound: 100)
 # data_range_feedback1 = DataRange.create(feature_id: feedback1.id, is_categorical: false, lower_bound: 1, upper_bound: 5)
@@ -90,12 +90,12 @@ data_range_3 = DataRange.create(feature_id: c.id, is_categorical: false, lower_b
 # data_range_cancellation1 = DataRange.create(feature_id: cancellation1.id, is_categorical: false, lower_bound: 0, upper_bound: 100)
 # data_range_cancellation2 = DataRange.create(feature_id: cancellation2.id, is_categorical: false, lower_bound: 0, upper_bound: 100)
 
-# ### Data Range for Driver Features ###
-# # Days to years?
-# data_range_tenure1 = DataRange.create(feature_id: tenure1.id, is_categorical: false, lower_bound: 0, upper_bound: 5)
-# data_range_acceptance1 = DataRange.create(feature_id: acceptance1.id, is_categorical: false, lower_bound: 50, upper_bound: 100)
-# data_range_acceptance2 = DataRange.create(feature_id: acceptance2.id, is_categorical: false, lower_bound: 50, upper_bound: 100)
-# data_range_completion1 = DataRange.create(feature_id: completion1.id, is_categorical: false, lower_bound: 50, upper_bound: 100)
+### Data Range for Driver Features ###
+# Days to years?
+data_range_tenure1 = DataRange.create(feature_id: tenure1.id, is_categorical: false, lower_bound: 0, upper_bound: 5)
+data_range_acceptance1 = DataRange.create(feature_id: acceptance1.id, is_categorical: false, lower_bound: 50, upper_bound: 100)
+data_range_acceptance2 = DataRange.create(feature_id: acceptance2.id, is_categorical: false, lower_bound: 50, upper_bound: 100)
+data_range_completion1 = DataRange.create(feature_id: completion1.id, is_categorical: false, lower_bound: 50, upper_bound: 100)
 # data_range_completion2 = DataRange.create(feature_id: completion2.id, is_categorical: false, lower_bound: 50, upper_bound: 100)
 # data_range_earnings1 = DataRange.create(feature_id: earnings1.id, is_categorical: false, lower_bound: 0, upper_bound: 985500)
 # data_range_earnings2 = DataRange.create(feature_id: earnings2.id, is_categorical: false, lower_bound: 0, upper_bound: 540)
