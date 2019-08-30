@@ -5,11 +5,20 @@
   <form>
 
     <!-- Feature name -->
-    <label for="feature-name-1" class="feature-label">
+    <label for="feature-name" class="feature-label">
       Feature Name
     </label>
-    <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name">
+    <input id="feature-name" type="text" name="featurename" value="" placeholder="Feature Name">
     <p id="error_1" class="error-1-style"> Feature name cannot be blank </p>
+
+    <% if current_user.role == 'admin' %>
+       <br> <br>
+       <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
+       <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name">
+     <% else %>
+       <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
+       <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name" style = "display:none">
+     <% end %>
 
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
@@ -39,11 +48,15 @@
       <div class="input-field col s6">
         <!-- To do: add validations for numbers only (upper > lower, is a number, etc.) -->
         <input id="lower-bound" type="text" placeholder="18">
+        <p id = "error_2" style = "color:red;margin-top:-1%;display:none">  cannot be blank <p>
+    <p id = "error_4-1" style = "color:red;margin-top:-1%;display:none">  Invalid Range <p>
         <span class="helper-text">Minimum Value</span>
       </div>
 
       <div class="input-field col s6">
         <input id="upper-bound" type="text" placeholder="45">
+        <p id = "error_3" style = "color:red;margin-top:-1%;display:none"> cannot be blank <p>
+  <p id = "error_4-2" style = "color:red;margin-top:-1%;display:none">  Invalid Range <p>
         <span class="helper-text">Maximum Value</span>
       </div>
 
@@ -53,8 +66,8 @@
 
     <p class="feature-label"> Is this information about the request, or the driver? </p>
     <p>
-      <label for="request-option">
-        <input id="request-option" class="with-gap" type="radio" name="range-groupp">
+      <label for="request-option-1">
+        <input id="request-option-1" class="with-gap" type="radio" name="range-groupp">
         <span style = "color:black; font-size:1.3em;">Request
           <br>
           <span style="color: #808080;">ex. Average amount of tips the customer gives.</span>
@@ -63,8 +76,8 @@
     </p>
 
     <p>
-      <label for="driver-option">
-        <input id="driver-option" class="with-gap" type="radio" name="range-groupp">
+      <label for="driver-option-1">
+        <input id="driver-option-1" class="with-gap" type="radio" name="range-groupp">
         <span style = "color:black; font-size:1.3em;">Driver
           <br>
           <span style="color: #808080;">ex. Driver's earning today.</span>
@@ -117,8 +130,10 @@
 
 </div>
 -->
-<script type="text/javascript">
 
+<script type="text/javascript">
+   $('#numerical').attr('checked', false);
+   $('.with-gap').removeAttr('checked');
   var numeric_elem = document.getElementById("num_input_div");
 
   $('#numerical').click(function() {
@@ -130,24 +145,21 @@
 
   });
 
-  $('#driver-option').click(function() {
-    console.log("HERE!!");
 
-  });
-
-  $('#request-option').click(function() {
-    console.log("HERE!!");
-
-  });
 
   $("#submit_con_btn").click(function(event) {
-    let name = $("#feature-name-1")[0].value
+    let name = $("#feature-name")[0].value
+    let cati = $("#con_category")[0].value
     if (name == "")
     {
       $("#error_1").css('display', 'block')
+      return -1;
     }
     else {
       $("#error_1").css('display', 'none')
+      var categor;
+            if (($("#request-option-1")[0]).checked){categor="request"}
+            else {categor="driver"}
 
       if (document.getElementById("percentage").checked) {
         var lower = 0; var upper = 100;
@@ -169,12 +181,17 @@
           $("#error_3").css('display', 'none')
         }
 
+        if (upper <= lower) {
+         $("#error_4-1").css('display', 'block')
+         $("#error_4-2").css('display', 'block')
+         return -1; }
+
       }
 
       let cat = 0
       let options = "zilch"
       $.ajax({
-        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+"&company="+"true",
+        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+ "&category=" + categor + "&description="+cati+"&company="+"true",
         type: "post",
         success: function(){
           console.log('Saved Successfully');
