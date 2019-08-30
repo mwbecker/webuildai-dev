@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
 
 <%= render partial: 'page_1.html.erb' %>
@@ -81,7 +81,7 @@
 
   <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;cursor:pointer;">
     <div class="row">
-      <div class="card ">
+      <div class="card">
         <div class="card-content">
           <h5 style = "color:#3d6ab1"> Scenario B </h5>
           <% if counter_1 < @num_pairs %>
@@ -121,6 +121,7 @@
            <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" />
            <span>Neither</span>
          </label> <br/> <br/>
+
          <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —"> <br> <br>
          <p id = "error_r-<%= pc.id %>" style = "margin-left:-27%;color:red;margin-top:-1%;display:none"> Reason cannot be blank </p>
 
@@ -133,12 +134,24 @@
 </div>
 
 <br><br> <br>
+
 <%# TODO disable this if nothing inputted %>
 <a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
 Next Scenario
 </a>
 <br><br><br>
 <br><br><br><br>
+<script type="text/javascript">
+
+  function validate_next() {
+    var pc_id = 2;
+    if (document.getElementById(`reason-${pc_id}`)) {
+      alert("Make sure to fill in something for the reason input.");
+    }
+  }
+
+
+</script>
 </div>
 
 <% @pairwise_comparisons.each do |pc| %>

@@ -1,11 +1,8 @@
-
-
 * {
   font-family: 'pragmatica', sans-serif;
   font-style: normal;
   font-weight: 200;
 }
-
 
 textarea:focus {
 border-bottom: none!important;
@@ -119,6 +116,28 @@ a:hover
   line-height:17pt;
 }
 
+.modal-header {
+  color:#3d6ab1;
+  font-weight:bold;
+}
+
+.modal-hr {
+  margin-left: -24px; 
+  margin-right: -24px;
+}
+
+.feature-label {
+  color: black;
+  font-weight: bold;
+  font-size: 1.38em;
+  margin-bottom: 0.5vh;
+}
+
+.break-container {
+  width: 100vw;
+  position: relative;
+  left: calc(-1 * (100vw - 100%) / 2);
+}
 
 /* END OF Login */
 

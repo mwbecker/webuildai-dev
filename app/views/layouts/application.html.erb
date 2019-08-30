@@ -10,24 +10,22 @@
   </head>
 
   <body>
-    <nav class = "white" >
-     <div class="containeri" style = "height:70%;">
-       <!-- Brand and toggle get grouped for better mobile display -->
-       <div >
 
-         <%= link_to "WeBuildAI", root_path, :class => "wbai", :style => "margin-left:5.9%;font-size:2em;font-weight:bold;" %>
-       </div>
-       <!-- Collect the nav links, forms, and other content for toggling -->
-       <div style = "margin-top:-3.5%;margin-left:83%;">
-         <ul>
-           <% if logged_in? %>
-           <li>
-                <%= link_to "Logout", logout_path, :class => "wbai", :style => "font-size:1.3em;" %>
-           </li> <% end %>
-         </ul>
-       </div><!-- /.navbar-collapse -->
-     </div><!-- /.container-fluid -->
+
+    <nav class="white">
+      <div class="nav-wrapper">
+        <div class="col s12" style="padding-left: 70px; padding-right: 70px;">
+          <a href="<%= root_path %>" class="brand-logo brand-text">WeBuildAI</a>
+          <ul id="nav-mobile" class="right">
+            <% if logged_in? %>
+            <li><a href="<%= logout_path %>" class="wbai">Logout</a></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
     </nav>
+
     <%= yield %>
     <!-- Footer -->
 <footer class="footer" id="footer">
