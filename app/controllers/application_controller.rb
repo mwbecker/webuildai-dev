@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def get_ranges
     to_ret = Array.new
-    fs = Feature.active.all.order(:description)
+    fs = Feature.all.active.personal.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 
   def get_ranges_2
     to_ret = Array.new
-    fs = Feature.active.all.order(:description)
+    fs = Feature.all.active.personal.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end
@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
 
   def get_ranges_ai
     to_ret = Array.new
-    fs = Feature.active.all.order(:description)
+    fs = Feature.all.active.company.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end
@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
 
   def get_ranges_ai_2
     to_ret = Array.new
-    fs = Feature.active.all.order(:description)
+    fs = Feature.all.active.company.added_by(current_user.id).order(:description)
     fs.each do |f|
       to_ret << f.id
     end

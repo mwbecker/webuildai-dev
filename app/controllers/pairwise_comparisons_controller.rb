@@ -98,7 +98,7 @@ class PairwiseComparisonsController < ApplicationController
 
   def new_how
     @pairwise_comparison = PairwiseComparison.new
-    @features_all = Feature.all.active.added_by(current_user.id).order(:description)
+    @features_all = Feature.all.active.company.added_by(current_user.id).order(:description)
     @survey_complete = false
 
   end
