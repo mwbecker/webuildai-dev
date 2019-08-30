@@ -1,9 +1,16 @@
 class EvaluationsController < ApplicationController
   def new
-    
+
   end
 
   def index
+  end
+
+  def store_info
+    p = Participant.find(current_user.id)
+    p.email = params[:email]
+    p.name = params[:name]
+    p.save!
   end
 
   def create
@@ -25,6 +32,6 @@ class EvaluationsController < ApplicationController
   end
 
   def evaluation_params
-    params.require(:evaluation).permit(:show, :how, :fairly, :correctly, :priorities, :previously, :situation, :resolve, :functions, :incorrect, :alert, :participant_id)
+    params.require(:evaluation).permit(:show, :how, :fairly, :correctly, :priorities, :previously, :situation, :resolve, :functions, :incorrect, :alert, :participant_id, :email, :name)
   end
 end
