@@ -10,7 +10,7 @@
       Feature Name
     </label>
     <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name" style="width: 90%;">
-     <p id="error_1" class="error-1-style"> Feature name cannot be blank </p> 
+     <p id="error_1_1" class="error-1-style"> Feature name cannot be blank </p>
 
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
@@ -50,6 +50,7 @@
           </div>
           <br>
         </div>
+          <p id = "error_2_1" style = "color:red;margin-top:-1%;display:none;margin-left:12%;"> cannot be blank </p>
 
         <div id="option-2">
           <span id="c-2" style="color: #555; font-size: 1.3em;"><i><span class="close-opt">&times;</span>&nbsp;&nbsp;Option 2&nbsp;&nbsp;&nbsp;</i></span>
@@ -58,6 +59,7 @@
           </div>
           <br>
         </div>
+          <p id = "error_2_2" style = "color:red;margin-top:-1%;display:none;margin-left:12%;"> cannot be blank </p>
 
       </div>
     <a id = "add_cat_btn" class="btn-floating btn-small" style = "background-color:#3d6ab1;margin-left:0%;"><i class="material-icons">add</i></a><p style = "font-weight:bold;font-size:1.15em;display:inline;margin-left:1%;"> Add Option </p>
@@ -127,7 +129,7 @@
                    '    <input id="opt-' + last_opt + '" type="text" style="width: 250%">' + '\n' +
                    '  </div>' + '\n' +
                    '  <br>' + '\n' +
-                   '</div>'
+                   '</div>' + `<br><p id = "error_2_${last_opt}" style = "color:red;margin-top:-1%;display:none;margin-left:12%;"> cannot be blank <p> </div>`
                    );
     freeform_options.append(new_div);
     var new_id = "c-" + last_opt;
@@ -159,16 +161,26 @@
     if (name == "")
     {
       $("#error_1_1").css('display', 'block')
-      last_opt = (($("#opts")[0]).children).length
+      let freeform_options = $("#freeform_inputs");
+      let last_opt = parseInt(freeform_options[0].getAttribute("count")) + 1;
       for (let i = 0; i < last_opt; i++)
       {
         if (($("#opt-"+(i+1))[0]).value == "")
         {   $(`#error_2_${(i+1)}`).css('display', 'block') }
         else {  $(`#error_2_${(i+1)}`).css('display', 'none')}
       }
+      return -1
+    }
+    let freeform_options = $("#freeform_inputs");
+    let last_opt = parseInt(freeform_options[0].getAttribute("count")) + 1;
+    for (let i = 0; i < last_opt-1; i++)
+    {
+      if (($("#opt-"+(i+1))[0]).value == "")
+      {   $(`#error_2_${(i+1)}`).css('display', 'block');
+        return -1; }
+      else {  $(`#error_2_${(i+1)}`).css('display', 'none')}
     }
 
-    else {
       $("#error_1_1").css('display', 'none');
 
       if (document.getElementById("tier-option").checked) {
@@ -215,7 +227,6 @@
           console.log($xhr);
         }
       });
-    }
   });
 
 
