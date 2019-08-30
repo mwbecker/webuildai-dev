@@ -6,6 +6,7 @@ import itertools
 from math import sqrt
 from scipy.optimize import minimize
 import json
+import pickle
 
 
 def setup():
@@ -525,9 +526,15 @@ def main2(args):
 		# print("Learnt parameters for " + data_files[i] + ":", this_beta, '\n')
 		learnt_beta[0, :] = this_beta	
 	
-	test(this_beta, np.vstack((k_train_comps, k_test_comps)), n_test, pid, loss_fun, size_type, test_frac)
+	soft_loss, num_correct, n_test = test(this_beta, np.vstack((k_train_comps, k_test_comps)), n_test, pid, loss_fun, size_type, test_frac)
 	print("FINAL LEARNT BETA")
 	print(this_beta)
+
+	print("Soft LOSS="+str(soft_loss))
+	print("Accuracy="+str(float(num_correct)/n_test))
+	pickle.dump(this_beta, open("RESULT/betas/Participant_"+str(pid)+"_BETA_Round0.pkl",'wb'))
+
+	return this_beta, soft_loss, num_correct, n_test
 
 
 def test(this_beta, k_test_comps, n_test, pid, loss_fun, size_type, test_frac):
@@ -580,5 +587,5 @@ if __name__ == '__main__':
 	parser.add_argument('-tf', type=float, default=0.15, help = 'test frac (float)')
 	args = parser.parse_args()
 	
-	main2(args)
+	beta, soft_loss, num_correct, n_test = main2(args)
 
