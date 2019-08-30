@@ -36,15 +36,31 @@ a = Feature.create(name: "A", category: "driver", description: "Logistics")
 b = Feature.create(name: "B", category: "driver", description: "Logistics")
 c = Feature.create(name: "C", category: "request", description: "Speed/Efficacy")
 
+distance1 = Feature.create(name: "The distance to the restaurant/customer's origin", category: "request", description: "Distance / Location")
+distance2 = Feature.create(name: "The distance from the customer's origin to their destination (if applicable)", category: "request", description: "Distance / Location")
+distance3 = Feature.create(name: "The distance from the restaurant to the delivery destination (if applicable)", category: "request", description: "Distance / Location")
+distance4 = Feature.create(name: "The total distance of the driver's entire trip", category: "request", description: "Distance / Location")
+tip1 = Feature.create(name: "How often the customer tips their drivers", category: "request", description: "Customer Tipping")
+tip2 = Feature.create(name: "The average monetary amount the customer tips for each ride/delivery", category: "request", description: "Customer Tipping")
+feedback1 = Feature.create(name: "The customer's rating of their most recent driver", category: "request", description: "Customer Feedback")
+feedback2 = Feature.create(name: "The average rating the customer gives their drivers", category: "request", description: "Customer Feedback")
+usage1 = Feature.create(name: "How frequently the customer uses the company's app", category: "request", description: "Customer's App Usage")
+usage2 = Feature.create(name: "How long the customer has had an account with the company's app", category: "request", description: "Customer's App Usage")
+cancellation1 = Feature.create(name: "The number of requests the customer has cancelled today", category: "request", description: "Customer’s Cancellation Rate")
+cancellation2 = Feature.create(name: "The number of requests the customer has cancelled since they first started", category: "request", description: "Customer’s Cancellation Rate")
+
 data_range_1 = DataRange.create(feature_id: a.id, is_categorical: true)
 data_range_2 = DataRange.create(feature_id: b.id, is_categorical: false, lower_bound: 0, upper_bound: 10)
 data_range_3 = DataRange.create(feature_id: c.id, is_categorical: false, lower_bound: 1, upper_bound: 25)
 
+data_range_distance1 = DataRange.create(feature_id: distance1.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
+data_range_distance2 = DataRange.create(feature_id: distance2.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
+data_range_distance3 = DataRange.create(feature_id: distance3.id, is_categorical: false, lower_bound: 0, upper_bound: 70)
+data_range_distance3 = DataRange.create(feature_id: distance4.id, is_categorical: false, lower_bound: 0, upper_bound: 140)
+
 cat_dat_opt_1 = CategoricalDataOption.create(data_range_id: data_range_1.id, option_value: "Apple")
 cat_dat_opt_2 = CategoricalDataOption.create(data_range_id: data_range_1.id, option_value: "Bannana")
 cat_dat_opt_3 = CategoricalDataOption.create(data_range_id: data_range_1.id, option_value: "Orange")
-
-
 
 
 
