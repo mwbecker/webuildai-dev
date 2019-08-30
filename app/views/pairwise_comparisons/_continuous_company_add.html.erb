@@ -14,8 +14,8 @@
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
     <p>
-      <label for="percentage">
-        <input id="percentage" class="with-gap" type="radio" name="range-group">
+      <label for="percentage-company">
+        <input id="percentage-company" class="with-gap" type="radio" name="range-group">
         <span style = "color:black; font-size:1.3em;">Percentage ( 0%~100% )
         <br>
         <span style="color: #808080;">ex. The customer pays tips to couriers 57% of the time.</span>
@@ -24,8 +24,8 @@
     </p>
 
     <p>
-      <label for="numerical">
-        <input id="numerical" class="with-gap" type="radio" name="range-group">
+      <label for="numerical-company">
+        <input id="numerical-company" class="with-gap" type="radio" name="range-group">
         <span style = "color:black; font-size:1.3em;">Numerical
         <br>
         <span style="color: #808080;">ex. Most customers are between 18 and 45 years old.</span>
@@ -53,8 +53,8 @@
 
     <p class="feature-label"> Is this information about the request, or the driver? </p>
     <p>
-      <label for="request-option">
-        <input id="request-option" class="with-gap" type="radio" name="range-group9">
+      <label>
+        <input id="request-option-company" class="with-gap" type="radio" name="range-group9">
         <span style = "color:black; font-size:1.3em;">Request
           <br>
           <span style="color: #808080;">ex. Average amount of tips the customer gives.</span>
@@ -63,8 +63,8 @@
     </p>
 
     <p>
-      <label for="driver-option">
-        <input id="driver-option" class="with-gap" type="radio" name="range-group9">
+      <label>
+        <input id="driver-option-company" class="with-gap" type="radio" name="range-group9">
         <span style = "color:black; font-size:1.3em;">Driver
           <br>
           <span style="color: #808080;">ex. Driver's earning today.</span>
@@ -121,11 +121,11 @@
 
   var numeric_elem = document.getElementById("num_input_div");
 
-  $('#numerical').click(function() {
+  $('#numerical-company').click(function() {
     numeric_elem.style = "display: block";
   });
 
-  $('#percentage').click(function() {
+  $('#percentage-company').click(function() {
     numeric_elem.style = "display: none";
 
   });
@@ -139,7 +139,7 @@
     else {
       $("#error_1").css('display', 'none')
 
-      if (document.getElementById("percentage").checked) {
+      if (document.getElementById("percentage-company").checked) {
         var lower = 0; var upper = 100;
       } else {
         var lower = parseInt($("#lower-bound")[0].value)
@@ -161,8 +161,8 @@
 
       }
 
-      let cat = 0
-      let options = "zilch"
+      let cat = 0;
+      let options = "zilch";
       $.ajax({
         url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+"&company="+"true",
         type: "post",
