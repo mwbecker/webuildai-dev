@@ -3,7 +3,7 @@ class PairwiseComparisonsController < ApplicationController
   before_action :set_pairwise_comparison, only: [:show, :edit, :update, :destroy]
   before_action :check_login
 
-  NUM_PAIRS =  Rails.env.development? ? 1 : 25
+  NUM_PAIRS =  Rails.env.development? ? 2 : 25
   # GET /pairwise_comparisons
   # GET /pairwise_comparisons.json
   def index

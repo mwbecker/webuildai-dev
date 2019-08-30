@@ -7,7 +7,9 @@ from math import sqrt
 from scipy.optimize import minimize
 import json
 import pickle
+import os
 
+get_local_path = lambda s: os.path.join(os.path.dirname(os.path.realpath(__file__)), s)
 
 def setup():
 	normalize = 1
@@ -532,7 +534,7 @@ def main2(args):
 
 	print("Soft LOSS="+str(soft_loss))
 	print("Accuracy="+str(float(num_correct)/n_test))
-	pickle.dump(this_beta, open("RESULT/betas/Participant_"+str(pid)+"_BETA_Round0.pkl",'wb'))
+	pickle.dump(this_beta, open(get_local_path("RESULT/betas/Participant_"+str(pid)+"_BETA_Round0.pkl"),'wb'))
 
 	return this_beta, soft_loss, num_correct, n_test
 
@@ -558,7 +560,7 @@ def test(this_beta, k_test_comps, n_test, pid, loss_fun, size_type, test_frac):
 		soft_loss += (1 - prob_0_beats_1) ** 2
 
 	if(len(incorrect_comps)>0):
-		incorrect_comps_filename = "RESULT/incorrect_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_errors.txt"
+		incorrect_comps_filename = get_local_path("RESULT/incorrect_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_errors.txt")
 		with open(incorrect_comps_filename, 'w') as incorrect_outfile:
 			for incorrect_comp in incorrect_comps:
 				incorrect_outfile.write(str(incorrect_comp))
@@ -566,7 +568,7 @@ def test(this_beta, k_test_comps, n_test, pid, loss_fun, size_type, test_frac):
 
 	# write correct comparisons out to file
 	if len(correct_comps) > 0:
-		correct_comps_filename = "RESULT/correct_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_correct.txt"
+		correct_comps_filename = get_local_path("RESULT/correct_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_correct.txt")
 		with open(correct_comps_filename, 'w') as correct_outfile:
 			for correct_comp in correct_comps:
 				correct_outfile.write(str(correct_comp))
