@@ -10,7 +10,7 @@
       Feature Name
     </label>
     <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name" style="width: 90%;">
-    <!-- <p id="error_1" class="error-1-style"> Feature name cannot be blank </p> -->
+     <p id="error_1" class="error-1-style"> Feature name cannot be blank </p> 
 
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
@@ -122,10 +122,10 @@
                    '<div id="option-' + last_opt + '">' + '\n' +
                    '  <span style="color: #555; font-size: 1.3em">' + '\n' +
                    '    <span id="c-' + last_opt + '" class="close-opt">&times;</span>&nbsp;&nbsp;Option ' + last_opt + '&nbsp;&nbsp;&nbsp;' + '\n' +
-                   '  </span>' + '\n' + 
-                   '  <div class="input-field inline">' + '\n' + 
+                   '  </span>' + '\n' +
+                   '  <div class="input-field inline">' + '\n' +
                    '    <input id="opt-' + last_opt + '" type="text" style="width: 250%">' + '\n' +
-                   '  </div>' + '\n' + 
+                   '  </div>' + '\n' +
                    '  <br>' + '\n' +
                    '</div>'
                    );
@@ -185,7 +185,7 @@
             let option = document.getElementById("opt-" + id);
             if (option === "") {
               $("#error_2_" + id).css('display', 'block');
-              return -1; 
+              return -1;
             } else {
               $("#error_2_" + id).css('display', 'none');
               options = options + option + "*";

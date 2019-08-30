@@ -2,7 +2,7 @@
 <div id="myModal" class="modal">
  <!-- Modal content -->
  <div class="modal-content" style="padding-top: 34px !important;">
-   
+
    <%= render partial: 'categorical_add.html.erb' %>
    <%= render partial: 'continuous_add.html.erb' %>
 
@@ -53,6 +53,7 @@ the time a payment is issued. </p> <br / >
 
 
 </script>
+<%= render partial: 'about.html.erb' %>
 
 <div class = "contain" style = "display:none">
 <h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Feature Selection</h1> <p style ="font-weight:lighter;font-size:2.3em;color:#3d6ab1;display:inline;float:right;margin-top:-3%;margin-right:10%;"> About Survey Completed </p>
@@ -209,9 +210,8 @@ the time a payment is issued. </p> <br / >
       }
     }
     return !all_zero;
-
-  if ( <%= session[:about] %> == true) {
-    console.log( <%= raw @survey_complete %>)
+}
+  if ( <%= raw session[:about] %> == true) {
     $(".contain_1").css('display', 'none');
     $(".contain").css('display', 'block');
   }
@@ -264,7 +264,7 @@ the time a payment is issued. </p> <br / >
       change_to_pw();
     } else {
       alert("At least one input must have a weight.");
-    }  
+    }
 
   });
 

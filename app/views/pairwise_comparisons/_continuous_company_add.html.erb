@@ -1,19 +1,103 @@
-<div id = "con_con" style = "width:90%;margin-left:5%;display:none">
-  <h4 style = "color:#3d6ab1;font-weight:bold"> Add Continuous Feature</h4> <br>
-  <hr style ='overflow:visible;width:117.5%;margin-left:-9%;color:white;border-width: 1px;'>
+<div id="con_con" class="container" style="width: 100%; display: none;">
+  <h4 class="modal-header"> Add Continuous Feature </h4>
+  <hr class="modal-hr">
   <br>
-  <form action="#">
-    <label for = "feature-name-1" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Feature Name </label>
-    <input id = "feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name">
-    <p id = "error_1" style = "color:red;margin-top:-1%;display:none"> Feature name cannot be blank <p>
-    <% if current_user.role == 'admin' %>
-      <br> <br>
-      <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
-      <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name">
-    <% else %>
-      <label for = "con_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
-      <input id = "con_category" type="text" name="featurename" value="" placeholder="Category Name" style = "display:none">
-    <% end %>
+  <form>
+
+    <!-- Feature name -->
+    <label for="feature-name-1" class="feature-label">
+      Feature Name
+    </label>
+    <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name">
+    <p id="error_1" class="error-1-style"> Feature name cannot be blank </p>
+
+    <!-- Range (Numeric vs. Percentage) -->
+    <p class="feature-label"> Range Options </p>
+    <p>
+      <label for="percentage">
+        <input id="percentage" class="with-gap" type="radio" name="range-group">
+        <span style = "color:black; font-size:1.3em;">Percentage ( 0%~100% )
+        <br>
+        <span style="color: #808080;">ex. The customer pays tips to couriers 57% of the time.</span>
+        </span>
+      </label>
+    </p>
+
+    <p>
+      <label for="numerical">
+        <input id="numerical" class="with-gap" type="radio" name="range-group">
+        <span style = "color:black; font-size:1.3em;">Numerical
+        <br>
+        <span style="color: #808080;">ex. Most customers are between 18 and 45 years old.</span>
+        </span>
+      </label>
+    </p>
+
+    <!-- If numeric, need to specify lower/upper bound -->
+    <div id="num_input_div" class="row" style="display: none;">
+
+      <div class="input-field col s6">
+        <!-- To do: add validations for numbers only (upper > lower, is a number, etc.) -->
+        <input id="lower-bound" type="text" placeholder="18">
+        <span class="helper-text">Minimum Value</span>
+      </div>
+
+      <div class="input-field col s6">
+        <input id="upper-bound" type="text" placeholder="45">
+        <span class="helper-text">Maximum Value</span>
+      </div>
+
+    </div>
+
+    <br>
+
+    <p class="feature-label"> Is this information about the request, or the driver? </p>
+    <p>
+      <label for="request-option">
+        <input id="request-option" class="with-gap" type="radio" name="range-groupp">
+        <span style = "color:black; font-size:1.3em;">Request
+          <br>
+          <span style="color: #808080;">ex. Average amount of tips the customer gives.</span>
+        </span>
+      </label>
+    </p>
+
+    <p>
+      <label for="driver-option">
+        <input id="driver-option" class="with-gap" type="radio" name="range-groupp">
+        <span style = "color:black; font-size:1.3em;">Driver
+          <br>
+          <span style="color: #808080;">ex. Driver's earning today.</span>
+        </span>
+      </label>
+    </p>
+
+  </form>
+  <br>
+  <a class="waves-effect waves-dark btn" id = "submit_con_btn" style = "width:20%;color:#FFFFFF;display:block;background-color:#3d6ab1"> Submit </a>
+
+
+</div>
+
+<!--
+<div id = "con_con" style = "width:100%; display: none;">
+
+    <label for="range-option" style="color: black; font-weight: bold; font-size: 1.38em; margin-bottom: 0.5vh;">
+      Range Options
+    </label>
+    <br>
+    <label style = "display:inline; margin-right:5%;">
+      <input id="range-option-1" class="with-gap" type="radio">
+      <span style = "color:black; font-size:1.3em;">Percentage ( 0%~100% )
+      <br>
+      <span style="color: #808080;">ex. The customer pays tips to couriers 57% of the time.</span>
+      </span>
+     </label> <br> <br>
+    <label style="display:inline; margin-right:5%;">
+      <input id="range-option-2" class="with-gap" type="radio" checked>
+      <span style = "color:black; font-size:1.3em;">Numerical</span>
+    </label>
+
   </form>
 
 <br>
@@ -21,75 +105,76 @@
   <label for = "lower-bound" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Lower Bound </label>
   <input id = "lower-bound" type="text" name="lower" value="" placeholder="Lower Bound">
   <p id = "error_2" style = "color:red;margin-top:-1%;display:none">  cannot be blank <p>
-    <p id = "error_4-1" style = "color:red;margin-top:-1%;display:none">  Invalid Range <p>
 
   <label for = "upper-bound" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Upper Bound </label>
   <input id = "upper-bound" type="text" name="upper" value="" placeholder="Upper Bound">
   <p id = "error_3" style = "color:red;margin-top:-3%;display:none"> cannot be blank <p>
-  <p id = "error_4-2" style = "color:red;margin-top:-1%;display:none">  Invalid Range <p>
-
   <br><br>
 </form>
-
-<p style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh"> Is the information about the request, or the driver? </p> <br>
-<label style = "display:inline;margin-right:5%;">
- <input id = "req-1" class="with-gap" name="group3" type="radio" checked />
- <span style = "color:black;font-size:1.3em;">Request</span>
-</label> <br/> <br/>
-<label style = "display:inline;margin-right:5%;">
-  <input id = "driv-1" class="with-gap" name="group3" type="radio" checked />
-  <span style = "color:black;font-size:1.3em;">Driver</span>
-</label>
-<br><br>
-<br> <br> <br>
 
 <a class="waves-effect waves-dark btn" id = "submit_con_btn" style = "width:20%;color:#FFFFFF;display:block;background-color:#3d6ab1"> Submit </a>
 
 
 </div>
-
-
-
+-->
 <script type="text/javascript">
 
+  var numeric_elem = document.getElementById("num_input_div");
 
+  $('#numerical').click(function() {
+    numeric_elem.style = "display: block";
+  });
 
+  $('#percentage').click(function() {
+    numeric_elem.style = "display: none";
+
+  });
+
+  $('#driver-option').click(function() {
+    console.log("HERE!!");
+
+  });
+
+  $('#request-option').click(function() {
+    console.log("HERE!!");
+
+  });
 
   $("#submit_con_btn").click(function(event) {
     let name = $("#feature-name-1")[0].value
-    let cati = $("#con_category")[0].value
-
     if (name == "")
     {
       $("#error_1").css('display', 'block')
     }
     else {
       $("#error_1").css('display', 'none')
-      var categor;
-      if (($("#req-1")[0]).checked){categor="request"}
-      else {categor="driver"}
-      let lower = parseInt($("#lower-bound")[0].value)
-      if ($("#lower-bound")[0].value == "") {
-        $("#error_2").css('display', 'block')
-        return -1
-      } else {  $("#error_2").css('display', 'none') }
-      let upper = parseInt($("#upper-bound")[0].value)
-      if ($("#upper-bound")[0].value == "") {
-        $("#error_3").css('display', 'block')
-        return -1
-      } else {  $("#error_3").css('display', 'none') }
-       if (upper <= lower) {
-          $("#error_4-1").css('display', 'block')
-          $("#error_4-2").css('display', 'block')
-          return -1;
-     }
-     else {   $("#error_4-1").css('display', 'none')
-       $("#error_4-2").css('display', 'none')}
+
+      if (document.getElementById("percentage").checked) {
+        var lower = 0; var upper = 100;
+      } else {
+        var lower = parseInt($("#lower-bound")[0].value)
+
+        if ($("#lower-bound")[0].value == "") {
+          $("#error_2").css('display', 'block')
+          return -1
+        } else {
+          $("#error_2").css('display', 'none')
+        }
+
+        var upper = parseInt($("#upper-bound")[0].value)
+        if ($("#upper-bound")[0].value == "") {
+          $("#error_3").css('display', 'block')
+          return -1
+        } else {
+          $("#error_3").css('display', 'none')
+        }
+
+      }
 
       let cat = 0
       let options = "zilch"
       $.ajax({
-        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+"&category="+categor+"&description="+cati+"&company="+"true",
+        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+"&company="+"true",
         type: "post",
         success: function(){
           console.log('Saved Successfully');
