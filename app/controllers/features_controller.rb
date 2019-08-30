@@ -4,7 +4,7 @@ class FeaturesController < ApplicationController
   # GET /features
   # GET /features.json
   def index
-    @features = Feature.all
+    @features = Feature.all.added_by(current_user.id)
   end
 
   # GET /features/1
@@ -33,7 +33,13 @@ class FeaturesController < ApplicationController
      if Feature.where(name: name).empty?
        a = Feature.create(name: name)
        a.description = params[:description]
-       a.description = "Your Own Feature(s) - Continuous" if params[:description].blank?
+       if params[:description].blank?
+         a.description = "Your Own Feature(s) - Continuous"
+         a.added_by = current_user.id
+         if params[:company] == "true"
+           a.company = true
+         end
+       end
        a.active = true
        a.category = params[:category]
        a.save!
@@ -41,7 +47,13 @@ class FeaturesController < ApplicationController
      else
       a = Feature.where(name: name).first
       a.description = params[:description]
-      a.description = "Your Own Feature(s) - Continuous" if params[:description].blank?
+      if params[:description].blank?
+        a.description = "Your Own Feature(s) - Continuous"
+        a.added_by = current_user.id
+        if params[:company] ==  "true"
+          a.company = true
+        end
+      end
       a.active = true
       a.category = params[:category]
       a.save!
@@ -66,7 +78,13 @@ class FeaturesController < ApplicationController
        a = Feature.create(name: name)
        a.category = params[:category]
        a.description = params[:description]
-       a.description = "Your Own Feature(s) - Categorical" if params[:description].blank?
+       if params[:description].blank?
+         a.description = "Your Own Feature(s) - Categorical"
+         a.added_by = current_user.id
+         if params[:company] ==  "true"
+           a.company = true
+         end
+       end
        a.active = true
        a.save!
        rng = DataRange.create(feature_id: a.id, is_categorical: true, lower_bound: nil, upper_bound: nil)
@@ -76,7 +94,13 @@ class FeaturesController < ApplicationController
      else
       a = Feature.where(name: name).first
       a.description = params[:description]
-      a.description = "Your Own Feature(s) - Categorical" if params[:description].blank?
+      if params[:description].blank?
+        a.description = "Your Own Feature(s) - Categorical"
+        a.added_by = current_user.id
+        if params[:company] ==  "true"
+          a.company = true
+        end
+      end
       a.active = true
       a.category = params[:category]
       a.save!
@@ -130,6 +154,6 @@ class FeaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_params
-      params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description)
+      params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description, :company)
     end
 end

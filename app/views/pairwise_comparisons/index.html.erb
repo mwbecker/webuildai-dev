@@ -1,8 +1,6 @@
 <!-- <p id="notice"><%= notice %></p> -->
 
 
-
-
 <%= render partial: 'page_1.html.erb' %>
 <%= render partial: 'page_2.html.erb'%>
 <%= render partial: 'done.html.erb'%>
@@ -15,9 +13,9 @@
 
   $("#start_btn_2").click(function(event){
      $("#pg_2").css('display', 'none');
-     $("#titulo").html("Social Ranking")
-     $("#aller_encompassing").css('display', 'block')
-
+     $("#titulo").html("Social Ranking");
+     $("#aller_encompassing").css('display', 'block');
+     $("#prompt").html("For the scenario set below, please assume the role of the algorithm and decide which driver should be matched with an incoming potential request ping. Please assume that the drivers are in the same general area, and that the number of customers in demand and traffic conditions in the drivers’ area have no effect on your decision. Based on the information you believe the algorithm should consider when assigning drivers to request pings, please choose which driver the algorithm should assign the request ping to. The information about each driver below are features you previously chose that are applicable to these sets of scenarios.")
  });
 </script>
 
@@ -25,11 +23,20 @@
 
 
 <div id = "aller_encompassing" style = "display:none;">
-<h3 id = "titulo" style = "color:#3d6ab1;font-weight:bold;margin-left:15%;"> Individual Preference </h3>
-<h6 id = "counter" style = "float:right;margin-top:-4%;margin-right:4%;font-size:2em;font-weight:lighter;color:grey;"> 1/25 </h6>
-<hr style = "color: white;border-width: 1px;overflow:visible;width: 100%;"/>
+<h3 id = "titulo" style = "color:#3d6ab1;font-weight:bold;margin-left:15%;"> Personal Preference </h3>
+<h6 id = "counter" style = "float:right;margin-top:-4%;margin-right:4%;font-size:2em;font-weight:lighter;color:grey;">
+1/<%= @num_pairs %>
+</h6>
+<hr style="color: white;border-width: 1px;overflow:visible;width: 100%;"/>
 <br/>
-<p style = "margin-left:15%;color:black;width:70%;font-size:1.5em;line-height:22pt;font-weight:normal;" >For the first sets of scenarios, we will give you two different requests. Please judge the requests and decide which request you would prefer the A1 to match you with by selecting one of the buttons below. For these sets of scenarios, please assume that the number of customers in demand and traffic conditions have no effect on your decision.</p>
+<p id="prompt" style="margin-left:15%;color:black;width:70%;font-size:1.5em;line-height:22pt;font-weight:normal;">
+  For the scenario set below, please assume that you have your app open and the algorithm notifies
+  you of two potential requests in your area. Please assume that the number of customers in demand
+  and traffic conditions in your area have no effect on your decision. Based on the information you
+  believe the algorithm should consider when assigning requests to drivers, please choose which customer
+  you would prefer the algorithm to match you with. The information about each request below are features
+  you previously chose that are applicable to these sets of scenarios.
+</p>
 <br/> <br/>
 
 <div id = "all_encompassing" class = "0">
@@ -45,7 +52,7 @@
       <div class="card ">
         <div class="card-content">
           <h5 style = "color:#3d6ab1"> Scenario A </h5>
-          <% if counter_1 < 25 %>
+          <% if counter_1 < @num_pairs %>
             <% counter = 0 %>
             <% @feats.size.times do %>
              <%  puts @feats.map{|n| n.category}.inspect %>
@@ -77,7 +84,7 @@
       <div class="card">
         <div class="card-content">
           <h5 style = "color:#3d6ab1"> Scenario B </h5>
-          <% if counter_1 < 25 %>
+          <% if counter_1 < @num_pairs %>
             <% counter = 0 %>
             <% @feats.size.times do %>
                 <p style = "font-weight:bold;font-size:1.35em;">  <%= Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]] %> </p> <br/>
@@ -114,7 +121,9 @@
            <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" />
            <span>Neither</span>
          </label> <br/> <br/>
-         <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —" required> <br> <br>
+
+         <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —"> <br> <br>
+         <p id = "error_r-<%= pc.id %>" style = "margin-left:-27%;color:red;margin-top:-1%;display:none"> Reason cannot be blank </p>
 
  </form>
 
@@ -125,7 +134,11 @@
 </div>
 
 <br><br> <br>
-<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" onclick="validate_next();"> Next Scenario </a>
+
+<%# TODO disable this if nothing inputted %>
+<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
+Next Scenario
+</a>
 <br><br><br>
 <br><br><br><br>
 <script type="text/javascript">
@@ -141,7 +154,17 @@
 </script>
 </div>
 
-  <% @pairwise_comparisons.each do |pc| %>
+<% @pairwise_comparisons.each do |pc| %>
+  <%# on page load should set all to unchecked %>
+  <script type='text/javascript'>
+     $("#<%= pc.id%>-A").prop('checked', false);
+     $("#<%= pc.id%>-B").prop('checked', false);
+     $("#<%= pc.id%>-N").prop('checked', false);
+     $("#reason-<%= pc.id%>").prop('disabled', true);
+  </script>
+<% end %>
+
+<% @pairwise_comparisons.each do |pc| %>
   <script type="text/javascript">
 
     function post_choice (choice, i) {
@@ -158,31 +181,37 @@
     }
 
      $("#<%= pc.id%>-A").click(function(event){
+        console.log("i hate rails")
         $("#<%= pc.id%>-A").prop('checked', true)
         $("#<%= pc.id%>-B").prop('checked', false)
         $("#<%= pc.id%>-N").prop('checked', false)
+        $("#reason-<%= pc.id%>").prop('disabled', false);
         post_choice(1, parseInt(<%= pc.id%>))
       });
     $("#<%= pc.id%>-B").click(function(event){
-       $("#<%= pc.id%>-B").prop('checked', true)
-       $("#<%= pc.id%>-A").prop('checked', false)
-       $("#<%= pc.id%>-N").prop('checked', false)
-       post_choice(2, parseInt(<%= pc.id%>))
+        $("#<%= pc.id%>-A").prop('checked', false)
+        $("#<%= pc.id%>-B").prop('checked', true)
+        $("#<%= pc.id%>-N").prop('checked', false)
+        $("#reason-<%= pc.id%>").prop('disabled', false);
+        post_choice(2, parseInt(<%= pc.id%>))
      });
 
      $("#<%= pc.id%>-N").click(function(event){
-      $("#<%= pc.id%>-N").prop('checked', true)
-      $("#<%= pc.id%>-A").prop('checked', false)
-      $("#<%= pc.id%>-B").prop('checked', false)
-      post_choice('nil', parseInt(<%= pc.id%>))
+        $("#<%= pc.id%>-A").prop('checked', false)
+        $("#<%= pc.id%>-B").prop('checked', false)
+        $("#<%= pc.id%>-N").prop('checked', true)
+        $("#reason-<%= pc.id%>").prop('disabled', false);
+        post_choice('nil', parseInt(<%= pc.id%>))
      });
   </script>
-  <% end %>
-
-
+<% end %>
 
 
   <script type="text/javascript">
+    var num_pairs = <%= @num_pairs %>;
+    function isWhitespaceOrEmpty(text) {
+      return !/[^\s]/.test(text);
+    }
 
     let first  = parseInt($("#all_encompassing").children().first()[0].className.match(/\d+/)[0])
     $('.container-' + `${first}`).css('display', 'block')
@@ -193,6 +222,13 @@
       first  = parseInt(<%= @pairwise_comparisons.first.id %>)
       prev =   parseInt($("#all_encompassing")[0].className)
       reason =   "because... " + ($(`#reason-${first+prev}`)[0]).value
+      if ( isWhitespaceOrEmpty(($(`#reason-${first+prev}`)[0]).value)) {
+        $(`#error_r-${first+prev}`).css('display', 'block')
+        return -1;
+      }
+      else {
+          $(`#error_r-${first+prev}`).css('display', 'none')
+      }
       $.ajax({
         url: `/pairwise_comparisons/${first+prev}?reason=`+reason,
         type: "patch",
@@ -204,13 +240,13 @@
         }
       });
 
-      if (prev == 49)
+      if (prev == 2*num_pairs - 1)
       {
         $("#aller_encompassing").css('display', 'none')
         $("#pg_3").css('display', 'block');
         return -1;
       }
-      if (prev == 24)
+      if (prev == num_pairs - 1)
       {
         $("#aller_encompassing").css('display', 'none')
         $("#pg_2").css('display', 'block');
@@ -221,7 +257,7 @@
       $('.f-' + `${first+prev}`).css('display', 'none')
       $('.container-' + `${first+prev+1}`).css('display', 'block')
       $('.f-' + `${first+prev+1}`).css('display', 'block')
-      $("#counter").html(`${((prev+1)%25)+1}/25`)
+      $("#counter").html(`${((prev+1)%(num_pairs))+1}/${num_pairs}`)
 
     });
 
@@ -244,10 +280,6 @@
     [type="radio"]:checked + span:after,
     [type="radio"].with-gap:checked + span:after {
      background-color: #000000;
-    }
-
-    .dogs {
-      display:inline;
     }
 
   </style>

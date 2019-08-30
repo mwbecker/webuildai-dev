@@ -18,6 +18,7 @@ class AboutsController < ApplicationController
     @about.deactivated = params[:deactivated]
     @about.pending = params[:pending]
     @about.satisified = params[:satisified]
+    session[:about] = true
     @about.save!
   end
 

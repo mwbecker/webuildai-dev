@@ -2,13 +2,16 @@ require 'set'
 class PairwiseComparisonsController < ApplicationController
   before_action :set_pairwise_comparison, only: [:show, :edit, :update, :destroy]
   before_action :check_login
+
+  NUM_PAIRS =  Rails.env.development? ? 1 : 25
   # GET /pairwise_comparisons
   # GET /pairwise_comparisons.json
   def index
     @pairwise_comparisons  = Array.new
-    feats = Feature.request.active.for_user(current_user.id)
+    feats = Feature.personal.request.active.added_by(current_user.id).for_user(current_user.id)
     @feats = feats
     @scenarios = Array.new
+    @num_pairs = NUM_PAIRS
     15.times do
       three_feats = feats.sample(feats.size)
 
@@ -26,7 +29,7 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
     counter = 0
-    while counter < 25
+    while counter < NUM_PAIRS
       group_num = Scenario.all.last.group_id
       tote = @scenarios.size / feats.size
       start = group_num - tote
@@ -42,7 +45,7 @@ class PairwiseComparisonsController < ApplicationController
 
 
     @pairwise_comparisons_1  = Array.new
-    @feats_1 = Feature.driver.active.for_user(current_user.id)
+    @feats_1 = Feature.driver.active.personal.added_by(current_user.id).for_user(current_user.id)
     @scenarios_1 = Array.new
     feats = @feats_1
     15.times do
@@ -62,7 +65,7 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
     counter = 0
-    while counter < 25
+    while counter < NUM_PAIRS
       group_num = Scenario.all.last.group_id
       tote = @scenarios_1.size / feats.size
       start = group_num - tote
@@ -88,8 +91,15 @@ class PairwiseComparisonsController < ApplicationController
   # GET /pairwise_comparisons/new
   def new
     @pairwise_comparison = PairwiseComparison.new
-    @features_all = Feature.all.active.order(:description)
-    @survey_complete = !current_user.abouts.empty?
+    @features_all = Feature.all.active.personal.added_by(current_user.id).order(:description)
+    @survey_complete = false
+
+  end
+
+  def new_how
+    @pairwise_comparison = PairwiseComparison.new
+    @features_all = Feature.all.active.added_by(current_user.id).order(:description)
+    @survey_complete = false
 
   end
 
