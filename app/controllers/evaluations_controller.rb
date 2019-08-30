@@ -54,7 +54,7 @@ class EvaluationsController < ApplicationController
     #return JSON.parse(comparisons.to_json(:except => :participant_id))
   end
 
-  def write_comparisons_file(comparisons)
+  def write_comparisons_file(comparisons, prefix)
     result = Hash.new
     result[:part_id] = current_user.id
     result[:comparisons] = retrieve_choices(comparisons)
@@ -63,7 +63,7 @@ class EvaluationsController < ApplicationController
     # puts(result_hash)
     begin_path = Rails.root.join("config/output_storage")
     path_name = Rails.root.join("#{begin_path}/#{@participant_id}")
-    file_name = "#{current_user.id}-#{DateTime.now}.json"
+    file_name = "#{prefix}-#{current_user.id}-#{DateTime.now}.json"
 
     if !File.directory? begin_path
       Dir.mkdir begin_path
@@ -84,14 +84,23 @@ class EvaluationsController < ApplicationController
 
   def new
     # this should be optimized later
-    recent_scenarios = PairwiseComparison.where(participant_id: current_user.id).last(NUM_PAIRS)
+    recent_scenarios = PairwiseComparison.where(participant_id: current_user.id).last(2*NUM_PAIRS)
+    half = recent_scenarios.length / 2
 
-    full_path = write_comparisons_file(recent_scenarios)
+    full_path = write_comparisons_file(recent_scenarios[0..half], "individual")
     i = full_path.index("config")
     path = full_path[i..full_path.length]
     # this executes whatever's in the tics as a shell process, result = stdout
-    result = `python ./model_folder/single_experiment.py -file ./#{path}`
-    puts result
+    @individual_weights = `python ./model_folder/single_experiment.py -file ./#{path}`
+    puts @individual_weights
+
+
+    full_path = write_comparisons_file(recent_scenarios[half..recent_scenarios.length], "social")
+    i = full_path.index("config")
+    path = full_path[i..full_path.length]
+    # this executes whatever's in the tics as a shell process, result = stdout
+    @social_weights = `python ./model_folder/single_experiment.py -file ./#{path}`
+    puts @social_weights
   end
 
   def index
