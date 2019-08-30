@@ -6,5 +6,6 @@ web platfrom for the WeBuildAi
 bundle install
 rake db:create
 rails db:migrate
+rails db:seed
 rails server
 ```
