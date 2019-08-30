@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 import numpy as np
 from sys import exit
+import scipy
 import scipy.stats
 import itertools
 from math import sqrt

@@ -91,7 +91,7 @@ class EvaluationsController < ApplicationController
     i = full_path.index("config")
     path = full_path[i..full_path.length]
     # this executes whatever's in the tics as a shell process, result = stdout
-    @individual_weights = `python ./model_folder/single_experiment.py -file ./#{path}`
+    @individual_weights = `python3 ./model_folder/single_experiment.py -file ./#{path}`
     puts @individual_weights
 
 
