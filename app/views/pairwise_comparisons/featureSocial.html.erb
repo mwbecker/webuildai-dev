@@ -1,0 +1,315 @@
+<!-- The Modal -->
+<div id="myModal_how" class="modal">
+ <!-- Modal content -->
+ <div class="modal-content" style="padding-top: 34px !important;">
+   <span class="close">&times;</span>
+   <%= render partial: 'categorical_company_add.html.erb' %>
+   <%= render partial: 'continuous_company_add.html.erb' %>
+
+   <div id = "modal_cont">
+   <h4 style = "color:#3d6ab1;font-weight:bold"> Add Your Own Feature</h4>
+   <br>
+   <hr style="margin-left: -24px; margin-right: -24px">
+   <br>
+   <p style = "font-weight:bold;font-size:1.25em;" > Categorical features are qualitative.</p>  <p style = "font-size:1.25em;">Examples
+    include gender, race, and neighborhood. </p>
+
+<p style = "font-weight:bold;font-size:1.25em;">Continuous features are quantitative. </p> <p style = "font-size:1.25em;"> Examples
+include income level, the length of a part of a day, and
+the time a payment is issued. </p> <br / >
+<p style = "font-size:1.25em;"> Is your feature categorical or continuous? </p>
+
+<form action="#" class = "add_form">
+     <label style = "display:inline;margin-right:5%;">
+       <input id = "cat" class="with-gap" name="group3" type="radio" checked />
+       <span style = "color:black;font-size:1.3em;">Categorical</span>
+     </label> <br/> <br/>
+      <label style = "display:inline;margin-right:5%;">
+        <input id = "con" class="with-gap" name="group3" type="radio" checked />
+        <span style = "color:black;font-size:1.3em;">Continuous</span>
+      </label>
+</form>
+<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-top:5%;margin-left:63%;width:20.5%;padding-top:0.7%;padding-bottom:5%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> NEXT </a>
+</div>
+ </div>
+</div>
+
+<style>
+  [type="radio"]:checked + span:after,
+  [type="radio"].with-gap:checked + span:before,
+  [type="radio"].with-gap:checked + span:after {
+   border: 2px solid #000000;
+  }
+  [type="radio"]:checked + span:after,
+  [type="radio"].with-gap:checked + span:after {
+   background-color: #000000;
+  }
+</style>
+
+<%= render partial: 'about.html.erb' %>
+
+<script type="text/javascript">
+
+
+  $("#about_next_btn").click(function(event) {
+     $(".contain_1").css('display', 'none');
+     $(".contain").css('display', 'block');
+    });
+
+</script>
+
+<div class = "contain" style = "display:none">
+<h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Social Feature Selection</h1> <p style ="font-weight:lighter;font-size:2.3em;color:#3d6ab1;display:inline;float:right;margin-top:-3%;margin-right:10%;"> About Survey Completed </p>
+<hr id = "hhr">
+<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" >
+  Whenever you open your company’s app and start driving, an in-app algorithm works to match
+  you with potential customers in your given area. This algorithm has two main goals:
+</p>
+<ul style = "margin-left:10%;color:black;width:80%;" >
+  <li class='bullet'>
+    - Provide rides/deliveries to customers when needed
+  </li>
+  <li class="bullet">
+    - Maximizing drivers’ amounts of trips on the system to maximize drivers’ earnings
+  </li>
+</ul>
+<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" >
+ The boxes below contain features we believe your company’s algorithm
+ uses to match drivers with incoming requests. Based on your experiences
+ driving for your company, <b>please select any features that you believe your
+ company’s algorithm currently considers when matching drivers with requests.</b>
+ For your selected features, please use the sliders on the right to determine
+ how much importance you believe the algorithm places on each factor. If there
+ are features not listed below that you think the algorithm uses, please
+ add your own at the bottom of the page.
+ Please assign the level of importance to these additional features.
+</p>
+<table class = "striped highlight" id = "feat" style = "color: #515151;margin-left:10%;margin-right:5%;width:80%;">
+    <thead>
+     <th>  </th>
+     <th> </th>
+    </thead>
+<% a = get_ranges_ai %>
+<% b = get_ranges_ai_2 %>
+<% counter = "" %>
+<% @features_all.each do |f| %>
+<tr>
+
+  <td>
+    <% if  counter  == "" || f.description != counter %>
+    <h5 style = "font-weight:bold;color:black;"> <%= f.description %> </h5>
+    <% end %>
+    <div class="row">
+      <div class="card ">
+        <div class="card-content">
+          <%=f.name %>
+
+          <form id = "range_form" action="#">
+           <p class="range-field">
+             Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
+             <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" onchange="updateTextInput(this.value, this.id);" />
+           </p>
+          </form>
+          </div>
+        </div>
+      </div>
+    </td>
+    <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
+    <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
+    <% end %>
+   </tr>
+   <% counter = f.description %>
+<% end %>
+</table>
+
+
+<br> <br>
+
+
+
+   <a id = "add" class="btn-floating btn-large waves-effect waves-light" style = "z-index:0;background-color:#3d6ab1;margin-left:10%;"><i class="material-icons">add</i></a> <p style = "font-weight:bold;font-size:1.25em;display:inline;margin-left:1%;"> Add Feature </p>
+   <a class="waves-effect waves-dark btn" id = "submit_btn" style = "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Submit </a>
+
+
+</div>
+
+   <style>
+      /* The Modal (background) */
+      .modal {
+       display: none; /* Hidden by default */
+       position: fixed; /* Stay in place */
+       z-index: 1; /* Sit on top */
+       padding-top: 100px; /* Location of the box */
+       padding-bottom: 80vh;
+       left: 0;
+       top: 0;
+       width: 100%; /* Full width */
+       height: 100vh; /* Full height */
+       max-height: calc(100vh - 210px);
+       overflow-y: auto;
+       background-color: rgb(0,0,0); /* Fallback color */
+       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+      /* Modal Content */
+      .modal-content {
+       background-color: #fefefe;
+       margin: auto;
+       padding: 0px;
+       border: 1px solid #888;
+       width: 60%;
+      }
+      /* The Close Button */
+      .close {
+       color: #aaaaaa;
+       float: right;
+       font-size: 28px;
+       font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+       color: #000;
+       text-decoration: none;
+       cursor: pointer;
+      }
+      .bullet {
+        font-size: 1.5em;
+        line-height: 17pt;
+        font-weight: normal;
+        padding-left: 10px;
+      }
+      strong {
+        font-weight: bold;
+        font-family: verdana;
+      }
+</style>
+ <br> <br> <br> <br><br> <br> <br> <br><br> <br> <br> <br>
+
+<style>
+  input[type=range]::-webkit-slider-thumb {
+   background-color: #3d6ab1;
+ }
+
+ input[type="range"]::-moz-range-thumb {
+   background-color: #3d6ab1;
+}
+
+.row
+{
+  margin-bottom: -3%;
+}
+</style>
+
+
+
+<script type="text/javascript">
+
+  if ( <%= session[:about] %> == true) {
+    console.log( <%= raw @survey_complete %>)
+    $(".contain_1").css('display', 'none');
+    $(".contain").css('display', 'block');
+  }
+
+ function updateTextInput(val, f) {
+         id = Math.abs(parseInt(f.slice(f.length-2, f.length)))
+         str = 'textInput' + '-' + id
+         console.log(str)
+         a = parseInt(val);
+         b_a = a
+         a = Math.floor(a / 10)
+         a = a.toString();
+         a = "0." + a
+         if ( parseInt(val) == 0) {a = 0}
+         if ( parseInt(val) > 0 && (Math.floor(parseInt(val)/10) == 0)) {a= "0.1"}
+         if ( Math.floor(parseInt(val)/10) == 10) {a = 1}
+
+         document.getElementById(str).value=a;
+         post_weights(parseInt(<%= current_user.id %>), id, b_a);
+
+       }
+
+  function post_weights(user, feature, weight)
+  {
+    console.log(feature)
+
+    $.ajax({
+      url: "/new_how_ai?participant_id="+user+"&feature_id="+feature+"&weight="+weight+"&method="+'how_ai',
+      type: "post",
+      success: function(){
+        console.log('Saved Successfully');
+        //window.location.href = "/pairwise_comparisons"
+      },
+      error:function($xhr){
+        console.log($xhr);
+      }
+    });
+    console.log("made it")
+  }
+
+
+
+  function change_to_pw () {
+    window.location.href = "/pairwise_comparisons"
+  }
+
+  $("#submit_btn").click(function(event){
+    //gather_and_submit_weights();
+    change_to_pw();
+  });
+
+
+  var modal = document.getElementById("myModal_how");
+  // Get the button that opens the modal
+  var btn = document.getElementById("add");
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  // When the user clicks the button, open the modal
+  btn.onclick = function() {
+   modal.style.display = "block";
+   $("#modal_cont").css('display', 'block')
+  }
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+   modal.style.display = "none";
+   $("#con_con").css('display', 'none')
+   $("#cat_con").css('display', 'none')
+
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      $("#con_con").css('display', 'none');
+      $("#cat_con").css('display', 'none');
+   }
+  }
+
+  $("#next_btn").click(function(event){
+    if ($("#cat")[0].checked == true)
+    {
+      $("#modal_cont").css('display', 'none')
+      $("#cat_con").css('display', 'block')
+    }
+    else  if  ($("#con")[0].checked == true) {
+       $("#modal_cont").css('display', 'none')
+       $("#con_con").css('display', 'block')
+    }
+});
+</script>
+
+<% @features_all.each do |fo| %>
+<script type="text/javascript">
+    $("#yof-<%=fo.id%>").click(function(event){
+      $.ajax({
+        url: "/features/<%=fo.id%>",
+        type: "patch",
+        success: function(){
+          console.log('Saved Successfully');
+          location.reload()
+        },
+        error:function($xhr){
+          console.log($xhr);
+        }
+        });
+      });
+</script>
+<% end %>
