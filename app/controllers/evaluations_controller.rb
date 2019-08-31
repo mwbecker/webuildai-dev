@@ -20,6 +20,15 @@ class EvaluationsController < ApplicationController
         scenario_a_hash[:feat_category] = 0 # IMPORTANT: WAIT FOR MICHAEL TO DO THIS.
         scenario_a_hash[:feat_value] = s[1]
         scenario_a_hash[:feat_type] = given_feature.data_range.is_categorical ? "categorical" : "continuous"
+        all_possible_values = Array.new
+        dr = given_feature.data_range # data_range id for given feature
+        if dr.is_categorical
+          dr.categorical_data_options.each do |c|
+            all_possible_values << c.option_value
+          end
+          scenario_a_hash[:possible_values] = all_possible_values
+        end
+        
         scenario_a_hash[:feat_min] = given_feature.data_range.lower_bound
         scenario_a_hash[:feat_max] = given_feature.data_range.upper_bound
         scenario_a_list << scenario_a_hash
@@ -39,6 +48,14 @@ class EvaluationsController < ApplicationController
         scenario_b_hash[:feat_category] = 0 # IMPORTANT: WAIT FOR MICHAEL TO DO THIS.
         scenario_b_hash[:feat_value] = s[1]
         scenario_b_hash[:feat_type] = given_feature.data_range.is_categorical ? "categorical" : "continuous"
+        all_possible_values = Array.new
+        dr = given_feature.data_range # data_range id for given feature
+        if dr.is_categorical
+          dr.categorical_data_options.each do |c|
+            all_possible_values << c.option_value
+          end
+          scenario_b_hash[:possible_values] = all_possible_values
+        end
         scenario_b_hash[:feat_min] = given_feature.data_range.lower_bound
         scenario_b_hash[:feat_max] = given_feature.data_range.upper_bound
         scenario_b_list << scenario_b_hash
