@@ -110,7 +110,9 @@ the time a payment is issued. </p> <br / >
         </div>
       </div>
     </td>
-
+    <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
+      <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
+    <% end %>
    </tr>
    <% counter = f.description %>
 <% end %>
@@ -307,3 +309,21 @@ the time a payment is issued. </p> <br / >
     }
 });
 </script>
+
+<% @features_all.each do |fo| %>
+<script type="text/javascript">
+    $("#yof-<%=fo.id%>").click(function(event){
+      $.ajax({
+        url: "/features/<%=fo.id%>",
+        type: "patch",
+        success: function(){
+          console.log('Saved Successfully');
+          location.reload()
+        },
+        error:function($xhr){
+          console.log($xhr);
+        }
+        });
+      });
+</script>
+<% end %>
