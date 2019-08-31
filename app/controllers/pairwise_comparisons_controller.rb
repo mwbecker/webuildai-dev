@@ -8,7 +8,7 @@ class PairwiseComparisonsController < ApplicationController
   # GET /pairwise_comparisons.json
   def index
     @pairwise_comparisons  = Array.new
-    feats = Feature.personal.request.active.added_by(current_user.id).for_user(current_user.id)
+    feats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
     @feats = feats
     @scenarios = Array.new
     @num_pairs = NUM_PAIRS
@@ -68,7 +68,7 @@ class PairwiseComparisonsController < ApplicationController
 
   def index_driver
     @pairwise_comparisons_1  = Array.new
-    @feats_1 = Feature.driver.active.personal.added_by(current_user.id).for_user(current_user.id)
+    @feats_1 = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
     @scenarios_1 = Array.new
     @num_pairs = NUM_PAIRS
 
