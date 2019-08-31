@@ -1,0 +1,994 @@
+{
+  "part_id": 2,
+  "comparisons": [
+    {
+      "scenario_1": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "1",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "9",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "15",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "5",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": 1
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "17",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "9",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": 2
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "9",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Apple",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "6",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "5",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "0",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "11",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "20",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": 1
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "16",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "18",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": 2
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "0",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "2",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": 1
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "8",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Apple",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "3",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": 2
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "11",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "21",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "20",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "7",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "5",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Apple",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "2",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Apple",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "7",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "1",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Apple",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "22",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "21",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "13",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "21",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "5",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "3",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "4",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "9",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "11",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "17",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "11",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "22",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "5",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Apple",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "9",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "6",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Orange",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "6",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Apple",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "choice": null
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "2",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "19",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": 2
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "23",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 3,
+          "feat_name": "C",
+          "feat_category": 0,
+          "feat_value": "9",
+          "feat_type": "continuous",
+          "feat_min": 1.0,
+          "feat_max": 25.0
+        }
+      ],
+      "choice": 1
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "5",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "6",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        },
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        }
+      ],
+      "choice": 2
+    },
+    {
+      "scenario_1": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "7",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 1,
+          "feat_name": "A",
+          "feat_category": 0,
+          "feat_value": "Bannana",
+          "feat_type": "categorical",
+          "possible_values": [
+            "Apple",
+            "Bannana",
+            "Orange"
+          ],
+          "feat_min": null,
+          "feat_max": null
+        },
+        {
+          "feat_id": 2,
+          "feat_name": "B",
+          "feat_category": 0,
+          "feat_value": "2",
+          "feat_type": "continuous",
+          "feat_min": 0.0,
+          "feat_max": 10.0
+        }
+      ],
+      "choice": 1
+    }
+  ]
+}
