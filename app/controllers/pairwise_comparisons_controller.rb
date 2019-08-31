@@ -59,7 +59,7 @@ class PairwiseComparisonsController < ApplicationController
       ind1s = Scenario.where(group_id: group_ind_1)
       ind2s = Scenario.where(group_id: group_ind_2)
       if ((ind1s != ind2s) && ind1s.map{|n| n.feature_id}.to_set == ind2s.map{|n| n.feature_id}.to_set)
-        @pairwise_comparisons << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2)
+        @pairwise_comparisons << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: "request")
         counter += 1
       end
     end
@@ -99,7 +99,7 @@ class PairwiseComparisonsController < ApplicationController
       ind1s = Scenario.where(group_id: group_ind_1)
       ind2s = Scenario.where(group_id: group_ind_2)
       if ((ind1s != ind2s) && ind1s.map{|n| n.feature_id}.to_set == ind2s.map{|n| n.feature_id}.to_set)
-        @pairwise_comparisons_1 << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2)
+        @pairwise_comparisons_1 << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: "driver")
         counter += 1
       end
     end

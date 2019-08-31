@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_30_162151) do
+ActiveRecord::Schema.define(version: 2019_08_31_002410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_162151) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "reason"
+    t.string "category"
     t.index ["participant_id"], name: "index_pairwise_comparisons_on_participant_id"
   end
 
