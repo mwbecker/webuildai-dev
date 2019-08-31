@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post 'new_how', to: 'pairwise_comparisons#new_how', as: :new_how
   post 'store_info', to: 'evaluations#store_info', as: :store_info
 
+  post 'index_driver', to: 'pairwise_comparisons#index_driver', as: :index_driver
+
   root :to => "pairwise_comparisons#new"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

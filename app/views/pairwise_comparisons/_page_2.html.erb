@@ -25,22 +25,10 @@
 
 <br> <br>
 
-<p style = "margin-left:10%;font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
 
-<% counter_p2 = 0 %>
-<div style = "margin-left:10%;width:80%" class= "box">
-  <br>
-  <% while counter_p2 < @feats_1.size %>
-    <div style = "width:50%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats_1[counter_p2].name %>  </p></div> <br/>  <br/>
-    <% if counter_p2 + 1 < @feats_1.size %>
-      <div style = "width:50%;float:right;margin-top:-3%"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats_1[counter_p2+1].name %> </p></div>
-    <% end %>
-    <% counter_p2 += 2 %>
-  <% end %>
-  </div>
   <br/>
 
-<a class="waves-effect waves-dark btn" id = "start_btn_2" style = "float:right;width:12.5%;padding-top:0.7%;padding-bottom:4%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Start </a>
+<%= link_to 'NEXT', new_how_path, method: :post, :class => "waves-effect waves-dark btn", :style => "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;" %>
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </div>

@@ -21,6 +21,27 @@ class PairwiseComparisonsController < ApplicationController
         last_id = 1
       end
       three_feats.each do |f|
+        if f.data_range == nil
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+     end
         if f.data_range.is_categorical
           @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
         else
@@ -42,11 +63,15 @@ class PairwiseComparisonsController < ApplicationController
         counter += 1
       end
     end
+  end
 
 
+  def index_driver
     @pairwise_comparisons_1  = Array.new
     @feats_1 = Feature.driver.active.personal.added_by(current_user.id).for_user(current_user.id)
     @scenarios_1 = Array.new
+    @num_pairs = NUM_PAIRS
+
     feats = @feats_1
     15.times do
       three_feats = feats.sample(feats.size)
@@ -79,8 +104,6 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
 
-    @allpcs = @pairwise_comparisons.concat(@pairwise_comparisons_1)
-
   end
 
   # GET /pairwise_comparisons/1
@@ -91,14 +114,14 @@ class PairwiseComparisonsController < ApplicationController
   # GET /pairwise_comparisons/new
   def new
     @pairwise_comparison = PairwiseComparison.new
-    @features_all = Feature.all.active.personal.added_by(current_user.id).order(:description)
+    @features_all = Feature.all.active.added_by(current_user.id).order(:description)
     @survey_complete = false
 
   end
 
   def new_how
     @pairwise_comparison = PairwiseComparison.new
-    @features_all = Feature.all.active.company.added_by(current_user.id).order(:description)
+    @features_all = Feature.all.active.added_by(current_user.id).order(:description)
     @survey_complete = false
 
   end

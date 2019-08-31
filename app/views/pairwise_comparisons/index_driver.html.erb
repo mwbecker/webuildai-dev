@@ -1,47 +1,35 @@
 <!-- <p id="notice"><%= notice %></p> -->
 
 
-<%= render partial: 'page_1.html.erb' %>
-<%= render partial: 'page_2.html.erb'%>
+<%= render partial: 'post_driver_feat_select.html.erb'%>
 <%= render partial: 'done.html.erb'%>
 
 <script type="text/javascript">
-   $("#start_btn_1").click(function(event){
+   $("#start_btn_4").click(function(event){
       $("#pg_1").css('display', 'none');
       $("#aller_encompassing").css('display', 'block')
   });
 
-  $("#start_btn_2").click(function(event){
-     $("#pg_2").css('display', 'none');
-     $("#titulo").html("Social Ranking");
-     $("#aller_encompassing").css('display', 'block');
-     $("#prompt").html("For the scenario set below, please assume the role of the algorithm and decide which driver should be matched with an incoming potential request ping. Please assume that the drivers are in the same general area, and that the number of customers in demand and traffic conditions in the drivers’ area have no effect on your decision. Based on the information you believe the algorithm should consider when assigning drivers to request pings, please choose which driver the algorithm should assign the request ping to. The information about each driver below are features you previously chose that are applicable to these sets of scenarios.")
- });
 </script>
 
 
 
 
 <div id = "aller_encompassing" style = "display:none;">
-<h3 id = "titulo" style = "color:#3d6ab1;font-weight:bold;margin-left:15%;"> Personal Preference </h3>
+<h3 id = "titulo" style = "color:#3d6ab1;font-weight:bold;margin-left:15%;"> Social Preference </h3>
 <h6 id = "counter" style = "float:right;margin-top:-4%;margin-right:4%;font-size:2em;font-weight:lighter;color:grey;">
 1/<%= @num_pairs %>
 </h6>
 <hr style="color: white;border-width: 1px;overflow:visible;width: 100%;"/>
 <br/>
 <p id="prompt" style="margin-left:15%;color:black;width:70%;font-size:1.5em;line-height:22pt;font-weight:normal;">
-  For the scenario set below, please assume that you have your app open and the algorithm notifies
-  you of two potential requests in your area. Please assume that the number of customers in demand
-  and traffic conditions in your area have no effect on your decision. Based on the information you
-  believe the algorithm should consider when assigning requests to drivers, please choose which customer
-  you would prefer the algorithm to match you with. The information about each request below are features
-  you previously chose that are applicable to these sets of scenarios.
+For the scenario set below, please assume the role of the algorithm and decide which driver should be matched with an incoming potential request ping. Please assume that the drivers are in the same general area, and that the number of customers in demand and traffic conditions in the drivers’ area have no effect on your decision. Based on the information you believe the algorithm should consider when assigning drivers to request pings, please choose which driver the algorithm should assign the request ping to. The information about each driver below are features you previously chose that are applicable to these sets of scenarios.
 </p>
 <br/> <br/>
 
 <div id = "all_encompassing" class = "0">
 
-  <% pcs = @pairwise_comparisons %>
+  <% pcs = @pairwise_comparisons_1 %>
 <% pcs.each do |pc| %>
 
   <div class = "container-<%= pc.id %>" style = "width:70%;height:45vh;margin-left:15%;display:none" >
@@ -51,8 +39,7 @@
         <div class="card-content">
           <h5 style = "color:#3d6ab1"> Scenario A </h5>
             <% counter = 0 %>
-            <% @feats.size.times do %>
-             <%  puts @feats.map{|n| n.category}.inspect %>
+            <% @feats_1.size.times do %>
                 <p style = "font-weight:bold;font-size:1.35em;">  <%= Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]] %> </p> <br/>
                 <p style = "margin-bottom:4%;margin-top:-3.5%">  <%= Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
               <% counter += 1 %>
@@ -70,7 +57,7 @@
         <div class="card-content">
           <h5 style = "color:#3d6ab1"> Scenario B </h5>
             <% counter = 0 %>
-            <% @feats.size.times do %>
+            <% @feats_1.size.times do %>
                 <p style = "font-weight:bold;font-size:1.35em;">  <%= Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]] %> </p> <br/>
                 <p style = "margin-bottom:4%;margin-top:-3.5%">  <%= Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
               <% counter += 1 %>
@@ -125,7 +112,7 @@ Next Scenario
 </script>
 </div>
 
-<% @pairwise_comparisons.each do |pc| %>
+<% @pairwise_comparisons_1.each do |pc| %>
   <%# on page load should set all to unchecked %>
   <script type='text/javascript'>
      $("#<%= pc.id%>-A").prop('checked', false);
@@ -135,7 +122,7 @@ Next Scenario
   </script>
 <% end %>
 
-<% @pairwise_comparisons.each do |pc| %>
+<% @pairwise_comparisons_1.each do |pc| %>
   <script type="text/javascript">
 
     function post_choice (choice, i) {
@@ -190,7 +177,7 @@ Next Scenario
 
 
     $("#next_btn").click(function(event){
-      first  = parseInt(<%= @pairwise_comparisons.first.id %>)
+      first  = parseInt(<%= @pairwise_comparisons_1.first.id %>)
       prev =   parseInt($("#all_encompassing")[0].className)
       reason =   "because... " + ($(`#reason-${first+prev}`)[0]).value
       if ( isWhitespaceOrEmpty(($(`#reason-${first+prev}`)[0]).value)) {
@@ -214,7 +201,7 @@ Next Scenario
       if (prev == num_pairs - 1)
       {
         $("#aller_encompassing").css('display', 'none')
-        $("#pg_2").css('display', 'block');
+        $("#pg_3").css('display', 'block');
       }
 
       $("#all_encompassing").attr('class', prev + 1 )

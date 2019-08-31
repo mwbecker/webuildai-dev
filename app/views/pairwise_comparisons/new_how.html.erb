@@ -92,7 +92,7 @@ the time a payment is issued. </p> <br / >
 <% a = get_ranges_ai %>
 <% b = get_ranges_ai_2 %>
 <% counter = "" %>
-<% @features_all.each do |f| %>
+<% Feature.all.active.driver.added_by(current_user.id).order(:description).each do |f| %>
 <tr>
 
   <td>
@@ -128,7 +128,7 @@ the time a payment is issued. </p> <br / >
 
 
    <a id = "add" class="btn-floating btn-large waves-effect waves-light" style = "z-index:0;background-color:#3d6ab1;margin-left:10%;"><i class="material-icons">add</i></a> <p style = "font-weight:bold;font-size:1.25em;display:inline;margin-left:1%;"> Add Feature </p>
-   <a class="waves-effect waves-dark btn" id = "submit_btn" style = "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Submit </a>
+   <%= link_to 'NEXT', index_driver_path, method: :post, :class => "waves-effect waves-dark btn", :style => "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;" %>
 
 
 </div>
@@ -247,14 +247,6 @@ the time a payment is issued. </p> <br / >
 
 
 
-  function change_to_pw () {
-    window.location.href = "/pairwise_comparisons"
-  }
-
-  $("#submit_btn").click(function(event){
-    //gather_and_submit_weights();
-    change_to_pw();
-  });
 
 
   var modal = document.getElementById("myModal");
