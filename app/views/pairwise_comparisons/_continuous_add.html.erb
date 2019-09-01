@@ -5,17 +5,17 @@
   <form>
 
     <!-- Feature name -->
-    <label for="feature-name-1" class="feature-label">
+    <label for="feature-name-2" class="feature-label">
       Feature Name
     </label>
-    <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name">
+    <input id="feature-name-2" type="text" name="featurename" value="" placeholder="Feature Name">
     <p id="error_1" class="error-1-style"> Feature name cannot be blank </p>
 
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
     <p>
       <label for="percentage">
-        <input id="percentage" class="with-gap" type="radio" name="range-group">
+        <input id="percentage" class="with-gap" type="radio" name="range-group5">
         <span style = "color:black; font-size:1.3em;">Percentage ( 0%~100% )
         <br>
         <span style="color: #808080;">ex. The customer pays tips to couriers 57% of the time.</span>
@@ -25,7 +25,7 @@
 
     <p>
       <label for="numerical">
-        <input id="numerical" class="with-gap" type="radio" name="range-group">
+        <input id="numerical" class="with-gap" type="radio" name="range-group5">
         <span style = "color:black; font-size:1.3em;">Numerical
         <br>
         <span style="color: #808080;">ex. Most customers are between 18 and 45 years old.</span>
@@ -50,11 +50,10 @@
     </div>
 
     <br>
-
     <p class="feature-label"> Is this information about the request, or the driver? </p>
     <p>
-      <label for="request-option">
-        <input id="request-option" class="with-gap" type="radio" name="range-groupp">
+      <label>
+        <input id="request-option" class="with-gap" type="radio" name="range-group14">
         <span style = "color:black; font-size:1.3em;">Request
           <br>
           <span style="color: #808080;">ex. Average amount of tips the customer gives.</span>
@@ -63,8 +62,8 @@
     </p>
 
     <p>
-      <label for="driver-option">
-        <input id="driver-option" class="with-gap" type="radio" name="range-groupp">
+      <label>
+        <input id="driver-option" class="with-gap" type="radio" name="range-group14">
         <span style = "color:black; font-size:1.3em;">Driver
           <br>
           <span style="color: #808080;">ex. Driver's earning today.</span>
@@ -130,25 +129,28 @@
 
   });
 
-  $('#driver-option').click(function() {
-    console.log("HERE!!");
+  // var d_option = $('#driver-option');
+  // var r_option = $('#request-option');
 
-  });
+  // d_option.click(function() {
+  //   d_option.attr('checked', 'checked');
+  //   r_option.removeAttr('checked');
+  // });
 
-  $('#request-option').click(function() {
-    console.log("HERE!!");
+  // r_option.click(function() {
+  //   r_option.attr('checked', 'checked');
+  //   d_option.removeAttr('checked');
 
-  });
+  // });
 
   $("#submit_con_btn").click(function(event) {
-    let name = $("#feature-name-1")[0].value
+    let name = $("#feature-name-2")[0].value
     if (name == "")
     {
       $("#error_1").css('display', 'block')
     }
     else {
       $("#error_1").css('display', 'none')
-
       if (document.getElementById("percentage").checked) {
         var lower = 0; var upper = 100;
       } else {
@@ -177,7 +179,6 @@
         url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options,
         type: "post",
         success: function(){
-          console.log('Saved Successfully');
           modal.style.display = "none";
           $("#con_con").css('display', 'none')
           $("#cat_con").css('display', 'none')

@@ -209,6 +209,7 @@ the time a payment is issued. </p> <br / >
         all_zero = false;
       }
     }
+    console.log("Here");
     return !all_zero;
 }
 //   if ( <%= raw session[:about] %> == true) {
@@ -261,7 +262,8 @@ the time a payment is issued. </p> <br / >
   $("#submit_btn").click(function(event){
     //gather_and_submit_weights();
     if (validate_inputs()) {
-      change_to_pw();
+      console.log('huh');
+      // change_to_pw();
     } else {
       alert("At least one input must have a weight.");
     }

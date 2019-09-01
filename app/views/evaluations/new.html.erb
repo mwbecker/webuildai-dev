@@ -5,3 +5,41 @@
 <%= @individual_weights %>
 <p>Social</p>
 <%= @social_weights %>
+
+<div class="row">
+ <div class = "login-b2">
+   <h4 style = "color:white;"> Thank you for your<br> participation in our study!</h4>
+   <p style = "color:white;">We really appreciate your help with our research on algorithms. Your answers and decisions from this study will be used to help train our own matching algorithm that mirrors the real-world systems used by companies like Uber, Lyft, and Postmates. Let us thank you properly—
+please enter your email in the box to the right to receive a $13 gift card of your choosing.<br><br>
+If you have any questions or issues with the online study, please
+contact rhlee@andrew.cmu.edu.</p>
+   <br> <br> <br><br> <br> <br><br> <br>  <br> <br> <br><br> <br> <br><br> <br> <br><br>
+ </div>
+</div>
+
+<div class="row">
+ <div class = "login-b1">
+   <div>
+     <div>
+       <span>Email</span>
+         <br /> <br /> <br /> <hr id = 'hhr'> <br />
+         <%= form_with url: sessions_path, local: true do |f| %>
+         <div class="control-group-id">
+           <%= f.label :email, 'Email' %>
+           <div class="controls">
+             <%= f.text_field :id, placeholder: "Email" %>
+           </div>
+         </div>
+         <br/>
+         <div class="control-group-password">
+           <%= f.label :name %>
+           <div class="controls">
+             <%= f.text_field :name, placeholder: "Name" %>
+           </div>
+         </div>
+         <div class="actions-login"><%= f.submit "Submit" %></div>
+       <% end %>
+     </div>
+   </div>
+ </div>
+</div>
