@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :abouts
   resources :evaluations
 
+  get 'ranked_list/ranked_list'
   get 'users/new', to: 'users#new', as: :signup
   get 'user/edit', to: 'users#edit', as: :edit_current_user
   get 'login', to: 'sessions#new', as: :login

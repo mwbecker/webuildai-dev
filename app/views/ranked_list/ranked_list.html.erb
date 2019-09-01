@@ -1,0 +1,14 @@
+<% rankedListExamples = @rankedListExamples %>
+
+<% selectedFeats = @selectedFeats %>
+
+<% rankedListExamples.each do |rl| %>
+
+    <div class="card ">
+      <div class="card-content">
+        <h5 style = "color:#3d6ab1"> Scenario </h5>
+        <%= Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h %>
+      </div>
+    </div>
+
+<% end %>
