@@ -101,7 +101,7 @@ class EvaluationsController < ApplicationController
 
   def new
     # this should be optimized later
-    recent_scenarios = PairwiseComparison.where(participant_id: current_user.id).last(2*NUM_PAIRS)
+    recent_scenarios = PairwiseComparison.chronological.where(participant_id: current_user.id).last(2*NUM_PAIRS)
     half = recent_scenarios.length / 2
 
     full_path = write_comparisons_file(recent_scenarios[0..half], "individual")
