@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'store_info', to: 'evaluations#store_info', as: :store_info
 
   post 'index_driver', to: 'pairwise_comparisons#index_driver', as: :index_driver
+  post 'ranked_list', to: 'pairwise_comparisons#ranked_list', as: :ranked_list
 
   root :to => "pairwise_comparisons#new"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
