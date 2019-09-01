@@ -12,6 +12,16 @@
     <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name" style="width: 90%;">
      <p id="error_1_1" class="error-1-style"> Feature name cannot be blank </p>
 
+
+         <% if current_user.role == 'admin' %>
+            <br> <br>
+            <label for = "cat_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
+            <input id = "cat_category" type="text" name="featurename" value="" placeholder="Category Name">
+          <% else %>
+            <label for = "cat_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
+            <input id = "cat_category" type="text" name="featurename" value="" placeholder="Category Name" style = "display:none">
+          <% end %>
+
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
     <p>
@@ -96,7 +106,8 @@
 </div>
 
 <script type="text/javascript">
-
+  $('.with-gap').removeAttr('checked');
+  // Refresh the jQuery UI buttonset.
   // Add event listeners for the default options for the freeform option
   document.getElementById("c-1").addEventListener("click", function(event) {
     var option_id = "option-1";
@@ -158,6 +169,9 @@
 
   $("#submit_cat_btn").click(function(event) {
     let name = $("#feature-name-1")[0].value
+    let cati = $("#cat_category")[0].value
+
+
     if (name == "")
     {
       $("#error_1_1").css('display', 'block')
@@ -165,7 +179,7 @@
       let last_opt = parseInt(freeform_options[0].getAttribute("count")) + 1;
       for (let i = 0; i < last_opt; i++)
       {
-        if (($("#opt-"+(i+1))[0]).value == "")
+        if (($("#opt-"+(i+1))[0]).value == "" && ($("#freeform-option")[0].checked == true))
         {   $(`#error_2_${(i+1)}`).css('display', 'block') }
         else {  $(`#error_2_${(i+1)}`).css('display', 'none')}
       }
@@ -175,13 +189,16 @@
     let last_opt = parseInt(freeform_options[0].getAttribute("count")) + 1;
     for (let i = 0; i < last_opt-1; i++)
     {
-      if (($("#opt-"+(i+1))[0]).value == "")
+      if (($("#opt-"+(i+1))[0]).value == "" && ($("#freeform-option")[0].checked == true))
       {   $(`#error_2_${(i+1)}`).css('display', 'block');
         return -1; }
       else {  $(`#error_2_${(i+1)}`).css('display', 'none')}
     }
 
       $("#error_1_1").css('display', 'none');
+      var categor;
+            if (($("#request-option")[0]).checked){categor="request"}
+            else {categor="driver"}
 
       if (document.getElementById("tier-option").checked) {
         var options = "High*Low*Mid";
@@ -214,7 +231,8 @@
       let upper = 0;
       let lower = 0;
       $.ajax({
-        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options,
+        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options + "&category=" + categor + "&description="+cati,
+        type: "post",
         type: "post",
         success: function(){
           console.log('Saved Successfully');

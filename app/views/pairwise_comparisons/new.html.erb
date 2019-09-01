@@ -88,7 +88,7 @@ the time a payment is issued. </p> <br / >
 <% a = get_ranges %>
 <% b = get_ranges_2 %>
 <% counter = "" %>
-<% @features_all.each do |f| %>
+<% Feature.all.active.request.added_by(current_user.id).order(:description).each do |f| %>
 <tr>
 
   <td>
@@ -110,7 +110,9 @@ the time a payment is issued. </p> <br / >
         </div>
       </div>
     </td>
-
+    <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
+      <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
+    <% end %>
    </tr>
    <% counter = f.description %>
 <% end %>
@@ -120,7 +122,7 @@ the time a payment is issued. </p> <br / >
 <br> <br>
 
    <a id = "add" class="btn-floating btn-large waves-effect waves-light" style = "z-index:0;background-color:#3d6ab1;margin-left:10%;"><i class="material-icons">add</i></a> <p style = "font-weight:bold;font-size:1.25em;display:inline;margin-left:1%;"> Add Feature </p>
-<%= link_to 'NEXT', new_how_path, method: :post, :class => "waves-effect waves-dark btn", :style => "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;" %>
+<%= link_to 'NEXT', pairwise_comparisons_path, method: :get, :class => "waves-effect waves-dark btn", :style => "z-index:0;margin-top:5%;margin-right:10vw;float:right;width:12.5%;padding-top:0.7%;padding-bottom:3%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;" %>
 
    <style>
       /* The Modal (background) */
@@ -309,3 +311,21 @@ the time a payment is issued. </p> <br / >
     }
 });
 </script>
+
+<% @features_all.each do |fo| %>
+<script type="text/javascript">
+    $("#yof-<%=fo.id%>").click(function(event){
+      $.ajax({
+        url: "/features/<%=fo.id%>",
+        type: "patch",
+        success: function(){
+          console.log('Saved Successfully');
+          location.reload()
+        },
+        error:function($xhr){
+          console.log($xhr);
+        }
+        });
+      });
+</script>
+<% end %>

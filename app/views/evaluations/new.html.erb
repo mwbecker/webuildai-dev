@@ -21,25 +21,42 @@ contact rhlee@andrew.cmu.edu.</p>
  <div class = "login-b1">
    <div>
      <div>
-       <span>Email</span>
+
+       <span>Your Info</span>
          <br /> <br /> <br /> <hr id = 'hhr'> <br />
-         <%= form_with url: sessions_path, local: true do |f| %>
-         <div class="control-group-id">
-           <%= f.label :email, 'Email' %>
-           <div class="controls">
-             <%= f.text_field :id, placeholder: "Email" %>
-           </div>
-         </div>
-         <br/>
-         <div class="control-group-password">
-           <%= f.label :name %>
-           <div class="controls">
-             <%= f.text_field :name, placeholder: "Name" %>
-           </div>
-         </div>
-         <div class="actions-login"><%= f.submit "Submit" %></div>
-       <% end %>
+         <form action="#" id = "about_form" style = "display:block;margin-left:10%;width:80%;">
+           <label for = "email" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Name </label>
+           <input id = "email" type="text" name="lower" value="" placeholder="" required> <br> <br>
+
+           <label for = "name" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Email </label>
+           <input id = "name" type="text" name="upper" value="" placeholder="" required> <br> <br>
+
+         </form>
+         <a class="waves-effect waves-dark btn" id = "eval_fin_btn" style = "padding-top:.5%;padding-bottom:4%;margin-top:3%;width:20%;color:#FFFFFF;display:block;float:right;background-color:#3d6ab1;font-weight:bold"> Next </a>
      </div>
    </div>
  </div>
 </div>
+
+
+
+<script type="text/javascript">
+
+  $("#eval_fin_btn").click(function(event) {
+   email  = ($("#email")[0]).value
+   name = ($("#name")[0]).value
+   $.ajax({
+     url: "/store_info?email="+ email + "&name=" + name,
+     type: "post",
+     success: function(){
+       alert("thankyou!")
+       window.location.href = "/pairwise_comparisons/new"
+     },
+     error:function($xhr){
+       console.log($xhr);
+     }
+   });
+  });
+
+</script>
+

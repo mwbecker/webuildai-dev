@@ -101,9 +101,17 @@ class EvaluationsController < ApplicationController
     # this executes whatever's in the tics as a shell process, result = stdout
     @social_weights = `python3 ./model_folder/single_experiment.py -file ./#{path}`
     puts @social_weights
+
   end
 
   def index
+  end
+
+  def store_info
+    p = Participant.find(current_user.id)
+    p.email = params[:email]
+    p.name = params[:name]
+    p.save!
   end
 
   def create
@@ -124,6 +132,6 @@ class EvaluationsController < ApplicationController
   end
 
   def evaluation_params
-    params.require(:evaluation).permit(:show, :how, :fairly, :correctly, :priorities, :previously, :situation, :resolve, :functions, :incorrect, :alert, :participant_id)
+    params.require(:evaluation).permit(:show, :how, :fairly, :correctly, :priorities, :previously, :situation, :resolve, :functions, :incorrect, :alert, :participant_id, :email, :name)
   end
 end

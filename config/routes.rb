@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   post 'weighting', to: 'participant_feature_weights#weighting', as: :weighting
   post 'new_how_ai', to: 'participant_feature_weights#new_how_ai', as: :new_how_ai
   post 'new_how', to: 'pairwise_comparisons#new_how', as: :new_how
+  post 'store_info', to: 'evaluations#store_info', as: :store_info
 
+  post 'index_driver', to: 'pairwise_comparisons#index_driver', as: :index_driver
 
   root :to => "pairwise_comparisons#new"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
