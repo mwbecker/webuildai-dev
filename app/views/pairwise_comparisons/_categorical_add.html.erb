@@ -194,7 +194,7 @@
         while (count < last_opt) {
           id = i + 1;
           try {
-            let option = document.getElementById("opt-" + id);
+            let option = document.getElementById("opt-" + id).value;
             if (option === "") {
               $("#error_2_" + id).css('display', 'block');
               return -1;
