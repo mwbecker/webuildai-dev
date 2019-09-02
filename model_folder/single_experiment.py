@@ -443,7 +443,13 @@ def main2(args):
 
     print("Soft LOSS=" + str(soft_loss))
     print("Accuracy=" + str(float(num_correct) / n_test))
-    pickle.dump(this_beta, open(get_local_path("RESULT/betas/Participant_" + str(pid) + "_BETA_Round0.pkl"), 'wb'))
+
+    filename = inp_file.split("/")[::-1][0]
+    print(filename)
+
+    pickle.dump(this_beta,
+                open(get_local_path("RESULT/betas/Participant_" + str(pid) + "_" + str(filename) + "_BETA_Round0.pkl"),
+                     'wb'))
 
     return this_beta, soft_loss, num_correct, n_test
 
