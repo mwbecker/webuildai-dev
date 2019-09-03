@@ -4,23 +4,55 @@
   <% rankedListExamples = @rankedListExamples %>
   <% selectedFeats = @selectedFeats %>
 
-  <% rankedListExamples.each do |rl| %>
-    <div class="container">
-      <div class="card ">
-        <div class="card-content">
-          <h5> Scenario </h5>
-          <% counter = 0 %>
-          <% selectedFeats.size.times do %>
-            <% puts @selectedFeats.map{|n| n.category}.inspect %>
-              <p class="feature-value">  <%= Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h[Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]] %> </p>
-              <p class="feature-name">  <%= Feature.find(Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
-            <% counter += 1 %>
-          <% end %>
+  <div class = "row">
+    <div class = "column">
+    <h3> Generated List </h3>
+    <% rankedListExamples.each do |rl| %>
+      <div class="container">
+        <div class="card default">
+          <div class="card-content">
+            <% counter = 0 %>
+            <% selectedFeats.size.times do %>
+              <% puts @selectedFeats.map{|n| n.category}.inspect %>
+                <div class = "cardRow">
+                  <div class = "column left">
+                    <p class="feature-name">  <%= Feature.find(Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
+                  </div>
+                  <div class = "column right">
+                    <p class="feature-value">  <%= Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h[Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]] %> </p>
+                  </div>
+                </div>
+              <% counter += 1 %>
+            <% end %>
+          </div>
         </div>
       </div>
+    <% end %>
     </div>
-  <% end %>
-</div>
 
-# Need to implement drag and drop for list
-# Need to add two columns where one is predicted list and other is user list
+    <div class = "column">
+    <h3> Your List </h3>
+    <% rankedListExamples.each do |rl| %>
+      <div class="container">
+        <div id = "user-list" class="card grab">
+          <div class="card-content">
+            <% counter = 0 %>
+            <% selectedFeats.size.times do %>
+              <% puts @selectedFeats.map{|n| n.category}.inspect %>
+                <div class = "cardRow">
+                  <div class = "column left">
+                    <p class="feature-name">  <%= Feature.find(Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
+                  </div>
+                  <div class = "column right">
+                    <p class="feature-value">  <%= Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h[Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]] %> </p>
+                  </div>
+                </div>
+              <% counter += 1 %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

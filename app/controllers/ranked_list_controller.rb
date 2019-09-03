@@ -4,9 +4,8 @@ class RankedListController < ApplicationController
     # Get all features user selected as important
     selectedFeats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
     @selectedFeats = selectedFeats
-    # selectedFeats = Feature.request.active.added_by(3).for_user(3)
     # Size of the Ranked List 
-    rankedListSize = 3
+    rankedListSize = 5
     @rankedListScenarios = Array.new
     @rankedListExamples = Array.new
     counter = 0

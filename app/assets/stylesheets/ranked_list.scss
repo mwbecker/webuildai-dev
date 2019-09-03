@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+#rl-page h3 {
+  text-align: center;
+}
+
 #rl-page .container {
   display: flex;
   justify-content: center;
@@ -11,10 +15,8 @@
 #rl-page .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 40%;
+  width: 100%;
   border-radius: 5px;
-  text-align: center;
-  cursor: grab;
 }
 
 #rl-page .card:hover {
@@ -24,6 +26,7 @@
 #rl-page h5 {
   color:#3d6ab1;
   margin-bottom: 25px;
+  text-align: center;
 }
 
 #rl-page .feature-value {
@@ -34,4 +37,38 @@
 #rl-page .feature-name {
   margin-bottom:4%;
   margin-top:2%;
+
+}
+
+#rl-page .column {
+  float: left;
+  width: 50%;
+  // padding-bottom: 0%;
+}
+
+#rl-page .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#rl-page .row {
+  width: 100%;
+}
+
+#rl-page .left {
+  width: 90%;
+}
+
+#rl-page .right {
+  width: 4%;
+  margin-top: 2%;
+}
+
+#rl-page .grab {
+  cursor: grab;
+}
+
+#rl-page .default {
+  cursor: default;
 }
