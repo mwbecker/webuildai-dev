@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_02_195201) do
+ActiveRecord::Schema.define(version: 2019_09_04_052553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,12 @@ ActiveRecord::Schema.define(version: 2019_09_02_195201) do
     t.boolean "company", default: false
   end
 
+  create_table "individual_scenarios", force: :cascade do |t|
+    t.json "features"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pairwise_comparisons", force: :cascade do |t|
     t.bigint "participant_id"
     t.integer "scenario_1"
@@ -108,28 +114,23 @@ ActiveRecord::Schema.define(version: 2019_09_02_195201) do
     t.string "email"
   end
 
-  create_table "rank_list_samples", force: :cascade do |t|
-    t.bigint "participant_id"
-    t.bigint "rank_list_id"
-    t.integer "round", default: 0
-    t.string "type"
-    t.bigint "feature_id"
-    t.string "feature_value"
-    t.integer "group_id"
+  create_table "ranklist_element", force: :cascade do |t|
+    t.bigint "ranklist_id"
+    t.bigint "individual_scenario_id"
+    t.integer "model_rank"
+    t.integer "human_rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["feature_id"], name: "index_rank_list_samples_on_feature_id"
-    t.index ["participant_id"], name: "index_rank_list_samples_on_participant_id"
-    t.index ["rank_list_id"], name: "index_rank_list_samples_on_rank_list_id"
+    t.index ["individual_scenario_id"], name: "index_ranklist_element_on_individual_scenario_id"
+    t.index ["ranklist_id"], name: "index_ranklist_element_on_ranklist_id"
   end
 
-  create_table "rank_lists", force: :cascade do |t|
+  create_table "ranklists", force: :cascade do |t|
     t.bigint "participant_id"
-    t.integer "rank"
     t.integer "round", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["participant_id"], name: "index_rank_lists_on_participant_id"
+    t.index ["participant_id"], name: "index_ranklists_on_participant_id"
   end
 
   create_table "scenarios", force: :cascade do |t|
