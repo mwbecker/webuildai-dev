@@ -114,6 +114,30 @@ ActiveRecord::Schema.define(version: 2019_09_04_052553) do
     t.string "email"
   end
 
+  create_table "rank_list_samples", force: :cascade do |t|
+    t.bigint "participant_id"
+    t.bigint "rank_list_id"
+    t.integer "round", default: 0
+    t.string "type"
+    t.bigint "feature_id"
+    t.string "feature_value"
+    t.integer "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feature_id"], name: "index_rank_list_samples_on_feature_id"
+    t.index ["participant_id"], name: "index_rank_list_samples_on_participant_id"
+    t.index ["rank_list_id"], name: "index_rank_list_samples_on_rank_list_id"
+  end
+
+  create_table "rank_lists", force: :cascade do |t|
+    t.bigint "participant_id"
+    t.integer "rank"
+    t.integer "round", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_rank_lists_on_participant_id"
+  end
+
   create_table "ranklist_element", force: :cascade do |t|
     t.bigint "ranklist_id"
     t.bigint "individual_scenario_id"
