@@ -1,25 +1,22 @@
 <!-- <p id="notice"><%= notice %></p> -->
 
-
 <%= render partial: 'page_1.html.erb' %>
 <%= render partial: 'page_2.html.erb'%>
 <%= render partial: 'done.html.erb'%>
 
 <script type="text/javascript">
-   $("#start_btn_1").click(function(event){
-      $("#pg_1").css('display', 'none');
-      $("#aller_encompassing").css('display', 'block')
+  $("#start_btn_1").click(function(event){
+    $("#pg_1").css('display', 'none');
+    $("#aller_encompassing").css('display', 'block')
   });
 
   $("#start_btn_2").click(function(event){
-     $("#pg_2").css('display', 'none');
-     $("#titulo").html("Social Ranking");
-     $("#aller_encompassing").css('display', 'block');
-     $("#prompt").html("For the scenario set below, please assume the role of the algorithm and decide which driver should be matched with an incoming potential request ping. Please assume that the drivers are in the same general area, and that the number of customers in demand and traffic conditions in the drivers’ area have no effect on your decision. Based on the information you believe the algorithm should consider when assigning drivers to request pings, please choose which driver the algorithm should assign the request ping to. The information about each driver below are features you previously chose that are applicable to these sets of scenarios.")
- });
+    $("#pg_2").css('display', 'none');
+    $("#titulo").html("Social Ranking");
+    $("#aller_encompassing").css('display', 'block');
+    $("#prompt").html("For the scenario set below, please assume the role of the algorithm and decide which driver should be matched with an incoming potential request ping. Please assume that the drivers are in the same general area, and that the number of customers in demand and traffic conditions in the drivers’ area have no effect on your decision. Based on the information you believe the algorithm should consider when assigning drivers to request pings, please choose which driver the algorithm should assign the request ping to. The information about each driver below are features you previously chose that are applicable to these sets of scenarios.")
+  });
 </script>
-
-
 
 
 <div id = "aller_encompassing" style = "display:none;">
@@ -41,7 +38,7 @@
 
 <div id = "all_encompassing" class = "0">
 
-  <% pcs = @pairwise_comparisons %>
+<% pcs = @pairwise_comparisons %>
 <% pcs.each do |pc| %>
 
   <div class = "container-<%= pc.id %>" style = "width:70%;height:45vh;margin-left:15%;display:none" >
@@ -52,16 +49,14 @@
           <h5 style = "color:#3d6ab1"> Scenario A </h5>
             <% counter = 0 %>
             <% @feats.size.times do %>
-             <%  puts @feats.map{|n| n.category}.inspect %>
+              <% puts @feats.map{|n| n.category}.inspect %>
                 <p style = "font-weight:bold;font-size:1.35em;">  <%= Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]] %> </p> <br/>
                 <p style = "margin-bottom:4%;margin-top:-3.5%">  <%= Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
               <% counter += 1 %>
             <% end %>
-          </div>
         </div>
       </div>
-
-
+    </div>
   </div>
 
   <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;cursor:pointer;">
@@ -78,29 +73,26 @@
           </div>
         </div>
       </div>
-
-  </div>
-
+    </div>
   </div>
 
   <form action="#" style = "margin-left:35%;display:none" class = "f-<%= pc.id %>">
-       <label style = "display:inline;margin-right:5%;">
-         <input id = "<%=pc.id %>-A" class="with-gap" name="group3" type="radio" />
-         <span>Choose A</span>
-       </label>
-        <label style = "display:inline;margin-right:5%;">
-          <input id = "<%=pc.id %>-B" class="with-gap" name="group3" type="radio" />
-          <span>Choose B</span>
-        </label>
-         <label style = "display:inline">
-           <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" />
-           <span>Neither</span>
-         </label> <br/> <br/>
+    <label style = "display:inline;margin-right:5%;">
+      <input id = "<%=pc.id %>-A" class="with-gap" name="group3" type="radio" />
+      <span>Choose A</span>
+    </label>
+    <label style = "display:inline;margin-right:5%;">
+      <input id = "<%=pc.id %>-B" class="with-gap" name="group3" type="radio" />
+      <span>Choose B</span>
+    </label>
+    <label style = "display:inline">
+      <input id = "<%=pc.id %>-N" class="with-gap" name="group3" type="radio" />
+      <span>Neither</span>
+    </label> <br/> <br/>
 
-         <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —"> <br> <br>
-         <p id = "error_r-<%= pc.id %>" style = "margin-left:-27%;color:red;margin-top:-1%;display:none"> Reason cannot be blank </p>
-
- </form>
+    <input style="margin-left:-27%; overflow:visible" id = "reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —"> <br> <br>
+    <p id = "error_r-<%= pc.id %>" style = "margin-left:-27%;color:red;margin-top:-1%;display:none"> Reason cannot be blank </p>
+  </form>
 <% end %>
 </div>
 
