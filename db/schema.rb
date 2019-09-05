@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_04_052553) do
+ActiveRecord::Schema.define(version: 2019_09_05_033733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,9 @@ ActiveRecord::Schema.define(version: 2019_09_04_052553) do
     t.json "features"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "participant_id"
+    t.string "category"
+    t.index ["participant_id"], name: "index_individual_scenarios_on_participant_id"
   end
 
   create_table "pairwise_comparisons", force: :cascade do |t|
@@ -170,6 +173,7 @@ ActiveRecord::Schema.define(version: 2019_09_04_052553) do
   add_foreign_key "categorical_data_options", "data_ranges"
   add_foreign_key "data_ranges", "features"
   add_foreign_key "evaluations", "participants"
+  add_foreign_key "individual_scenarios", "participants"
   add_foreign_key "pairwise_comparisons", "participants"
   add_foreign_key "participant_feature_weights", "features"
   add_foreign_key "participant_feature_weights", "participants"
