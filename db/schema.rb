@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_31_002410) do
+ActiveRecord::Schema.define(version: 2019_09_04_052553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,12 @@ ActiveRecord::Schema.define(version: 2019_08_31_002410) do
     t.boolean "company", default: false
   end
 
+  create_table "individual_scenarios", force: :cascade do |t|
+    t.json "features"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pairwise_comparisons", force: :cascade do |t|
     t.bigint "participant_id"
     t.integer "scenario_1"
@@ -106,6 +112,25 @@ ActiveRecord::Schema.define(version: 2019_08_31_002410) do
     t.string "role"
     t.string "name"
     t.string "email"
+  end
+
+  create_table "ranklist_element", force: :cascade do |t|
+    t.bigint "ranklist_id"
+    t.bigint "individual_scenario_id"
+    t.integer "model_rank"
+    t.integer "human_rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["individual_scenario_id"], name: "index_ranklist_element_on_individual_scenario_id"
+    t.index ["ranklist_id"], name: "index_ranklist_element_on_ranklist_id"
+  end
+
+  create_table "ranklists", force: :cascade do |t|
+    t.bigint "participant_id"
+    t.integer "round", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_ranklists_on_participant_id"
   end
 
   create_table "scenarios", force: :cascade do |t|
