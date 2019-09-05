@@ -1,15 +1,20 @@
 <div id="rl-page">
-  <h1> Ranked List </h1>
+
+  <h1>Ranked List</h1>
+  <hr id = "hhr">
+  <p class = "directions">
+    blah blah blah
+  </p>
 
   <% rankedListExamples = @rankedListExamples %>
   <% selectedFeats = @selectedFeats %>
 
   <div class = "row">
     <div class = "column">
-    <h3> Generated List </h3>
+    <h4> Generated List </h4>
     <% rankedListExamples.each do |rl| %>
       <div class="container">
-        <div class="numberCircle">1</div>
+      <div class="numberCircle">1</div>
         <div class="card default">
           <div class="card-content">
             <% counter = 0 %>
@@ -32,15 +37,16 @@
     </div>
 
     <div class = "column">
-    <h3> Your List </h3>
+    <h4> Your List </h4>
+    <a class="btn" id = "reorder_btn"> Reorder </a>
     <% rankedListExamples.each do |rl| %>
       <div class="container">
+        <% puts @selectedFeats.map{|n| n.category}.inspect %>
         <div class="numberCircle">1</div>
         <div id = "user-list" class="card default">
           <div class="card-content">
             <% counter = 0 %>
             <% selectedFeats.size.times do %>
-              <% puts @selectedFeats.map{|n| n.category}.inspect %>
                 <div class = "cardRow">
                   <div class = "column left">
                     <p class="feature-name">  <%= Feature.find(Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
@@ -58,3 +64,10 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+  $("#reorder_btn").click(function(event) {
+  });
+
+</script>
