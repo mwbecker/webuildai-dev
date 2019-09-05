@@ -1,6 +1,12 @@
 class RankedListController < ApplicationController
   require 'json'
   require 'date'
+
+  def run_model
+    file_name = "" # to fill in later
+    @individual_weights = `python ./model_folder/#{file_name}.py`
+  end
+
   # Randomly generate examples for ranked list
   def ranked_list
     # Get all features user selected as important
