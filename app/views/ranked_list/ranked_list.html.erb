@@ -9,6 +9,7 @@
     <h3> Generated List </h3>
     <% rankedListExamples.each do |rl| %>
       <div class="container">
+        <div class="numberCircle">1</div>
         <div class="card default">
           <div class="card-content">
             <% counter = 0 %>
@@ -34,7 +35,8 @@
     <h3> Your List </h3>
     <% rankedListExamples.each do |rl| %>
       <div class="container">
-        <div id = "user-list" class="card grab">
+        <div class="numberCircle">1</div>
+        <div id = "user-list" class="card default">
           <div class="card-content">
             <% counter = 0 %>
             <% selectedFeats.size.times do %>
