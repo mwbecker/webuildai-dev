@@ -11,6 +11,7 @@ import pickle
 import os
 import psycopg2
 import pandas.io.sql as sqlio
+import datetime
 
 
 get_local_path = lambda s: os.path.join(os.path.dirname(os.path.realpath(__file__)), s)
@@ -94,55 +95,81 @@ def scale(feature, is_scale):
 
     return mod_value
 
-def get_candidates(connection, pid, fid, possible_values, is_scale):
+def get_feature_info(connection):
+    query = '''
+    select a.id,name,description, category, b.is_categorical, b.lower_bound, b.upper_bound FROM features a, data_ranges b WHERE a.id=b.id;
+    '''
 
-    cursor = connection.cursor()
-    query = """
-    SELECT a.group_id AS group_id, a.feature_id, a.feature_value,
-    b.id AS feature_id, b.name AS feature_name, b.description AS description, b.category AS feat_category,
-    c.is_categorical AS categories, c.lower_bound AS lb, c.upper_bound AS ub
-    FROM ranklist_samples a, features b, data_ranges c
-    WHERE a.pid=%s AND a.round=%s
-    AND b.id = a.feature_id
-    AND c.feature_id = a.feature_id;         
-    """%(str(pid), str(fid))
-
-    all_samples = []
     df = sqlio.read_sql_query(query, connection)
 
-    grouped_df = df.groupby('group_id')
-    groups = grouped_df.groups.keys()
+    feature_ids = df['id'].values
+    feature_names = df['name'].values
+    feature_desc = df['description'].values
+    feature_categ = df['category'].values
+    feature_type = df['is_categorical'].values
+    feature_lb = df['lower_bound'].values
+    feature_ub = df['upper_bound'].values
 
-    for groupID in groups:
-        print("Doing for sample="+str(groupID))
-        group_info = grouped_df.get_group(groupID)
+    feature_info = {}
+    for i in range(len(feature_ids)):
+        feature_info[feature_ids[i]] = [feature_names[i], feature_desc[i], feature_categ[i], feature_type[i], feature_lb[i], feature_ub[i]]
 
-        feature_arr= []
-        for i in range(len(group_info)):
+    return feature_info
+
+def get_candidates(connection, pid, category, feature_info, possible_values, is_scale):
+    cursor = connection.cursor()
+    query = """
+    SELECT id, participant_id, features FROM individual_scenarios WHERE participant_id=%s AND category='%s';         
+    """%(str(pid), str(category))
+
+    all_samples = []
+    candidate_ids = []
+    df = sqlio.read_sql_query(query, connection)
+
+    imp_features = set()
+
+    scenarios = df['features'].values
+    scenario_ids = df['id'].values
+
+    for i in range(len(scenario_ids)):
+        candidate_ids.append(scenario_ids[i])
+        scenario = scenarios[i]
+        feature_arr = []
+        for f_key in scenario.keys():
             feature_obj = {}
-            feature_id = group_info.iloc([i])['feature_id']
-            feature_value = group_info.iloc([i])['feature_value']
-            feature_name = group_info.iloc([i])['feature_name']
-            feature_category = group_info.iloc([i])['feat_category']
-            feature_type = group_info.iloc([i])['categories']
-            if (feature_type == True):
+            feature_id = int(f_key)
+            imp_features.add(feature_id)
+            feature_value = scenario[f_key]
+            feature_name = feature_info[feature_id][0]
+            feature_category = feature_info[feature_id][2]
+            feature_type = feature_info[feature_id][3]
+            if(feature_type == True):
                 feature_type = "categorical"
-            elif (feature_type == False):
+            elif(feature_type == False):
                 feature_type = "continuous"
-            feature_min = group_info.iloc([i])['lb']
-            feature_max = group_info.iloc([i])['ub']
-            if (feature_type == 'categorical'):
+
+            feature_min = feature_info[feature_id][4]
+            feature_max = feature_info[feature_id][5]
+
+            feature_obj['feat_id'] = feature_id
+            feature_obj['feat_name'] = feature_name
+            feature_obj['feat_category'] = feature_category
+            feature_obj['feat_value'] = feature_value
+            feature_obj['feat_type'] = feature_type
+            if(feature_type == "categorical"):
                 f_poss_values = possible_values[feature_id]
             else:
                 f_poss_values = []
             feature_obj['possible_values'] = f_poss_values
+            feature_obj['feat_min'] = feature_min
+            feature_obj['feat_max'] = feature_max
+
             feature_arr.append(feature_obj)
 
         feature_arr = sorted(feature_arr, key=lambda elem: elem["feat_id"])
         num_features = len(feature_arr)
 
         array_f = []  # Actual Values
-
         for f1 in feature_arr:
             modified_features = scale(f1, is_scale)
 
@@ -151,11 +178,10 @@ def get_candidates(connection, pid, fid, possible_values, is_scale):
                     array_f.append(mf)
             else:
                 array_f.append(modified_features)
-
-
+        
         all_samples.append(array_f)
 
-    return all_samples
+    return all_samples, imp_features, candidate_ids
 
 def score_model(args):
     connection = connect()
@@ -176,7 +202,9 @@ def score_model(args):
              'rb'))
     #Score using this model
     possible_values = get_possible_feature_values(connection)
-    candidates, imp_features = get_candidates(pid, fid, connection)
+    feature_info = get_feature_info(connection)
+    candidates, imp_features, candidate_ids = get_candidates(connection, pid, pairwise_type, feature_info, possible_values, True)
+    #candidates, imp_features = get_candidates(pid, fid, connection)
 
     lambda_reg = 1
     d = len(imp_features)
@@ -195,7 +223,7 @@ def score_model(args):
 
     score_arr = []
     for i in range(len(candidates)):
-        altA = candidates[i][0]
+        altA = candidates[i]
         altA = list(altA)
         altA.append(1)
         k_altA = []
@@ -209,14 +237,53 @@ def score_model(args):
         score = np.dot(model, k_altA)
         score_arr.append(score)
 
-    return score_arr
+    return score_arr, candidate_ids
+
+def insert_score_arr(connection, candidate_ids, score_arr, participant_id, round):
+    cursor = connection.cursor()
+    
+    # Get ranklist id i.e. 
+    # Select id from ranklists where participant_id = 18 and round=1;
+    # Hopefully, get the most recent ranklist
+    # Insert into that ranklist id based ranklist_element
+
+    query = """
+    SELECT id from ranklists WHERE participant_id=%s AND round=%s
+    ORDER BY created_at DESC
+    """%(str(participant_id), str(round))
+
+    df = sqlio.read_sql_query(query, connection)
+    ranklist_id = df['id'].values[0]
+
+    ranks = np.argsort(-np.array(score_arr))
+    insert_query = """
+        INSERT INTO ranklist_element(ranklist_id, individual_scenario_id, model_rank, human_rank, created_at, updated_at)
+        VALUES(%s, %s, %s, %s, %s, %s)
+    """
+    sql_args = []
+    for i in range(len(candidate_ids)):
+        sql_args.append([ranklist_id, candidate_ids[i], ranks[i]+1.0, 0, datetime.datetime.now(), datetime.datetime.now()])
+
+    print(sql_args)
+    cursor.executemany(insert_query, sql_args)
+    cursor.close()
+    connection.commit()
+
 
 if __name__ == '__main__':
     parser = ArgumentParser(description="Inputs.")
     parser.add_argument('-pid', type=str, default='None', help='participant_id')
     parser.add_argument('-fid', type=str, default=0, help='feedback round number')
     parser.add_argument('-type', type=str, default='driver', help='Running model for social/individual preferences')
+    parser.add_argument('-d', type=str, default='D', help='data type (str)')
+    parser.add_argument('-n', type=int, default=1, help='normalize features (int)')
+    parser.add_argument('-k', type=int, default=1, help='degree of polynomial (int)')
+    parser.add_argument('-l', type=str, default='normal', help='loss function(str')
+    parser.add_argument('-num', type=int, default=100, help='value of num iters>0 (int)')
+    parser.add_argument('-sz', type=str, default='cardinalsizes', help='size type (str)')
+    parser.add_argument('-tf', type=float, default=0.5, help='test frac (float)')
     args = parser.parse_args()
 
-    score_arr = score_model(args)
-    insert_score_arr(connection, score_arr, args)
+    score_arr, candidate_ids = score_model(args)
+    connection = connect()
+    insert_score_arr(connection, candidate_ids, score_arr, args.pid, args.fid)

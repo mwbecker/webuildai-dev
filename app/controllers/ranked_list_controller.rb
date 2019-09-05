@@ -44,7 +44,7 @@ class RankedListController < ApplicationController
       end
       generated_scenario = Scenario.where(group_id: last_id)
 
-      create_scenario_sql = "insert into individual_scenarios (features, created_at, updated_at) values ('#{create_feature_json(generated_scenario)}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}');"
+      create_scenario_sql = "insert into individual_scenarios (features, created_at, updated_at, participant_id, category) values ('#{create_feature_json(generated_scenario)}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}', #{current_user.id}, 'request');"
       ActiveRecord::Base.connection.execute(create_scenario_sql)
       new_scenario_id = ActiveRecord::Base.connection.execute("select individual_scenarios.id from individual_scenarios order by individual_scenarios.created_at desc limit 1").values[0][0]
       @rankedListExamples << generated_scenario
