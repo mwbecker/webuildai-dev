@@ -176,3 +176,72 @@ a:hover
   margin-top:-1%;
   display:none;
 }
+
+
+/* Feature page styling */
+.title {
+  margin-left:10%;
+  color:#3d6ab1;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.feature-text {
+  margin-left:10%;
+  width:80%;
+  font-size:23px;
+  font-weight:400;
+  line-height:1.5;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #636363;
+}
+
+.feature-list {
+  margin-left:5%;
+  width:80%;
+}
+
+.feature-hr {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.feature-selection-image {
+  margin-top: 10%;
+  width:50%;
+  height: auto;
+}
+
+.feature-image-block {
+  display: flex;
+  align-items: center;
+  margin-top: -8%;
+  margin-bottom: -6%;
+}
+
+.feature-table{
+  color: #515151;
+  margin-left:10%;
+  margin-right:5%;
+  width:80%;
+}
+
+.subheader {
+  font-weight:bold;
+  font-size: 30px;
+  margin-top: 30px;
+  margin-bottom: 2%;
+  font-family: "Helvetica Neue", sans-serif;
+  color:black;
+}
+
+.feature-card-text {
+  margin-left:10%;
+  font-size:18px;
+  font-weight:400;
+  line-height:1.5;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #636363;
+  display: inline-block;
+}
