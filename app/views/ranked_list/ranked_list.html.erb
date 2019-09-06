@@ -1,0 +1,113 @@
+<div id="rl-page">
+
+  <h1>Ranked List</h1>
+  <hr id = "hhr">
+  <p class = "directions">
+    Directions: blah blah blah
+  </p>
+
+  <% rankedListExamples = @rankedListExamples %>
+  <% selectedFeats = @selectedFeats %>
+  
+
+  <div class = "row">
+    <div class = "column">
+    <h4> Model List </h4>
+    <% @displayElems.each.with_index do |elem, index| %>
+
+      <div class="container">
+        <div class="card default">
+          <div class="card-content">
+            <h5><%= "Scenario #{elem[:scenario_id]}" %></h5>
+            <% elem[:features].each do |feature| %>
+                <div class = "cardRow">
+                  <div class = "column left">
+                    <p class="feature-name">  <%= feature[:name] %> </p>
+                  </div>
+                  <div class = "column right">
+                    <p class="feature-value">  <%= feature[:value] %> </p>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </div>
+
+    <div class = "column">
+    <h4> Your List </h4>
+    <p>Please write the scenario id's in the fields below that represents your ranking of the presented scenarios.</p>
+    <div class="human-rank-container">
+      <% rankedListExamples.each.with_index do |rl, index| %>
+        <div class="block">
+          <h5 class="human-rank"><%= "#{index + 1}:" %></h5>
+          <input id=<%= "scenario-id-#{index}" %> type="text" name="scenario-id-input" value="">
+        </div>
+
+        <%-# For Dropdown Maybe? -%>
+        <%-# select_tag "scenario_id", options_for_select(@scenarioIds)-%>
+      <% end %>
+    </div>
+
+
+<%
+=begin %>
+    <a class="btn" id = "reorder_btn"> Reorder </a>
+    <% rankedListExamples.each do |rl| %>
+      <div class="container">
+        <% puts @selectedFeats.map{|n| n.category}.inspect %>
+        <div class="numberCircle"><%= @humanRanks[0] %></div>
+        <div id = "user-list" class="card default">
+          <div class="card-content">
+            <% counter = 0 %>
+            <% selectedFeats.size.times do %>
+                <div class = "cardRow">
+                  <div class = "column left">
+                    <p class="feature-name">  <%= Feature.find(Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
+                  </div>
+                  <div class = "column right">
+                    <p class="feature-value">  <%= Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h[Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]] %> </p>
+                  </div>
+                </div>
+              <% counter += 1 %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+<%
+=end %>
+
+    </div>
+  <a class="btn" id = "submit_btn"> Submit </a>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $("#reorder_btn").onclick = function() {
+    document.getElementById('some_form').style.visibility='hidden';   
+  };
+  $("#submit_btn").click(function(event) {
+    let rlSize = <%= @rankedListSize %>;
+    let ordering = [];
+    for (let rank = 0; rank < rlSize; rank++) {
+      let id = $(`#scenario-id-${rank}`).val();
+      ordering.push(id);
+    }
+    $.ajax({
+      url: "/ranked_list/update_human_ranks",
+      type: "post",
+      data: { order: ordering },
+      success: function(){
+        console.log('Saved Successfully');
+        //window.location.href = "/pairwise_comparisons"
+      },
+      error:function($xhr){
+        console.log($xhr);
+      }
+    });
+  });
+
+</script>

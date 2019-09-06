@@ -75,7 +75,8 @@ class EvaluationsController < ApplicationController
 
     full_file_path = "#{path_name}/#{file_name}"
     contents = JSON.pretty_generate(result)
-    File.open(full_file_path, "w") do |f|     
+
+    File.open(full_file_path, "w") do |f|
       f.write(contents)
     end
     return full_file_path
@@ -91,7 +92,8 @@ class EvaluationsController < ApplicationController
     i = full_path.index("config")
     path = full_path[i..full_path.length]
     # this executes whatever's in the tics as a shell process, result = stdout
-    @individual_weights = `python3 ./model_folder/single_experiment.py -file ./#{path}`
+
+    @individual_weights = `python ./model_folder/ml_model_db.py -pid #{current_user.id} -type "request"`
     puts @individual_weights
 
 
@@ -99,11 +101,20 @@ class EvaluationsController < ApplicationController
     i = full_path.index("config")
     path = full_path[i..full_path.length]
     # this executes whatever's in the tics as a shell process, result = stdout
-    @social_weights = `python3 ./model_folder/single_experiment.py -file ./#{path}`
+
+    @individual_weights = `python ./model_folder/ml_model_db.py -pid #{current_user.id} -type "driver"`
     puts @social_weights
+
   end
 
   def index
+  end
+
+  def store_info
+    p = Participant.find(current_user.id)
+    p.email = params[:email]
+    p.name = params[:name]
+    p.save!
   end
 
   def create
@@ -124,6 +135,6 @@ class EvaluationsController < ApplicationController
   end
 
   def evaluation_params
-    params.require(:evaluation).permit(:show, :how, :fairly, :correctly, :priorities, :previously, :situation, :resolve, :functions, :incorrect, :alert, :participant_id)
+    params.require(:evaluation).permit(:show, :how, :fairly, :correctly, :priorities, :previously, :situation, :resolve, :functions, :incorrect, :alert, :participant_id, :email, :name)
   end
 end

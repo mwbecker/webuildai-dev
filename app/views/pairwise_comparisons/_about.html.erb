@@ -1,48 +1,44 @@
 <div class = "contain_1" style = "display:block">
-<h1 style = "margin-left:10%;color:#3d6ab1" >About</h1>
-<hr id = "hhr">
-<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:22pt;font-weight:normal;" >
-Thank you for participating in this research opportunity! We greatly appreciate you taking time out
- of your schedule to help us better understand your perspective behind the wheel. Before we move on
- to the questions regarding your experiences with your company’s algorithm, we would like to know more
- you and your time working for your company(s). Please answer each question below thoroughly and truthfully.
- For more open-ended questions, please do not reveal any private or personally identifiable information about
- yourself or others in your answers.
+<h2 class="title">About</h2>
+<hr id = "hhr" class="about-hr" >
+<p class = "about-text"> 
+  Thank you for participating in this research opportunity! We greatly appreciate you taking time out of your schedule
+  to help us better understand your perspective behind the wheel. Before we move on to the questions regarding your
+  experiences with your company’s algorithm, we would like to know more you and your time working for your
+  company(s). Please answer each question below thoroughly and truthfully. For more open-ended questions, please
+  do not reveal any private or personally identifiable information about yourself or others in your answers.
 </p>
 <br> <br>
-<form action="#" id = "about_form" style = "display:block;margin-left:10%;width:80%;">
-  <h5  style = "font-weight:bold"> Work Experience</h5> <br/>
-  <label for = "which" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Which companies have you worked for? </label>
-  <input id = "which" type="text" name="lower" value="" placeholder="Uber, lyft, postmates" class="about-question"> <br> <br>
+<form action="#" id = "about_form">
+  <h4  class="subheader"> Work Experience</h4> <br/>
+  <label for = "which" class="question"> Which companies have you worked for? </label>
+  <input id = "which" type="text" name="lower" value="" placeholder="Uber, lyft, postmates"> <br> <br>
 
-  <label for = "long" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> How long have you worked for these companies? </label>
-  <input id = "long" type="text" name="upper" value="" placeholder="2 years" class="about-question"> <br> <br>
+  <label for = "long" class="question"> How long have you worked for these companies? </label>
+  <input id = "long" type="text" name="upper" value="" placeholder="2 years"> <br> <br>
 
-  <label for = "service" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Is this service your main source of income or a side gig? </label>
-  <input id = "service" type="text" name="upper" value="" placeholder="2 years" class="about-question"><br> <br>
+  <label for = "service" class="question"> Is this service your main source of income or a side gig? </label>
+  <input id = "service" type="text" name="upper" value="" placeholder="2 years"><br> <br>
 
-  <label for = "actively" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Are you still actively driving for your companies? </label>
-  <input id = "actively" type="text" name="upper" value="" placeholder="2 years" class="about-question"><br> <br>
+  <label for = "actively" class="question"> Are you still actively driving for your companies? </label>
+  <input id = "actively" type="text" name="upper" value="" placeholder="2 years"><br> <br>
 
-  <label for = "deactivated" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Have you ever been deactivated from any of your selected companies? If so, why? </label>
-  <input id = "deactivated" type="text" name="upper" value="" placeholder="2 years" class="about-question"> <br> <br>
+  <label for = "deactivated" class="question"> Have you ever been deactivated from any of your selected companies? If so, why? </label>
+  <input id = "deactivated" type="text" name="upper" value="" placeholder="2 years"> <br> <br>
 
+  <h4 class="subheader"> Algortithmic Experience</h4> <br/>
 
-  <h5 style = "font-weight:bold"> Algortithmic Experience</h5> <br/>
+  <label for = "pending" class="question"> Can you describe how your company’s algorithm matches you with pending requests? </label>
+  <input id = "pending" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br>
 
-
-  <label for = "pending" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Can you describe how your company’s algorithm matches you with pending requests? </label>
-  <input id = "pending" type="text" name="upper" value="" placeholder="Uber, lyft, postmates" class="about-question"> <br> <br>
-
-  <label for = "satisfied" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Are you satisfied with your company’s matching algorithm? Why or why not? </label>
-  <input id = "satisfied" type="text" name="upper" value="" placeholder="Uber, lyft, postmates" class="about-question"> <br> <br> <br>
-  <a class="waves-effect waves-dark btn" id = "about_next_btn" style = "padding-top:.5%;padding-bottom:4%;margin-top:3%;width:10%;color:#FFFFFF;display:block;float:right;background-color:#3d6ab1;font-weight:bold"> Next </a>
+  <label for = "satisfied" class="question"> Are you satisfied with your company’s matching algorithm? Why or why not? </label>
+  <input id = "satisfied" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br> <br>
+  <a class="waves-effect waves-dark btn" id = "about_next_btn"> Next </a>
   <br><br>
 </form>
 
 
 <script type="text/javascript">
-
   $("#about_next_btn").click(function(event) {
 
     var all_questions = document.getElementsByClassName("about-question");
@@ -73,10 +69,8 @@ Thank you for participating in this research opportunity! We greatly appreciate 
      error:function($xhr){
        console.log($xhr);
      }
-    });
-    });
-
-
+   });
+  });
 </script>
-<br><br>
+
 </div>

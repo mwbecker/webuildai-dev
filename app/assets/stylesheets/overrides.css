@@ -17,7 +17,7 @@ a:hover
 /* login page styling */
 .login-b1
 {
-  margin-top:-45vw;
+  margin-top:5%;
   margin-right: 4vw;
   width:33%;
   float:right;
@@ -30,6 +30,7 @@ a:hover
   font-weight: bold;
   font-size:3em;
   margin-left:3.5vw;
+  margin-bottom: 60px;
 }
 
 .login-b1 hr
@@ -38,8 +39,8 @@ a:hover
   border-width: 0.25pt;
   overflow:visible;
   width: 125%;
-
-
+  margin-top: 60px;
+  margin-bottom: 35px;
 }
 
 .control-group-id label {
@@ -76,7 +77,6 @@ a:hover
   background: #3d6ab1;
   float:left;
   width:63%;
-
   z-index:3;
 }
 
@@ -100,20 +100,26 @@ a:hover
 }
 
 
-.login-b2 h4
+.login-b2 h3
 {
   margin-top:5%;
-  margin-left:4%;
+  margin-left:9%;
   font-weight: bold;
+  line-height:1.25;
+  color: white;
+  font-family: "Helvetica Neue bold", sans-serif;
 }
 
 .login-b2 p
 {
   margin-top:5%;
-  margin-left:4%;
-  margin-right:7%;
-  font-size:1.5em;
-  line-height:17pt;
+  margin-left:9%;
+  margin-right:9%;
+  font-size:23px;
+  font-weight:400;
+  line-height:1.25;
+  color: white;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 .modal-header {

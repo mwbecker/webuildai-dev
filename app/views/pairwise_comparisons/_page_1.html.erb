@@ -18,19 +18,14 @@
 
 <p style = "font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
 
-<% counter_p1 = 0 %>
 <div style = "width:80%" class= "box">
   <br>
-  <% while counter_p1 < @feats.size %>
-    <div style = "width:50%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats[counter_p1].name %>  </p></div> <br/>  <br/>
-    <% if counter_p1 + 1 < @feats.size %>
-      <div style = "width:50%;float:right;margin-top:-3%"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= @feats[counter_p1+1].name %> </p></div>
-    <% end %>
-    <% counter_p1 += 2 %>
+  <% @feats.each do |f| %>
+    <div style = "width:100%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= f.name %>  </p></div> <br/>  <br/>
   <% end %>
   </div>
   <br/>
 <a class="waves-effect waves-dark btn" id = "start_btn_1" style = "float:right;width:12.5%;padding-top:0.7%;padding-bottom:4%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Start </a>
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 
 </div>

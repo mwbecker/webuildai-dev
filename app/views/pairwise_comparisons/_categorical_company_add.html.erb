@@ -10,7 +10,17 @@
       Feature Name
     </label>
     <input id="feature-name-1" type="text" name="featurename" value="" placeholder="Feature Name" style="width: 90%;">
-    <p id="error_1" class="error-1-style"> Feature name cannot be blank </p> 
+     <p id="error_1_1" class="error-1-style"> Feature name cannot be blank </p>
+
+
+         <% if current_user.role == 'admin' %>
+            <br> <br>
+            <label for = "cat_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
+            <input id = "cat_category" type="text" name="featurename" value="" placeholder="Category Name">
+          <% else %>
+            <label for = "cat_category" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
+            <input id = "cat_category" type="text" name="featurename" value="" placeholder="Category Name" style = "display:none">
+          <% end %>
 
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
@@ -50,6 +60,7 @@
           </div>
           <br>
         </div>
+          <p id = "error_2_1" style = "color:red;margin-top:-1%;display:none;margin-left:12%;"> cannot be blank </p>
 
         <div id="option-2">
           <span id="c-2" style="color: #555; font-size: 1.3em;"><i><span class="close-opt">&times;</span>&nbsp;&nbsp;Option 2&nbsp;&nbsp;&nbsp;</i></span>
@@ -58,6 +69,7 @@
           </div>
           <br>
         </div>
+          <p id = "error_2_2" style = "color:red;margin-top:-1%;display:none;margin-left:12%;"> cannot be blank </p>
 
       </div>
     <a id = "add_cat_btn" class="btn-floating btn-small" style = "background-color:#3d6ab1;margin-left:0%;"><i class="material-icons">add</i></a><p style = "font-weight:bold;font-size:1.15em;display:inline;margin-left:1%;"> Add Option </p>
@@ -94,7 +106,8 @@
 </div>
 
 <script type="text/javascript">
-
+  $('.with-gap').removeAttr('checked');
+  // Refresh the jQuery UI buttonset.
   // Add event listeners for the default options for the freeform option
   document.getElementById("c-1").addEventListener("click", function(event) {
     var option_id = "option-1";
@@ -127,7 +140,7 @@
                    '    <input id="opt-' + last_opt + '" type="text" style="width: 250%">' + '\n' +
                    '  </div>' + '\n' +
                    '  <br>' + '\n' +
-                   '</div>'
+                   '</div>' + `<br><p id = "error_2_${last_opt}" style = "color:red;margin-top:-1%;display:none;margin-left:12%;"> cannot be blank <p> </div>`
                    );
     freeform_options.append(new_div);
     var new_id = "c-" + last_opt;
@@ -156,20 +169,36 @@
 
   $("#submit_cat_btn").click(function(event) {
     let name = $("#feature-name-1")[0].value
+    let cati = $("#cat_category")[0].value
+
+
     if (name == "")
     {
       $("#error_1_1").css('display', 'block')
-      last_opt = (($("#opts")[0]).children).length
+      let freeform_options = $("#freeform_inputs");
+      let last_opt = parseInt(freeform_options[0].getAttribute("count")) + 1;
       for (let i = 0; i < last_opt; i++)
       {
-        if (($("#opt-"+(i+1))[0]).value == "")
+        if (($("#opt-"+(i+1))[0]).value == "" && ($("#freeform-option")[0].checked == true))
         {   $(`#error_2_${(i+1)}`).css('display', 'block') }
         else {  $(`#error_2_${(i+1)}`).css('display', 'none')}
       }
+      return -1
+    }
+    let freeform_options = $("#freeform_inputs");
+    let last_opt = parseInt(freeform_options[0].getAttribute("count")) + 1;
+    for (let i = 0; i < last_opt-1; i++)
+    {
+      if (($("#opt-"+(i+1))[0]).value == "" && ($("#freeform-option")[0].checked == true))
+      {   $(`#error_2_${(i+1)}`).css('display', 'block');
+        return -1; }
+      else {  $(`#error_2_${(i+1)}`).css('display', 'none')}
     }
 
-    else {
       $("#error_1_1").css('display', 'none');
+      var categor;
+            if (($("#request-option")[0]).checked){categor="request"}
+            else {categor="driver"}
 
       if (document.getElementById("tier-option").checked) {
         var options = "High*Low*Mid";
@@ -182,7 +211,7 @@
         while (count < last_opt) {
           id = i + 1;
           try {
-            let option = document.getElementById("opt-" + id);
+            let option = document.getElementById("opt-" + id).value;
             if (option === "") {
               $("#error_2_" + id).css('display', 'block');
               return -1;
@@ -202,7 +231,8 @@
       let upper = 0;
       let lower = 0;
       $.ajax({
-        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+"&company="+"true",
+        url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options + "&category=" + categor + "&description="+cati+"&company="+"true",
+        type: "post",
         type: "post",
         success: function(){
           console.log('Saved Successfully');
@@ -215,7 +245,6 @@
           console.log($xhr);
         }
       });
-    }
   });
 
 

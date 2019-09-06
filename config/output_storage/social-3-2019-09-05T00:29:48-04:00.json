@@ -1,0 +1,48 @@
+{
+  "part_id": 3,
+  "comparisons": [
+    {
+      "scenario_1": [
+        {
+          "feat_id": 10,
+          "feat_name": "The driver's total acceptance rate of requests today",
+          "feat_category": 0,
+          "feat_value": "89",
+          "feat_type": "continuous",
+          "feat_min": 50.0,
+          "feat_max": 100.0
+        },
+        {
+          "feat_id": 9,
+          "feat_name": "The driver's total acceptance rate of requests since they first started",
+          "feat_category": 0,
+          "feat_value": "99",
+          "feat_type": "continuous",
+          "feat_min": 50.0,
+          "feat_max": 100.0
+        }
+      ],
+      "scenario_2": [
+        {
+          "feat_id": 9,
+          "feat_name": "The driver's total acceptance rate of requests since they first started",
+          "feat_category": 0,
+          "feat_value": "89",
+          "feat_type": "continuous",
+          "feat_min": 50.0,
+          "feat_max": 100.0
+        },
+        {
+          "feat_id": 10,
+          "feat_name": "The driver's total acceptance rate of requests today",
+          "feat_category": 0,
+          "feat_value": "57",
+          "feat_type": "continuous",
+          "feat_min": 50.0,
+          "feat_max": 100.0
+        }
+      ],
+      "choice": 2
+    }
+  ]
+}
