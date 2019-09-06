@@ -49,17 +49,14 @@ class RankedListController < ApplicationController
       create_scenario_sql = "insert into individual_scenarios (features, created_at, updated_at, participant_id, category) values ('#{create_feature_json(generated_scenario)}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}', #{current_user.id}, '#{scenario_type}');"
       ActiveRecord::Base.connection.execute(create_scenario_sql)
       new_scenario_id = ActiveRecord::Base.connection.execute("select individual_scenarios.id from individual_scenarios order by individual_scenarios.created_at desc limit 1").values[0][0]
-      # Can't figure out why it's adding the same scenarioID each time
-      @scenarioIds << new_scenario_id
-
       @rankedListExamples << generated_scenario
 
-      create_rl_elem_sql = "insert into ranklist_element (ranklist_id, individual_scenario_id, model_rank, human_rank, created_at, updated_at) values (#{new_rankedlist_id}, #{new_scenario_id}, 0, 0, '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}');"
+      # create_rl_elem_sql = "insert into ranklist_element (ranklist_id, individual_scenario_id, model_rank, human_rank, created_at, updated_at) values (#{new_rankedlist_id}, #{new_scenario_id}, 0, 0, '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}', '#{DateTime.now.strftime('%a, %d %b %Y %H:%M:%S')}');"
       
-      # for some reason i'm seeing rankedlist_element as empty?
       @modelRanks << ActiveRecord::Base.connection.execute("select model_rank from ranklist_element where individual_scenario_id = #{new_scenario_id}").values
       @humanRanks << ActiveRecord::Base.connection.execute("select human_rank from ranklist_element where individual_scenario_id = #{new_scenario_id}").values
     end
+    @scenarioIds = ActiveRecord::Base.connection.execute("select id from individual_scenarios order by id desc limit #{rankedListSize}").values
   end
 
   def create_feature_json(scenarios)
@@ -69,10 +66,6 @@ class RankedListController < ApplicationController
     end
 
     all_features.to_json
-  end
-
-  def new 
-    @individual_weights = `python ./model_folder/ml_model_score.py -pid #{current_user.id} -fid 1` 
   end
 
 end

@@ -19,7 +19,7 @@
       <div class="numberCircle"><%= @modelRanks[index] %></div>
         <div class="card default">
           <div class="card-content">
-            <h5><%= "Scenario #{@scenarioIds[index]}" %></h5>
+            <h5><%= "Scenario #{@scenarioIds[index][0]}" %></h5>
             <% counter = 0 %>
             <% selectedFeats.size.times do %>
               <% puts @selectedFeats.map{|n| n.category}.inspect %>
