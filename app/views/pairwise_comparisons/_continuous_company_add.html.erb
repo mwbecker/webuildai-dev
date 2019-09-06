@@ -23,8 +23,8 @@
     <!-- Range (Numeric vs. Percentage) -->
     <p class="feature-label"> Range Options </p>
     <p>
-      <label for="percentage">
-        <input id="percentage" class="with-gap" type="radio" name="range-group">
+      <label for="percentage-company">
+        <input id="percentage-company" class="with-gap" type="radio" name="range-group">
         <span style = "color:black; font-size:1.3em;">Percentage ( 0%~100% )
         <br>
         <span style="color: #808080;">ex. The customer pays tips to couriers 57% of the time.</span>
@@ -33,8 +33,8 @@
     </p>
 
     <p>
-      <label for="numerical">
-        <input id="numerical" class="with-gap" type="radio" name="range-group">
+      <label for="numerical-company">
+        <input id="numerical-company" class="with-gap" type="radio" name="range-group">
         <span style = "color:black; font-size:1.3em;">Numerical
         <br>
         <span style="color: #808080;">ex. Most customers are between 18 and 45 years old.</span>
@@ -66,6 +66,7 @@
 
     <p class="feature-label"> Is this information about the request, or the driver? </p>
     <p>
+
       <label for="request-option-1">
         <input id="request-option-1" class="with-gap" type="radio" name="range-groupp">
         <span style = "color:black; font-size:1.3em;">Request
@@ -76,6 +77,7 @@
     </p>
 
     <p>
+
       <label for="driver-option-1">
         <input id="driver-option-1" class="with-gap" type="radio" name="range-groupp">
         <span style = "color:black; font-size:1.3em;">Driver
@@ -136,11 +138,11 @@
    $('.with-gap').removeAttr('checked');
   var numeric_elem = document.getElementById("num_input_div");
 
-  $('#numerical').click(function() {
+  $('#numerical-company').click(function() {
     numeric_elem.style = "display: block";
   });
 
-  $('#percentage').click(function() {
+  $('#percentage-company').click(function() {
     numeric_elem.style = "display: none";
 
   });
@@ -161,7 +163,7 @@
             if (($("#request-option-1")[0]).checked){categor="request"}
             else {categor="driver"}
 
-      if (document.getElementById("percentage").checked) {
+      if (document.getElementById("percentage-company").checked) {
         var lower = 0; var upper = 100;
       } else {
         var lower = parseInt($("#lower-bound")[0].value)
@@ -188,8 +190,8 @@
 
       }
 
-      let cat = 0
-      let options = "zilch"
+      let cat = 0;
+      let options = "zilch";
       $.ajax({
         url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options+ "&category=" + categor + "&description="+cati+"&company="+"true",
         type: "post",

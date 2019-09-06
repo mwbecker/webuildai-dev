@@ -102,17 +102,18 @@ def get_scenarios(connection, pid, pairwise_type, possible_values, is_scale):
     cursor = connection.cursor()
 
     # This should be used.
-    '''
+
     query = """
     SELECT participant_id, scenario_1, scenario_2, choice, reason, category 
-    FROM pairwise_comparisons a WHERE participant_id=%s AND category=%s
-    """%(str(pid), str(type))
-    '''
+    FROM pairwise_comparisons a WHERE participant_id=%s AND category='%s'
+    """%(str(pid), str(pairwise_type))
 
+    '''
     query = """
     SELECT participant_id, scenario_1, scenario_2, choice, reason, category
     FROM pairwise_comparisons WHERE participant_id=%s AND choice IS NOT NULL
     """%(str(pid))
+    '''
 
     cursor.execute(query)
 
@@ -291,6 +292,9 @@ def split_train_test(compars, test_frac, feat_trans):
     test_comps = compars[n_train:, :, :]
 
     k_train_comps = []
+    #print("Train="+str(train_comps.shape))
+    #print("Test="+str(test_comps.shape))
+
     for j in range(n_train):
         altA = train_comps[j, 0, :]
         altA = list(altA)
@@ -360,6 +364,7 @@ def run_model(args):
     lambda_reg = 1
     d = len(imp_features)
 
+    print("Dimension d="+str(d))
     feat_trans = set([])
     feat_trans_dup = list(itertools.product(range(d + 1), repeat=k))
     for t in feat_trans_dup:
@@ -481,7 +486,7 @@ def run_model(args):
     print(filename)
 
     pickle.dump(this_beta,
-                open(get_local_path("RESULT/betas/Participant_" + str(filename) + "_BETA_Round0.pkl"),
+                open(get_local_path("RESULT/betas/Participant_" + str(filename) + "_BETA_Round1.pkl"),
                      'wb'))
 
     # Potentiall include the code here for the weight vector

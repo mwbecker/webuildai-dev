@@ -1,13 +1,16 @@
 from argparse import ArgumentParser
 import numpy as np
 from sys import exit
+import scipy
 import scipy.stats
 import itertools
 from math import sqrt
 from scipy.optimize import minimize
 import json
 import pickle
+import os
 
+get_local_path = lambda s: os.path.join(os.path.dirname(os.path.realpath(__file__)), s)
 
 def setup():
 	normalize = 1
@@ -325,20 +328,54 @@ def model_running(k_train_comps, k_test_comps):
 
 	return soft_loss, num_correct, n_test, correct_comps, incorrect_comps, indiv_acc, learnt_beta
 
+def convert_categorical_features(feature):
+	
+	value = feature['feat_value']
+	possible_values = feature['possible_values']
+
+	if(("High" in possible_values) and ("Med" in possible_values) and ("Low" in possible_values)):
+		if value == "High":
+			mod_value = 1.0
+		elif value == "Med":
+			mod_value = 0.5
+		elif value == "Low":
+			mod_value = 0.0
+
+		return mod_value
+		
+	elif (("Yes" in possible_values) and ("No" in possible_values)):
+		if value == "Yes":
+			mod_value = 1.0
+		elif value == "No":
+			mod_value = 0.0
+
+		return mod_value
+
+	else:
+		arr = [0.0] * len(possible_values)
+		arr[possible_values.index(value)] = 1.0
+
+	return arr
+
 def scale(feature, is_scale):
 	'''
 	:param feature: JSON object for the feature
 	:param is_scale: Whether to scale OR not.
 	:return: scaled OR unscaled value of the feature
 	'''
-	value = float(feature['feat_value'])
-	if(is_scale==False):
-		mod_value = value
-	elif((is_scale==True) and (feature['feat_type']=='continuous')):
-		mod_value = (value - float(feature['feat_min']))/(float(feature['feat_max']) - float(feature['feat_min']))
+	if(feature['feat_type']=='categorical'):
+		mod_feature = convert_categorical_features(feature)
+		return mod_feature
 	else:
-		print("Not Implemented Yet- Scale")
-		exit(0)
+		value = float(feature['feat_value'])
+		if(is_scale==False):
+			mod_value = float(value)
+		elif((is_scale==True) and (feature['feat_type']=='continuous')):
+			mod_value = float(value)
+			mod_value = (value - float(feature['feat_min']))/(float(feature['feat_max']) - float(feature['feat_min']))
+		else:
+			print("Not Implemented Yet- Scale")
+			exit(0)
 
 	return mod_value
 
@@ -349,50 +386,73 @@ def read_input_file(json_file, is_scale=True):
 	num_samples = len(all_samples)
 
 	imp_features = set()
-	feature_array1 = []
-	feature_array2 = []
+	
+	feature_array1 = [] 	# Values for feature array1
+	feature_array2 = []		# Values for feature array2
 
-	sample = []
-
+	sample = []	#Comparison pairs to be generated.
 
 	for pairwise_sample in all_samples:
-		scenario_1 = pairwise_sample['scenario_1']
-		scenario_2 = pairwise_sample['scenario_2']
+		scenario_1 = pairwise_sample['scenario_1']	# Features corresp. to option 1
+		scenario_2 = pairwise_sample['scenario_2']	# Features corresp. to option 2
+
+		scenario_1 = sorted(scenario_1, key=lambda elem:elem["feat_id"])
+		scenario_2 = sorted(scenario_2, key=lambda elem:elem["feat_id"])
 
 		num_features1 = len(scenario_1)
 		num_features2 = len(scenario_2)
 
 		assert num_features1 == num_features2
 
-		feat_ids1 = []
-		feat_ids2 = []
+		feat_ids1 = []	# Feature ids - to check if we are comparing apples and apples 
+		feat_ids2 = []	
 
-		array_1 = []
+		array_1 = []	#Actual Values
 		array_2 = []
 
 		for f1 in scenario_1:
-			feat_ids1.append(f1['feat_id'])
-			array_1.append(scale(f1, is_scale))
-			imp_features.add(f1['feat_id'])
+			feat_ids1.append(f1['feat_id'])	#Makes sense.
 
+			modified_features = scale(f1, is_scale)
+			if(type(modified_features) is list):
+				for mf in modified_features:
+					array_1.append(mf)
+			else:
+				array_1.append(modified_features)
+			
+			imp_features.add(f1['feat_id'])
+		
 		feature_array1.append(feat_ids1)
+
 
 		for f2 in scenario_2:
 			feat_ids2.append(f2['feat_id'])
-			array_2.append(scale(f2, is_scale))
-			imp_features.add(f2['feat_id'])
 
+			modified_features = scale(f2, is_scale)
+			if(type(modified_features) is list):
+				for mf in modified_features:
+					array_2.append(mf)
+			else:
+				array_2.append(modified_features)
+
+			imp_features.add(f2['feat_id'])
 		feature_array2.append(feat_ids2)
 
-		for k in range(len(feat_ids1)):
-			assert feat_ids1[k] == feat_ids2[k]
-
+		#for k in range(len(feat_ids1)):
+		#	assert feat_ids1[k] == feat_ids2[k]
+		
 
 		choice = pairwise_sample['choice']
+		print("="*10)
+		print(feat_ids1)
+		print(array_1)
+		print("="*3)
+		print(feat_ids2)
+		print(array_2)
+		print("="*10)
 		sample.append([array_1, array_2, choice])
 
 	assert len(sample)==num_samples
-
 	return pid, sample, imp_features, feature_array1
 
 def main2(args):
@@ -448,6 +508,10 @@ def main2(args):
 		else:
 			compars.append(np.array([altB, altA]))
 
+	print("PRINTING SHAPE OF EACH ROW")
+	for x in compars:
+		print(x.shape)
+	print("STOPPING...")
 
 	compars = np.array(compars)
 	print("Length of comparisons="+str(len(compars)))
@@ -532,7 +596,7 @@ def main2(args):
 
 	print("Soft LOSS="+str(soft_loss))
 	print("Accuracy="+str(float(num_correct)/n_test))
-	pickle.dump(this_beta, open("RESULT/betas/Participant_"+str(pid)+"_BETA_Round0.pkl",'wb'))
+	pickle.dump(this_beta, open(get_local_path("RESULT/betas/Participant_"+str(pid)+"_BETA_Round0.pkl"),'wb'))
 
 	return this_beta, soft_loss, num_correct, n_test
 
@@ -558,7 +622,7 @@ def test(this_beta, k_test_comps, n_test, pid, loss_fun, size_type, test_frac):
 		soft_loss += (1 - prob_0_beats_1) ** 2
 
 	if(len(incorrect_comps)>0):
-		incorrect_comps_filename = "RESULT/incorrect_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_errors.txt"
+		incorrect_comps_filename = get_local_path("RESULT/incorrect_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_errors.txt")
 		with open(incorrect_comps_filename, 'w') as incorrect_outfile:
 			for incorrect_comp in incorrect_comps:
 				incorrect_outfile.write(str(incorrect_comp))
@@ -566,7 +630,7 @@ def test(this_beta, k_test_comps, n_test, pid, loss_fun, size_type, test_frac):
 
 	# write correct comparisons out to file
 	if len(correct_comps) > 0:
-		correct_comps_filename = "RESULT/correct_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_correct.txt"
+		correct_comps_filename = get_local_path("RESULT/correct_comps/Participant_"+str(pid)+"_"+str(loss_fun)+"_"+str(size_type)+"_"+str(int(test_frac)*100)+"_correct.txt")
 		with open(correct_comps_filename, 'w') as correct_outfile:
 			for correct_comp in correct_comps:
 				correct_outfile.write(str(correct_comp))

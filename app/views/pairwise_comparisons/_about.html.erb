@@ -40,15 +40,26 @@
 
 <script type="text/javascript">
   $("#about_next_btn").click(function(event) {
-   which  = ($("#which")[0]).value
-   long = ($("#long")[0]).value
-   service = ($("#service")[0]).value
-   actively = ($("#actively")[0]).value
-   deactivated = ($("#deactivated")[0]).value
-   pending = ($("#pending")[0]).value
-   satisfied = ($("#satisfied")[0]).value
-   curr_user = parseInt(<%=current_user.id %>)
-   $.ajax({
+
+    var all_questions = document.getElementsByClassName("about-question");
+    for (i = 0; i < all_questions.length; i++) {
+      question = all_questions[i];
+      if (question.value === "") {
+        alert("All fields are required.");
+        return -1;
+      }
+    }
+
+
+    which  = ($("#which")[0]).value
+    long = ($("#long")[0]).value
+    service = ($("#service")[0]).value
+    actively = ($("#actively")[0]).value
+    deactivated = ($("#deactivated")[0]).value
+    pending = ($("#pending")[0]).value
+    satisfied = ($("#satisfied")[0]).value
+    curr_user = parseInt(<%=current_user.id %>)
+    $.ajax({
      url: "/abouts?participant_id="+ curr_user + "&which=" + which + "&long="+long+"&service="+service+"&actively="+actively+"&deactivated="+deactivated+"&pending="+pending+"&satisified="+satisfied,
      type: "post",
      success: function(){
