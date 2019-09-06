@@ -3,7 +3,7 @@
   <h1>Ranked List</h1>
   <hr id = "hhr">
   <p class = "directions">
-    blah blah blah
+    Directions: blah blah blah
   </p>
 
   <% rankedListExamples = @rankedListExamples %>
@@ -13,25 +13,21 @@
   <div class = "row">
     <div class = "column">
     <h4> Model List </h4>
-    <% rankedListExamples.each.with_index do |rl, index| %>
+    <% @displayElems.each.with_index do |elem, index| %>
 
       <div class="container">
-      <div class="numberCircle"><%= @modelRanks[index] %></div>
         <div class="card default">
           <div class="card-content">
-            <h5><%= "Scenario #{@scenarioIds[index]}" %></h5>
-            <% counter = 0 %>
-            <% selectedFeats.size.times do %>
-              <% puts @selectedFeats.map{|n| n.category}.inspect %>
+            <h5><%= "Scenario #{elem[:scenario_id]}" %></h5>
+            <% elem[:features].each do |feature| %>
                 <div class = "cardRow">
                   <div class = "column left">
-                    <p class="feature-name">  <%= Feature.find(Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
+                    <p class="feature-name">  <%= feature[:name] %> </p>
                   </div>
                   <div class = "column right">
-                    <p class="feature-value">  <%= Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h[Scenario.for_group(rl[0].group_id).sort_by{|key| key}.to_h.keys[counter]] %> </p>
+                    <p class="feature-value">  <%= feature[:value] %> </p>
                   </div>
                 </div>
-              <% counter += 1 %>
             <% end %>
           </div>
         </div>
@@ -41,11 +37,12 @@
 
     <div class = "column">
     <h4> Your List </h4>
+    <p>Please write the scenario id's in the fields below that represents your ranking of the presented scenarios.</p>
     <div class="human-rank-container">
       <% rankedListExamples.each.with_index do |rl, index| %>
         <div class="block">
           <h5 class="human-rank"><%= "#{index + 1}:" %></h5>
-          <input id = "scenario-id" type="text" name="scenario-id-input" value="">
+          <input id=<%= "scenario-id-#{index}" %> type="text" name="scenario-id-input" value="">
         </div>
 
         <%-# For Dropdown Maybe? -%>
@@ -92,9 +89,25 @@
   $("#reorder_btn").onclick = function() {
     document.getElementById('some_form').style.visibility='hidden';   
   };
-
   $("#submit_btn").click(function(event) {
-    alert("Hello! I am an alert box!!");
-  };
+    let rlSize = <%= @rankedListSize %>;
+    let ordering = [];
+    for (let rank = 0; rank < rlSize; rank++) {
+      let id = $(`#scenario-id-${rank}`).val();
+      ordering.push(id);
+    }
+    $.ajax({
+      url: "/ranked_list/update_human_ranks",
+      type: "post",
+      data: { order: ordering },
+      success: function(){
+        console.log('Saved Successfully');
+        //window.location.href = "/pairwise_comparisons"
+      },
+      error:function($xhr){
+        console.log($xhr);
+      }
+    });
+  });
 
 </script>

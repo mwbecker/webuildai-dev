@@ -18,7 +18,7 @@ get_local_path = lambda s: os.path.join(os.path.dirname(os.path.realpath(__file_
 def connect():
     connection = None
     try:
-        connection = psycopg2.connect(user="mwbecker", host = "127.0.0.1", database="WeBuildAi_development")
+        connection = psycopg2.connect( host = "127.0.0.1", database="WeBuildAi_development")
         print("Connection Successful")
     except Exception:
         print("Connection ERROR")
