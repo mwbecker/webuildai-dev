@@ -71,6 +71,10 @@ class RankedListController < ApplicationController
     all_features.to_json
   end
 
+  def new 
+    @individual_weights = `python ./model_folder/ml_model_score.py -pid #{current_user.id} -fid 1` 
+  end
+
 end
 
 
