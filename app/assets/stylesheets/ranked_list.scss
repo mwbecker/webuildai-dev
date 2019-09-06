@@ -10,8 +10,15 @@
 
 #rl-page h5 {
   color:#3d6ab1;
-  margin-right: 8%;
-  margin-top: 10%;
+  text-align: center;
+  margin-top: -2%;
+}
+
+#rl-page h5.human-rank {
+  margin-bottom: 8%;
+  text-align: left;
+  margin-left: 20%;
+  display: inline-block;
 }
 
 #rl-page .directions {
@@ -79,10 +86,33 @@
   font-weight: bold;
 }
 
-#rl-page .btn {
+#reorder_btn {
   margin-bottom: 2%;
   margin-left: 8%;
   background-color: lightgray;
   color: black;
   font-weight: bold;
+}
+
+#submit_btn {
+  margin-bottom: 5%;
+  margin-top: 5%;
+  margin-right: 7.5%;
+  background: #3d6ab1;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 12.5vw;
+  height: 7.5vh;
+  font-weight: bold;
+  font-size: 1.38em;
+  line-height: 70px;
+  float: right;
+}
+
+#rl-page .human-rank-container {
+  margin-top: 10%;
+}
+
+#scenario-id {
+  width: 20%;
 }

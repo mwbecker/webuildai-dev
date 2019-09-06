@@ -8,15 +8,18 @@
 
   <% rankedListExamples = @rankedListExamples %>
   <% selectedFeats = @selectedFeats %>
+  
 
   <div class = "row">
     <div class = "column">
-    <h4> Generated List </h4>
-    <% rankedListExamples.each do |rl| %>
+    <h4> Model List </h4>
+    <% rankedListExamples.each.with_index do |rl, index| %>
+
       <div class="container">
-      <div class="numberCircle">1</div>
+      <div class="numberCircle"><%= @modelRanks[index] %></div>
         <div class="card default">
           <div class="card-content">
+            <h5><%= "Scenario #{@scenarioIds[index]}" %></h5>
             <% counter = 0 %>
             <% selectedFeats.size.times do %>
               <% puts @selectedFeats.map{|n| n.category}.inspect %>
@@ -38,11 +41,26 @@
 
     <div class = "column">
     <h4> Your List </h4>
+    <div class="human-rank-container">
+      <% rankedListExamples.each.with_index do |rl, index| %>
+        <div class="block">
+          <h5 class="human-rank"><%= "#{index + 1}:" %></h5>
+          <input id = "scenario-id" type="text" name="scenario-id-input" value="">
+        </div>
+
+        <%-# For Dropdown Maybe? -%>
+        <%-# select_tag "scenario_id", options_for_select(@scenarioIds)-%>
+      <% end %>
+    </div>
+
+
+<%
+=begin %>
     <a class="btn" id = "reorder_btn"> Reorder </a>
     <% rankedListExamples.each do |rl| %>
       <div class="container">
         <% puts @selectedFeats.map{|n| n.category}.inspect %>
-        <div class="numberCircle">1</div>
+        <div class="numberCircle"><%= @humanRanks[0] %></div>
         <div id = "user-list" class="card default">
           <div class="card-content">
             <% counter = 0 %>
@@ -61,13 +79,22 @@
         </div>
       </div>
     <% end %>
+<%
+=end %>
+
     </div>
+  <a class="btn" id = "submit_btn"> Submit </a>
   </div>
 </div>
 
 
 <script type="text/javascript">
-  $("#reorder_btn").click(function(event) {
-  });
+  $("#reorder_btn").onclick = function() {
+    document.getElementById('some_form').style.visibility='hidden';   
+  };
+
+  $("#submit_btn").click(function(event) {
+    alert("Hello! I am an alert box!!");
+  };
 
 </script>
