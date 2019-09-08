@@ -19,7 +19,8 @@ get_local_path = lambda s: os.path.join(os.path.dirname(os.path.realpath(__file_
 def connect():
     connection = None
     try:
-        connection = psycopg2.connect(user="mwbecker", host = "127.0.0.1", database="WeBuildAi_development")
+        # connection = psycopg2.connect( host = "127.0.0.1", database="WeBuildAi_development")
+        connection = psycopg2.connect(database="WeBuildAi_development")
         print("Connection Successful")
     except Exception:
         print("Connection ERROR")
@@ -198,7 +199,7 @@ def score_model(args):
 
     #Load Model
     model = pickle.load(
-        open('./RESULT/betas/Participant_' + str(pid) + '_' + str(pairwise_type) + '_BETA_Round' + str(fid) + '.pkl',
+        open(get_local_path('./RESULT/betas/Participant_' + str(pid) + '_' + str(pairwise_type) + '_BETA_Round' + str(fid) + '.pkl'),
              'rb'))
     #Score using this model
     possible_values = get_possible_feature_values(connection)

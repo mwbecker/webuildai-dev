@@ -217,18 +217,16 @@ the time a payment is issued. </p> <br / >
         all_zero = false;
       }
     }
-    console.log("Here");
     return !all_zero;
 }
-   if ( <%= raw session[:about] %> == true) {
-     $(".contain_1").css('display', 'none');
-     $(".contain").css('display', 'block');
-   }
+  if ( <%= raw session[:about] %> == true) {
+    $(".contain_1").css('display', 'none');
+    $(".contain").css('display', 'block');
+  }
 
   function updateTextInput(val, f) {
          id = Math.abs(parseInt(f.slice(f.length-2, f.length)))
          str = 'textInput' + '-' + id
-         console.log(str)
          a = parseInt(val);
          b_a = a
          a = Math.floor(a / 10)
@@ -258,7 +256,6 @@ the time a payment is issued. </p> <br / >
         console.log($xhr);
       }
     });
-    console.log("made it")
   }
 
 
