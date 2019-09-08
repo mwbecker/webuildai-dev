@@ -2,7 +2,6 @@ class RankedListController < ApplicationController
   require 'json'
   require 'date'
 
-  # Randomly generate examples for ranked list
   def ranked_list
     # Get all features user selected as important
     @selectedFeats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
