@@ -245,3 +245,66 @@ a:hover
   color: #636363;
   display: inline-block;
 }
+
+
+/* Page 1 styling */
+
+.pg-1-subheader {
+  font-size:2.4em;
+  font-weight:bold;
+  color:#3d6ab1;
+  font-family: "Helvetica Neue", sans-serif;
+  margin-left:10%;
+}
+
+.text-image-container {
+  margin-left:2%;
+}
+
+.pg-1-image-block {
+  display: flex;
+  align-items: center;
+  margin-top: -4%;
+  margin-left: 3%;
+  width: 80%;
+}
+
+.personal-pref-image {
+  width:30%;
+  height: auto;
+}
+
+.scenario-names {
+  color:#3d6ab1;
+  margin-left:10%;
+  width:80%;
+  font-size:23px;
+  font-weight:400;
+  line-height:1.5;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+#start_btn_1 {
+  margin-top: 3%;
+  margin-right: 7.5%;
+  background: #3d6ab1;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 12.5vw;
+  height: 7.5vh;
+  font-weight: bold;
+  font-size: 1.38em;
+  line-height: 70px;
+  float: right;
+}
+
+.social-ranking-image {
+  width:20%;
+  height: auto;
+}
+
+.social-image-block {
+  display: flex;
+  align-items: center;
+  width: 60%;
+}
