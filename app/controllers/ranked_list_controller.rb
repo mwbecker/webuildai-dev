@@ -54,7 +54,8 @@ class RankedListController < ApplicationController
     end
 
     # invoke python model to rank everything and insert ranklist_element table
-    model_score = `python ./model_folder/ml_model_score.py -pid #{current_user.id} -fid 1 -type request`
+    # model_score = `python ./model_folder/ml_model_score.py -pid #{current_user.id} -fid 1 -type request`
+    return
 
     ranklist_id = ActiveRecord::Base.connection.execute("select max(ranklist_element.ranklist_id) from ranklist_element").values[0][0]
 
