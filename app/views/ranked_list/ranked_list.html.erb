@@ -1,9 +1,10 @@
 <div id="rl-page">
 
-  <h1>Ranked List</h1>
-  <hr id = "hhr">
-  <p class = "directions">
-    Directions: blah blah blah
+  <h1>Individual Preference Models</h1>
+  <hr class = "feature-hr">
+  <p class = "about-text">
+    The model list is a list of scenarios that the AI has ranked from most preferable to least preferable. 
+    Please write the scenario ids in the fields below that represents your ranking of the presented scenarios.
   </p>
 
   <% rankedListExamples = @rankedListExamples %>
@@ -12,7 +13,7 @@
 
   <div class = "row">
     <div class = "column">
-    <h4> Model List </h4>
+    <h4 class="subheader"> Model List </h4>
     <% @displayElems.each.with_index do |elem, index| %>
 
       <div class="container">
@@ -36,8 +37,7 @@
     </div>
 
     <div class = "column">
-    <h4> Your List </h4>
-    <p>Please write the scenario ids in the fields below that represents your ranking of the presented scenarios.</p>
+    <h4 class="subheader"> Your List </h4>
     <div class="human-rank-container">
       <% rankedListExamples.each.with_index do |rl, index| %>
         <div class="block">

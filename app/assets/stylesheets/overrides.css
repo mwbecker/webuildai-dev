@@ -322,3 +322,30 @@ a:hover
   line-height: 70px;
   float: right;
 }
+
+#rank_yes_btn {
+  margin-top: 100%;
+  background: #3d6ab1;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 12.5vw;
+  height: 7.5vh;
+  font-weight: bold;
+  font-size: 1.38em;
+  line-height: 70px;
+}
+
+.evaluation-image {
+  margin-top: 0%;
+  width:40%;
+  height: auto;
+}
+
+.evaluation-image-block {
+  display: flex;
+  align-items: center;
+  margin-top: -2%;
+  margin-bottom: -6%;
+  margin-right: 10%;
+  margin-left: 1%;
+}
