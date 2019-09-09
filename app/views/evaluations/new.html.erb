@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col s5"></div>
     <div class="col s1">
-      <a class="waves-effect waves-dark btn" id="rank_yes_btn">Let's Go!</a>
+      <a class="waves-effect waves-dark btn" id="rank_yes_btn">Go!</a>
     </div>
     <div class="col s5"></div>
   </div>
@@ -11,6 +11,23 @@
 
 <script type="text/javascript">
   $("#rank_yes_btn").click(function(event) {
-    window.location.href = "/ranked_list/ranked_list/"
+    console.log("hi");
+    let data = <%= raw @individual_comparisons_json %>;
+    console.log(data);
+    // console.log(JSON.stringify(data));
+    $.ajax({
+      url: "http://localhost:5000/train",
+      type: "post",
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({ data: data }),
+      success: function(response){
+        console.log('Saved Successfully', response);
+        // window.location.href = "/ranked_list/ranked_list/"
+      },
+      error:function($xhr){
+        console.log($xhr);
+      },
+    });
   });
 </script>
