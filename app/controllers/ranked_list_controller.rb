@@ -2,7 +2,6 @@ class RankedListController < ApplicationController
   require 'json'
   require 'date'
 
-  # Randomly generate examples for ranked list
   def ranked_list
     # Get all features user selected as important
     @selectedFeats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
@@ -96,6 +95,7 @@ class RankedListController < ApplicationController
       # sql = "update ranklist_element as rle set human_rank = '#{index+1}' where rle.individual_scenario_id = #{scenario_id}"#" and rle.ranklist_id = #{ranklist_id}"
       # ActiveRecord::Base.connection.execute(sql)
     end
+    @scenarioIds = ActiveRecord::Base.connection.execute("select id from individual_scenarios order by id desc limit #{rankedListSize}").values
   end
 
   def create_feature_json(scenarios)

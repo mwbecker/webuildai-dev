@@ -55,67 +55,73 @@ the time a payment is issued. </p> <br / >
 </script>
 <%= render partial: 'about.html.erb' %>
 
+
 <div class = "contain" style = "display:none">
-<h1 id = "feat_select" style = "margin-left:10%;color:#3d6ab1" >Feature Selection</h1> <p style ="font-weight:lighter;font-size:2.3em;color:#3d6ab1;display:inline;float:right;margin-top:-3%;margin-right:10%;"> About Survey Completed </p>
-<hr id = "hhr">
-<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" >
+<h2 class="title">Feature Selection for Your Individual Preference Profile</h2>
+<hr class = "feature-hr">
+<p class = "feature-text" >
   Whenever you open your company’s app and start driving, an in-app algorithm works to match
   you with potential customers in your given area. This algorithm has two main goals:
 </p>
-<ul style = "margin-left:10%;color:black;width:80%;" >
-  <li class='bullet'>
+<ul class = "feature-list">
+  <li class="feature-text">
     - Provide rides/deliveries to customers when needed
   </li>
-  <li class="bullet">
+  <li class = "feature-text">
     - Maximizing drivers’ amounts of trips on the system to maximize drivers’ earnings
   </li>
 </ul>
-<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:17pt;font-weight:normal;" >
+<p class = "feature-text" >
  The boxes below contain features we believe your company’s algorithm
  uses to match drivers with incoming requests. Based on your experiences
  driving for your company, <b>please select any features that you believe your
  company’s algorithm should consider when matching drivers with requests.</b>
- For your selected features, please use the sliders on the right to determine
- how much importance you believe the algorithm should place on each factor. If there
- are features not listed below that you think the should algorithm use, please
- add your own at the bottom of the page.
- Please assign the level of importance to these additional features.
 </p>
-<table class = "striped highlight" id = "feat" style = "color: #515151;margin-left:10%;margin-right:5%;width:80%;">
+<div class="feature-image-block">
+  <p class = "feature-text">
+    For your selected features, please use the sliders on the right to determine
+    how much importance you believe the algorithm should place on each factor. If there
+    are features not listed below that you think the should algorithm use, please
+    add your own at the bottom of the page.
+    Please assign the level of importance to these additional features.
+  </p>
+  <%= image_tag ('Feature_Selection.png'), :class => "feature-selection-image" %>
+</div>
+
+
+<table class = "feature-table striped highlight" id = "feat">
     <thead>
      <th>  </th>
     </thead>
-<% a = get_ranges %>
-<% b = get_ranges_2 %>
-<% counter = "" %>
-<% Feature.all.active.request.added_by(current_user.id).order(:description).each do |f| %>
-<tr>
-
-  <td>
-    <% if  counter  == "" || f.description != counter %>
-    <h5 style = "font-weight:bold;color:black;"> <%= f.description %> </h5>
-    <% end %>
-    <div class="row">
-      <div class="card ">
-        <div class="card-content">
-          <%=f.name %>
-
-          <form id = "range_form" action="#">
-           <p class="range-field">
-             Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
-             <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
-           </p>
-          </form>
+    <% a = get_ranges %>
+    <% b = get_ranges_2 %>
+    <% counter = "" %>
+    <% Feature.all.active.request.added_by(current_user.id).order(:description).each do |f| %>
+    <tr>
+      <td>
+        <% if  counter  == "" || f.description != counter %>
+        <h5 class = "subheader"> <%= f.description %> </h5>
+        <% end %>
+        <div class="row">
+          <div class="card ">
+            <div class="card-content">
+             <p class="feature-card-text"><%=f.name %></p>
+              <form id = "range_form" action="#">
+              <p class="range-field" style = "display: inline-block;">
+                Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
+                <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
+              </p>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </td>
-    <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
-      <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
-    <% end %>
-   </tr>
-   <% counter = f.description %>
-<% end %>
+      </td>
+      <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
+        <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
+      <% end %>
+    </tr>
+    <% counter = f.description %>
+  <% end %>
 </table>
 
 

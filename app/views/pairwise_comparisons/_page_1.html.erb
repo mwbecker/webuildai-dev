@@ -1,31 +1,39 @@
-<div id = "pg_1" class="container">
-<h1 id = "feat_select" style = "color:#3d6ab1" >Pairwise Comparsion Part 1/2</h1>
-<hr class="break-container">
-
-
-<br>
-
-<p style = "color:black;width:75%;font-size:1.5em;line-height:22pt;font-weight:normal;" >Based on the factors you believe the algorithm should consider when matching drivers to requests, we are now going to give you some sets of scenarios. Each set will have two options, and it is up to your discretion to choose which is the better option. Please assume that these scenarios take place in a small, set location (not a large area like New York City.) Your answers will be used to help train a new matching algorithm we are developing for test cases.</p>
-<br> <br> <br>
-
-
-<p style = "font-size:2.4em;font-weight:bold;color:#3d6ab1"> Part 1. Personal Preference</p>
-<p style = "color:black;width:90%;font-size:1.5em;line-height:17pt;font-weight:normal;" > Between two requests, choose the request you would prefer over the other by comparing different factors </p>
-<p style = "color:black;width:90%;font-size:1.5em;line-height:17pt;font-weight:normal;" > Below are the factors you chose previously that are applicable in finding out about your preferences on requests.</p>
-<br>
-<br>
-
-
-<p style = "font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
-
-<div style = "width:80%" class= "box">
+<div id = "pg_1">
+  <h2 class="title">Answer Pairwise Comparisons to Train Your Individual Preference Profile</h2>
+  <hr class="feature-hr">
   <br>
-  <% @feats.each do |f| %>
-    <div style = "width:100%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= f.name %>  </p></div> <br/>  <br/>
-  <% end %>
+
+  <p class="feature-text">
+    In the previous exercise, you chose features that you believe your company’s in-app algorithm 
+    should consider when matching drivers to requests. We are now going to give you some sets of 
+    hypothetical scenarios based on your chosen features. Each set will have two options, and it 
+    is up to your discretion to choose which is the better option. Please assume that these scenarios 
+    take place in a small, set location (not a large area like New York City.) Your decisions for 
+    each set will be used to help train a new matching algorithm that we are developing for test cases.
+  </p>
+  <br> <br> <br>
+
+  <div class="pg-1-image-block">
+    <div class="text-image-container">
+      <p class="pg-1-subheader"> Part 1. Personal Preference</p>
+      <p class = "feature-text">
+        For the following scenario sets, please assume that you have your app open and the algorithm notifies 
+        you of two potential requests in your area. Based on the information you believe the algorithm should 
+        consider when assigning requests to drivers, please choose which request you would prefer the algorithm 
+        to match you with. The information below are features you previously chose that are applicable to these sets of scenarios.
+      </p>
+    </div>
+    <%= image_tag ('Personal_Pref.png'), :class => "personal-pref-image" %>
   </div>
-  <br/>
-<a class="waves-effect waves-dark btn" id = "start_btn_1" style = "float:right;width:12.5%;padding-top:0.7%;padding-bottom:4%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Start </a>
-<br><br><br><br><br><br><br><br>
+
+  <p class="pg-1-subheader">Scenarios will include: </p>
+
+  <div>
+    <% @feats.each do |f| %>
+        <p class = "scenario-names"><%= f.name %></p>
+    <% end %>
+  </div>
+  <a class="waves-effect waves-dark start_btn btn" id="start_btn_1" > Start </a>
+  <br><br><br><br><br><br><br><br>
 
 </div>
