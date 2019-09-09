@@ -1,0 +1,3 @@
+class IndividualScenario < ApplicationRecord
+
+end
