@@ -61,11 +61,11 @@ class EvaluationsController < ApplicationController
     #return JSON.parse(comparisons.to_json(:except => :participant_id))
   end
 
-  def get_comparisons_json(comparisons, prefix)
+  def get_comparisons_json(comparisons, type)
     result = Hash.new
     result[:participant_id] = current_user.id
     result[:comparisons] = retrieve_choices(comparisons)
-    result[:request_type] = "pairwise"
+    result[:request_type] = type
 
     # result_hash = JSON.dump(result)
     # puts result_hash
@@ -95,14 +95,11 @@ class EvaluationsController < ApplicationController
   end
 
   def new
-    puts current_user
-    # this should be optimized later
-    recent_scenarios = PairwiseComparison.where(participant_id: current_user.id).last(2*NUM_PAIRS)
-    half = recent_scenarios.length / 2 - 1
+    individual_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "request")
+    social_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "driver")
 
-    @individual_comparisons_json = get_comparisons_json(recent_scenarios[0..half], "individual")
-    @social_comparisons_json = get_comparisons_json(recent_scenarios[half..recent_scenarios.length], "social")
-
+    @individual_comparisons_json = get_comparisons_json(individual_comparisons, "request")
+    @social_comparisons_json = get_comparisons_json(social_comparisons, "driver")
   end
 
   def index
