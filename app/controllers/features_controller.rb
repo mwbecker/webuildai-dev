@@ -131,8 +131,11 @@ class FeaturesController < ApplicationController
   # PATCH/PUT /features/1
   # PATCH/PUT /features/1.json
   def update
-   @feature.active = false
-   @feature.save!
+    if @feature.update_attributes(feature_params)
+      redirect_to @feature, notice: "Updated information"
+    else
+      render action: 'edit'
+    end
   end
 
 

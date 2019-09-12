@@ -1,57 +1,22 @@
-<div style = "width:90%;margin-left:5%;">
-<h1>Add Continuous Feature </h1>
-
-<form action="#">
-  Feature Name:<br>
-  <input id = "feature-name" type="text" name="featurename" value="">
-  <br><br>
-</form>
-
-<a class="waves-effect waves-dark btn" id = "next_btn" style = "width:20%;color:#FFFFFF;"> Next </a>
-<br><br> <br><br>
-<form action="#" id = "bounds" style = "display:none;">
-  Lower bound :<br>
-  <input id = "lower-bound" type="text" name="lower" value="">
-  Upper bound: <br>
-  <input id = "upper-bound" type="text" name="upper" value="">
-  <br><br>
-</form>
-
-<a class="waves-effect waves-dark btn" id = "submit_btn" style = "width:20%;color:#FFFFFF;display:none;"> Submit </a>
-
-
-</div>
-
-
-
-<script type="text/javascript">
-
-  $("#next_btn").click(function(event) {
-    $("#bounds").css('display', 'block');
-    $("#submit_btn").css('display', 'block');
-  });
-
-
-
-  $("#submit_btn").click(function(event) {
-    let name = $("#feature-name")[0].value
-    let lower = parseInt($("#lower-bound")[0].value)
-    let upper = parseInt($("#upper-bound")[0].value)
-    let cat = 0
-    let options = "zilch"
-    $.ajax({
-      url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options,
-      type: "post",
-      success: function(){
-        console.log('Saved Successfully');
-        window.location.href = "/pairwise_comparisons/new"
-      },
-      error:function($xhr){
-        console.log($xhr);
-      }
-    });
-  });
-
-
-
-</script>
+<table class="striped highlight" style="width:60%;margin: 0 auto;">
+  <thead>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th>Active</th>
+    <th class="align_center">Edit</th>
+  </thead>
+  <% for feature in @features %>
+    <tr>
+      <td><%= feature.name %></td>
+      <td><%= feature.description %></td>
+      <td><%= feature.category %></td>
+      <td><%= feature.active %></td>
+      <td class="align_center">
+        <%= link_to edit_feature_path(feature) do %>
+            <i class="material-icons">edit</i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
