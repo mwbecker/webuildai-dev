@@ -22,7 +22,26 @@ class PairwiseComparisonsController < ApplicationController
       end
       three_feats.each do |f|
         if f.data_range == nil
-        end
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+          puts f.id
+
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+           puts "Oh no"
+     end
         if f.data_range.is_categorical
           @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
         else
@@ -45,6 +64,7 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
   end
+
 
   def index_driver
     @pairwise_comparisons_1  = Array.new
@@ -83,6 +103,7 @@ class PairwiseComparisonsController < ApplicationController
         counter += 1
       end
     end
+
   end
 
   # GET /pairwise_comparisons/1

@@ -1,2 +1,0 @@
-class RanklistsController < ApplicationController
-end

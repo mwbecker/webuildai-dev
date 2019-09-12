@@ -91,16 +91,6 @@ class ApplicationController < ActionController::Base
     return to_ret.reverse
   end
 
-  def current_round
-    @current_round = session[:round]
-  end
-  helper_method :current_round
-
-  def human_ranks
-    @human_ranks = session[:human_ranks]
-  end
-  helper_method :current_ranks
-
   def current_user
     @current_user ||= Participant.find(session[:participant_id]) if session[:participant_id]
   end

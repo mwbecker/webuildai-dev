@@ -1,18 +1,26 @@
-<div id = "pg_1">
-  <h2 class="title">Answer Pairwise Comparisons to Train Your Social Preference Profile</h2>
-  <hr class="feature-hr">
+<div id = "pg_1" class="container">
+<h1 id = "feat_select" style = "color:#3d6ab1" >Pairwise Comparsion Part 2/2</h1>
+<hr class="break-container">
 
-  <p class="feature-text"> Below are the factors you chose previously that are applicable in finding out about your preferences on drivers.</p>
-  <br><br>
-  <p class="pg-1-subheader">Scenarios will include: </p>
 
-  <% counter_p1 = 0 %>
-  <div>
-    <% @feats_1.each do |f| %>
-      <p class = "scenario-names"><%= f.name %></p>
-    <% end %>
+<br>
+
+<p style = "color:black;width:90%;font-size:1.5em;line-height:17pt;font-weight:normal;" > Below are the factors you chose previously that are applicable in finding out about your preferences on drivers.</p>
+<br>
+<br>
+
+
+<p style = "font-size:1.25em;font-weight:bold;color:#3d6ab1">Scenarios will include - </p>
+
+<% counter_p1 = 0 %>
+<div style = "width:80%" class= "box">
+  <br>
+  <% @feats_1.each do |f| %>
+    <div style = "width:100%;float:left"> <p style = "font-size:1.1em;color:#3d6ab1;margin-top:-3%">  <%= f.name %>  </p></div> <br/>  <br/>
+  <% end %>
   </div>
-  <a class="waves-effect waves-dark btn" id = "start_btn_4"> Start </a>
-  <br><br><br><br><br><br><br><br>
+  <br/>
+<a class="waves-effect waves-dark btn" id = "start_btn_4" style = "float:right;width:12.5%;padding-top:0.7%;padding-bottom:4%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> Start </a>
+<br><br><br><br><br><br><br><br>
 
 </div>
