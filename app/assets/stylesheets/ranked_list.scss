@@ -1,0 +1,118 @@
+#rl-page h1 {
+  text-align: center;
+  color: #3d6ab1;
+}
+
+#rl-page h4 {
+  margin-left:19%;
+  display: inline-block;
+}
+
+#rl-page h5 {
+  color:#3d6ab1;
+  text-align: center;
+  margin-top: -2%;
+}
+
+#rl-page h5.human-rank {
+  margin-bottom: 8%;
+  text-align: left;
+  margin-left: 20%;
+  display: inline-block;
+}
+
+#rl-page .directions {
+  margin-left:10%;
+  color:black;
+  width:80%;
+  font-size:1.5em;
+  line-height:22pt;
+  font-weight:normal;
+}
+
+#rl-page .container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+#rl-page .card {
+  transition: 0.3s;
+  width: 100%;
+  border-radius: 5px;
+}
+
+#rl-page .feature-value {
+  font-weight:bold;
+  font-size:1.1em;
+}
+
+#rl-page .feature-name {
+  margin-bottom:4%;
+  margin-top:2%;
+}
+
+#rl-page .column {
+  float: left;
+  width: 50%;
+}
+
+#rl-page .row {
+  width: 100%;
+}
+
+#rl-page .left {
+  width: 90%;
+}
+
+#rl-page .right {
+  width: 4%;
+  margin-top: 2%;
+}
+
+#rl-page .default {
+  cursor: default;
+}
+
+#rl-page .numberCircle {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 9px;
+  background: #3d6ab1;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#reorder_btn {
+  margin-bottom: 2%;
+  margin-left: 8%;
+  background-color: lightgray;
+  color: black;
+  font-weight: bold;
+}
+
+#submit_btn {
+  margin-bottom: 5%;
+  margin-top: 5%;
+  margin-right: 7.5%;
+  background: #3d6ab1;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 12.5vw;
+  height: 7.5vh;
+  font-weight: bold;
+  font-size: 1.38em;
+  line-height: 70px;
+  float: right;
+}
+
+#rl-page .human-rank-container {
+  margin-top: 10%;
+}
+
+#rl-page .scenario-input {
+  width: 20%;
+}

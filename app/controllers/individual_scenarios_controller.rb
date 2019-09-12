@@ -1,0 +1,2 @@
+class IndividualScenariosController < ApplicationController
+end

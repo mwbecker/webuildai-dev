@@ -1,0 +1,2 @@
+class RanklistElementsController < ApplicationController
+end
