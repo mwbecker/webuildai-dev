@@ -1,19 +1,17 @@
-<div class = "contain_1">
-<h2 class="title" >Evaluation</h2>
-<hr class="feature-hr">
-<div class="evaluation-image-block">
-  <p class = "about-text"> 
-    Thank you for your input in the previous scenario exercises. We will be training our test algorithm 
-    to make matching decisions based on the features you believe the algorithm should consider and your 
-    decisions from the scenario comparisons. We would now like to ask how you want the algorithm to work 
-    with you when you are behind the wheel.
-  </p>
-  <%= image_tag ('Evaluation.png'), :class => "evaluation-image" %>
-</div>
+<div class = "contain_1" style = "display:block">
+<h1 style = "margin-left:10%;color:#3d6ab1" >Evaluation</h1>
+<hr id = "hhr">
+<p style = "margin-left:10%;color:black;width:80%;font-size:1.5em;line-height:22pt;font-weight:normal;" >
+  Thank you for your input in the previous scenario exercises. We will
+  be training our test algorithm to make matching decisions based on
+  the features you believe the algorithm should consider and your decisions
+  from the scenario comparisons. We would now like to ask how you want the
+  algorithm to work with you when you are behind the wheel.
+</p>
 <br> <br>
 <form action="#" id = "about_form" style = "display:block;margin-left:10%;width:80%;">
-  <h5 class="subheader"> The Algorithm </h5>
-  <label for = "show" class="question">Would you like the algorithm to show you its matching process? </label>
+  <h5  style = "font-weight:bold"> The Algorithm </h5> <br/>
+  <label for = "show" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;">Would you like the algorithm to show you its matching process? </label>
   <label style = "display:inline;margin-right:5%;">
     <input id = "show-1" class="with-gap" name="group3" type="radio" checked />
     <span style = "color:black">Yes</span>
@@ -23,41 +21,41 @@
      <span style = "color:black">No</span>
    </label> <br> <br>
 
-  <label for = "how" class="question"> How would you want the algorithm to show you its matching process? </label>
+  <label for = "how" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> How would you want the algorithm to show you its matching process? </label>
   <input id = "how" type="text" name="upper" value="" placeholder="2 years"> <br> <br>
 
-  <label for = "fairly" class="question"> When assigning requests to drivers in a given location, the algorithm considers factors from all the drivers
+  <label for = "fairly" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> When assigning requests to drivers in a given location, the algorithm considers factors from all the drivers
 and requests in the given area before deciding to assign each individual request to each individual driver -
 similar to how you weighed each factor of two different options before choosing the better option.
 <br/> <br/> How would you want to see if the algorithm is fairly weighing these factors like you did previously? </label>
   <input id = "fairly" type="text" name="upper" value="" placeholder="2 years"><br> <br>
 
-  <label for = "correctly" class="question">The algorithm takes each driver’s factors you’ve seen in the scenarios by weighing these factors against
+  <label for = "correctly" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;">The algorithm takes each driver’s factors you’ve seen in the scenarios by weighing these factors against
 other drivers’ factors accordingly before reaching the decision to assign a request to one driver.
 <br/> <br/>How would you want to see if the algorithm is correctly weighing each factor? </label>
   <input id = "correctly" type="text" name="upper" value="" placeholder="2 years"><br> <br>
 
-  <label for = "priorities" class="question"> How would you want to see if your priorities are being correctly followed by the algorithm as it makes
+  <label for = "priorities" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> How would you want to see if your priorities are being correctly followed by the algorithm as it makes
 decisions? </label>
   <input id = "priorities" type="text" name="upper" value="" placeholder="2 years"> <br> <br>
 
 
-  <label for = "previously" class="question"> How would you know that the algorithm thoroughly understands your previously chosen preferences? </label>
+  <label for = "previously" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> How would you know that the algorithm thoroughly understands your previously chosen preferences? </label>
   <input id = "previously" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br>
 
-  <label for = "situation" class="question"> In what situation would you question the algorithm’s decision? </label>
+  <label for = "situation" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> In what situation would you question the algorithm’s decision? </label>
   <input id = "situation" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br> <br>
 
-  <label for = "resolve" class="question"> How would you want the algorithm to resolve your questioning? </label>
+  <label for = "resolve" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> How would you want the algorithm to resolve your questioning? </label>
   <input id = "resolve" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br> <br>
 
-  <label for = "functions" class="question"> What would you like the app to display to show the algorithm’s functions? </label>
+  <label for = "functions" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> What would you like the app to display to show the algorithm’s functions? </label>
   <input id = "functions" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br> <br>
 
-  <label for = "incorrect" class="question"> If you suspected the algorithm to be incorrect, what kinds of data would you consider to confirm your suspicion? </label>
+  <label for = "incorrect" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> If you suspected the algorithm to be incorrect, what kinds of data would you consider to confirm your suspicion? </label>
   <input id = "incorrect" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br> <br>
 
-  <label for = "alert" class="question"> How would you want the app to alert you if the algorithm is malfunctioning? </label>
+  <label for = "alert" style = "color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> How would you want the app to alert you if the algorithm is malfunctioning? </label>
   <input id = "alert" type="text" name="upper" value="" placeholder="Uber, lyft, postmates"> <br> <br> <br>
 
   <a class="waves-effect waves-dark btn" id = "eval_next_btn" style = "padding-top:.5%;padding-bottom:4%;margin-top:3%;width:10%;color:#FFFFFF;display:block;float:right;background-color:#3d6ab1;font-weight:bold"> Submit </a>
