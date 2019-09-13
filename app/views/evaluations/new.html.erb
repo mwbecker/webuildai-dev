@@ -12,12 +12,13 @@
 <script type="text/javascript">
   // TODO: do with social_comparisons too
   $("#rank_yes_btn").click(function(event) {
-    console.log("hi");
-    let data = <%= raw @individual_comparisons_json %>;
+    let data = <%= raw @comparisons_json %>;
+    let url = "<%= @server_url %>";
+    let category= "<%= @category %>";
     console.log(data);
     // console.log(JSON.stringify(data));
     $.ajax({
-      url: "http://localhost:5000/train",
+      url: `${url}/train`,
       type: "post",
       contentType: 'application/json',
       dataType: 'json',
@@ -25,9 +26,34 @@
       success: function(response){
         console.log('Saved Successfully', response);
         // window.location.href = "/ranked_list/ranked_list/"
+        $.ajax({
+          url: `/ranked_list/generate_samples?category=${category}`,
+          type: "get",
+          dataType: 'json',
+          success: function(samples) {
+            console.log('generated_samples', samples);
+            $.ajax({
+              url: `${url}/evaluate`,
+              type: "post",
+              contentType: 'application/json',
+              dataType: 'json',
+              data: JSON.stringify({ data: samples }),
+              success: function(response){
+                console.log("success evaluate", response);
+                window.location.href = "/ranked_list/ranked_list/?"+$.param({order:response.order});
+              },
+              error: function(response){
+                console.log("error", response);
+              },
+            })
+          },
+          error: function(req) {
+            console.log("error", req);
+          }
+        });
       },
       error:function($xhr){
-        console.log($xhr);
+        console.log("error", $xhr);
       },
     });
   });

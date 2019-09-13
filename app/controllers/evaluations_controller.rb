@@ -95,11 +95,16 @@ class EvaluationsController < ApplicationController
   end
 
   def new
-    individual_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "request")
-    social_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "driver")
+    @category = params[:category]
+    if @category == 'request'
+      individual_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "request")
+      @comparisons_json = get_comparisons_json(individual_comparisons, "request")
+    else
+      social_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "driver")
+      @comparisons_json = get_comparisons_json(social_comparisons, "driver")
+    end
 
-    @individual_comparisons_json = get_comparisons_json(individual_comparisons, "request")
-    @social_comparisons_json = get_comparisons_json(social_comparisons, "driver")
+    @server_url = Rails.env.production? ? "https://webuildai-ml-server.herokuapp.com" : "http://localhost:5000"
   end
 
   def index
