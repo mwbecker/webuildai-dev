@@ -68,9 +68,12 @@ class RankedListController < ApplicationController
 
     @orderedList = params[:order]
     @ranklistElems = Array.new
-    @orderedList.each do |indiv_id|
+    @orderedList.each.with_index do |indiv_id, i|
       # @ranklistElems << RanklistElement.where(individual_scenario_id: indiv_id).first
       @ranklistElems << IndividualScenario.where(id: indiv_id.to_i, participant_id: current_user.id).first
+      elem = RanklistElement.where(individual_scenario_id: indiv_id).first
+      elem.model_rank = i+1
+      elem.save!
     end
     # invoke python model to rank everything and insert ranklist_element table
     # model_score = `python ./model_folder/ml_model_score.py -pid #{current_user.id} -fid 1 -type request`
