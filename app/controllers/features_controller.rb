@@ -131,8 +131,12 @@ class FeaturesController < ApplicationController
   # PATCH/PUT /features/1
   # PATCH/PUT /features/1.json
   def update
-   @feature.active = false
-   @feature.save!
+    if @feature.update_attributes(feature_params)
+      @data_range = @feature.data_range.update_attributes(data_range_params)
+      redirect_to @feature, notice: "Updated information"
+    else
+      render action: 'edit'
+    end
   end
 
 
@@ -154,6 +158,10 @@ class FeaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_params
-      params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description, :company)
+      params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description, :company, :active)
+    end
+
+    def data_range_params
+      params.require(:data_range).permit(:feature_id, :is_categorical, :lower_bound, :upper_bound)
     end
 end

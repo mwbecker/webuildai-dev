@@ -41,7 +41,7 @@ class DataRangesController < ApplicationController
   # PATCH/PUT /data_ranges/1.json
   def update
     respond_to do |format|
-      if @data_range.update(data_range_params)
+      if @data_range.update_attributes(data_range_params)
         format.html { redirect_to @data_range, notice: 'Data range was successfully updated.' }
         format.json { render :show, status: :ok, location: @data_range }
       else
