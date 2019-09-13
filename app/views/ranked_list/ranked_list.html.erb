@@ -63,9 +63,9 @@
       ordering.push(id);
     }
     $.ajax({
-      url: "/ranked_list/update_human_ranks",
+      url: "/ranked_list/reload",
       type: "post",
-      data: { order: ordering },
+      data: { order: ordering, ranklist: <% @new_ranklist %> },
       success: function(){
         console.log('Saved Successfully');
         //window.location.href = "/pairwise_comparisons"

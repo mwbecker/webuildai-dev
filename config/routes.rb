@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'ranked_list/ranked_list'
   get 'ranked_list/preview'
   post 'ranked_list/update_human_ranks'
+  post 'ranked_list/reload'
 
   get 'users/new', to: 'users#new', as: :signup
   get 'user/edit', to: 'users#edit', as: :edit_current_user
