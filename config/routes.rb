@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get 'ranked_list/ranked_list'
   get 'ranked_list/preview'
+  get 'ranked_list/weights'
   post 'ranked_list/update_human_ranks'
 
   get 'users/new', to: 'users#new', as: :signup
