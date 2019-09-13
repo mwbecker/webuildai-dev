@@ -1,16 +1,69 @@
 <div class="container">
   <h1 class="title">Let’s check the results of your individual preference and social models.</h1>
+  <% if current_round > 0 %>
+    <h3>-------> Tuning Round <%= current_round+1 %>!</h3>
+  <% end %>
   <div class="row">
     <div class="col s5"></div>
     <div class="col s1">
-      <a class="waves-effect waves-dark btn" id="rank_yes_btn">Let's Go!</a>
+      <a class="waves-effect waves-dark btn" id="rank_yes_btn">Go!</a>
+      <%= image_tag ('loading.gif'), :class => "loading-image" %>
     </div>
     <div class="col s5"></div>
   </div>
 </div>
 
 <script type="text/javascript">
+  // TODO: do with social_comparisons too
+                $(".loading-image").hide();
   $("#rank_yes_btn").click(function(event) {
-    window.location.href = "/ranked_list/ranked_list/"
+    $("#rank_yes_btn").hide();
+    $(".loading-image").show();
+    let data = <%= raw @comparisons_json %>;
+    let url = "<%= @server_url %>";
+    let category= "<%= @category %>";
+    console.log(data);
+    // console.log(JSON.stringify(data));
+    $.ajax({
+      url: `${url}/train`,
+      type: "post",
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({ data: data }),
+      success: function(response){
+        console.log('Saved Successfully', response);
+        // window.location.href = "/ranked_list/ranked_list/"
+        $.ajax({
+          url: `/ranked_list/generate_samples?category=${category}`,
+          type: "get",
+          dataType: 'json',
+          success: function(samples) {
+            console.log('generated_samples', samples);
+            $.ajax({
+              url: `${url}/evaluate`,
+              type: "post",
+              contentType: 'application/json',
+              dataType: 'json',
+              data: JSON.stringify({ data: samples }),
+              success: function(response){
+                console.log("success evaluate", response);
+                $(".loading-image").hide();
+                $("#rank_yes_btn").show();
+                window.location.href = "/ranked_list/ranked_list/?"+$.param({order:response.order})+"&category="+category;
+              },
+              error: function(response){
+                console.log("error", response);
+              },
+            })
+          },
+          error: function(req) {
+            console.log("error", req);
+          }
+        });
+      },
+      error:function($xhr){
+        console.log("error", $xhr);
+      },
+    });
   });
 </script>

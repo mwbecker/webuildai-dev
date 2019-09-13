@@ -9,6 +9,7 @@ class EvaluationsController < ApplicationController
         next
       end
       comparison_hash = Hash.new
+
       # scenario 1
       scenario_a_list = Array.new
       Scenario.for_group(comparison.scenario_1).each do |s|
@@ -22,6 +23,9 @@ class EvaluationsController < ApplicationController
         scenario_a_hash[:feat_type] = given_feature.data_range.is_categorical ? "categorical" : "continuous"
         scenario_a_hash[:feat_min] = given_feature.data_range.lower_bound
         scenario_a_hash[:feat_max] = given_feature.data_range.upper_bound
+        if given_feature.data_range.is_categorical
+          scenario_a_hash[:possible_values] = given_feature.data_range.categorical_data_options.map {|opt| opt.option_value }
+        end
         scenario_a_list << scenario_a_hash
       end
 
@@ -41,6 +45,9 @@ class EvaluationsController < ApplicationController
         scenario_b_hash[:feat_type] = given_feature.data_range.is_categorical ? "categorical" : "continuous"
         scenario_b_hash[:feat_min] = given_feature.data_range.lower_bound
         scenario_b_hash[:feat_max] = given_feature.data_range.upper_bound
+        if given_feature.data_range.is_categorical
+          scenario_b_hash[:possible_values] = given_feature.data_range.categorical_data_options.map {|opt| opt.option_value }
+        end
         scenario_b_list << scenario_b_hash
       end
 
@@ -54,57 +61,51 @@ class EvaluationsController < ApplicationController
     #return JSON.parse(comparisons.to_json(:except => :participant_id))
   end
 
-  def write_comparisons_file(comparisons, prefix)
+  def get_comparisons_json(comparisons, type)
     result = Hash.new
-    result[:part_id] = current_user.id
+    result[:participant_id] = current_user.id
     result[:comparisons] = retrieve_choices(comparisons)
+    result[:request_type] = type
+    result[:feedback_round] = session[:round]
 
-    result_hash = JSON.dump(result)
-    # puts(result_hash)
-    begin_path = Rails.root.join("config/output_storage")
-    path_name = Rails.root.join("#{begin_path}/#{@participant_id}")
-    file_name = "#{prefix}-#{current_user.id}-#{DateTime.now}.json"
+    # result_hash = JSON.dump(result)
+    # puts result_hash
+    return result.to_json
 
-    if !File.directory? begin_path
-      Dir.mkdir begin_path
-    end
+    # # puts(result_hash)
+    # begin_path = Rails.root.join("config/output_storage")
+    # path_name = Rails.root.join("#{begin_path}/#{@participant_id}")
+    # file_name = "#{prefix}-#{current_user.id}-#{DateTime.now}.json"
 
-    if !File.directory? path_name
-      Dir.mkdir path_name
-    end
+    # if !File.directory? begin_path
+    #   Dir.mkdir begin_path
+    # end
 
-    full_file_path = "#{path_name}/#{file_name}"
-    contents = JSON.pretty_generate(result)
+    # if !File.directory? path_name
+    #   Dir.mkdir path_name
+    # end
 
-    File.open(full_file_path, "w") do |f|
-      f.write(contents)
-    end
-    return full_file_path
+    # full_file_path = "#{path_name}/#{file_name}"
+    # contents = JSON.pretty_generate(result)
+
+    # File.open(full_file_path, "w") do |f|
+    #   f.write(contents)
+    # end
+    # return full_file_path
 
   end
 
   def new
-    # this should be optimized later
-    recent_scenarios = PairwiseComparison.where(participant_id: current_user.id).last(2*NUM_PAIRS)
-    half = recent_scenarios.length / 2
+    @category = params[:category]
+    if @category == 'request'
+      individual_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "request")
+      @comparisons_json = get_comparisons_json(individual_comparisons, "request")
+    else
+      social_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "driver")
+      @comparisons_json = get_comparisons_json(social_comparisons, "driver")
+    end
 
-    full_path = write_comparisons_file(recent_scenarios[0..half], "individual")
-    i = full_path.index("config")
-    path = full_path[i..full_path.length]
-    # this executes whatever's in the tics as a shell process, result = stdout
-
-    @individual_weights = `python ./model_folder/ml_model_db.py -pid #{current_user.id} -type "request"`
-    puts @individual_weights
-
-
-    full_path = write_comparisons_file(recent_scenarios[half..recent_scenarios.length], "social")
-    i = full_path.index("config")
-    path = full_path[i..full_path.length]
-    # this executes whatever's in the tics as a shell process, result = stdout
-
-    @individual_weights = `python ./model_folder/ml_model_db.py -pid #{current_user.id} -type "driver"`
-    puts @social_weights
-
+    @server_url = Rails.env.production? ? "https://webuildai-ml-server.herokuapp.com" : "http://localhost:5000"
   end
 
   def index

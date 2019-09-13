@@ -7,15 +7,15 @@
     Please write the scenario ids in the fields below that represents your ranking of the presented scenarios.
   </p>
 
-  <% rankedListExamples = @rankedListExamples %>
-  <% selectedFeats = @selectedFeats %>
-  
-
   <div class = "row">
-    <div class = "column">
-    <h4 class="subheader"> Model List </h4>
+    <table>
+    <tr>
+      <td><h4 class="subheader"> Model List </h4></td>
+      <td><h4 class="subheader"> Your Ranks For: </h4></td>
+    </tr>
     <% @displayElems.each.with_index do |elem, index| %>
-
+      <tr>
+      <td>
       <div class="container">
         <div class="card default">
           <div class="card-content">
@@ -33,24 +33,21 @@
           </div>
         </div>
       </div>
-    <% end %>
-    </div>
-
-    <div class = "column">
-    <h4 class="subheader"> Your List </h4>
-    <div class="human-rank-container">
-      <% rankedListExamples.each.with_index do |rl, index| %>
+      </td>
+      <td>
         <div class="block">
-          <h5 class="human-rank"><%= "#{index + 1}:" %></h5>
+          <h5 class="human-rank"><%= "Scenario #{elem[:scenario_id]}:" %></h5>
           <input id=<%= "scenario-id-#{index}" %> class="scenario-input" type="text" name="scenario-id-input" value="">
         </div>
-        <%-# For Dropdown Maybe? -%>
-        <%-# select_tag "scenario_id", options_for_select(@scenarioIds)-%>
-      <% end %>
+      </td>
+      </tr>
+    <% end %>
     </div>
+    </table>
+    <div class="row">
+      <a class="btn" id = "submit_btn"> Submit Changes </a>
+      <a class="btn" id = "lgtm_btn"> No Changes Needed </a>
     </div>
-  <a class="btn" id = "submit_btn"> Submit </a>
-  </div>
 </div>
 
 
@@ -59,16 +56,23 @@
     let rlSize = <%= @rankedListSize %>;
     let ordering = [];
     for (let rank = 0; rank < rlSize; rank++) {
-      let id = $(`#scenario-id-${rank}`).val();
-      ordering.push(id);
+      let order = $(`#scenario-id-${rank}`).val();
+      ordering.push(order);
     }
+    let oldOrder = <%= raw params[:order] %>;
+    let category = "<%= @category %>";
+    console.log('ordering', oldOrder);
     $.ajax({
       url: "/ranked_list/update_human_ranks",
       type: "post",
-      data: { order: ordering },
+      data: { new_order: ordering, order: oldOrder },
       success: function(){
         console.log('Saved Successfully');
-        //window.location.href = "/pairwise_comparisons"
+        if (<%= session[:round] %> < 2) {
+          window.location.href = "/evaluations/new?category=" + category;
+        } else {
+          window.location.href= "/ranked_list/done";
+        }
       },
       error:function($xhr){
         console.log($xhr);
@@ -76,4 +80,7 @@
     });
   });
 
+  $("#lgtm_btn").click(function(event) {
+      window.location.href = "/ranked_list/done";
+  });
 </script>
