@@ -60,6 +60,7 @@
       ordering.push(order);
     }
     let oldOrder = <%= raw params[:order] %>;
+    let category = "<%= @category %>";
     console.log('ordering', oldOrder);
     $.ajax({
       url: "/ranked_list/update_human_ranks",
@@ -67,7 +68,11 @@
       data: { new_order: ordering, order: oldOrder },
       success: function(){
         console.log('Saved Successfully');
-        window.location.href = "/ranked_list/done";
+        if (<%= session[:round] %> < 2) {
+          window.location.href = "/evaluations/new?category=" + category;
+        } else {
+          window.location.href= "/ranked_list/done";
+        }
       },
       error:function($xhr){
         console.log($xhr);

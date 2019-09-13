@@ -66,6 +66,7 @@ class EvaluationsController < ApplicationController
     result[:participant_id] = current_user.id
     result[:comparisons] = retrieve_choices(comparisons)
     result[:request_type] = type
+    result[:feedback_round] = session[:round]
 
     # result_hash = JSON.dump(result)
     # puts result_hash
