@@ -34,12 +34,6 @@
         </div>
       </div>
       </td>
-      <td>
-        <div class="block">
-          <h5 class="human-rank"><%= "Scenario #{elem[:scenario_id]}:" %></h5>
-          <input id=<%= "scenario-id-#{index}" %> class="scenario-input" type="text" name="scenario-id-input" value="">
-        </div>
-      </td>
       </tr>
     <% end %>
     </div>
@@ -52,6 +46,10 @@
 
 
 <script type="text/javascript">
+  $(function() {
+    $('.sortable').railsSortable();
+  });
+
   $("#submit_btn").click(function(event) {
     let rlSize = <%= @rankedListSize %>;
     let ordering = [];
