@@ -13,7 +13,7 @@
       <td><h4 class="subheader"> Model List </h4></td>
       <td><h4 class="subheader"> Your Ranks For: </h4></td>
     </tr>
-      <% @displayElems.each do |elem| %>
+      <% @displayElems.each.with_index do |elem, index| %>
         <td>
           <div class="container">
             <div class="card default">
@@ -34,6 +34,12 @@
             </div>
           </div>
         </td>
+        <td>
+            <div class="block">
+              <h5 class="human-rank"><%= "Scenario #{elem[:scenario_id]}:" %></h5>
+              <input id=<%= "scenario-id-#{index}" %> class="scenario-input" type="text" name="scenario-id-input" value="">
+            </div>
+        </td>
         </tr>
       <% end %>
   </div>
@@ -46,9 +52,9 @@
 
 
 <script type="text/javascript">
-  $(function() {
-    $(".sortable").railsSortable();
-  });
+  // $(function() {
+  //   $(".sortable").railsSortable();
+  // });
 
   $("#submit_btn").click(function(event) {
     let rlSize = <%= @rankedListSize %>;
@@ -61,7 +67,7 @@
     let category = "<%= @category %>";
     console.log('ordering', oldOrder);
     $.ajax({
-      url: "/ranked_list/reload",
+      url: "/ranked_list/update_human_ranks",
       type: "post",
       data: { new_order: ordering, order: oldOrder },
       success: function(new_round){

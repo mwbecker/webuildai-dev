@@ -4,8 +4,8 @@ class RanklistElement < ApplicationRecord
   
   self.table_name = "ranklist_element" # Made a mistake with the table name
   
-  belongs_to :ranklist
-  belongs_to :individual_scenario
+  # belongs_to :ranklist
+  # belongs_to :individual_scenario
 
   def self.for_ranklist(ranklist_id, rl_size)
     RanklistElement.joins(:individual_scenario).where(ranklist_id: ranklist_id).order(model_rank: :asc).first(rl_size)
