@@ -29,10 +29,10 @@ b = Feature.create(name: "B", category: "driver", description: "Logistics")
 c = Feature.create(name: "C", category: "request", description: "Speed/Efficacy")
 
 ### Request Features ###
-distance1 = Feature.create(name: "The distance to the restaurant/customer's origin", category: "request", description: "Distance / Location")
-distance2 = Feature.create(name: "The distance from the customer's origin to their destination (if applicable)", category: "request", description: "Distance / Location")
-distance3 = Feature.create(name: "The distance from the restaurant to the delivery destination (if applicable)", category: "request", description: "Distance / Location")
-distance4 = Feature.create(name: "The total distance of the driver's entire trip", category: "request", description: "Distance / Location")
+distance1 = Feature.create(name: "The distance to the restaurant/customer's origin", category: "request", description: "Distance / Location", unit: "miles")
+distance2 = Feature.create(name: "The distance from the customer's origin to their destination (if applicable)", category: "request", description: "Distance / Location", unit: "miles")
+distance3 = Feature.create(name: "The distance from the restaurant to the delivery destination (if applicable)", category: "request", description: "Distance / Location", unit: "miles")
+distance4 = Feature.create(name: "The total distance of the driver's entire trip", category: "request", description: "Distance / Location", unit: "miles")
 # tip1 = Feature.create(name: "How often the customer tips their drivers", category: "request", description: "Customer Tipping")
 # tip2 = Feature.create(name: "The average monetary amount the customer tips for each ride/delivery", category: "request", description: "Customer Tipping")
 # feedback1 = Feature.create(name: "The customer's rating of their most recent driver", category: "request", description: "Customer Feedback")
@@ -43,8 +43,8 @@ distance4 = Feature.create(name: "The total distance of the driver's entire trip
 # cancellation2 = Feature.create(name: "The number of requests the customer has cancelled since they first started", category: "request", description: "Customer’s Cancellation Rate")
 
 ### Driver Features ###
-tenure1 = Feature.create(name: "How long the driver has been working for their company", category: "driver", description: "Tenure")
-acceptance1 = Feature.create(name: "The driver's total acceptance rate of requests since they first started", category: "driver", description: "Acceptance Rate")
+tenure1 = Feature.create(name: "How long the driver has been working for their company", category: "driver", description: "Tenure", unit: "months")
+acceptance1 = Feature.create(name: "The driver's total acceptance rate of requests since they first started", category: "driver", description: "Acceptance Rate", unit: "%")
 acceptance2 = Feature.create(name: "The driver's total acceptance rate of requests today", category: "driver", description: "Acceptance Rate")
 completion1 = Feature.create(name: "The driver's total completion rate of requests today", category: "driver", description: "Completion Rate")
 # completion2 = Feature.create(name: "The driver's total completion rate of requests since they first started", category: "driver", description: "Completion Rate")

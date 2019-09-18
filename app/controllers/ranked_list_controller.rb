@@ -112,6 +112,51 @@ class RankedListController < ApplicationController
     @displayElems = displayElems
   end
 
+  def reload
+    create_pairwise_from_ranks
+    update_with_human_ranks
+
+  end
+
+  def create_pairwise_from_ranks
+    all_pairwises = Array.new
+    current_elems = params[:ranklist].ranklist_elements
+    elem_combos = current_elems.to_a.combination(2)
+    elem_combos.each do |elem1, elem2|
+      choice = elem1.human_rank < elem2.human_rank ? 1 : 2
+      scenario_1 = elem1.individual_scenario.id
+      scenario_2 = elem2.individual_scenario.id
+      category = scenario_1.category
+      
+      # Create the pairwise:
+      all_pairwises << {choice: choice, scenario_1: scenario_1, scenario_2: scenario_2, category: category}
+
+    end
+
+    @json_for_pairwise = {scenarios: all_pairwises}.to_json;
+
+  end
+
+  private
+
+    # def set_ranked_list_elems
+    #   @categorical_data_option = CategoricalDataOption.find(params[:id])
+    # end
+
+    # def ranked_list_param
+    #   params.require(:ranklist).permit(:, :human_ranks)
+    # end
+
+    def update_with_human_ranks
+      ordering = params[:order]
+      ordering.each.with_index do |scenario_id, i|
+        rank = i + 1
+        s = IndividualScenario.find(id: scenario_id)
+        s.human_rank = rank
+        s.save!
+      end
+
+    end
 
     def update_human_ranks
       # TODO validate id's here
