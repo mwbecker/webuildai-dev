@@ -66,12 +66,16 @@
       url: "/ranked_list/update_human_ranks",
       type: "post",
       data: { new_order: ordering, order: oldOrder },
-      success: function(){
-        console.log('Saved Successfully');
-        if (<%= session[:round] %> < 2) {
+      success: function(new_round){
+        console.log('Saved Successfully', new_round)
+        if (new_round < 2) {
           window.location.href = "/evaluations/new?category=" + category;
         } else {
-          window.location.href= "/ranked_list/done";
+          if (category === 'request') {
+            window.location.href = "/evaluations/new?category=" + "driver&reset=1";
+          } else {
+            window.location.href= "/ranked_list/done";
+          }
         }
       },
       error:function($xhr){

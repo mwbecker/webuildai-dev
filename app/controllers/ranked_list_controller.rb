@@ -130,8 +130,10 @@ class RankedListController < ApplicationController
         elem.save!
       end
       session[:round] += 1 # update the round
+      puts session[:round]
       generate_new_pairs(initialOrder, newRanking)
       # @scenarioIds = ActiveRecord::Base.connection.execute("select id from individual_scenarios order by id desc limit #{rankedListSize}").values
+      render json: session[:round]
     end
 
   private

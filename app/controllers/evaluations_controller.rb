@@ -97,6 +97,9 @@ class EvaluationsController < ApplicationController
 
   def new
     @category = params[:category]
+    if params[:reset]
+      session[:round] = 0
+    end
     if @category == 'request'
       individual_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: "request")
       @comparisons_json = get_comparisons_json(individual_comparisons, "request")
