@@ -1,6 +1,6 @@
 class RanklistElement < ApplicationRecord
   include RailsSortable::Model
-  set_sortable :human_rank  # Sort column
+  set_sortable :model_rank  # Sort column (should be human rank)
 
   self.table_name = "ranklist_element" # Made a mistake with the table name
 
