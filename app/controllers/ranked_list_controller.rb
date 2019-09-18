@@ -112,15 +112,12 @@ class RankedListController < ApplicationController
     @displayElems = displayElems
   end
 
-<<<<<<< HEAD
   def weights
   end
 
   def update_human_ranks
     # TODO validate id's here
     ranklist_id = ActiveRecord::Base.connection.execute("select max(ranklist_element.ranklist_id) from ranklist_element").values[0][0]
-=======
->>>>>>> b656c28a516ce0a8c29c1107140d83bad37bbceb
 
     def update_human_ranks
       # TODO validate id's here
