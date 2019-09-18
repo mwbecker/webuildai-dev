@@ -3,8 +3,13 @@ class RankedListController < ApplicationController
   require 'date'
 
   def generate_samples
+    category = params[:category]
     # Get all features user selected as important
-    selectedFeats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
+    if category == "request"
+      selectedFeats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
+    else
+      selectedFeats = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
+    end
     # Size of the Ranked List 
     rankedListSize = 5
     counter = 0
@@ -17,7 +22,7 @@ class RankedListController < ApplicationController
 
     evaluations_json = Hash.new
     evaluations_json[:participant_id] = current_user.id
-    evaluations_json[:request_type] = params[:category] # "request" # TODO for driver too
+    evaluations_json[:request_type] = category # "request" # TODO for driver too
     evaluations_json[:feedback_round] = session[:round]
     evaluations_json[:scenarios] = Array.new
 
@@ -42,7 +47,6 @@ class RankedListController < ApplicationController
         new_scenario_features.push(create_scenario_feature_json(new_scenario_feature))
         category = new_scenario_feature.feature.category
       end
-      puts category
 
       new_indiv_scenario = IndividualScenario.create(participant_id: current_user.id,
                                                      features: create_feature_json(new_scenario_features),
@@ -62,8 +66,6 @@ class RankedListController < ApplicationController
   end
 
   def ranked_list
-    puts "ranked listttt"
-    puts params
 
     @category = params[:category]
     @orderedList = params[:order]
@@ -77,7 +79,6 @@ class RankedListController < ApplicationController
     end
     # invoke python model to rank everything and insert ranklist_element table
     # model_score = `python ./model_folder/ml_model_score.py -pid #{current_user.id} -fid 1 -type request`
-    puts @ranklistElems
 
     # ranks_hash = ____
     @rankedListSize = 5
