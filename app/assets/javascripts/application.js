@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/widgets/sortable
 //= require activestorage
 //= require materialize
 //= require materialize-sprockets

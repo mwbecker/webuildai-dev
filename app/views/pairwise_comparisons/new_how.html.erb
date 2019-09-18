@@ -59,33 +59,17 @@ the time a payment is issued. </p> <br / >
 </script>
 
 <div class = "contain" style = "display:none">
-<h2 class="title">Feature Selection for Your Social Preference Model</h2>
+<h3 class="title">Feature Selection for Your Social Preference Model</h3>
 <hr class = "feature-hr">
 <p class = "feature-text" >
-  Whenever you open your company’s app and start driving, an in-app algorithm works to match
-  you with potential customers in your given area. This algorithm has two main goals:
-</p>
-<ul class = "feature-list">
-  <li class="feature-text">
-    - Provide rides/deliveries to customers when needed
-  </li>
-  <li class = "feature-text">
-    - Maximizing drivers’ amounts of trips on the system to maximize drivers’ earnings
-  </li>
-</ul>
-<p class = "feature-text" >
- The boxes below contain features we believe your company’s algorithm
- uses to match drivers with incoming requests. Based on your experiences
- driving for your company, <b>please select any features that you believe your
- company’s algorithm should consider when matching drivers with requests.</b>
+  Docial preference means which driver should receive the request when there are multiple drivers waiting for a ping. 
+  In other words, <b>you act as the algorithm in this section.</b>
 </p>
 <div class="feature-image-block">
   <p class = "feature-text">
-    For your selected features, please use the sliders on the right to determine
-    how much importance you believe the algorithm should place on each factor. If there
-    are features not listed below that you think the should algorithm use, please
-    add your own at the bottom of the page.
-    Please assign the level of importance to these additional features.
+  Just like what you did for the previous selection, please choose the features the algorithm should take into 
+  account when deciding which driver should get the request (0: Not Important - 1: Essential). If there other 
+  features you believe the algorithm should use, please add your own at the bottom of the page.
   </p>
   <%= image_tag ('Feature_Selection.png'), :class => "feature-selection-image" %>
 </div>
@@ -108,11 +92,11 @@ the time a payment is issued. </p> <br / >
         <div class="row">
           <div class="card ">
             <div class="card-content">
-              <p class="feature-card-text"><%=f.name %></p>
+              <p class="feature-card-text" style="width:70%;display:inline;"><%=f.name %></p>
               <form id = "range_form" action="#">
               <p class="range-field" style = "display: inline-block;">
-                Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
-                <input type="range"  style = "width:60%;float:right;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
+                Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;font-size:18px;font-family: "Helvetica Neue", sans-serif;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
+                <input type="range"  style = "width:60%;float:right;font-size:20px;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
               </p>
               </form>
             </div>

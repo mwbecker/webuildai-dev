@@ -166,8 +166,6 @@ a:hover
 
  #range_form
  {
-   margin-left:10vw;
-   margin-top:-1%;
    float:right;
  }
 
@@ -181,6 +179,7 @@ a:hover
 /* Feature page styling */
 .title {
   margin-left:10%;
+  margin-right:10%;
   color:#3d6ab1;
   font-family: "Helvetica Neue", sans-serif;
   font-weight: bold;
@@ -238,12 +237,12 @@ a:hover
 
 .feature-card-text {
   margin-left:10%;
-  font-size:18px;
+  font-size:24px;
   font-weight:400;
   line-height:1.5;
   font-family: "Helvetica Neue", sans-serif;
   color: #636363;
-  display: inline-block;
+  display: block;
 }
 
 
@@ -348,4 +347,18 @@ a:hover
   margin-bottom: -6%;
   margin-right: 10%;
   margin-left: 1%;
+}
+
+.pc-header {
+  color:#3d6ab1;
+  margin-bottom:20px;
+}
+
+#counter {
+  text-align:center;
+  font-weight:lighter;
+  color:#3d6ab1;
+  font-family: "Helvetica Neue bold", sans-serif;
+  font-weight: bold;
+  margin-top: 5%;
 }

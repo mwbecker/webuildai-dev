@@ -20,20 +20,15 @@
 
 
 <div id = "aller_encompassing" style = "display:none;">
-<h2 id = "titulo" class="title"> Which Request Would You Like to Recieve? </h2>
-<h6 id = "counter" style = "float:right;margin-top:-4%;margin-right:4%;font-size:2em;font-weight:lighter;color:grey;">
-1/<%= @num_pairs %>
-</h6>
+<h3 id = "titulo" class="title"> Which Request Would You Like to Receive? </h3>
 <hr class="feature-hr"/>
 <br/>
 <p id="prompt" class="feature-text">
-  For the scenario set below, please assume that you have your app open and the algorithm notifies
-  you of two potential requests in your area. Please assume that the number of customers in demand
-  and traffic conditions in your area have no effect on your decision. Based on the information you
-  believe the algorithm should consider when assigning requests to drivers, please choose which customer
-  you would prefer the algorithm to match you with. The information about each request below are features
-  you previously chose that are applicable to these sets of scenarios.
+  Please choose which request you would prefer the algorithm to match you with.
 </p>
+<h4 id = "counter">
+  Scenario 1/<%= @num_pairs %>
+</h4>
 <br/> <br/>
 
 <div id = "all_encompassing" class = "0">
@@ -41,17 +36,24 @@
 <% pcs = @pairwise_comparisons %>
 <% pcs.each do |pc| %>
 
-  <div class = "container-<%= pc.id %>" style = "width:70%;height:45vh;margin-left:15%;display:none" >
-  <div class = "scenario_1" id = "<%= pc.id %>-1" style = "width:45%;float:left;margin-right:5%;cursor:pointer;">
+  <div class = "container-<%= pc.id %>" style = "width:70%;margin-left:15%;display:none" >
+  <div class = "scenario_1" id = "<%= pc.id %>-1" style = "width:45%;float:left;margin-right:5%;">
     <div class="row">
       <div class="card ">
         <div class="card-content">
-          <h5 style = "color:#3d6ab1"> Scenario A </h5>
+          <h5 class="pc-header"> Request A </h5>
             <% counter = 0 %>
             <% @feats.size.times do %>
               <% puts @feats.map{|n| n.category}.inspect %>
-                <p style = "font-weight:bold;font-size:1.35em;">  <%= Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]] %> </p> <br/>
-                <p style = "margin-bottom:4%;margin-top:-3.5%">  <%= Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
+                <p style = "font-weight:bold;font-size:20px;display:inline-block;">  
+                  <%= Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]] %>
+                </p>
+                <p style = "font-size:20px;display:inline-block;margin-left:1%;">
+                  <%=Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).unit%> 
+                </p> <br/>
+                <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;">  
+                  <%= Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).name %>
+                </p>
               <% counter += 1 %>
             <% end %>
         </div>
@@ -59,15 +61,22 @@
     </div>
   </div>
 
-  <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;cursor:pointer;">
+  <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;">
     <div class="row">
       <div class="card">
         <div class="card-content">
-          <h5 style = "color:#3d6ab1"> Scenario B </h5>
+          <h5 class="pc-header"> Request B </h5>
             <% counter = 0 %>
             <% @feats.size.times do %>
-                <p style = "font-weight:bold;font-size:1.35em;">  <%= Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]] %> </p> <br/>
-                <p style = "margin-bottom:4%;margin-top:-3.5%">  <%= Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).name %> </p>
+                <p style = "font-weight:bold;font-size:20px;display:inline-block;">  
+                  <%= Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]] %>
+                </p>
+                <p style = "font-size:20px;display:inline-block;margin-left:1%;">
+                  <%=Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).unit%> 
+                </p> <br/>
+                <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;"> 
+                  <%= Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).name %> 
+                </p>
               <% counter += 1 %>
             <% end %>
           </div>
@@ -214,7 +223,7 @@ Next Scenario
       $('.f-' + `${first+prev}`).css('display', 'none')
       $('.container-' + `${first+prev+1}`).css('display', 'block')
       $('.f-' + `${first+prev+1}`).css('display', 'block')
-      $("#counter").html(`${((prev+1)%(num_pairs))+1}/${num_pairs}`)
+      $("#counter").html(`Scenario ${((prev+1)%(num_pairs))+1}/${num_pairs}`)
 
     });
 
