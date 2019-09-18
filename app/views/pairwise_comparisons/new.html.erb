@@ -88,10 +88,10 @@ the time a payment is issued. </p> <br / >
         <% end %>
         <div class="row">
           <div class="card ">
-            <div class="card-content">
-             <p class="feature-card-text" style="width:70%;display:inline;"><%=f.name %></p>
+            <div class="card-content" style="padding: 24px 24px 100px 24px">
+              <p class="feature-card-text" style="max-width:60%;float:left;word-wrap:break-word;vertical-align:middle"><%=f.name %></p>
               <form id = "range_form" action="#">
-              <p class="range-field" style = "display: inline;">
+              <p class="range-field" style = "float:right">
                 Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;font-size:18px;font-family: "Helvetica Neue", sans-serif;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
                 <input type="range"  style = "width:60%;float:right;font-size:20px;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
               </p>
