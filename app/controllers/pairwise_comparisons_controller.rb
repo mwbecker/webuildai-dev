@@ -26,9 +26,9 @@ class PairwiseComparisonsController < ApplicationController
         if f.data_range.is_categorical
           @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
         else
-          if f.name["distance"] # checks if distance is in the name
+          if f.name.downcase["distance"] # checks if distance is in the name
             @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(-1)).to_s)
-          elsif f.name["rating"] # checks if rating is in the name
+          elsif f.name.downcase["rating"] # checks if rating is in the name
             @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(2)).to_s)
           else
             @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).floor / 1.0).to_i.to_s)
