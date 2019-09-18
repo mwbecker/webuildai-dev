@@ -119,49 +119,39 @@ class RankedListController < ApplicationController
 
   end
 
-  def create_pairwise_from_ranks
-    all_pairwises = Array.new
-    current_elems = params[:ranklist].ranklist_elements
-    elem_combos = current_elems.to_a.combination(2)
-    elem_combos.each do |elem1, elem2|
-      choice = elem1.human_rank < elem2.human_rank ? 1 : 2
-      scenario_1 = elem1.individual_scenario.id
-      scenario_2 = elem2.individual_scenario.id
-      category = scenario_1.category
+  # def create_pairwise_from_ranks
+  #   all_pairwises = Array.new
+  #   current_elems = params[:ranklist].ranklist_elements
+  #   elem_combos = current_elems.to_a.combination(2)
+  #   elem_combos.each do |elem1, elem2|
+  #     choice = elem1.human_rank < elem2.human_rank ? 1 : 2
+  #     scenario_1 = elem1.individual_scenario.id
+  #     scenario_2 = elem2.individual_scenario.id
+  #     category = scenario_1.category
       
-      # Create the pairwise:
-      all_pairwises << {choice: choice, scenario_1: scenario_1, scenario_2: scenario_2, category: category}
+  #     # Create the pairwise:
+  #     all_pairwises << {choice: choice, scenario_1: scenario_1, scenario_2: scenario_2, category: category}
 
-    end
+  #   end
 
-    @json_for_pairwise = {scenarios: all_pairwises}.to_json;
+  #   @json_for_pairwise = {scenarios: all_pairwises}.to_json;
 
-  end
+  # end
 
-  private
+    # def update_with_human_ranks
+    #   ordering = params[:order]
+    #   ordering.each.with_index do |scenario_id, i|
+    #     rank = i + 1
+    #     s = IndividualScenario.find(id: scenario_id)
+    #     s.human_rank = rank
+    #     s.save!
+    #   end
 
-    # def set_ranked_list_elems
-    #   @categorical_data_option = CategoricalDataOption.find(params[:id])
     # end
-
-    # def ranked_list_param
-    #   params.require(:ranklist).permit(:, :human_ranks)
-    # end
-
-    def update_with_human_ranks
-      ordering = params[:order]
-      ordering.each.with_index do |scenario_id, i|
-        rank = i + 1
-        s = IndividualScenario.find(id: scenario_id)
-        s.human_rank = rank
-        s.save!
-      end
-
-    end
 
     def update_human_ranks
       # TODO validate id's here
-      ranklist_id = ActiveRecord::Base.connection.execute("select max(ranklist_element.ranklist_id) from ranklist_element").values[0][0]
+      # ranklist_id = ActiveRecord::Base.connection.execute("select max(ranklist_element.ranklist_id) from ranklist_element").values[0][0]
 
       newRanking = params[:new_order].map {|id| id.to_i }
       initialOrder = params[:order].map {|id| id.to_i }

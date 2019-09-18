@@ -61,7 +61,7 @@
     let category = "<%= @category %>";
     console.log('ordering', oldOrder);
     $.ajax({
-      url: "/ranked_list/reload",
+      url: "/ranked_list/update_human_ranks",
       type: "post",
       data: { new_order: ordering, order: oldOrder },
       success: function(new_round){
