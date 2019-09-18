@@ -173,7 +173,7 @@ Next Scenario
         $("#<%= pc.id%>-B").prop('checked', false)
         $("#<%= pc.id%>-N").prop('checked', true)
         $("#reason-<%= pc.id%>").prop('disabled', false);
-        post_choice('nil', parseInt(<%= pc.id%>))
+        post_choice(3, parseInt(<%= pc.id%>))
      });
   </script>
 <% end %>
