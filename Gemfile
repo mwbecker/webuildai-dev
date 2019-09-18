@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 
 gem 'jquery-ui-rails', '6.0.1'
+gem 'rails_sortable'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 

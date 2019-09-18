@@ -1,8 +1,8 @@
 class RanklistElement < ApplicationRecord
+  include RailsSortable::Model
+  set_sortable :model_rank  # Sort column (should be human rank)
+
   self.table_name = "ranklist_element" # Made a mistake with the table name
-  
-
-
 
   def self.for_ranklist(ranklist_id, rl_size)
     RanklistElement.joins(:individual_scenarios).where(ranklist_id: ranklist_id).order(model_rank: :asc).first(rl_size)
