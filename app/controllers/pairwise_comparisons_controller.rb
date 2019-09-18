@@ -135,7 +135,7 @@ class PairwiseComparisonsController < ApplicationController
     else
      a =  PairwiseComparison.find(params[:id].to_i)
      dec = params[:choice].to_i
-     dec = nil if dec == 0
+     dec = nil if dec == 0 # shouldn't happen anymore, it's equal to 3.
      a.choice = dec
      a.save!
    end
