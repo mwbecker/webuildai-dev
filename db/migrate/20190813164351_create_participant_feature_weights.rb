@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateParticipantFeatureWeights < ActiveRecord::Migration[5.2]
   def change
     create_table :participant_feature_weights do |t|

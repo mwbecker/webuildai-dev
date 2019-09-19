@@ -1,35 +1,37 @@
+# frozen_string_literal: true
+
 require 'set'
 class PairwiseComparisonsController < ApplicationController
-  before_action :set_pairwise_comparison, only: [:show, :edit, :update, :destroy]
+  before_action :set_pairwise_comparison, only: %i[show edit update destroy]
   before_action :check_login
 
-  NUM_PAIRS =  Rails.env.development? ? 2 : 25
+  NUM_PAIRS = Rails.env.development? ? 2 : 25
   # GET /pairwise_comparisons
   # GET /pairwise_comparisons.json
   def index
-    @pairwise_comparisons  = Array.new
+    @pairwise_comparisons = []
     feats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
     @feats = feats
-    @scenarios = Array.new
+    @scenarios = []
     @num_pairs = NUM_PAIRS
     15.times do
       three_feats = feats.sample(feats.size)
 
-      if !Scenario.all.empty?
-        last_id = Scenario.all.last.group_id + 1
-      else
-        last_id = 1
-      end
+      last_id = if !Scenario.all.empty?
+                  Scenario.all.last.group_id + 1
+                else
+                  1
+                end
       three_feats.each do |f|
-        if f.data_range == nil
+        if f.data_range.nil?
         end
         if f.data_range.is_categorical
           @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
         else
-          if f.name.downcase["distance"] # checks if distance is in the name
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(-1)).to_s)
-          elsif f.name.downcase["rating"] && f.name != "The rating the customer gave to their most recent driver" # checks if rating is in the name
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(2)).to_s)
+          if f.name.downcase['distance'] # checks if distance is in the name
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(-1).to_s)
+          elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(2).to_s)
           else
             @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
           end
@@ -41,32 +43,32 @@ class PairwiseComparisonsController < ApplicationController
       group_num = Scenario.all.last.group_id
       tote = @scenarios.size / feats.size
       start = group_num - tote
-      group_ind_1 = rand(start...group_num+1)
-      group_ind_2 = rand(start...group_num+1)
+      group_ind_1 = rand(start...group_num + 1)
+      group_ind_2 = rand(start...group_num + 1)
       ind1s = Scenario.where(group_id: group_ind_1)
       ind2s = Scenario.where(group_id: group_ind_2)
-      if ((ind1s != ind2s) && ind1s.map{|n| n.feature_id}.to_set == ind2s.map{|n| n.feature_id}.to_set)
-        @pairwise_comparisons << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: "request")
+      if (ind1s != ind2s) && ind1s.map(&:feature_id).to_set == ind2s.map(&:feature_id).to_set
+        @pairwise_comparisons << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: 'request')
         counter += 1
       end
     end
   end
 
   def index_driver
-    @pairwise_comparisons_1  = Array.new
+    @pairwise_comparisons_1 = []
     @feats_1 = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
-    @scenarios_1 = Array.new
+    @scenarios_1 = []
     @num_pairs = NUM_PAIRS
 
     feats = @feats_1
     15.times do
       three_feats = feats.sample(feats.size)
 
-      if !Scenario.all.empty?
-        last_id = Scenario.all.last.group_id + 1
-      else
-        last_id = 1
-      end
+      last_id = if !Scenario.all.empty?
+                  Scenario.all.last.group_id + 1
+                else
+                  1
+                end
       three_feats.each do |f|
         if f.data_range.is_categorical
           @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
@@ -80,12 +82,12 @@ class PairwiseComparisonsController < ApplicationController
       group_num = Scenario.all.last.group_id
       tote = @scenarios_1.size / feats.size
       start = group_num - tote
-      group_ind_1 = rand(start...group_num+1)
-      group_ind_2 = rand(start...group_num+1)
+      group_ind_1 = rand(start...group_num + 1)
+      group_ind_2 = rand(start...group_num + 1)
       ind1s = Scenario.where(group_id: group_ind_1)
       ind2s = Scenario.where(group_id: group_ind_2)
-      if ((ind1s != ind2s) && ind1s.map{|n| n.feature_id}.to_set == ind2s.map{|n| n.feature_id}.to_set)
-        @pairwise_comparisons_1 << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: "driver")
+      if (ind1s != ind2s) && ind1s.map(&:feature_id).to_set == ind2s.map(&:feature_id).to_set
+        @pairwise_comparisons_1 << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: 'driver')
         counter += 1
       end
     end
@@ -93,27 +95,23 @@ class PairwiseComparisonsController < ApplicationController
 
   # GET /pairwise_comparisons/1
   # GET /pairwise_comparisons/1.json
-  def show
-  end
+  def show; end
 
   # GET /pairwise_comparisons/new
   def new
     @pairwise_comparison = PairwiseComparison.new
     @features_all = Feature.all.active.added_by(current_user.id).order(:description)
     @survey_complete = false
-
   end
 
   def new_how
     @pairwise_comparison = PairwiseComparison.new
     @features_all = Feature.all.active.added_by(current_user.id).order(:description)
     @survey_complete = false
-
   end
 
   # GET /pairwise_comparisons/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /pairwise_comparisons
   # POST /pairwise_comparisons.json
@@ -134,16 +132,16 @@ class PairwiseComparisonsController < ApplicationController
   # PATCH/PUT /pairwise_comparisons/1
   # PATCH/PUT /pairwise_comparisons/1.json
   def update
-    if params[:reason] != "nope"
-      a =  PairwiseComparison.find(params[:id].to_i)
+    if params[:reason] != 'nope'
+      a = PairwiseComparison.find(params[:id].to_i)
       a.reason = params[:reason]
       a.save!
     else
-     a =  PairwiseComparison.find(params[:id].to_i)
-     dec = params[:choice].to_i
-     dec = nil if dec == 0 # shouldn't happen anymore, it's equal to 3.
-     a.choice = dec
-     a.save!
+      a = PairwiseComparison.find(params[:id].to_i)
+      dec = params[:choice].to_i
+      dec = nil if dec == 0 # shouldn't happen anymore, it's equal to 3.
+      a.choice = dec
+      a.save!
    end
   end
 
@@ -158,13 +156,14 @@ class PairwiseComparisonsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pairwise_comparison
-      @pairwise_comparison = PairwiseComparison.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def pairwise_comparison_params
-      params.require(:pairwise_comparison).permit(:participant_id, :scenario_1, :scenario_2, :choice, :reason)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pairwise_comparison
+    @pairwise_comparison = PairwiseComparison.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def pairwise_comparison_params
+    params.require(:pairwise_comparison).permit(:participant_id, :scenario_1, :scenario_2, :choice, :reason)
+  end
 end

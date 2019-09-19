@@ -1,1 +1,3 @@
-json.partial! "features/feature", feature: @feature
+# frozen_string_literal: true
+
+json.partial! 'features/feature', feature: @feature

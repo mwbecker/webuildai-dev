@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ScenariosControllerTest < ActionDispatch::IntegrationTest
@@ -5,17 +7,17 @@ class ScenariosControllerTest < ActionDispatch::IntegrationTest
     @scenario = scenarios(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get scenarios_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_scenario_url
     assert_response :success
   end
 
-  test "should create scenario" do
+  test 'should create scenario' do
     assert_difference('Scenario.count') do
       post scenarios_url, params: { scenario: { feature_id: @scenario.feature_id, feature_value: @scenario.feature_value, group_id: @scenario.group_id } }
     end
@@ -23,22 +25,22 @@ class ScenariosControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to scenario_url(Scenario.last)
   end
 
-  test "should show scenario" do
+  test 'should show scenario' do
     get scenario_url(@scenario)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_scenario_url(@scenario)
     assert_response :success
   end
 
-  test "should update scenario" do
+  test 'should update scenario' do
     patch scenario_url(@scenario), params: { scenario: { feature_id: @scenario.feature_id, feature_value: @scenario.feature_value, group_id: @scenario.group_id } }
     assert_redirected_to scenario_url(@scenario)
   end
 
-  test "should destroy scenario" do
+  test 'should destroy scenario' do
     assert_difference('Scenario.count', -1) do
       delete scenario_url(@scenario)
     end

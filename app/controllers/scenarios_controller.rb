@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ScenariosController < ApplicationController
-  before_action :set_scenario, only: [:show, :edit, :update, :destroy]
+  before_action :set_scenario, only: %i[show edit update destroy]
 
   # GET /scenarios
   # GET /scenarios.json
@@ -9,8 +11,7 @@ class ScenariosController < ApplicationController
 
   # GET /scenarios/1
   # GET /scenarios/1.json
-  def show
-  end
+  def show; end
 
   # GET /scenarios/new
   def new
@@ -18,8 +19,7 @@ class ScenariosController < ApplicationController
   end
 
   # GET /scenarios/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /scenarios
   # POST /scenarios.json
@@ -62,13 +62,14 @@ class ScenariosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_scenario
-      @scenario = Scenario.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def scenario_params
-      params.require(:scenario).permit(:group_id, :feature_id, :feature_value)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_scenario
+    @scenario = Scenario.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def scenario_params
+    params.require(:scenario).permit(:group_id, :feature_id, :feature_value)
+  end
 end

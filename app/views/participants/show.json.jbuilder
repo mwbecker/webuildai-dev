@@ -1,1 +1,3 @@
-json.partial! "participants/participant", participant: @participant
+# frozen_string_literal: true
+
+json.partial! 'participants/participant', participant: @participant

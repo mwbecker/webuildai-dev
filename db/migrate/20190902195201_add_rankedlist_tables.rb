@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class AddRankedlistTables < ActiveRecord::Migration[5.2]
   def change
-    
     create_table :rank_lists do |t|
       t.references :participant
       t.integer :rank
@@ -20,6 +21,5 @@ class AddRankedlistTables < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-
   end
 end

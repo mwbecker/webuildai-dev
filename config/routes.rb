@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :pairwise_comparisons
   resources :scenarios
@@ -31,6 +33,6 @@ Rails.application.routes.draw do
   post 'index_driver', to: 'pairwise_comparisons#index_driver', as: :index_driver
   post 'ranked_list', to: 'pairwise_comparisons#ranked_list', as: :ranked_list
 
-  root :to => "pairwise_comparisons#new"
+  root to: 'pairwise_comparisons#new'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
