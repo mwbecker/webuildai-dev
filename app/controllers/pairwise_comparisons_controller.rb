@@ -5,7 +5,7 @@ class PairwiseComparisonsController < ApplicationController
   before_action :set_pairwise_comparison, only: %i[show edit update destroy]
   before_action :check_login
 
-  NUM_PAIRS = Rails.env.development? ? 2 : 25
+  NUM_PAIRS = Rails.env.development? ? 2 : 40
   # GET /pairwise_comparisons
   # GET /pairwise_comparisons.json
   def index
@@ -14,7 +14,7 @@ class PairwiseComparisonsController < ApplicationController
     @feats = feats
     @scenarios = []
     @num_pairs = NUM_PAIRS
-    15.times do
+    30.times do
       three_feats = feats.sample(feats.size)
 
       last_id = if !Scenario.all.empty?
@@ -61,7 +61,7 @@ class PairwiseComparisonsController < ApplicationController
     @num_pairs = NUM_PAIRS
 
     feats = @feats_1
-    15.times do
+    30.times do
       three_feats = feats.sample(feats.size)
 
       last_id = if !Scenario.all.empty?
