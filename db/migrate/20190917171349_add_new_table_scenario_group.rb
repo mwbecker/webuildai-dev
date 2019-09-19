@@ -1,5 +1,5 @@
+# frozen_string_literal: true
+
 class AddNewTableScenarioGroup < ActiveRecord::Migration[5.2]
-  def change
-    
-  end
+  def change; end
 end
