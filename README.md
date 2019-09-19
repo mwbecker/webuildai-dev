@@ -9,3 +9,8 @@ rails db:migrate
 rails db:seed
 rails server
 ```
+
+## React
+```
+./bin/webpack-dev-server
+```

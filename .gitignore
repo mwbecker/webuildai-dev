@@ -28,3 +28,10 @@
 
 /config/output_storage/*
 /model_folder/RESULT/*
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

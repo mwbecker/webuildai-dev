@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EvaluationsController < ApplicationController
-  NUM_PAIRS = Rails.env.development? ? 25 : 25
 
   def retrieve_choices(comparisons)
     overall_list = []
