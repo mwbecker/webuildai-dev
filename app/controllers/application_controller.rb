@@ -1,11 +1,14 @@
-class ApplicationController < ActionController::Base
+# frozen_string_literal: true
 
+class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  after_action  :set_access_control_headers
+  after_action :set_access_control_headers
   def set_access_control_headers
-   headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Origin'] = '*'
   end
+
   private
+
   # Handling authentication
 
   helper_method :get_ranges
@@ -14,81 +17,81 @@ class ApplicationController < ActionController::Base
   helper_method :get_ranges_ai_2
 
   def get_ranges
-    to_ret = Array.new
-    fs =  Feature.all.active.request.added_by(current_user.id).order(:description).each
+    to_ret = []
+    fs = Feature.all.active.request.added_by(current_user.id).order(:description).each
     fs.each do |f|
       to_ret << f.id
     end
-    lenth = fs.size-1
-    for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", current_user.id, to_ret[i])
-      if !w.empty?
-        to_ret[i] = w.first.weight
-      else
-        to_ret[i] = 0
-      end
+    lenth = fs.size - 1
+    (0..lenth).each do |i|
+      w = ParticipantFeatureWeight.where('participant_id = ? AND feature_id = ?', current_user.id, to_ret[i])
+      to_ret[i] = if !w.empty?
+                    w.first.weight
+                  else
+                    0
+                  end
     end
-    return to_ret.reverse
+    to_ret.reverse
   end
 
   def get_ranges_2
-    to_ret = Array.new
-    fs =  Feature.all.active.request.added_by(current_user.id).order(:description).each
+    to_ret = []
+    fs = Feature.all.active.request.added_by(current_user.id).order(:description).each
     fs.each do |f|
       to_ret << f.id
     end
-    lenth = fs.size-1
-    for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", current_user.id, to_ret[i])
+    lenth = fs.size - 1
+    (0..lenth).each do |i|
+      w = ParticipantFeatureWeight.where('participant_id = ? AND feature_id = ?', current_user.id, to_ret[i])
       if !w.empty?
-        to_ret[i] = "0." + ((w.first.weight / 10).floor).to_s if (w.first.weight / 10).floor != 0
-        to_ret[i] = 0 if  w.first.weight  == 0
-        to_ret[i] = "0.1" if (w.first.weight  > 0 && (w.first.weight / 10).floor == 0)
+        to_ret[i] = '0.' + (w.first.weight / 10).floor.to_s if (w.first.weight / 10).floor != 0
+        to_ret[i] = 0 if  w.first.weight == 0
+        to_ret[i] = '0.1' if w.first.weight > 0 && (w.first.weight / 10).floor == 0
         to_ret[i] = 1 if  (w.first.weight / 10).floor == 10
       else
         to_ret[i] = 0
       end
     end
-    return to_ret.reverse
+    to_ret.reverse
   end
 
   def get_ranges_ai
-    to_ret = Array.new
-    fs =  Feature.all.active.driver.added_by(current_user.id).order(:description).each
+    to_ret = []
+    fs = Feature.all.active.driver.added_by(current_user.id).order(:description).each
     fs.each do |f|
       to_ret << f.id
     end
-    lenth = fs.size-1
-    for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", current_user.id, to_ret[i])
-      if !w.empty?
-        to_ret[i] = w.first.weight
-      else
-        to_ret[i] = 0
-      end
+    lenth = fs.size - 1
+    (0..lenth).each do |i|
+      w = ParticipantFeatureWeight.where('participant_id = ? AND feature_id = ?', current_user.id, to_ret[i])
+      to_ret[i] = if !w.empty?
+                    w.first.weight
+                  else
+                    0
+                  end
     end
-    return to_ret.reverse
+    to_ret.reverse
   end
 
   def get_ranges_ai_2
-    to_ret = Array.new
-    fs =  Feature.all.active.driver.added_by(current_user.id).order(:description).each
+    to_ret = []
+    fs = Feature.all.active.driver.added_by(current_user.id).order(:description).each
     fs.each do |f|
       to_ret << f.id
     end
-    lenth = fs.size-1
-    for i in 0..lenth do
-      w = ParticipantFeatureWeight.where("participant_id = ? AND feature_id = ?", current_user.id, to_ret[i])
+    lenth = fs.size - 1
+    (0..lenth).each do |i|
+      w = ParticipantFeatureWeight.where('participant_id = ? AND feature_id = ?', current_user.id, to_ret[i])
       if !w.empty?
-        to_ret[i] = "0." + ((w.first.weight / 10).floor).to_s if (w.first.weight / 10).floor != 0
-        to_ret[i] = 0 if  w.first.weight  == 0
-        to_ret[i] = "0.1" if (w.first.weight  > 0 && (w.first.weight / 10).floor == 0)
+        to_ret[i] = '0.' + (w.first.weight / 10).floor.to_s if (w.first.weight / 10).floor != 0
+        to_ret[i] = 0 if  w.first.weight == 0
+        to_ret[i] = '0.1' if w.first.weight > 0 && (w.first.weight / 10).floor == 0
         to_ret[i] = 1 if  (w.first.weight / 10).floor == 10
       else
         to_ret[i] = 0
       end
     end
-    return to_ret.reverse
+    to_ret.reverse
   end
 
   def current_round
@@ -110,7 +113,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :logged_in?
   def check_login
-    redirect_to login_path, alert: "You need to log in to view this page." if current_user.nil?
+    redirect_to login_path, alert: 'You need to log in to view this page.' if current_user.nil?
   end
-
 end

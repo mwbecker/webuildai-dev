@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class RanklistElement < ApplicationRecord
   include RailsSortable::Model
-  set_sortable :model_rank  # Sort column (should be human rank)
-  
-  self.table_name = "ranklist_element" # Made a mistake with the table name
-  
+  set_sortable :model_rank # Sort column (should be human rank)
+
+  self.table_name = 'ranklist_element' # Made a mistake with the table name
+
   # belongs_to :ranklist
   # belongs_to :individual_scenario
 
@@ -11,13 +13,11 @@ class RanklistElement < ApplicationRecord
     RanklistElement.joins(:individual_scenario).where(ranklist_id: ranklist_id).order(model_rank: :asc).first(rl_size)
   end
 
-  def self.last_ranklist(participant_id=nil)
+  def self.last_ranklist(participant_id = nil)
     if participant_id.nil?
-      return RanklistElement.last
+      RanklistElement.last
     else
-      return RanklistElement.order(ranklist_id: :desc).where(participant_id: participant_id).first
+      RanklistElement.order(ranklist_id: :desc).where(participant_id: participant_id).first
     end
-  
   end
-
 end

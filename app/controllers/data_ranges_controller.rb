@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class DataRangesController < ApplicationController
-  before_action :set_data_range, only: [:show, :edit, :update, :destroy]
+  before_action :set_data_range, only: %i[show edit update destroy]
 
   # GET /data_ranges
   # GET /data_ranges.json
@@ -9,8 +11,7 @@ class DataRangesController < ApplicationController
 
   # GET /data_ranges/1
   # GET /data_ranges/1.json
-  def show
-  end
+  def show; end
 
   # GET /data_ranges/new
   def new
@@ -18,8 +19,7 @@ class DataRangesController < ApplicationController
   end
 
   # GET /data_ranges/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /data_ranges
   # POST /data_ranges.json
@@ -62,13 +62,14 @@ class DataRangesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_data_range
-      @data_range = DataRange.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def data_range_params
-      params.require(:data_range).permit(:feature_id, :is_categorical, :lower_bound, :upper_bound)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_data_range
+    @data_range = DataRange.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def data_range_params
+    params.require(:data_range).permit(:feature_id, :is_categorical, :lower_bound, :upper_bound)
+  end
 end

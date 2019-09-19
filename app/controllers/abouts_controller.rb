@@ -1,14 +1,14 @@
-class AboutsController < ApplicationController
+# frozen_string_literal: true
 
+class AboutsController < ApplicationController
   def new
     @about = About.new
   end
 
-  def index
-  end
+  def index; end
 
   def create
-    puts "hello"
+    puts 'hello'
     @about = About.new
     @about.participant_id = params[:participant_id]
     @about.which = params[:which]

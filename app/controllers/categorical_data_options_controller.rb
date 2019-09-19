@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CategoricalDataOptionsController < ApplicationController
-  before_action :set_categorical_data_option, only: [:show, :edit, :update, :destroy]
+  before_action :set_categorical_data_option, only: %i[show edit update destroy]
 
   # GET /categorical_data_options
   # GET /categorical_data_options.json
@@ -9,8 +11,7 @@ class CategoricalDataOptionsController < ApplicationController
 
   # GET /categorical_data_options/1
   # GET /categorical_data_options/1.json
-  def show
-  end
+  def show; end
 
   # GET /categorical_data_options/new
   def new
@@ -18,8 +19,7 @@ class CategoricalDataOptionsController < ApplicationController
   end
 
   # GET /categorical_data_options/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /categorical_data_options
   # POST /categorical_data_options.json
@@ -62,13 +62,14 @@ class CategoricalDataOptionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_categorical_data_option
-      @categorical_data_option = CategoricalDataOption.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def categorical_data_option_params
-      params.require(:categorical_data_option).permit(:data_range_id, :option_value)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_categorical_data_option
+    @categorical_data_option = CategoricalDataOption.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def categorical_data_option_params
+    params.require(:categorical_data_option).permit(:data_range_id, :option_value)
+  end
 end
