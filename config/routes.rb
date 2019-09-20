@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     get '/*path', to: 'static#index'
   end
 
+  namespace :api do
+    namespace :v1 do
+      get 'ranked_list/new'
+    end
+  end
+
   get 'static/marco'
   get 'ranked_list/ranked_list'
   get 'ranked_list/preview'

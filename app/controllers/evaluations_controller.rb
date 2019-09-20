@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EvaluationsController < ApplicationController
-
   def retrieve_choices(comparisons)
     overall_list = []
     comparisons.each do |comparison|
