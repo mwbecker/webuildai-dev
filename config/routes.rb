@@ -12,6 +12,19 @@ Rails.application.routes.draw do
   resources :abouts
   resources :evaluations
 
+  # root :to => 'static#index'
+  scope :react do
+    get '/', to: 'static#index'
+    get '/*path', to: 'static#index'
+  end
+
+  namespace :api do
+    namespace :v1 do
+      get 'ranked_list/new'
+    end
+  end
+
+  get 'static/marco'
   get 'ranked_list/ranked_list'
   get 'ranked_list/preview'
   get 'ranked_list/weights'
