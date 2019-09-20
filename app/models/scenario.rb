@@ -8,6 +8,10 @@ class Scenario < ApplicationRecord
     Scenario.all.where(group_id: group_id).map { |s| [s.feature_id, s.feature_value] }.to_h
   end
 
+  def self.for_group_features(group_id)
+    Scenario.where(group_id: group_id).order(id: :asc)
+  end
+
   private
 
   def check_feature_value
