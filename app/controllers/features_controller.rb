@@ -7,6 +7,7 @@ class FeaturesController < ApplicationController
   # GET /features.json
   def index
     @features = Feature.all.added_by(current_user.id)
+
   end
 
   # GET /features/1

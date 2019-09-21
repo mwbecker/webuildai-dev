@@ -29,11 +29,11 @@ class PairwiseComparisonsController < ApplicationController
           @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
         else
           if f.name.downcase['distance'] # checks if distance is in the name
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(-1).to_s)
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound) / 5).ceil * 5).to_s)
           elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(2).to_s)
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound..f.data_range.upper_bound)).round(2).to_s)
           else
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
           end
         end
       end
@@ -51,7 +51,7 @@ class PairwiseComparisonsController < ApplicationController
         @pairwise_comparisons << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: 'request')
         counter += 1
       end
-    end
+    end    
   end
 
   def index_driver
@@ -70,10 +70,18 @@ class PairwiseComparisonsController < ApplicationController
                   1
                 end
       three_feats.each do |f|
+        if f.data_range.nil?
+        end
         if f.data_range.is_categorical
           @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
         else
-          @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).floor / 1.0).to_i.to_s)
+          if f.name.downcase['distance'] # checks if distance is in the name
+            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound) / 5).ceil * 5).to_s)
+          elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
+            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound..f.data_range.upper_bound)).round(2).to_s)
+          else
+            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
+          end
         end
       end
     end
@@ -102,6 +110,15 @@ class PairwiseComparisonsController < ApplicationController
     @pairwise_comparison = PairwiseComparison.new
     @features_all = Feature.all.active.added_by(current_user.id).order(:description)
     @survey_complete = false
+
+    @features_by_category = Hash.new # in order to randomize
+    @features_all.each do |feat|
+      if @features_by_category[feat.description]
+        @features_by_category[feat.description] << feat
+      else
+        @features_by_category[feat.description] = [feat]
+      end
+    end
   end
 
   def new_how
@@ -166,4 +183,6 @@ class PairwiseComparisonsController < ApplicationController
   def pairwise_comparison_params
     params.require(:pairwise_comparison).permit(:participant_id, :scenario_1, :scenario_2, :choice, :reason)
   end
+
+
 end
