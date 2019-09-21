@@ -16,31 +16,32 @@ class PairwiseComparisonsController < ApplicationController
     @num_pairs = NUM_PAIRS
     30.times do
       three_feats = feats.sample(feats.size)
-
-      last_id = if !Scenario.all.empty?
-                  Scenario.all.last.group_id + 1
-                else
-                  1
-                end
+      new_group = ScenarioGroup.create()
+      last_id = new_group.id
+      # last_id = if !Scenario.all.empty?
+      #             Scenario.all.last.group_id + 1
+      #           else
+      #             1
+      #           end
       three_feats.each do |f|
         if f.data_range.nil?
         end
         if f.data_range.is_categorical
-          @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
+          @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, participant_id: current_user.id, feature_value: f.categorical_data_options.sample.option_value)
         else
           if f.name.downcase['distance'] # checks if distance is in the name
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound) / 5).ceil * 5).to_s)
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, participant_id: current_user.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound) / 5).ceil * 5).to_s)
           elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
             @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound..f.data_range.upper_bound)).round(2).to_s)
           else
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, participant_id: current_user.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
           end
         end
       end
     end
     counter = 0
     while counter < NUM_PAIRS
-      group_num = Scenario.all.last.group_id
+      group_num = Scenario.all.by_user(current_user.id).last.group_id
       tote = @scenarios.size / feats.size
       start = group_num - tote
       group_ind_1 = rand(start...group_num + 1)
@@ -63,31 +64,31 @@ class PairwiseComparisonsController < ApplicationController
     feats = @feats_1
     30.times do
       three_feats = feats.sample(feats.size)
-
-      last_id = if !Scenario.all.empty?
-                  Scenario.all.last.group_id + 1
-                else
-                  1
-                end
+      last_id = ScenarioGroup.create().id
+      # last_id = if !Scenario.all.empty?
+      #             Scenario.all.last.group_id + 1
+      #           else
+      #             1
+      #           end
       three_feats.each do |f|
         if f.data_range.nil?
         end
         if f.data_range.is_categorical
-          @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
+          @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, participant_id: current_user.id, feature_value: f.categorical_data_options.sample.option_value)
         else
           if f.name.downcase['distance'] # checks if distance is in the name
-            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound) / 5).ceil * 5).to_s)
+            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, participant_id: current_user.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound) / 5).ceil * 5).to_s)
           elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
-            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound..f.data_range.upper_bound)).round(2).to_s)
+            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, participant_id: current_user.id, feature_value: (rand(f.data_range.lower_bound..f.data_range.upper_bound)).round(2).to_s)
           else
-            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
+            @scenarios_1 << Scenario.create(group_id: last_id, feature_id: f.id, participant_id: current_user.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
           end
         end
       end
     end
     counter = 0
     while counter < NUM_PAIRS
-      group_num = Scenario.all.last.group_id
+      group_num = Scenario.all.by_user(current_user.id).last.group_id
       tote = @scenarios_1.size / feats.size
       start = group_num - tote
       group_ind_1 = rand(start...group_num + 1)
