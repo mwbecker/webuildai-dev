@@ -2,10 +2,10 @@
 <h2 class="title" >Evaluation</h2>
 <hr class="feature-hr">
 <div class="evaluation-image-block">
-  <p class = "about-text"> 
-    We will be training our test algorithm 
-    to make matching decisions based on the features you believe the algorithm should consider and your 
-    decisions from the scenario comparisons. We would now like to ask how you want the algorithm to work 
+  <p class = "about-text">
+    We will be training our test algorithm
+    to make matching decisions based on the features you believe the algorithm should consider and your
+    decisions from the scenario comparisons. We would now like to ask how you want the algorithm to work
     with you when you are behind the wheel.
   </p>
   <%= image_tag ('Evaluation.png'), :class => "evaluation-image" %>
@@ -104,7 +104,8 @@ decisions? </label>
      type: "post",
      success: function(){
        console.log('Saved Successfully');
-       window.location.href = "/evaluations/new?category=request"
+      //  window.location.href = "/evaluations/new?category=request";
+      window.location.href = "/react/ranked_list/new";
      },
      error:function($xhr){
        console.log($xhr);
