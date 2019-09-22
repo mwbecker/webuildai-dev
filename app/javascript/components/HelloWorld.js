@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux";
 
 class HelloWorld extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         Greeting: {this.props.greeting}
@@ -11,13 +11,13 @@ class HelloWorld extends React.Component {
         Things: {this.props.things}
         <br></br>
         <button onClick={this.props.getData}>Touch Me</button>
-        <button onClick={() => {this.props.history.push("foo")}}>me too!</button>
+        <button onClick={() => { this.props.history.push("foo") }}>me too!</button>
       </div>
     );
   }
 }
 
-const fooProps = (state) => ({things: state.things});
+const fooProps = (state) => ({ things: state.things });
 class Foo extends React.Component {
   render() {
     return this.props.things;
@@ -59,5 +59,5 @@ HelloWorld.propTypes = {
   greeting: PropTypes.string,
   things: PropTypes.string
 };
-
-export default connect(mapStoreStateToProps, mapDispatchToProps)(HelloWorld);
+const Hello = connect(mapStoreStateToProps, mapDispatchToProps)(HelloWorld);
+export default Hello;
