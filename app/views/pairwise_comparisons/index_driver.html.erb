@@ -22,9 +22,6 @@
 <p id="prompt" class="feature-text">
   Please choose which driver should get the ping.
 </p>
-<h4 id = "counter">
-  Scenario 1/<%= @num_pairs %>
-</h4>
 <br/> <br/>
 
 <div id = "all_encompassing" class = "0">
@@ -107,7 +104,7 @@
 
 <%# TODO disable this if nothing inputted %>
 <a class="waves-effect btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
-Next Scenario
+  Next Scenario (2/<%= @num_pairs %>)
 </a>
 <br><br><br>
 <br><br><br><br>
@@ -221,7 +218,14 @@ Next Scenario
       $('.f-' + `${first+prev}`).css('display', 'none')
       $('.container-' + `${first+prev+1}`).css('display', 'block')
       $('.f-' + `${first+prev+1}`).css('display', 'block')
-      $("#counter").html(`Scenario ${((prev+1)%(num_pairs))+1}/${num_pairs}`)
+      if (((prev+1)%(num_pairs))+1 != num_pairs ) {
+        $("#next_btn").html(`Next Scenario (${((prev+1)%(num_pairs))+2}/${num_pairs})`)
+      }
+      else {
+        $("#next_btn").html(`Finish`)
+      }
+      $("#titulo").html(`Scenario ${((prev+1)%(num_pairs))+1}/${num_pairs}`)
+
 
     });
 

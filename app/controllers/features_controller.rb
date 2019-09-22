@@ -40,6 +40,7 @@ class FeaturesController < ApplicationController
         end
         a.active = true
         a.category = params[:category]
+        a.unit = params[:unit]
         a.save!
         DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
       else
@@ -52,6 +53,7 @@ class FeaturesController < ApplicationController
         end
         a.active = true
         a.category = params[:category]
+        a.unit = params[:unit]
         a.save!
         d = a.data_range
         if !d.nil?
