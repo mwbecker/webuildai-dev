@@ -304,8 +304,8 @@ the time a payment is issued. </p> <br / >
     let active = false;
     
     $.ajax({
-      url: "/features/<%=fo.id%>?active="+active,
-      type: "patch",
+      url: "/features/<%=fo.id%>",
+      type: "delete",
       success: function(){
         console.log('Saved Successfully');
         location.reload()

@@ -280,7 +280,7 @@ the time a payment is issued. </p> <br / >
     $("#yof-<%=fo.id%>").click(function(event){
       $.ajax({
         url: "/features/<%=fo.id%>",
-        type: "patch",
+        type: "delete",
         success: function(){
           console.log('Saved Successfully');
           location.reload()

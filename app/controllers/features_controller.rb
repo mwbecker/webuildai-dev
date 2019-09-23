@@ -125,16 +125,17 @@ class FeaturesController < ApplicationController
       redirect_to @feature, notice: 'Updated information'
     else
       render action: 'edit'
+      puts "hello"
     end
   end
 
   # DELETE /features/1
   # DELETE /features/1.json
   def destroy
-    @feature.destroy
+    @feature.active = "false"
+    @feature.save!
     respond_to do |format|
-      format.html { redirect_to features_url, notice: 'Feature was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js {render inline: "location.reload();" }
     end
   end
 
