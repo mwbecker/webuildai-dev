@@ -103,7 +103,7 @@ class PairwiseComparisonsController < ApplicationController
   end
 
   # GET /pairwise_comparisons/1
-  # GET /pairwise_comparisons/1.json
+  # GET /pairwise_comparisons/1.jsond
   def show; end
 
   # GET /pairwise_comparisons/new
