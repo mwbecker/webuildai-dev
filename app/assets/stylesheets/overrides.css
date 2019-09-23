@@ -211,6 +211,7 @@ a:hover
   width:30%;
   margin-right:10%;
   height: auto;
+  z-index:-1;
 }
 
 .feature-image-block {
@@ -375,7 +376,7 @@ a:hover
 }
 
 #range_form {
-  max-width:30%;
+  width:30%;
   float:right;
   margin-top:-1.5%;
 }

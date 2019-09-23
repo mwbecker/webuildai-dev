@@ -86,12 +86,12 @@ the time a payment is issued. </p> <br / >
         <% end %>
         <div class="row">
           <div class="card ">
-            <div class="card-content" style="padding:50px;">
+            <div class="card-content" style="padding:50px; margin-right:-2%;">
               <p class="feature-card-text" style="max-width:70%;float:left;word-wrap:break-word;margin-top:-1%;"><%=f.name %></p>
               <form id = "range_form" action="#">
               <p class="range-field">
                 Importance: 
-                <input type="text"  class = "weight" style = "border-bottom:none;width:10%;margin-right:7%;margin-top:0%;font-weight:300;font-size:24px;font-family: "Helvetica Neue", sans-serif;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
+                <input type="text"  class = "weight" style = "border-bottom:none;width:11%;margin-right:7%;margin-top:0%;font-weight:300;font-size:24px;font-family: "Helvetica Neue", sans-serif;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
                 <input type="range"  style = "width:40%;float:right;font-size:20px;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
               </p>
               </form>
@@ -300,18 +300,20 @@ the time a payment is issued. </p> <br / >
 
 <% @features_all.each do |fo| %>
 <script type="text/javascript">
-    $("#yof-<%=fo.id%>").click(function(event){
-      $.ajax({
-        url: "/features/<%=fo.id%>",
-        type: "patch",
-        success: function(){
-          console.log('Saved Successfully');
-          location.reload()
-        },
-        error:function($xhr){
-          console.log($xhr);
-        }
-        });
-      });
+  $("#yof-<%=fo.id%>").click(function(event){
+    let active = false;
+    
+    $.ajax({
+      url: "/features/<%=fo.id%>?active="+active,
+      type: "patch",
+      success: function(){
+        console.log('Saved Successfully');
+        location.reload()
+      },
+      error:function($xhr){
+        console.log($xhr);
+      }
+    });
+  });
 </script>
 <% end %>

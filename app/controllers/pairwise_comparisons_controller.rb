@@ -56,11 +56,11 @@ class PairwiseComparisonsController < ApplicationController
 
   def index_driver
     @pairwise_comparisons_1 = []
-    @feats_1 = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
+    feats = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
+    @feats_1 = feats
     @scenarios_1 = []
     @num_pairs = NUM_PAIRS
 
-    feats = @feats_1
     30.times do
       three_feats = feats.sample(feats.size)
 
