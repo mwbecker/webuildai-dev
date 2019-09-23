@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post 'individual_feature_selection'
       get 'ranked_list/new'
       post 'ranked_list/generate_samples'
       post 'ranked_list/save_human_weights'
