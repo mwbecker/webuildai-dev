@@ -4,7 +4,7 @@ class Scenario < ApplicationRecord
   belongs_to :feature
   belongs_to :participant
   belongs_to :scenairo_group, class_name: 'ScenarioGroup', :foreign_key => "group_id"
-  validate :check_feature_value
+  # validate :check_feature_value
 
   scope :by_user, -> (participant_id) {where participant_id: participant_id}
 
