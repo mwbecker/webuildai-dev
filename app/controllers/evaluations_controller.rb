@@ -5,7 +5,7 @@ class EvaluationsController < ApplicationController
     overall_list = []
     comparisons.each do |comparison|
       # filter out 'neithers'
-      next if comparison.choice == 'nil'
+      next if comparison.choice == 3 # Shouldn't happen now as it's not nil
 
       comparison_hash = {}
 
@@ -14,7 +14,7 @@ class EvaluationsController < ApplicationController
       Scenario.for_group(comparison.scenario_1).each do |s|
         scenario_a_hash = {}
         f_id = s[0]
-        given_feature = Feature.all.where(id: f_id).first
+        given_feature = Feature.find(f_id)
         scenario_a_hash[:feat_id] = f_id
         scenario_a_hash[:feat_name] = given_feature.name
         scenario_a_hash[:feat_category] = 0 # IMPORTANT: WAIT FOR MICHAEL TO DO THIS.
@@ -36,7 +36,7 @@ class EvaluationsController < ApplicationController
       Scenario.for_group(comparison.scenario_2).each do |s|
         scenario_b_hash = {}
         f_id = s[0]
-        given_feature = Feature.all.where(id: f_id).first
+        given_feature = Feature.find(f_id)
         scenario_b_hash[:feat_id] = f_id
         scenario_b_hash[:feat_name] = given_feature.name
         scenario_b_hash[:feat_category] = 0 # IMPORTANT: WAIT FOR MICHAEL TO DO THIS.
@@ -97,7 +97,9 @@ class EvaluationsController < ApplicationController
     @category = params[:category]
     session[:round] = 0 if params[:reset]
     if @category == 'request'
-      individual_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: 'request')
+      # get the last pairwise id from the person:
+      pairwise_id = PairwiseComparison.where(participant_id: current_user.id).order(id: :desc).first.id
+      individual_comparisons = PairwiseComparison.where(id: pairwise_id, participant_id: current_user.id, category: 'request')
       @comparisons_json = get_comparisons_json(individual_comparisons, 'request')
     else
       social_comparisons = PairwiseComparison.where(participant_id: current_user.id, category: 'driver')
