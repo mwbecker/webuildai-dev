@@ -79,14 +79,12 @@ the time a payment is issued. </p> <br / >
     </thead>
     <% a = get_ranges %>
     <% b = get_ranges_2 %>
-    <% @features_by_category.to_a.shuffle.each do |k, v| %> <!-- randomize the order to reduce bias --> 
-    <% wrote_sub_header = false %>
-    <% v.each do |f| %> 
+    <% counter = "" %>
+    <% Feature.all.active.request.added_by(current_user.id).order(:description).each do |f| %>
     <tr>
       <td>
-        <% if !wrote_sub_header %>
+        <% if  counter  == "" || f.description != counter %>
         <h5 class = "subheader"> <%= f.description %> </h5>
-        <% wrote_sub_header = true %>
         <% end %>
         <div class="row">
           <div class="card ">
@@ -106,7 +104,7 @@ the time a payment is issued. </p> <br / >
         <td id = "yof-<%=f.id%>" style = "cursor:pointer;font-weight:bold;font-size:2em;"> &times; </td>
       <% end %>
     </tr>
-    <% end %>    
+    <% counter = f.description %>
   <% end %>
 </table>
 
