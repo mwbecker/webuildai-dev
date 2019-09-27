@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import RankedListFlow from './RankedListFlow';
 import LoadingSpinner from "./LoadingSpinner";
+import IndividualFeatureSelection from './IndividualFeatureSelection';
 
 // this exists so we can namespace everything by /react
 const Routes = ({ match }) => {
@@ -13,6 +14,7 @@ const Routes = ({ match }) => {
   return (
     <Switch>
       <Route exact path={match.url + '/'} render={() => "homepage"} />
+      <Route path={match.url + '/individual_feature_selection'} component={IndividualFeatureSelection} />
       <Route path={match.url + '/ranked_list'} component={RankedListFlow} />
     </Switch>
   );

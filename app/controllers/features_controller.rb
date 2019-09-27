@@ -40,6 +40,7 @@ class FeaturesController < ApplicationController
         end
         a.active = true
         a.category = params[:category]
+        a.unit = params[:unit]
         a.save!
         DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
       else
@@ -52,6 +53,7 @@ class FeaturesController < ApplicationController
         end
         a.active = true
         a.category = params[:category]
+        a.unit = params[:unit]
         a.save!
         d = a.data_range
         if !d.nil?
@@ -123,16 +125,17 @@ class FeaturesController < ApplicationController
       redirect_to @feature, notice: 'Updated information'
     else
       render action: 'edit'
+      puts "hello"
     end
   end
 
   # DELETE /features/1
   # DELETE /features/1.json
   def destroy
-    @feature.destroy
+    @feature.active = "false"
+    @feature.save!
     respond_to do |format|
-      format.html { redirect_to features_url, notice: 'Feature was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js {render inline: "location.reload();" }
     end
   end
 

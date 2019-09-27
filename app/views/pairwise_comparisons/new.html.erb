@@ -1,5 +1,5 @@
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" style="padding-top:50px;">
  <!-- Modal content -->
  <div class="modal-content" style="padding-top: 34px !important;">
 
@@ -23,14 +23,14 @@ the time a payment is issued. </p> <br / >
 <p style = "font-size:1.25em;"> Is your feature categorical or continuous? </p>
 
 <form action="#" class = "add_form">
-     <label style = "display:inline;margin-right:5%;">
-       <input id = "cat" class="with-gap" name="group3" type="radio" />
-       <span style = "color:black;font-size:1.3em;">Categorical</span>
-     </label> <br/> <br/>
-      <label style = "display:inline;margin-right:5%;">
-        <input id = "con" class="with-gap" name="group3" type="radio" />
-        <span style = "color:black;font-size:1.3em;">Continuous</span>
-      </label>
+  <label style = "display:inline;margin-right:5%;">
+    <input id = "cat" class="with-gap" name="group3" type="radio" />
+    <span style = "color:black;font-size:1.3em;">Categorical</span>
+  </label> <br/> <br/>
+  <label style = "display:inline;margin-right:5%;">
+    <input id = "con" class="with-gap" name="group3" type="radio" />
+    <span style = "color:black;font-size:1.3em;">Continuous</span>
+  </label>
 </form>
 <a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-top:5%;margin-left:63%;width:20.5%;padding-top:0.7%;padding-bottom:5%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;font-size:1.2em;"> NEXT </a>
 </div>
@@ -58,16 +58,14 @@ the time a payment is issued. </p> <br / >
 <h3 class="title">Feature Selection for Your Individual Preference Profile</h3>
 <hr class = "feature-hr">
 <p class = "feature-text" >
-  Whenever you open your company’s app and start driving, an in-app algorithm works to match
-  you with potential customers in your given area. The boxes below contain features we believe 
-  your company’s algorithmuses to match drivers with incoming requests. Based on your experiences,
-  <b>please select any features that you would consider important if you were to make an algorithm for youself</b>
+  Your company uses an algorithm to match you with potential customers. 
+  The boxes below contain features we believe your company’s algorithm uses. Based on your experiences,
+  <b>please select any features that you would consider important if you were to make an algorithm for youself.</b>
 </p>
 <div class="feature-image-block">
   <p class = "feature-text">
-    Please use the sliders to determine how much importance you believe the algorithm should 
-    place on each factor (0: Not Important - 1: Essential). If there other features you believe the 
-    algorithm should use, please add your own at the bottom of the page.
+    Please use the sliders to mark how important each factor should be (0: Not Important - 1: Essential). 
+    If there other features you believe the algorithm should use, please add your own at the bottom of the page.
   </p>
   <%= image_tag ('Feature_Selection.png'), :class => "feature-selection-image" %>
 </div>
@@ -88,12 +86,13 @@ the time a payment is issued. </p> <br / >
         <% end %>
         <div class="row">
           <div class="card ">
-            <div class="card-content" style="padding: 24px 24px 100px 24px">
-              <p class="feature-card-text" style="max-width:60%;float:left;word-wrap:break-word;vertical-align:middle"><%=f.name %></p>
+            <div class="card-content" style="padding:50px; margin-right:-2%;">
+              <p class="feature-card-text" style="max-width:70%;float:left;word-wrap:break-word;margin-top:-1%;"><%=f.name %></p>
               <form id = "range_form" action="#">
-              <p class="range-field" style = "float:right">
-                Importance <input type="text"  class = "weight" style = "border-bottom:none;width:7%;margin-right:10%;margin-top:0%;font-size:18px;font-family: "Helvetica Neue", sans-serif;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
-                <input type="range"  style = "width:60%;float:right;font-size:20px;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
+              <p class="range-field">
+                Importance: 
+                <input type="text"  class = "weight" style = "border-bottom:none;width:11%;margin-right:7%;margin-top:0%;font-weight:300;font-size:24px;font-family: "Helvetica Neue", sans-serif;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
+                <input type="range"  style = "width:40%;float:right;font-size:20px;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
               </p>
               </form>
             </div>
@@ -142,7 +141,7 @@ the time a payment is issued. </p> <br / >
       .close {
        color: #aaaaaa;
        /*float: right;*/
-       font-size: 28px;
+       font-size: 60px;
        font-weight: bold;
       }
       .close:hover,
@@ -301,18 +300,20 @@ the time a payment is issued. </p> <br / >
 
 <% @features_all.each do |fo| %>
 <script type="text/javascript">
-    $("#yof-<%=fo.id%>").click(function(event){
-      $.ajax({
-        url: "/features/<%=fo.id%>",
-        type: "patch",
-        success: function(){
-          console.log('Saved Successfully');
-          location.reload()
-        },
-        error:function($xhr){
-          console.log($xhr);
-        }
-        });
-      });
+  $("#yof-<%=fo.id%>").click(function(event){
+    let active = false;
+    
+    $.ajax({
+      url: "/features/<%=fo.id%>",
+      type: "delete",
+      success: function(){
+        console.log('Saved Successfully');
+        location.reload()
+      },
+      error:function($xhr){
+        console.log($xhr);
+      }
+    });
+  });
 </script>
 <% end %>
