@@ -76,7 +76,7 @@ class PairwiseComparisonsController < ApplicationController
     @num_pairs = NUM_PAIRS
 
     30.times do
-      three_feats = feats.sample(feats.size)
+      three_feats = @feats_1.sample(@feats_1.size)
 
       last_id = if !Scenario.all.empty?
                   Scenario.all.last.group_id + 1
@@ -94,7 +94,7 @@ class PairwiseComparisonsController < ApplicationController
     counter = 0
     while counter < NUM_PAIRS
       group_num = Scenario.all.last.group_id
-      tote = @scenarios_1.size / feats.size
+      tote = @scenarios_1.size / @feats_1.size
       start = group_num - tote
       group_ind_1 = rand(start...group_num + 1)
       group_ind_2 = rand(start...group_num + 1)
