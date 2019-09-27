@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux";
 import { ACTION_TYPES } from "../store";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const RANK_LB = 1;
 const RANK_UB = 5;
@@ -139,26 +140,30 @@ class RLView extends React.Component {
   renderScenarios = () => {
     return this.state.rankedList.map((rle, i) => {
       return (
-        <tr key={`rl_${i}`}>
-          <td>
-            <div className="container">
-              <div className="card default">
-                <div className="card-content">
-                  <h5>Scenario #{rle.id}</h5>
-                  {this.renderFeatures(rle)}
-                </div>
-              </div>
+        <Draggable draggableId={rle.id} index={i} key={rle.id}>
+          {provided => (
+            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+              <tr key={`rl_${i}`}>
+                <td>
+                  <div className="container">
+                    <div className="card default">
+                      <div className="card-content">
+                        <h5>Scenario #{rle.id}</h5>
+                        {this.renderFeatures(rle)}
+                      </div>
+                    </div>
+                  </div>
+                </td >
+              </tr>
             </div>
-          </td >
-          <td>
-            <div className="block">
-              <h5 className="human-rank">Scenario #{rle.id} &nbsp;</h5>
-              <input className="scenario-input" type="text" name="scenario-id-input" onChange={this.handleChange(i)} />
-            </div>
-          </td>
-        </tr>
+          )}
+        </Draggable>
       );
     });
+  }
+
+  onDragEnd = () => {
+    // TODO reordering logic
   }
 
   render() {
@@ -171,21 +176,28 @@ class RLView extends React.Component {
           Please write the scenario ids in the fields below that represents your ranking of the presented scenarios.
         </p>
 
-        <div className="row">
-          <table>
-            <tbody>
-              <tr>
-                <td><h4 className="subheader"> Model List </h4></td>
-                <td><h4 className="subheader"> Your Ranks For: </h4></td>
-              </tr>
-              {this.renderScenarios()}
-            </tbody>
-          </table>
-        </div>
-        <div className="row">
-          <a className="btn" id="submit_btn" disabled={!this.canSubmitRanks()} onClick={this.onSubmit}> Submit Changes </a>
-          <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>
-        </div>
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <div className="row">
+            <table>
+              <Droppable droppableId="table">
+                {provided => (
+                  <tbody {...provided.droppableProps} ref={provided.innerRef}>
+                    <tr>
+                      <td><h4 className="subheader"> Model List </h4></td>
+                    </tr>
+                    {this.renderScenarios()}
+                  {provided.placeholder}
+                  </tbody>
+                )}
+              </Droppable>
+            </table>
+          </div>
+          <div className="row">
+            <a className="btn" id="submit_btn" disabled={!this.canSubmitRanks()} onClick={this.onSubmit}> Submit Changes </a>
+            <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>
+          </div>
+        </DragDropContext>
+
       </div >
     );
   }
