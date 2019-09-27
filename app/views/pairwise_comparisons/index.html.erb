@@ -23,13 +23,21 @@
 <h3 id = "titulo" class="title"> Which Request Would You Like to Receive? </h3>
 <hr class="feature-hr"/>
 <br/>
-<p id="prompt" class="feature-text">
-  Please choose which request you would prefer the algorithm to match you with.
-</p>
-<h4 id = "counter">
+<div>
+  <p id="prompt" class="feature-text">
+    Please choose which driver should get the ping.
+  </p>
+  <p id="top-counter" class="feature-text" align="right" style="margin-top:-3%;font-weight:bold;">
+    Scenario 1/<%= @num_pairs %>
+  </p>
+</div>
+<% if false %>
+
+<h4 id = "counter" style="margin-top:3%">
   Scenario 1/<%= @num_pairs %>
 </h4>
-<br/> <br/>
+<% end %> 
+<br/>
 
 <div id = "all_encompassing" class = "0">
 
@@ -108,8 +116,8 @@
 <br><br> <br>
 
 <%# TODO disable this if nothing inputted %>
-<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
-Next Scenario
+<a class="btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
+  Next Scenario
 </a>
 <br><br><br>
 <br><br><br><br>
@@ -223,7 +231,11 @@ Next Scenario
       $('.f-' + `${first+prev}`).css('display', 'none')
       $('.container-' + `${first+prev+1}`).css('display', 'block')
       $('.f-' + `${first+prev+1}`).css('display', 'block')
-      $("#counter").html(`Scenario ${((prev+1)%(num_pairs))+1}/${num_pairs}`)
+
+      if (((prev+1)%(num_pairs))+1 == num_pairs ) {
+        $("#next_btn").html(`Finish`)
+      }
+      $("#top-counter").html(`Scenario ${((prev+1)%(num_pairs))+1}/${num_pairs}`)
 
     });
 

@@ -16,15 +16,17 @@
 
 
 <div id = "aller_encompassing" style = "display:none;">
-<h3 id = "titulo" class="title"> Social Preference </h3>
+<h3 id = "titulo" class="title"> Who Should Get the Request?? </h3>
 <hr class="feature-hr"/>
 <br/>
-<p id="prompt" class="feature-text">
-  Please choose which driver should get the ping.
-</p>
-<h4 id = "counter">
-  Scenario 1/<%= @num_pairs %>
-</h4>
+<div>
+  <p id="prompt" class="feature-text">
+    Please choose which driver should get the ping.
+  </p>
+  <p id="top-counter" class="feature-text" align="right" style="margin-top:-3%;font-weight:bold;">
+    Scenario 1/<%= @num_pairs %>
+  </p>
+</div>
 <br/> <br/>
 
 <div id = "all_encompassing" class = "0">
@@ -33,50 +35,51 @@
 <% pcs.each do |pc| %>
 
   <div class = "container-<%= pc.id %>" style = "width:70%;margin-left:15%;display:none" >
-  <div class = "scenario_1" id = "<%= pc.id %>-1" style = "width:45%;float:left;margin-right:5%;">
-    <div class="row">
-      <div class="card ">
-        <div class="card-content">
+    <div class = "scenario_1" id = "<%= pc.id %>-1" style = "width:45%;float:left;margin-right:5%;">
+      <div class="row">
+        <div class="card ">
+          <div class="card-content">
           <h5 class="pc-header"> Driver A </h5>
-            <% features = Scenario.for_group_features(pc.scenario_1) %>
-            <% features.each do |feature| %>
-              <p style = "font-weight:bold;font-size:20px;display:inline-block;">
-                <%= feature.feature_value %>
+          <% counter = 0 %>
+          <% @feats_1.size.times do %>
+            <% puts @feats_1.map{|n| n.category}.inspect %>
+              <p style = "font-weight:bold;font-size:20px;display:inline-block;">  
+                <%= Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]] %>
               </p>
               <p style = "font-size:20px;display:inline-block;margin-left:1%;">
-                <%= feature.feature.unit %>
+                <%=Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).unit%> 
               </p> <br/>
-              <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;">
-                <%= feature.feature.name %>
+              <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;">  
+                <%= Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).name %>
               </p>
-            <% end %>
+            <% counter += 1 %>
+          <% end %>
           </div>
         </div>
       </div>
+    </div>
 
-
-  </div>
-
-  <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;">
-    <div class="row">
-      <div class="card">
-        <div class="card-content">
-          <h5 class="pc-header"> Driver B </h5>
-            <% features = Scenario.for_group_features(pc.scenario_2) %>
-            <% features.each do |feature| %>
-              <p style = "font-weight:bold;font-size:20px;display:inline-block;">
-                <%= feature.feature_value %>
-              </p>
-              <p style = "font-size:20px;display:inline-block;margin-left:1%;">
-                <%= feature.feature.unit %>
-              </p> <br/>
-              <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;">
-                <%= feature.feature.name %>
-              </p>
-            <% end %>
+    <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;">
+      <div class="row">
+        <div class="card">
+          <div class="card-content">
+            <h5 class="pc-header"> Driver B </h5>
+              <% counter = 0 %>
+              <% @feats_1.size.times do %>
+                  <p style = "font-weight:bold;font-size:20px;display:inline-block;">  
+                    <%= Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]] %>
+                  </p>
+                  <p style = "font-size:20px;display:inline-block;margin-left:1%;">
+                    <%=Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).unit%> 
+                  </p> <br/>
+                  <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;"> 
+                    <%= Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).name %> 
+                  </p>
+                <% counter += 1 %>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
 
   </div>
 
@@ -106,8 +109,8 @@
 <br><br> <br>
 
 <%# TODO disable this if nothing inputted %>
-<a class="waves-effect waves-dark btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
-Next Scenario
+<a class="btn" id = "next_btn" style = "margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
+  Next Scenario
 </a>
 <br><br><br>
 <br><br><br><br>
@@ -221,7 +224,11 @@ Next Scenario
       $('.f-' + `${first+prev}`).css('display', 'none')
       $('.container-' + `${first+prev+1}`).css('display', 'block')
       $('.f-' + `${first+prev+1}`).css('display', 'block')
-      $("#counter").html(`Scenario ${((prev+1)%(num_pairs))+1}/${num_pairs}`)
+      if (((prev+1)%(num_pairs))+1 == num_pairs ) {
+        $("#next_btn").html(`Finish`)
+      }
+      $("#top-counter").html(`Scenario ${((prev+1)%(num_pairs))+1}/${num_pairs}`)
+
 
     });
 
