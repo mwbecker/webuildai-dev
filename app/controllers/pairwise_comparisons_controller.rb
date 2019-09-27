@@ -117,12 +117,30 @@ class PairwiseComparisonsController < ApplicationController
     @pairwise_comparison = PairwiseComparison.new
     @features_all = Feature.all.active.added_by(current_user.id).order(:description)
     @survey_complete = false
+
+    @features_by_category = Hash.new # in order to randomize
+    Feature.request.active.added_by(current_user.id).for_user(current_user.id, "request").each do |feat|
+      if @features_by_category[feat.description]
+        @features_by_category[feat.description] << feat
+      else
+        @features_by_category[feat.description] = [feat]
+      end
+    end
   end
 
   def new_how
     @pairwise_comparison = PairwiseComparison.new
     @features_all = Feature.all.active.added_by(current_user.id).order(:description)
     @survey_complete = false
+
+    @features_by_category = Hash.new # in order to randomize
+    Feature.request.active.added_by(current_user.id).for_user(current_user.id, "request").each do |feat|
+      if @features_by_category[feat.description]
+        @features_by_category[feat.description] << feat
+      else
+        @features_by_category[feat.description] = [feat]
+      end
+    end
   end
 
   # GET /pairwise_comparisons/1/edit
