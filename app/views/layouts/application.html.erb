@@ -2,8 +2,10 @@
 <html>
   <head>
     <title>WeBuildAi</title>
+
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <% csp_meta_tag %>
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" /> -->
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

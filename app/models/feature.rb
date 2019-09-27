@@ -13,9 +13,10 @@ class Feature < ApplicationRecord
   scope :company, -> { where('(description != ? AND description != ?) or company = true', 'Your Own Feature(s) - Continuous', 'Your Own Feature(s) - Categorical') }
   scope :personal, -> { where(company: false) }
 
-  def self.for_user(user_id)
+  def self.for_user(user_id, category)
     feats = []
-    joins(:participant_feature_weights).where('participant_feature_weights.weight > 0 AND participant_feature_weights.participant_id = ?', user_id).each do |f|
+    category = category != "request" ? "how_ai" : "how_you"
+    joins(:participant_feature_weights).where('participant_feature_weights.weight > 0 AND participant_feature_weights.participant_id = ? AND participant_feature_weights.method = ?', user_id, category).each do |f|
       feats << f
     end
     feats

@@ -38,50 +38,43 @@
       <div class="card ">
         <div class="card-content">
           <h5 class="pc-header"> Driver A </h5>
-            <% counter = 0 %>
-            <% @feats_1.size.times do %>
-              <p style = "font-weight:bold;font-size:20px;display:inline-block;">  
-                <%= Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]] %> 
+            <% @feats_1.each do |feat| %>
+              <p style = "font-weight:bold;font-size:20px;display:inline-block;">
+                <%= Scenario.for_group(pc.scenario_1)[feat.id] %>
               </p>
               <p style = "font-size:20px;display:inline-block;margin-left:1%;">
-                <%= Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).unit %> 
+                <%= feat.unit%> 
               </p> <br/>
-              <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;"> 
-                <%= Feature.find(Scenario.for_group(pc.scenario_1).sort_by{|key| key}.to_h.keys[counter]).name %> 
+              <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;">  
+                <%= feat.name %>
               </p>
-              <% counter += 1 %>
             <% end %>
-          </div>
         </div>
       </div>
-
-
+    </div>
   </div>
+
 
   <div class = "scenario_2" id = "<%=pc.id%>-2" style = "width:45%;float:right;">
     <div class="row">
       <div class="card">
         <div class="card-content">
-          <h5 class="pc-header"> Driver B </h5>
-            <% counter = 0 %>
-            <% @feats_1.size.times do %>
+          <h5 class="pc-header"> Request B </h5>
+            <% @feats_1.each do |feat| %>
               <p style = "font-weight:bold;font-size:20px;display:inline-block;">  
-                <%= Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h[Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]] %>
+                <%= Scenario.for_group(pc.scenario_2)[feat.id] %>
               </p>
               <p style = "font-size:20px;display:inline-block;margin-left:1%;">
-                <%= Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).unit %>
+                <%= feat.unit %> 
               </p> <br/>
               <p style = "margin-bottom:4%;margin-top:1%;font-size:18px;line-height:1.4;"> 
-                <%= Feature.find(Scenario.for_group(pc.scenario_2).sort_by{|key| key}.to_h.keys[counter]).name %>
+                <%= feat.name %>
               </p>
-              <% counter += 1 %>
             <% end %>
           </div>
-        </div>
+        </div>l
       </div>
-
-  </div>
-
+    </div>
   </div>
 
   <form action="#" style = "margin-left:35%;display:none" class = "f-<%= pc.id %>">
@@ -173,7 +166,7 @@ Next Scenario
         $("#<%= pc.id%>-B").prop('checked', false)
         $("#<%= pc.id%>-N").prop('checked', true)
         $("#reason-<%= pc.id%>").prop('disabled', false);
-        post_choice('nil', parseInt(<%= pc.id%>))
+        post_choice(3, parseInt(<%= pc.id%>))
      });
   </script>
 <% end %>
