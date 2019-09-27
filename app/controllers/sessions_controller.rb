@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
       session[:participant_id] = participant.id
       session[:round] = 0
       session[:human_ranks] = []
+      session[:pairwise_old_driver] = nil
+      session[:pairwise_old_request] = nil
       redirect_to new_pairwise_comparison_path, notice: 'Logged in!'
     else
       flash.now.alert = 'Username and/or password is invalid'
@@ -21,6 +23,8 @@ class SessionsController < ApplicationController
     session[:round] = 0
     session[:human_ranks] = []
     session[:about] = false
+    session[:pairwise_old_driver] = nil
+    session[:pairwise_old_request] = nil
     redirect_to login_path, notice: 'Logged out!'
   end
 end

@@ -9,8 +9,14 @@ class PairwiseComparisonsController < ApplicationController
   # GET /pairwise_comparisons
   # GET /pairwise_comparisons.json
   def index
+    if !session[:pairwise_old_request].nil?
+      session[:pairwise_old_request].each do |pc|
+        PairwiseComparison.find(pc["id"]).destroy
+      end
+    end
+
     @pairwise_comparisons = []
-    feats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
+    feats = Feature.request.active.added_by(current_user.id).for_user(current_user.id, "request")
     @feats = feats
     @scenarios = []
     @num_pairs = NUM_PAIRS
@@ -52,11 +58,19 @@ class PairwiseComparisonsController < ApplicationController
         counter += 1
       end
     end
+
+    session[:pairwise_old_request] = @pairwise_comparisons
+
   end
 
   def index_driver
+    if !session[:pairwise_old_driver].nil?
+      session[:pairwise_old_driver].each do |pc|
+        PairwiseComparison.find(pc["id"]).destroy
+      end
+    end
     @pairwise_comparisons_1 = []
-    @feats_1 = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
+    @feats_1 = Feature.driver.active.added_by(current_user.id).for_user(current_user.id, "driver")
     @scenarios_1 = []
     @num_pairs = NUM_PAIRS
 
@@ -91,6 +105,7 @@ class PairwiseComparisonsController < ApplicationController
         counter += 1
       end
     end
+    session[:pairwise_old_driver] = @pairwise_comparisons_1
   end
 
   # GET /pairwise_comparisons/1

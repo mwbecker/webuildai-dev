@@ -32,9 +32,9 @@ module Api
         round = params[:round]
         # Get all features user selected as important
         if category == 'request'
-          selectedFeats = Feature.request.active.added_by(current_user.id).for_user(current_user.id)
+          selectedFeats = Feature.request.active.added_by(current_user.id).for_user(current_user.id, "request")
         else
-          selectedFeats = Feature.driver.active.added_by(current_user.id).for_user(current_user.id)
+          selectedFeats = Feature.driver.active.added_by(current_user.id).for_user(current_user.id, "driver")
         end
         # Size of the Ranked List
         rankedListSize = 5
