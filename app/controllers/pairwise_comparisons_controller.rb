@@ -10,8 +10,8 @@ class PairwiseComparisonsController < ApplicationController
   # GET /pairwise_comparisons.json
   def index
     if !session[:pairwise_old_request].nil?
-      session[:pairwise_old_request].each do |pc|
-        PairwiseComparison.find(pc["id"]).destroy
+      session[:pairwise_old_request].each do |id|
+        PairwiseComparison.find(id).destroy
       end
     end
 
@@ -59,14 +59,14 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
 
-    session[:pairwise_old_request] = @pairwise_comparisons
+    session[:pairwise_old_request] = @pairwise_comparisons.map{|pc| pc["id"]}
 
   end
 
   def index_driver
     if !session[:pairwise_old_driver].nil?
       session[:pairwise_old_driver].each do |pc|
-        PairwiseComparison.find(pc["id"]).destroy
+        PairwiseComparison.find(id).destroy
       end
     end
     @pairwise_comparisons_1 = []
@@ -105,7 +105,7 @@ class PairwiseComparisonsController < ApplicationController
         counter += 1
       end
     end
-    session[:pairwise_old_driver] = @pairwise_comparisons_1
+    session[:pairwise_old_driver] = @pairwise_comparisons_1.map{|pc| pc["id"]}
   end
 
   # GET /pairwise_comparisons/1
