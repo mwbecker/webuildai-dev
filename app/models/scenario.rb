@@ -12,20 +12,24 @@ class Scenario < ApplicationRecord
     Scenario.where(group_id: group_id).order(id: :asc)
   end
 
-  # def scenario_to_json(scenario)
-  #   result = {}
-  #   result[:feat_id] = scenario.feature_id
-  #   result[:feat_name] = scenario.feature.name
-  #   result[:feat_category] = 0 # TODO: idk what this is
-  #   result[:feat_value] = scenario.feature_value
-  #   result[:feat_type] = scenario.feature.data_range.is_categorical ? 'categorical' : 'continuous'
-  #   result[:feat_min] = scenario.feature.data_range.lower_bound
-  #   result[:feat_max] = scenario.feature.data_range.upper_bound
-  #   if scenario.feature.data_range.is_categorical
-  #     result[:possible_values] = scenario.feature.data_range.categorical_data_options.map(&:option_value)
-  #   end
-  #   result
-  # end
+  def scenario_to_json
+    feature = self.feature
+    data_range = feature.data_range
+    is_categorical = data_range.is_categorical
+    result = {}
+    result[:feat_id] = self.feature_id
+    result[:feat_name] = feature.name
+    result[:feat_unit] = feature.unit
+    result[:feat_category] = 0 # TODO: idk what this is
+    result[:feat_value] = self.feature_value
+    result[:feat_type] = is_categorical ? 'categorical' : 'continuous'
+    result[:feat_min] = data_range.lower_bound
+    result[:feat_max] = data_range.upper_bound
+    if is_categorical
+      result[:possible_values] = data_range.categorical_data_options.map(&:option_value)
+    end
+    result
+  end
 
   private
 

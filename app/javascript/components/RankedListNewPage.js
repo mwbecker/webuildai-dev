@@ -57,6 +57,7 @@ class RLNew extends React.Component {
     }
 
     trainModel = (samples) => {
+        console.log('mlserver', this.props.mlServerUrl);
         fetch(this.props.mlServerUrl + "/train", {
             method: 'POST',
             headers: {

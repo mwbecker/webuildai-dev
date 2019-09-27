@@ -16,6 +16,8 @@ const INITIAL_STATE = {
     },
     rankedList: [],
     ranklistId: 0,
+    selectedFeatures: [ { name: "foo" }, { name: "bar"} ],
+    isAdmin: false, // DON'T USE THIS FOR ANYTHING SENSITIVE
 };
 
 export const ACTION_TYPES = {
@@ -28,6 +30,7 @@ export const ACTION_TYPES = {
     SET_CATEGORY: 'SET_CATEGORY',
     END_RL_FLOW: 'END_RL_FLOW',
     SET_RANKLIST_ID: 'SET_RANKLIST_ID',
+    SET_IS_ADMIN: 'SET_IS_ADMIN',
 };
 
 const rootReducer = (state, action) => {
@@ -57,6 +60,9 @@ const rootReducer = (state, action) => {
         case ACTION_TYPES.SET_RANKLIST_ID:
             oldState.ranklistId = payload;
             return oldState;
+        case ACTION_TYPES.SET_IS_ADMIN:
+            oldState.isAdmin = payload;
+            return oldState;
         case ACTION_TYPES.END_RL_FLOW:
             return INITIAL_STATE;
         default:
@@ -69,7 +75,7 @@ const persistConfig = {
     storage: storage,
     stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
     // whitelist: ['rankedListState', 'category']
-    blacklist: ['pairwiseComparisons'],
+    // blacklist: ['pairwiseComparisons'],
 };
 const pReducer = persistReducer(persistConfig, rootReducer);
 

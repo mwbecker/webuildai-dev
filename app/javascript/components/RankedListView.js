@@ -1,7 +1,9 @@
-import React from "react"
+import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from "../store";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Scenario from "./Scenario";
 
 const RANK_LB = 1;
 const RANK_UB = 5;
@@ -21,20 +23,6 @@ class RLView extends React.Component {
     this.setState({ rankedList: rl });
   }
 
-  renderFeatures = (rle) => {
-    return rle.features.map((feature, i) => {
-      return (
-        <div className="cardRow" key={`${rle.id}_feature_${i}`}>
-          <div className="column left">
-            <p className="feature-name">  {feature.feat_name} </p>
-          </div>
-          <div className="column right">
-            <p className="feature-value"> {feature.feat_value} </p>
-          </div>
-        </div>
-      );
-    });
-  }
 
   handleChange = (i) => {
     return (event) => {
@@ -137,6 +125,23 @@ class RLView extends React.Component {
     }
   }
 
+  /*
+  renderFeatures = (rle) => {
+    return rle.features.map((feature, i) => {
+      return (
+        <div className="cardRow" key={`${rle.id}_feature_${i}`}>
+          <div className="column left">
+            <p className="feature-name">  {feature.feat_name} </p>
+          </div>
+          <div className="column right">
+            <p className="feature-value"> {feature.feat_value} </p>
+          </div>
+        </div>
+      );
+    });
+  }
+  */
+
   renderScenarios = () => {
     return this.state.rankedList.map((rle, i) => {
       return (
@@ -202,6 +207,17 @@ class RLView extends React.Component {
     );
   }
 }
+
+RLView.propTypes = {
+  category: PropTypes.string.isRequired,
+  round: PropTypes.number.isRequired,
+  rankedList: PropTypes.array.isRequired,
+  ranklistId: PropTypes.number.isRequired,
+  setRankedList: PropTypes.func.isRequired,
+  setRound: PropTypes.func.isRequired,
+  setCategory: PropTypes.func.isRequired,
+  endFlow: PropTypes.func.isRequired,
+};
 
 const mapStoreStateToProps = (storeState, givenProps) => {
   return {
