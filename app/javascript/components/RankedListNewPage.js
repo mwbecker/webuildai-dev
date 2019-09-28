@@ -65,7 +65,7 @@ class RLNew extends React.Component {
                 'Data-Type': 'json',
             },
             body: JSON.stringify({
-                data: this.props.pairwiseComparisons
+                data: this.props.pairwiseComparisons.features
             })
         })
             .then(response => response.json())

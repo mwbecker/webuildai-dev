@@ -7,13 +7,61 @@ class PWChoose extends React.Component {
     super(props);
     this.state = {
       comparisonNum: 0,
+      choice: null,
+      reason: "",
     }
   }
 
+  nextScenario = () => {
+    const choice = this.state.choice;
+    // TODO save it in the db
+    const oldComparisonNum = this.state.comparisonNum;
+    this.setState({choice: null, comparisonNum: oldComparisonNum+1});
+  }
+
+  onChoose = (choice) => {
+    return () => {
+      this.setState({choice});
+    }
+  }
+
+  onReasonChange = (event) => {
+    this.setState({reason: event.target.value});
+  }
+
   renderPairwiseComparisons = () => {
-    return this.props.pairwiseComparisons.map((pw) => (
-      <PairwiseComparison left={pw.scenario_1} right={pw.scenario_2} category={this.props.category} />
-    ));
+    const pw = this.props.pairwiseComparisons[this.state.comparisonNum];
+    return (
+      <React.Fragment>
+        <PairwiseComparison left={pw.scenario_1} right={pw.scenario_2} category={this.props.category} />
+        <div style={{marginLeft:"35%"}} className="f-<%= pc.id %>">
+          <label style={{display:"inline", marginRight:"5%" }}>
+            <input id="<%=pc.id %>-A" className="with-gap" name="group3" type="radio" onClick={this.onChoose(1)} />
+            <span>Choose #{pw.scenario_1.group_id}</span>
+          </label>
+          <label style={{display:"inline", marginRight:"5%"}}>
+            <input id="<%=pc.id %>-B" className="with-gap" name="group3" type="radio" onClick={this.onChoose(2)} />
+            <span>Choose #{pw.scenario_2.group_id}</span>
+          </label>
+          <label style={{display:"inline"}}>
+            <input id="<%=pc.id %>-N" className="with-gap" name="group3" type="radio" onClick={this.onChoose(-1)} />
+            <span>Neither</span>
+          </label>
+          <br/>
+          <br/>
+          {this.state.choice &&
+            <input onChange={this.onReasonChange} style={{marginLeft:"-27%", overflow: "visible"}} id="reason-<%= pc.id %>" type="text" name="lower" placeholder="Tell us why you chose this option —" />
+          }
+          <br/>
+          <br/>
+          {/* {this.state.choice && this.state.reason === "" &&
+            <p id="error_r-<%= pc.id %>" style={{marginLeft:"-27%", color:"red", marginTop:"-1%"}}>
+              Reason cannot be blank
+            </p>
+          } */}
+        </div>
+      </React.Fragment>
+    );
   }
 
   render() {
@@ -26,40 +74,26 @@ class PWChoose extends React.Component {
           <p id="prompt" className="feature-text">
             Please choose which request you prefer.
           </p>
-          <p id="top-counter" className="feature-text" align="right" style="margin-top:-3%;font-weight:bold;">
-            Scenario {this.state.comparisonNum}/{this.props.pairwiseComparisons.length}
+          <p id="top-counter" className="feature-text" align="right" style={{marginTop:"-3%", fontWeight: "bold"}}>
+            Scenario {this.state.comparisonNum+1}/{this.props.pairwiseComparisons.length}
           </p>
         </div>
         <br />
         <div id="all_encompassing" className="0">
           {this.renderPairwiseComparisons()}
-          <div style="margin-left:35%;" className="f-<%= pc.id %>">
-            <label style="display:inline;margin-right:5%;">
-              <input id="<%=pc.id %>-A" className="with-gap" name="group3" type="radio" />
-              <span>Choose A</span>
-            </label>
-            <label style="display:inline;margin-right:5%;">
-              <input id="<%=pc.id %>-B" className="with-gap" name="group3" type="radio" />
-              <span>Choose B</span>
-            </label>
-            <label style="display:inline">
-              <input id="<%=pc.id %>-N" className="with-gap" name="group3" type="radio" />
-              <span>Neither</span>
-            </label>
-            <br/>
-            <br/>
-            <input style="margin-left:-27%; overflow:visible" id="reason-<%= pc.id %>" type="text" name="lower" value="" placeholder="Tell us why you chose this option —" />
-            <br/>
-            <br/>
-              <p id="error_r-<%= pc.id %>" style="margin-left:-27%;color:red;margin-top:-1%;">
-                Reason cannot be blank
-              </p>
-          </div>
         </div>
         <br/><br/><br/>
-        <a className="btn" id="next_btn" style="margin-left:40%;width:20%;color:#FFFFFF;background-color:#3d6ab1;font-weight:bold;" >
-                  Next Scenario
-        </a>
+        {this.state.choice &&
+          <a
+            className="btn"
+            onClick={this.nextScenario}
+            disabled={this.state.reason === ""}
+            id="next_btn"
+            style={{marginLeft:"40%", width: "20%", color: "white", backgroundColor:"#3d6ab1", fontWeight:"bold"}}
+          >
+            Next Scenario
+          </a>
+        }
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
     );

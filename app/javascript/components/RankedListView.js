@@ -125,7 +125,6 @@ class RLView extends React.Component {
     }
   }
 
-  /*
   renderFeatures = (rle) => {
     return rle.features.map((feature, i) => {
       return (
@@ -140,7 +139,6 @@ class RLView extends React.Component {
       );
     });
   }
-  */
 
   renderScenarios = () => {
     return this.state.rankedList.map((rle, i) => {

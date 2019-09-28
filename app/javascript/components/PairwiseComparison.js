@@ -5,16 +5,16 @@ import Scenario from "./Scenario";
 class PairwiseComparison extends React.Component {
   render() {
     return (
-      <div style="width:70%;margin-left:15%;" >
-        <div className="scenario_1" id="<%= pc.id %>-1" style="width:45%;float:left;margin-right:5%;">
+      <div style={{width:"70%", marginLeft:"15%"}} >
+        <div className="scenario_1" id="<%= pc.id %>-1" style={{width:"45%", float:"left", marginRight:"5%"}}>
           <div className="row">
-            <Scenario id={left.id} features={left.features} />
+            <Scenario id={this.props.left.group_id} features={this.props.left.features} />
           </div>
         </div>
 
-        <div className="scenario_2" id="<%=pc.id%>-2" style="width:45%;float:right;">
+        <div className="scenario_2" id="<%=pc.id%>-2" style={{width:"45%",float:"right"}}>
           <div className="row">
-            <Scenario id={right.id} features={right.features} />
+            <Scenario id={this.props.right.group_id} features={this.props.right.features} />
           </div>
         </div>
       </div>

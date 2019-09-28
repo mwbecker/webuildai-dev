@@ -57,6 +57,7 @@ class PWIntro extends React.Component {
           Your decisions will be used to help train our own matching algorithm.
         </p>
         <br /> <br /> <br />
+        <br /> <br /> <br />
         <div className="pg-1-image-block">
           <div className="text-image-container">
             <p className="pg-1-subheader"> Part 1. Personal Preference</p>

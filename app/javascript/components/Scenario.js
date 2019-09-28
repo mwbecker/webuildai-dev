@@ -4,16 +4,19 @@ import PropTypes from "prop-types";
 
 class Scenario extends React.Component {
   renderFeatures = () => {
-    return this.props.features.map((feature) => {
-        <div className="cardRow">
+    console.log(this.props.features);
+    return this.props.features.map((feature, i) => {
+      return (
+        <div className="cardRow" key={i}>
           <div className="column left">
             <p className="feature-name">  {feature.feat_name} </p>
           </div>
           <div className="column right">
-            <p className="feature-value" style="display:inline-block"> {feature.feat_value} </p>
-            {feature.unit && <p style="display:inline-block"> {feature.unit} </p>}
+            <p className="feature-value" style={{display:"inline-block"}}> {feature.feat_value} </p>
+            {feature.feat_unit && <p style={{display:"inline-block"}}> &nbsp;{feature.feat_unit} </p>}
           </div>
         </div>
+      );
     });
   }
 
@@ -30,8 +33,8 @@ class Scenario extends React.Component {
 }
 
 Scenario.propTypes = {
-  id: PropTypes.string.isRequired,
-  features: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+  features: PropTypes.any.isRequired,
 }
 
 export default Scenario;
