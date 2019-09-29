@@ -6,7 +6,9 @@ module Api
       # TODO: remove this
       skip_before_action :verify_authenticity_token
 
-      NUM_PAIRS = Rails.env.development? ? 3 : 5
+      NUM_PAIRS = Rails.env.development? ? 3 : 40
+      ML_URL = Rails.env.production? ? 'https://webuildai-ml-server.herokuapp.com' : 'http://localhost:5000'
+
       def generate_pairwise_comparisons
         category = params[:category]
         # session[:pairwise_old_request] = nil
@@ -65,12 +67,25 @@ module Api
         end
         session[:pairwise_old_request] = @pairwise_comparisons.map{|pc| pc["id"]}
         comparisons_json = @pairwise_comparisons.map{|pc| pc.pc_to_json()}
+        puts current_user.inspect
 
         render json: {
           pairwiseComparisons: comparisons_json,
-          isAdmin: current_user.id == 2, # only for skipping easily
+          mlServerUrl: ML_URL,
+          participantId: current_user.id,
         }.to_json
       end
+
+      def update_choice
+        id = params[:pairwise_id]
+        choice = params[:choice]
+        reason = params[:reason]
+        pwc = PairwiseComparison.find(id)
+        pwc.choice = choice == -1 ? nil : choice
+        pwc.reason = reason
+        pwc.save
+      end
+
     end
   end
 end

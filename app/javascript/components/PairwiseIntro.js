@@ -26,7 +26,8 @@ class PWIntro extends React.Component {
         console.log('generated pairwise', data);
         // data.isAdmin, data.pairwiseComparisons
         this.props.setPairwiseComparisons(data.pairwiseComparisons);
-        this.props.setIsAdmin(data.isAdmin);
+        this.props.setParticipantId(data.participantId);
+        this.props.setMLServerUrl(data.mlServerUrl);
       })
       .then(() => {
         this.props.history.push('choose');
@@ -94,7 +95,8 @@ const mapStoreStateToProps = (state, givenProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setPairwiseComparisons: (payload) => dispatch({ type: ACTION_TYPES.SET_PAIRWISE_COMPARISONS, payload }),
-    setIsAdmin: (payload) => dispatch({ type: ACTION_TYPES.SET_IS_ADMIN, payload }),
+    setParticipantId: (payload) => dispatch({ type: ACTION_TYPES.SET_PARTICIPANT_ID, payload }),
+    setMLServerUrl: (payload) => dispatch({ type: ACTION_TYPES.SET_ML_SERVER_URL, payload }),
   };
 }
 

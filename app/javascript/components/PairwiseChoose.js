@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PairwiseComparison from "./PairwiseComparison";
+import { ACTION_TYPES } from '../store';
 
 class PWChoose extends React.Component {
   constructor(props) {
@@ -10,19 +11,58 @@ class PWChoose extends React.Component {
       choice: null,
       reason: "",
     }
+    this.reasonRef = React.createRef();
   }
 
   nextScenario = () => {
     const choice = this.state.choice;
     // TODO save it in the db
     const oldComparisonNum = this.state.comparisonNum;
-    this.setState({choice: null, comparisonNum: oldComparisonNum+1});
+    this.props.pairwiseComparisons[this.state.comparisonNum].choice = choice === -1 ? null : choice;
+    const id = this.props.pairwiseComparisons[this.state.comparisonNum].id
+    this.setState({choice: null, comparisonNum: oldComparisonNum+1 < this.props.pairwiseComparisons.length ? oldComparisonNum + 1 : oldComparisonNum}, () => {
+      fetch('/api/v1/pairwise_comparisons/update_choice', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({pairwise_id: id, choice, reason: this.state.reason }),
+      })
+      .then(() => {
+        if (oldComparisonNum+1 >= this.props.pairwiseComparisons.length) {
+          this.props.history.push('/react/ranked_list/new');
+        }
+        this.props.setPairwiseComparisons(this.props.pairwiseComparisons);
+      })
+      .catch(err => console.log(err));
+    });
   }
 
   onChoose = (choice) => {
     return () => {
-      this.setState({choice});
+      this.setState({choice}, () => {
+        this.reasonRef.current.focus();
+      });
     }
+  }
+
+  skipChoosing = () => {
+    for (let i = 0; i < this.props.pairwiseComparisons.length; i++) {
+      this.props.pairwiseComparisons[i].choice = 1
+      fetch('/api/v1/pairwise_comparisons/update_choice', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pairwise_id: this.props.pairwiseComparisons[i].id, choice: 1, reason: 'test' }),
+        })
+          .then()
+          .catch(err => console.log(err));
+    }
+    this.props.setPairwiseComparisons(this.props.pairwiseComparisons);
+    this.props.history.push('/react/ranked_list/new');
   }
 
   onReasonChange = (event) => {
@@ -36,21 +76,26 @@ class PWChoose extends React.Component {
         <PairwiseComparison left={pw.scenario_1} right={pw.scenario_2} category={this.props.category} />
         <div style={{marginLeft:"35%"}} className="f-<%= pc.id %>">
           <label style={{display:"inline", marginRight:"5%" }}>
-            <input id="<%=pc.id %>-A" className="with-gap" name="group3" type="radio" onClick={this.onChoose(1)} />
+            <input id="<%=pc.id %>-A" className="with-gap" name="group3" type="radio" onChange={this.onChoose(1)} checked={this.state.choice === 1} />
             <span>Choose #{pw.scenario_1.group_id}</span>
           </label>
           <label style={{display:"inline", marginRight:"5%"}}>
-            <input id="<%=pc.id %>-B" className="with-gap" name="group3" type="radio" onClick={this.onChoose(2)} />
+            <input id="<%=pc.id %>-B" className="with-gap" name="group3" type="radio" onChange={this.onChoose(2)} checked={this.state.choice === 2} />
             <span>Choose #{pw.scenario_2.group_id}</span>
           </label>
           <label style={{display:"inline"}}>
-            <input id="<%=pc.id %>-N" className="with-gap" name="group3" type="radio" onClick={this.onChoose(-1)} />
+            <input id="<%=pc.id %>-N" className="with-gap" name="group3" type="radio" onChange={this.onChoose(-1)} checked={this.state.choice === -1} />
             <span>Neither</span>
           </label>
           <br/>
           <br/>
           {this.state.choice &&
-            <input onChange={this.onReasonChange} style={{marginLeft:"-27%", overflow: "visible"}} id="reason-<%= pc.id %>" type="text" name="lower" placeholder="Tell us why you chose this option —" />
+            <input
+              onChange={this.onReasonChange}
+              style={{marginLeft:"-27%", overflow: "visible"}}
+              id="reason-<%= pc.id %>" type="text" name="lower"
+              ref={this.reasonRef}
+              placeholder="Tell us why you chose this option —" />
           }
           <br/>
           <br/>
@@ -94,9 +139,16 @@ class PWChoose extends React.Component {
             Next Scenario
           </a>
         }
+        { this.props.participantId === 2 && <a className="btn" onClick={this.skipChoosing} >[Admin] Skip</a>}
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
     );
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPairwiseComparisons: (payload) => dispatch({ type: ACTION_TYPES.SET_PAIRWISE_COMPARISONS, payload }),
   }
 }
 
@@ -106,9 +158,10 @@ const mapStoreStateToProps = (state, givenProps) => {
     features: state.selectedFeatures,
     category: state.category,
     pairwiseComparisons: state.pairwiseComparisons,
+    participantId: state.participantId,
   }
 }
 
-const PairwiseChoose = connect(mapStoreStateToProps)(PWChoose);
+const PairwiseChoose = connect(mapStoreStateToProps, mapDispatchToProps)(PWChoose);
 
 export default PairwiseChoose;

@@ -10,14 +10,12 @@ const INITIAL_STATE = {
     category: "request", // or "driver"
     pairwiseComparisons: [],
     round: 0,
-    model: {
-        url: "",
-        weights: []
-    },
+    model_url: 'https://webuildai-ml-server.herokuapp.com',
+    model_weights: [],
     rankedList: [],
     ranklistId: 0,
     selectedFeatures: [ { name: "foo" }, { name: "bar"} ],
-    isAdmin: false, // DON'T USE THIS FOR ANYTHING SENSITIVE
+    participantId: 0,
 };
 
 export const ACTION_TYPES = {
@@ -30,7 +28,7 @@ export const ACTION_TYPES = {
     SET_CATEGORY: 'SET_CATEGORY',
     END_RL_FLOW: 'END_RL_FLOW',
     SET_RANKLIST_ID: 'SET_RANKLIST_ID',
-    SET_IS_ADMIN: 'SET_IS_ADMIN',
+    SET_PARTICIPANT_ID: 'SET_PARTICIPANT_ID',
 };
 
 const rootReducer = (state, action) => {
@@ -43,10 +41,10 @@ const rootReducer = (state, action) => {
         case ACTION_TYPES.SET_PAIRWISE_COMPARISONS:
             return { ...state, pairwiseComparisons: payload }
         case ACTION_TYPES.SET_ML_SERVER_URL:
-            oldState.model.url = payload;
+            oldState.model_url = payload;
             return oldState;
         case ACTION_TYPES.SET_MODEL_WEIGHTS:
-            oldState.model.weights = payload;
+            oldState.model_weights = payload;
             return oldState;
         case ACTION_TYPES.SET_RANKED_LIST:
             oldState.rankedList = payload;
@@ -60,8 +58,8 @@ const rootReducer = (state, action) => {
         case ACTION_TYPES.SET_RANKLIST_ID:
             oldState.ranklistId = payload;
             return oldState;
-        case ACTION_TYPES.SET_IS_ADMIN:
-            oldState.isAdmin = payload;
+        case ACTION_TYPES.SET_PARTICIPANT_ID:
+            oldState.participantId = payload;
             return oldState;
         case ACTION_TYPES.END_RL_FLOW:
             return INITIAL_STATE;

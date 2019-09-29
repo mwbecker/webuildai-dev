@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 class Scenario extends React.Component {
   renderFeatures = () => {
-    console.log(this.props.features);
     return this.props.features.map((feature, i) => {
       return (
         <div className="cardRow" key={i}>

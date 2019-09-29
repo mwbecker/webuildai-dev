@@ -182,7 +182,7 @@ module Api
         comparisons.each do |comparison|
           # filter out 'neithers'
           next if comparison.choice == 'nil'
-          overall_list << comparisons.pc_to_json()
+          overall_list << comparison.pc_to_json()
         end
         overall_list
       end

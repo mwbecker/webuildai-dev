@@ -56,8 +56,14 @@ class RLNew extends React.Component {
             .then(() => this.props.history.push("view"))
     }
 
+    getPairwiseFeatures = (comp) => {
+        const newComp = { ...comp };
+        newComp.scenario_1 = comp.scenario_1.features;
+        newComp.scenario_2 = comp.scenario_2.features;
+        return newComp
+    }
+
     trainModel = (samples) => {
-        console.log('mlserver', this.props.mlServerUrl);
         fetch(this.props.mlServerUrl + "/train", {
             method: 'POST',
             headers: {
@@ -65,7 +71,12 @@ class RLNew extends React.Component {
                 'Data-Type': 'json',
             },
             body: JSON.stringify({
-                data: this.props.pairwiseComparisons.features
+                data: {
+                    comparisons: this.props.pairwiseComparisons.map(this.getPairwiseFeatures),
+                    feedback_round: this.props.round,
+                    request_type: this.props.category,
+                    participant_id: this.props.participantId,
+                },
             })
         })
             .then(response => response.json())
@@ -100,7 +111,7 @@ class RLNew extends React.Component {
     }
 
     componentDidMount() {
-        this.getPairwiseComparisons();
+        // this.getPairwiseComparisons();
     }
 
     onClickGo = () => {
@@ -145,7 +156,8 @@ const mapStoreStateToProps = (storeState, givenProps) => {
         round: storeState.round,
         category: storeState.category,
         pairwiseComparisons: storeState.pairwiseComparisons,
-        mlServerUrl: storeState.model.url,
+        mlServerUrl: storeState.model_url || 'https://webuildai-ml-server.herokuapp.com',
+        participantId: storeState.participantId,
     };
 }
 
@@ -153,7 +165,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setPairwiseComparisons: (payload) => dispatch({ type: ACTION_TYPES.SET_PAIRWISE_COMPARISONS, payload }),
         setRankedList: (payload) => dispatch({ type: ACTION_TYPES.SET_RANKED_LIST, payload }),
-        setMLServerUrl: (payload) => dispatch({ type: ACTION_TYPES.SET_ML_SERVER_URL, payload }),
         setModelWeights: (payload) => dispatch({ type: ACTION_TYPES.SET_MODEL_WEIGHTS, payload }),
         setRanklistId: (payload) => dispatch({ type: ACTION_TYPES.SET_RANKLIST_ID, payload }),
     };
