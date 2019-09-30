@@ -36,6 +36,7 @@ class FeatureGroup extends React.Component {
   }
 
   render() {
+    console.log(this.props.features);
     return this.props.features.length === 0 ? null : (
       <React.Fragment>
         <h5 className="subheader">{this.props.description}</h5>

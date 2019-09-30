@@ -8,7 +8,7 @@ module Api
 
       def get_all_features
         category = params[:category]
-        features = Feature.active.where(category: category).added_by(current_user.id).group_by(&:description)
+        features = Feature.active.where(category: category).added_by(current_user.id).group_by(&:description).to_a.shuffle
         result = Hash.new
         features.each do |description, feats|
           result[description] = feats.map{|feature| {id: feature.id, name: feature.name, weight: 0} }
