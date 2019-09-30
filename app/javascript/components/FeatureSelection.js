@@ -233,34 +233,34 @@ class FeatSelection extends React.Component {
   render() {
     return (
       <React.Fragment>
-      {this.renderDescription()}
-      {this.renderFeatures()}
+        {this.renderDescription()}
+        {this.renderFeatures()}
 
-      <br/><br/>
-      <a id="add" className="btn-floating btn-large waves-effect waves-light" onClick={this.openModal} style={{zIndex:0, backgroundColor:"#3d6ab1", marginLeft:"10%"}}>
-        <i className="material-icons">add</i>
-      </a>
-      <p style={{fontWeight:"bold", fontSize:"1.25em", display:"inline", marginLeft:"1%"}}>
-        Add Feature
-      </p>
-      <ReactModal
-        isOpen={this.state.modalIsOpen}
-        ariaHideApp={false}
-      >
-        <NewFeatureModal onClose={this.closeModal} category={this.props.category} addFeature={this.addFeature}/>
-      </ReactModal>
-        {/* <table className="feature-table striped highlight" id="feat">
-            <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
-        <td id="yof-<%=f.id%>" style={{cursor:"pointer", fontWeight:"bold", fontSize:"2em"}}>
-          &times;
-        </td>
+        <br/><br/>
+        <a id="add" className="btn-floating btn-large waves-effect waves-light" onClick={this.openModal} style={{zIndex:0, backgroundColor:"#3d6ab1", marginLeft:"10%"}}>
+          <i className="material-icons">add</i>
+        </a>
+        <p style={{fontWeight:"bold", fontSize:"1.25em", display:"inline", marginLeft:"1%"}}>
+          Add Feature
+        </p>
+        <ReactModal
+          isOpen={this.state.modalIsOpen}
+          ariaHideApp={false}
+        >
+          <NewFeatureModal onClose={this.closeModal} category={this.props.category} addFeature={this.addFeature}/>
+        </ReactModal>
+          {/* <table className="feature-table striped highlight" id="feat">
+              <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
+          <td id="yof-<%=f.id%>" style={{cursor:"pointer", fontWeight:"bold", fontSize:"2em"}}>
+            &times;
+          </td>
 
 
-           */}
-          <a onClick={this.finishFeatureSelection} className="waves-effect waves-dark btn" style={{zIndex:0, marginTop:"5%", marginRight:"10vw", float:"right", width:"12.5%", paddingTop:"0.7%", paddingBottom:"3%", color:"#FFFFFF", backgroundColor:"#3d6ab1", fontWeight:"bold", fontSize:"1.2em",}}>
-            NEXT
-          </a>
-          {/* <a onClick={this.props.end} className="btn">hi</a> */}
+            */}
+            <a onClick={this.finishFeatureSelection} className="waves-effect waves-dark btn" style={{zIndex:0, marginTop:"5%", marginRight:"10vw", float:"right", width:"12.5%", paddingTop:"0.7%", paddingBottom:"3%", color:"#FFFFFF", backgroundColor:"#3d6ab1", fontWeight:"bold", fontSize:"1.2em",zIndex:"5",marginBottom:"3%",}}>
+              NEXT
+            </a>
+            {/* <a onClick={this.props.end} className="btn">hi</a> */}
       </React.Fragment>
     );
   }
