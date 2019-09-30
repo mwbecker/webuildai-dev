@@ -1,17 +1,17 @@
-import React from "react"
+import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from "../store";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-const RANK_LB = 1;
-const RANK_UB = 5;
+// import Scenario from "./Scenario";
 
 class RLView extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      rankedList: []
+      rankedList: [],
+      changed: false,
     }
   }
 
@@ -19,57 +19,6 @@ class RLView extends React.Component {
     const rl = [...this.props.rankedList];
     rl.sort((a, b) => a.model_rank - b.model_rank);
     this.setState({ rankedList: rl });
-  }
-
-  renderFeatures = (rle) => {
-    return rle.features.map((feature, i) => {
-      return (
-        <div className="cardRow" key={`${rle.id}_feature_${i}`}>
-          <div className="column left">
-            <p className="feature-name">  {feature.feat_name} </p>
-          </div>
-          <div className="column right">
-            <p className="feature-value"> {feature.feat_value} </p>
-          </div>
-        </div>
-      );
-    });
-  }
-
-  handleChange = (i) => {
-    return (event) => {
-      const rle = this.state.rankedList[i];
-      if (event.target.value === '') {
-        rle.human_rank = undefined;
-        this.state.rankedList[i] = rle;
-        this.setState({ rankedList: this.state.rankedList });
-      }
-      const humanRank = parseInt(event.target.value);
-      if (!isNaN(humanRank) && RANK_LB <= humanRank && humanRank <= RANK_UB) {
-        rle.human_rank = humanRank;
-        this.state.rankedList[i] = rle;
-        this.setState({ rankedList: this.state.rankedList });
-      }
-    }
-  }
-
-  canSubmitRanks = () => {
-    const found = [];
-    for (let i = RANK_LB; i <= RANK_UB; i++) {
-      found.push(false);
-    }
-
-    for (const rle of this.state.rankedList) {
-      if (!rle.human_rank || rle.human_rank < RANK_LB || rle.human_rank > RANK_UB) return false;
-      found[rle.human_rank - RANK_LB] = true;
-    }
-
-    for (let i = RANK_LB; i <= RANK_UB; i++) {
-      if (!found[i - RANK_LB]) {
-        return false;
-      }
-    }
-    return true;
   }
 
   saveRankedList = (rankedList, callback) => {
@@ -94,7 +43,8 @@ class RLView extends React.Component {
   }
 
   onSubmit = () => {
-    this.props.setRankedList(this.state.rankedList);
+    const newRl = this.state.rankedList.map((rl, i) => ({ ...rl, human_rank: i+1 }));
+    this.props.setRankedList(newRl);
     let callback;
     if (this.props.round < 1) {
       // do another round of tuning
@@ -108,7 +58,7 @@ class RLView extends React.Component {
         callback = () => {
           this.props.setRound(0);
           this.props.setCategory('driver');
-          this.props.history.push('new');
+          this.props.history.push('/react/feature_selection/new');
         }
       } else {
         callback = () => {
@@ -116,7 +66,7 @@ class RLView extends React.Component {
         }
       }
     }
-    this.saveRankedList(this.state.rankedList, callback);
+    this.saveRankedList(newRl, callback);
   }
 
   endFlow = (skipAutofill) => {
@@ -130,11 +80,26 @@ class RLView extends React.Component {
     if (this.props.category === 'request') {
       this.props.setRound(0);
       this.props.setCategory('driver');
-      this.props.history.push('new');
+      this.props.history.push('/react/feature_selection/new');
     } else {
       this.props.endFlow();
       this.props.history.push('done')
     }
+  }
+
+  renderFeatures = (rle) => {
+    return rle.features.map((feature, i) => {
+      return (
+        <div className="cardRow" key={`${rle.id}_feature_${i}`}>
+          <div className="column left">
+            <p className="feature-name">  {feature.feat_name} </p>
+          </div>
+          <div className="column right">
+            <p className="feature-value"> {feature.feat_value} </p>
+          </div>
+        </div>
+      );
+    });
   }
 
   renderScenarios = () => {
@@ -142,28 +107,34 @@ class RLView extends React.Component {
       return (
         <Draggable draggableId={rle.id} index={i} key={rle.id}>
           {provided => (
-            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
               <tr key={`rl_${i}`}>
                 <td>
-                  <div className="container">
-                    <div className="card default">
-                      <div className="card-content">
-                        <h5>Scenario #{rle.id}</h5>
-                        {this.renderFeatures(rle)}
-                      </div>
-                    </div>
+                  <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <div className="container">
+                          <div className="card default">
+                            <div className="card-content">
+                              <h5>Scenario #{rle.id}</h5>
+                              {this.renderFeatures(rle)}
+                            </div>
+                          </div>
+                        </div>
                   </div>
                 </td >
               </tr>
-            </div>
           )}
         </Draggable>
       );
     });
   }
 
-  onDragEnd = () => {
-    // TODO reordering logic
+  onDragEnd = (e) => {
+    const source = e.source.index;
+    const dest = e.destination.index;
+    const rl = [...this.state.rankedList];
+    const temp = rl[source];
+    rl[source] = rl[dest];
+    rl[dest] = temp;
+    this.setState({rankedList: rl, changed: true });
   }
 
   render() {
@@ -193,7 +164,7 @@ class RLView extends React.Component {
             </table>
           </div>
           <div className="row">
-            <a className="btn" id="submit_btn" disabled={!this.canSubmitRanks()} onClick={this.onSubmit}> Submit Changes </a>
+            <a className="btn" id="submit_btn" onClick={this.onSubmit} disabled={!this.state.changed} > Submit Changes </a>
             <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>
           </div>
         </DragDropContext>
@@ -202,6 +173,17 @@ class RLView extends React.Component {
     );
   }
 }
+
+RLView.propTypes = {
+  category: PropTypes.string.isRequired,
+  round: PropTypes.number.isRequired,
+  rankedList: PropTypes.array.isRequired,
+  ranklistId: PropTypes.number.isRequired,
+  setRankedList: PropTypes.func.isRequired,
+  setRound: PropTypes.func.isRequired,
+  setCategory: PropTypes.func.isRequired,
+  endFlow: PropTypes.func.isRequired,
+};
 
 const mapStoreStateToProps = (storeState, givenProps) => {
   return {

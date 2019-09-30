@@ -20,7 +20,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post 'individual_feature_selection'
+      get 'features/get_all_features'
+      post 'features/new_weight'
+      post 'features/new_feature'
+      post 'pairwise_comparisons/generate_pairwise_comparisons'
+      post 'pairwise_comparisons/update_choice'
       get 'ranked_list/new'
       post 'ranked_list/generate_samples'
       post 'ranked_list/save_human_weights'

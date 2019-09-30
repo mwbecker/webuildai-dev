@@ -1,9 +1,9 @@
 <div class = "contain_1" style = "display:block">
 <h3 class="title">About</h3>
 <hr id = "hhr" class="about-hr" >
-<p class = "about-text"> 
+<p class = "about-text">
   Thank you for participating! Before we move on to the questions regarding your
-  experiences with your company’s algorithm, we would like to know more you and 
+  experiences with your company’s algorithm, we would like to know more you and
   your time working for your company(s). For more open-ended questions, please
   do not reveal any private or personally identifiable information about yourself or others in your answers.
 </p>
@@ -63,7 +63,8 @@
      type: "post",
      success: function(){
        console.log('Saved Successfully');
-       window.location.href = "/pairwise_comparisons/new"
+      //  window.location.href = "/pairwise_comparisons/new"
+      window.location.href = "/react/feature_selection/new";
      },
      error:function($xhr){
        console.log($xhr);

@@ -5,13 +5,13 @@ class PairwiseComparisonsController < ApplicationController
   before_action :set_pairwise_comparison, only: %i[show edit update destroy]
   before_action :check_login
 
-  NUM_PAIRS = Rails.env.development? ? 3 : 40
+  NUM_PAIRS = Rails.env.development? ? 3 : 5
   # GET /pairwise_comparisons
   # GET /pairwise_comparisons.json
   def index
     if !session[:pairwise_old_request].nil?
-      session[:pairwise_old_request].each do |pc|
-        PairwiseComparison.find(pc["id"]).destroy
+      session[:pairwise_old_request].each do |id|
+        PairwiseComparison.find(id).destroy
       end
     end
 
@@ -35,9 +35,9 @@ class PairwiseComparisonsController < ApplicationController
           @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
         else
           if f.name.downcase['distance'] # checks if distance is in the name
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(-1).to_s)
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound..f.data_range.upper_bound) / 5).ceil * 5).to_s)
           elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
-            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: (rand(f.data_range.lower_bound...f.data_range.upper_bound) * 1).round(2).to_s)
+            @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand * (f.data_range.upper_bound-f.data_range.lower_bound) + f.data_range.lower_bound).round(2)).to_s)
           else
             @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(f.data_range.lower_bound...f.data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
           end
@@ -59,14 +59,14 @@ class PairwiseComparisonsController < ApplicationController
       end
     end
 
-    session[:pairwise_old_request] = @pairwise_comparisons
+    session[:pairwise_old_request] = @pairwise_comparisons.map{|pc| pc["id"]}
 
   end
 
   def index_driver
     if !session[:pairwise_old_driver].nil?
       session[:pairwise_old_driver].each do |pc|
-        PairwiseComparison.find(pc["id"]).destroy
+        PairwiseComparison.find(id).destroy
       end
     end
     @pairwise_comparisons_1 = []
@@ -105,7 +105,7 @@ class PairwiseComparisonsController < ApplicationController
         counter += 1
       end
     end
-    session[:pairwise_old_driver] = @pairwise_comparisons_1
+    session[:pairwise_old_driver] = @pairwise_comparisons_1.map{|pc| pc["id"]}
   end
 
   # GET /pairwise_comparisons/1
