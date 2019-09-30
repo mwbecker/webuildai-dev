@@ -91,6 +91,8 @@ module Api
       def generate_new_pairs(ranked_list, category)
         cache = {}
         group_id = Scenario.maximum('group_id') + 1
+        puts "11111"
+        puts ranked_list
         ranked_list.each.with_index do |scen_1, i|
           ranked_list.each.with_index do |scen_2, j|
             # in old one scene 1 was worse but now it's better
@@ -150,7 +152,7 @@ module Api
                                                     feature_id: feat.id,
                                                     feature_value: ((rand(feat.data_range.lower_bound...feat.data_range.upper_bound) * 1).floor / 1.0).to_s)
           end
-          new_scenario_features.push(scenario_to_json(new_scenario_feature))
+          new_scenario_features.push(new_scenario_feature.scenario_to_json())
         end
 
         new_indiv_scenario = IndividualScenario.create(participant_id: current_user.id,
@@ -182,41 +184,9 @@ module Api
         comparisons.each do |comparison|
           # filter out 'neithers'
           next if comparison.choice == 'nil'
-
-          comparison_hash = {}
-          comparison_hash[:choice] = comparison.choice
-
-          # scenario 1
-          scenario_a_list = []
-          Scenario.for_group_features(comparison.scenario_1).each do |s|
-            scenario_a_list << scenario_to_json(s)
-          end
-          comparison_hash[:scenario_1] = scenario_a_list
-
-          # scenario 2
-          scenario_b_list = []
-          Scenario.for_group_features(comparison.scenario_2).each do |s|
-            scenario_b_list << scenario_to_json(s)
-          end
-          comparison_hash[:scenario_2] = scenario_b_list
-          overall_list << comparison_hash
+          overall_list << comparison.pc_to_json()
         end
         overall_list
-      end
-
-      def scenario_to_json(scenario)
-        result = {}
-        result[:feat_id] = scenario.feature_id
-        result[:feat_name] = scenario.feature.name
-        result[:feat_category] = 0 # TODO: idk what this is
-        result[:feat_value] = scenario.feature_value
-        result[:feat_type] = scenario.feature.data_range.is_categorical ? 'categorical' : 'continuous'
-        result[:feat_min] = scenario.feature.data_range.lower_bound
-        result[:feat_max] = scenario.feature.data_range.upper_bound
-        if scenario.feature.data_range.is_categorical
-          result[:possible_values] = scenario.feature.data_range.categorical_data_options.map(&:option_value)
-        end
-        result
       end
 
     end

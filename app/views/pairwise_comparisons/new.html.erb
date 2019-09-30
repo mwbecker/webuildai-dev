@@ -58,13 +58,13 @@ the time a payment is issued. </p> <br / >
 <h3 class="title">Feature Selection for Your Individual Preference Profile</h3>
 <hr class = "feature-hr">
 <p class = "feature-text" >
-  Your company uses an algorithm to match you with potential customers. 
+  Your company uses an algorithm to match you with potential customers.
   The boxes below contain features we believe your company’s algorithm uses. Based on your experiences,
   <b>please select any features that you would consider important if you were to make an algorithm for youself.</b>
 </p>
 <div class="feature-image-block">
   <p class = "feature-text">
-    Please use the sliders to mark how important each factor should be (0: Not Important - 1: Essential). 
+    Please use the sliders to mark how important each factor should be (0: Not Important - 1: Essential).
     If there other features you believe the algorithm should use, please add your own at the bottom of the page.
   </p>
   <%= image_tag ('Feature_Selection.png'), :class => "feature-selection-image" %>
@@ -90,7 +90,7 @@ the time a payment is issued. </p> <br / >
               <p class="feature-card-text" style="max-width:70%;float:left;word-wrap:break-word;margin-top:-1%;"><%=f.name %></p>
               <form id = "range_form" action="#">
               <p class="range-field">
-                Importance: 
+                Importance:
                 <input type="text"  class = "weight" style = "border-bottom:none;width:11%;margin-right:7%;margin-top:0%;font-weight:300;font-size:24px;font-family: "Helvetica Neue", sans-serif;" id="textInput-<%=f.id%>" value="<%= b.pop %>" >
                 <input type="range"  style = "width:40%;float:right;font-size:20px;" id="test5-<%=f.id%>" min="0" max="100" value = "<%= a.pop %>" class="range-importance" onchange="updateTextInput(this.value, this.id);" />
               </p>
@@ -244,7 +244,8 @@ the time a payment is issued. </p> <br / >
 
 
   function change_to_pw () {
-    window.location.href = "/pairwise_comparisons"
+    // window.location.href = "/pairwise_comparisons"
+    window.location.href = "/react/pairwise_comparisons/intro"
   }
 
   $("#submit_btn").click(function(event){
@@ -302,7 +303,7 @@ the time a payment is issued. </p> <br / >
 <script type="text/javascript">
   $("#yof-<%=fo.id%>").click(function(event){
     let active = false;
-    
+
     $.ajax({
       url: "/features/<%=fo.id%>",
       type: "delete",
