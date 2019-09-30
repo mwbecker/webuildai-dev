@@ -357,7 +357,7 @@ a:hover
 
 .pc-header {
   color:#3d6ab1;
-  margin-bottom:20px;
+  font-weight: bold;
 }
 
 #counter {
@@ -380,4 +380,20 @@ a:hover
   width:30%;
   float:right;
   margin-top:-1.5%;
+}
+
+.feature-name {
+  margin-bottom:5%;
+  margin-top:2%;
+  font-size:20px;
+  line-height:1.4;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight:400;
+}
+
+.feature-value {
+  font-size:22px;
+  display:inline-block;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight:bold;
 }
