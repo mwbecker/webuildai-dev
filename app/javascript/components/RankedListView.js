@@ -140,11 +140,12 @@ class RLView extends React.Component {
   render() {
     return (
       <div id="rl-page">
-        <h1>{this.props.category === 'request' ? 'Individual ' : 'Social '} Preference Models</h1>
+        <h3 className="title">{this.props.category === 'request' ? 'Individual ' : 'Social '} Preference Models</h3>
         <hr className="feature-hr" />
         <p className="about-text">
           The model list is a list of scenarios that the AI has ranked from most preferable to least preferable.
-          Please write the scenario ids in the fields below that represents your ranking of the presented scenarios.
+          Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
+          <b> please drag and drop the scenarios into the correct rank. </b>
         </p>
 
         <DragDropContext onDragEnd={this.onDragEnd}>
