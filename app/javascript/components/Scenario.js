@@ -1,4 +1,3 @@
-
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -6,37 +5,23 @@ class Scenario extends React.Component {
   renderFeatures = () => {
     return this.props.features.map((feature, i) => {
       return (
-        <div className="cardRow" key={i}>
-          <div className="column left">
-            <p className="feature-name">  {feature.feat_name} </p>
+        <div>
+          <div>
+            <p className="feature-value"> {feature.feat_value} </p>
+            {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
           </div>
-          <div className="column right">
-            <p className="feature-value" style={{display:"inline-block"}}> {feature.feat_value} </p>
-            <p className="feature-unit" style={{display:"inline-block"}}> {feature.feat_unit && <p style={{display:"inline-block"}}> &nbsp;{feature.feat_unit} </p>}
-          </div>
+          <p className="feature-name" style={{marginBottom:"7%", marginTop:"2%"}}>  {feature.feat_name} </p>
         </div>
       );
     });
-
-  render() {
-    return (
-      <div className="card default">
-        <div className="card-content">
-        <h5>Scenario #{this.props.id}</h5>
-        {this.renderFeatures()}
-        </div>
-      </div>
-    )
-  }
-
   }
 
   render() {
     return (
       <div className="card default">
         <div className="card-content">
-        <h5>Scenario #{this.props.id}</h5>
-        {this.renderFeatures()}
+          <h5 className="pc-header" style={{textAlign: "center", marginBottom:"7%"}}>Scenario #{this.props.id}</h5>
+          {this.renderFeatures()}
         </div>
       </div>
     )

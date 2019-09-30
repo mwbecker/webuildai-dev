@@ -110,15 +110,23 @@ class PWChoose extends React.Component {
   }
 
   render() {
+    let title = "";
+    let description = "";
+    if (this.props.category == 'request') {
+      title = <h3 id="titulo" className="title"> Which Request Would You Like to Receive? </h3>;
+      description = <p id="prompt" className="feature-text">Please choose which request you prefer.</p>;
+    } else {
+      title = <h3 id = "titulo" class="title"> Who Should Get the Request?? </h3>;
+      description = <p id="prompt" className="feature-text">Please choose which driver should get the ping.</p>;
+    }
+
     return (
       <div id="aller_encompassing" >
-        <h3 id="titulo" className="title"> Which Request Would You Like to Receive? </h3>
+        {title}
         <hr className="feature-hr" />
         <br />
         <div>
-          <p id="prompt" className="feature-text">
-            Please choose which request you prefer.
-          </p>
+          {description}
           <p id="top-counter" className="feature-text" align="right" style={{marginTop:"-3%", fontWeight: "bold"}}>
             Scenario {this.state.comparisonNum+1}/{this.props.pairwiseComparisons.length}
           </p>

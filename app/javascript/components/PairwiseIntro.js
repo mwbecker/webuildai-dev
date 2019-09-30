@@ -47,9 +47,30 @@ class PWIntro extends React.Component {
   }
 
   render() {
+    let title = "";
+    let part = "";
+    let partDescription = "";
+    if (this.props.category == 'request') {
+      title = <h3 className="title">Training Your Individual Preference Profile</h3>;
+      part = <p className="pg-1-subheader"> Part 1. Personal Preference </p>;
+      partDescription = <p className="feature-text">
+                          Please assume that the algorithm notifies you of two potential requests. 
+                          <b> Please choose which request you would prefer the algorithm to match you with. </b>
+                          The information below are features you believe that algorithm should consider.
+                        </p>
+    } else {
+      title = <h3 className="title">Training Your Social Preference Profile</h3>;
+      part = <p className="pg-1-subheader"> Part 2. Social Ranking </p>;
+      partDescription = <p className="feature-text">
+                          Please assume that you are the algorithm and you have to assign a request to a driver. 
+                          <b> Please choose which driver you would prefer the algorithm to give the request. </b>
+                          The information below are features you believe that algorithm should consider.
+                        </p>
+    }
+
     return (
       <div id="pg_1" >
-        <h3 className="title">Answer Pairwise Comparisons to Train Your Individual Preference Profile</h3>
+        {title}
         <hr className="feature-hr" />
         <br />
         <p className="feature-text">
@@ -61,11 +82,8 @@ class PWIntro extends React.Component {
         <br /> <br /> <br />
         <div className="pg-1-image-block">
           <div className="text-image-container">
-            <p className="pg-1-subheader"> Part 1. Personal Preference</p>
-            <p className="feature-text">
-              Please assume that the algorithm notifies you of two potential requests. Please choose which request you would prefer the algorithm
-              to match you with. The information below are features you believe that algorithm should consider.
-            </p>
+            {part}
+            {partDescription}
           </div>
           <img src={PersonalPref} className="personal-pref-image" />
         </div>

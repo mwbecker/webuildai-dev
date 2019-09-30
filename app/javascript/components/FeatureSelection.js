@@ -188,15 +188,24 @@ class FeatSelection extends React.Component {
   }
 
   renderDescription = () => {
+    let description = "";
+    if (this.props.category == 'request') {
+      description = <p className = "feature-text" >
+                      Your company uses an algorithm to match you with potential customers.
+                      The boxes below contain features we believe your company’s algorithm uses. Based on your experiences,
+                      <b> please select any features that you would consider important if you were to make an algorithm for youself.</b>
+                    </p>;
+    } else {
+      description = <p className = "feature-text" >
+                      Social preference means which driver should receive the request when there are multiple drivers waiting for a ping. 
+                      In other words, <b>you act as the algorithm in this section.</b>
+                    </p>;
+    }
     return (
       <div>
         <h3 className="title">Feature Selection for Your {this.props.category === 'request' ? "Individual" : "Social"} Preference Profile</h3>
         <hr className = "feature-hr"/>
-        <p className = "feature-text" >
-          Your company uses an algorithm to match you with potential customers.
-          The boxes below contain features we believe your company’s algorithm uses. Based on your experiences,
-          <b> please select any features that you would consider important if you were to make an algorithm for youself.</b>
-        </p>
+        {description}
         <div className="feature-image-block">
           <p className = "feature-text">
             Please use the sliders to mark how important each factor should be (0: Not Important - 1: Essential).
@@ -248,7 +257,7 @@ class FeatSelection extends React.Component {
 
 
            */}
-          <a onClick={this.finishFeatureSelection} className="waves-effect waves-dark btn" style={{zIndex:0, marginTop:"5%", marginRight:"10vw", float:"right", width:"12.5%", paddingTop:"0.7%", paddingBottom:"3%", color:"#FFFFFF", backgroundColor:"#3d6ab1", fontWeight:"bold", fontSize:"1.2em"}}>
+          <a onClick={this.finishFeatureSelection} className="waves-effect waves-dark btn" style={{zIndex:0, marginTop:"5%", marginRight:"10vw", float:"right", width:"12.5%", paddingTop:"0.7%", paddingBottom:"3%", color:"#FFFFFF", backgroundColor:"#3d6ab1", fontWeight:"bold", fontSize:"1.2em",}}>
             NEXT
           </a>
           {/* <a onClick={this.props.end} className="btn">hi</a> */}
