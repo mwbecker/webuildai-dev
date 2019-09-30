@@ -43,13 +43,19 @@
 }
 
 #rl-page .feature-value {
+  font-size:22px;
+  display:inline-block;
+  font-family: "Helvetica Neue", sans-serif;
   font-weight:bold;
-  font-size:1.1em;
 }
 
 #rl-page .feature-name {
-  margin-bottom:4%;
+  margin-bottom:2%;
   margin-top:2%;
+  font-size:20px;
+  line-height:1.4;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight:400;
 }
 
 #rl-page .column {
@@ -58,16 +64,17 @@
 }
 
 #rl-page .row {
-  width: 100%;
+  width: 80%;
 }
 
 #rl-page .left {
-  width: 90%;
+  width: 80%;
 }
 
 #rl-page .right {
-  width: 4%;
+  width: 20%;
   margin-top: 2%;
+  text-align: right;
 }
 
 #rl-page .default {
