@@ -91,6 +91,8 @@ module Api
       def generate_new_pairs(ranked_list, category)
         cache = {}
         group_id = Scenario.maximum('group_id') + 1
+        puts "11111"
+        puts ranked_list
         ranked_list.each.with_index do |scen_1, i|
           ranked_list.each.with_index do |scen_2, j|
             # in old one scene 1 was worse but now it's better

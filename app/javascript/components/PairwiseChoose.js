@@ -139,7 +139,7 @@ class PWChoose extends React.Component {
             Next Scenario
           </a>
         }
-        { this.props.participantId === 2 && <a className="btn" onClick={this.skipChoosing} >[Admin] Skip</a>}
+        { [1, 2, 3, 11].includes(this.props.participantId) && <a className="btn" onClick={this.skipChoosing} >[Admin] Skip</a>}
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
     );

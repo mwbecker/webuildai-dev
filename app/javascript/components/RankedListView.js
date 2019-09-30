@@ -5,9 +5,6 @@ import { ACTION_TYPES } from "../store";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import Scenario from "./Scenario";
 
-const RANK_LB = 1;
-const RANK_UB = 5;
-
 class RLView extends React.Component {
 
   constructor(props) {
@@ -46,7 +43,8 @@ class RLView extends React.Component {
   }
 
   onSubmit = () => {
-    this.props.setRankedList(this.state.rankedList);
+    const newRl = this.state.rankedList.map((rl, i) => ({ ...rl, human_rank: i+1 }));
+    this.props.setRankedList(newRl);
     let callback;
     if (this.props.round < 1) {
       // do another round of tuning
@@ -60,7 +58,7 @@ class RLView extends React.Component {
         callback = () => {
           this.props.setRound(0);
           this.props.setCategory('driver');
-          this.props.history.push('new');
+          this.props.history.push('/react/feature_selection/new');
         }
       } else {
         callback = () => {
@@ -68,7 +66,7 @@ class RLView extends React.Component {
         }
       }
     }
-    this.saveRankedList(this.state.rankedList, callback);
+    this.saveRankedList(newRl, callback);
   }
 
   endFlow = (skipAutofill) => {
@@ -82,7 +80,7 @@ class RLView extends React.Component {
     if (this.props.category === 'request') {
       this.props.setRound(0);
       this.props.setCategory('driver');
-      this.props.history.push('new');
+      this.props.history.push('/react/feature_selection/new');
     } else {
       this.props.endFlow();
       this.props.history.push('done')

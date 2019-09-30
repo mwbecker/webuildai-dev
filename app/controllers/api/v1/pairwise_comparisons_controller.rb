@@ -24,7 +24,7 @@ module Api
         end
 
         @pairwise_comparisons = []
-        feats = Feature.request.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
+        feats = Feature.active.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
         @feats = feats
         @scenarios = []
         @num_pairs = NUM_PAIRS

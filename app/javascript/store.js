@@ -14,7 +14,7 @@ const INITIAL_STATE = {
     model_weights: [],
     rankedList: [],
     ranklistId: 0,
-    selectedFeatures: [ { name: "foo" }, { name: "bar"} ],
+    selectedFeatures: [],
     participantId: 0,
 };
 
@@ -28,6 +28,7 @@ export const ACTION_TYPES = {
     SET_CATEGORY: 'SET_CATEGORY',
     END_RL_FLOW: 'END_RL_FLOW',
     SET_RANKLIST_ID: 'SET_RANKLIST_ID',
+    SET_SELECTED_FEATURES: 'SET_SELECTED_FEATURES',
     SET_PARTICIPANT_ID: 'SET_PARTICIPANT_ID',
 };
 
@@ -60,6 +61,9 @@ const rootReducer = (state, action) => {
             return oldState;
         case ACTION_TYPES.SET_PARTICIPANT_ID:
             oldState.participantId = payload;
+            return oldState;
+        case ACTION_TYPES.SET_SELECTED_FEATURES:
+            oldState.selectedFeatures = payload;
             return oldState;
         case ACTION_TYPES.END_RL_FLOW:
             return INITIAL_STATE;
