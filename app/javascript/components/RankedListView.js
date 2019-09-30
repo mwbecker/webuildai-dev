@@ -96,6 +96,7 @@ class RLView extends React.Component {
           </div>
           <div className="column right">
             <p className="feature-value"> {feature.feat_value} </p>
+            {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
           </div>
         </div>
       );
@@ -113,7 +114,7 @@ class RLView extends React.Component {
                         <div className="container">
                           <div className="card default">
                             <div className="card-content">
-                              <h5>Scenario #{rle.id}</h5>
+                              <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
                               {this.renderFeatures(rle)}
                             </div>
                           </div>

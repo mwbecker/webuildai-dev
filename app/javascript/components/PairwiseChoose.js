@@ -77,15 +77,15 @@ class PWChoose extends React.Component {
         <div style={{marginLeft:"35%"}} className="f-<%= pc.id %>">
           <label style={{display:"inline", marginRight:"5%" }}>
             <input id="<%=pc.id %>-A" className="with-gap" name="group3" type="radio" onChange={this.onChoose(1)} checked={this.state.choice === 1} />
-            <span>Choose #{pw.scenario_1.group_id}</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif",}}>Choose #{pw.scenario_1.group_id}</span>
           </label>
           <label style={{display:"inline", marginRight:"5%"}}>
             <input id="<%=pc.id %>-B" className="with-gap" name="group3" type="radio" onChange={this.onChoose(2)} checked={this.state.choice === 2} />
-            <span>Choose #{pw.scenario_2.group_id}</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif" }}>Choose #{pw.scenario_2.group_id}</span>
           </label>
           <label style={{display:"inline"}}>
             <input id="<%=pc.id %>-N" className="with-gap" name="group3" type="radio" onChange={this.onChoose(-1)} checked={this.state.choice === -1} />
-            <span>Neither</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif" }}>Neither</span>
           </label>
           <br/>
           <br/>
