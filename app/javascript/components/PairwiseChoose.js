@@ -77,15 +77,15 @@ class PWChoose extends React.Component {
         <div style={{marginLeft:"35%"}} className="f-<%= pc.id %>">
           <label style={{display:"inline", marginRight:"5%" }}>
             <input id="<%=pc.id %>-A" className="with-gap" name="group3" type="radio" onChange={this.onChoose(1)} checked={this.state.choice === 1} />
-            <span>Choose #{pw.scenario_1.group_id}</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif",}}>Choose #{pw.scenario_1.group_id}</span>
           </label>
           <label style={{display:"inline", marginRight:"5%"}}>
             <input id="<%=pc.id %>-B" className="with-gap" name="group3" type="radio" onChange={this.onChoose(2)} checked={this.state.choice === 2} />
-            <span>Choose #{pw.scenario_2.group_id}</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif" }}>Choose #{pw.scenario_2.group_id}</span>
           </label>
           <label style={{display:"inline"}}>
             <input id="<%=pc.id %>-N" className="with-gap" name="group3" type="radio" onChange={this.onChoose(-1)} checked={this.state.choice === -1} />
-            <span>Neither</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif" }}>Neither</span>
           </label>
           <br/>
           <br/>
@@ -110,15 +110,23 @@ class PWChoose extends React.Component {
   }
 
   render() {
+    let title = "";
+    let description = "";
+    if (this.props.category == 'request') {
+      title = <h3 id="titulo" className="title"> Which Request Would You Like to Receive? </h3>;
+      description = <p id="prompt" className="feature-text">Please choose which request you prefer.</p>;
+    } else {
+      title = <h3 id = "titulo" class="title"> Who Should Get the Request?? </h3>;
+      description = <p id="prompt" className="feature-text">Please choose which driver should get the ping.</p>;
+    }
+
     return (
       <div id="aller_encompassing" >
-        <h3 id="titulo" className="title"> Which Request Would You Like to Receive? </h3>
+        {title}
         <hr className="feature-hr" />
         <br />
         <div>
-          <p id="prompt" className="feature-text">
-            Please choose which request you prefer.
-          </p>
+          {description}
           <p id="top-counter" className="feature-text" align="right" style={{marginTop:"-3%", fontWeight: "bold"}}>
             Scenario {this.state.comparisonNum+1}/{this.props.pairwiseComparisons.length}
           </p>

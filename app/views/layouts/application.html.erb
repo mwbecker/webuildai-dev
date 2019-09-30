@@ -15,7 +15,7 @@
     <nav class="white">
       <div class="nav-wrapper">
         <div class="col s12" style="padding-left: 70px; padding-right: 70px;">
-          <a href="<%= root_path %>" class="brand-logo brand-text">WeBuildAI</a>
+          <a href="<%= "/react/feature_selection/new" %>" class="brand-logo brand-text">WeBuildAI</a>
           <ul id="nav-mobile" class="right">
             <% if logged_in? %>
             <li><a href="<%= logout_path %>" class="wbai">Logout</a></li>
@@ -28,6 +28,8 @@
 
     <%= yield %>
 <!-- Footer -->
+<% 
+=begin %>
 <footer class="footer" id="footer">
  <!-- Copyright -->
  <div class = "containeri-foot">
@@ -37,6 +39,8 @@
     </div>
  </div>
 </footer>
+<% 
+=end %>
 <!-- Footer -->
 <script>
  $(document).ready(function() {

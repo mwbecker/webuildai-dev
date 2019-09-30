@@ -96,6 +96,7 @@ class RLView extends React.Component {
           </div>
           <div className="column right">
             <p className="feature-value"> {feature.feat_value} </p>
+            {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
           </div>
         </div>
       );
@@ -113,7 +114,7 @@ class RLView extends React.Component {
                         <div className="container">
                           <div className="card default">
                             <div className="card-content">
-                              <h5>Scenario #{rle.id}</h5>
+                              <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
                               {this.renderFeatures(rle)}
                             </div>
                           </div>
@@ -140,11 +141,12 @@ class RLView extends React.Component {
   render() {
     return (
       <div id="rl-page">
-        <h1>{this.props.category === 'request' ? 'Individual ' : 'Social '} Preference Models</h1>
+        <h3 className="title">{this.props.category === 'request' ? 'Individual ' : 'Social '} Preference Models</h3>
         <hr className="feature-hr" />
         <p className="about-text">
           The model list is a list of scenarios that the AI has ranked from most preferable to least preferable.
-          Please write the scenario ids in the fields below that represents your ranking of the presented scenarios.
+          Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
+          <b> please drag and drop the scenarios into the correct rank. </b>
         </p>
 
         <DragDropContext onDragEnd={this.onDragEnd}>
