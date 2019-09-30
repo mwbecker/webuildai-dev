@@ -72,7 +72,6 @@ class PWIntro extends React.Component {
         <p className="pg-1-subheader">Scenarios will include: </p>
         {this.renderSelectedFeatures()}
         <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick}> Start </a>
-        <br /><br /><br /><br /><br /><br /><br /><br />
       </div>
     );
   }
