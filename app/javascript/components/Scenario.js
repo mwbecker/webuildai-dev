@@ -12,11 +12,23 @@ class Scenario extends React.Component {
           </div>
           <div className="column right">
             <p className="feature-value" style={{display:"inline-block"}}> {feature.feat_value} </p>
-            {feature.feat_unit && <p style={{display:"inline-block"}}> &nbsp;{feature.feat_unit} </p>}
+            <p className="feature-unit" style={{display:"inline-block"}}> {feature.feat_unit && <p style={{display:"inline-block"}}> &nbsp;{feature.feat_unit} </p>}
           </div>
         </div>
       );
     });
+
+  render() {
+    return (
+      <div className="card default">
+        <div className="card-content">
+        <h5>Scenario #{this.props.id}</h5>
+        {this.renderFeatures()}
+        </div>
+      </div>
+    )
+  }
+
   }
 
   render() {
