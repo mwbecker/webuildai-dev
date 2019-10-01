@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class Scenario extends React.Component {
-  renderFeatures = () => {
-    return this.props.features.map((feature, i) => {
+    renderFeatures = () => {
+    var sorted_features = [...this.props.features].sort(function(a, b) {
+      return a.feat_id - b.feat_id;
+    });
+    return sorted_features.map((feature, i) => {
       return (
         <div>
           <div>

@@ -38,7 +38,7 @@ class FeatSelection extends React.Component {
   }
 
   fetchFeatures = () => {
-    fetch(`/api/v1/features/get_all_features?category=${this.props.category}`, {
+    fetch(`/api/v1/features/get_all_features_shuffled?category=${this.props.category}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

@@ -8,6 +8,16 @@ module Api
 
       def get_all_features
         category = params[:category]
+        features = Feature.active.where(category: category).added_by(current_user.id).group_by(&:description).to_a.sort
+        result = Hash.new
+        features.each do |description, feats|
+          result[description] = feats.map{|feature| {id: feature.id, name: feature.name, weight: 0} }
+        end
+        render json: { features_by_description: result }.to_json
+      end
+
+      def get_all_features_shuffled
+        category = params[:category]
         features = Feature.active.where(category: category).added_by(current_user.id).group_by(&:description).to_a.shuffle
         result = Hash.new
         features.each do |description, feats|
@@ -15,6 +25,7 @@ module Api
         end
         render json: { features_by_description: result }.to_json
       end
+
 
     def make_weight(fid, weight, category)
       pid = current_user.id

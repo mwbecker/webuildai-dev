@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'features/get_all_features'
+      get 'features/get_all_features_shuffled'
       post 'features/new_weight'
       post 'features/new_feature'
       post 'pairwise_comparisons/generate_pairwise_comparisons'
