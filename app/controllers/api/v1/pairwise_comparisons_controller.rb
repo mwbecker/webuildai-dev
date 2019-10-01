@@ -89,6 +89,3 @@ module Api
     end
   end
 end
-
-elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
-  @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand * (data_range.upper_bound-data_range.lower_bound) + data_range.lower_bound).round(2)).to_s)
