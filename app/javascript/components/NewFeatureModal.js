@@ -38,48 +38,46 @@ class NewFeatureModal extends React.Component {
       <React.Fragment>
         <div id="modal_cont">
           <div>
-            <h4 style={{color:"#3d6ab1", fontWeight:"bold", display: "inline-block"}}>
-              Add Your Own Feature
-            </h4>
-            <a className="btn" style={{float: "right", paddingTop: "6px"}} onClick={this.props.onClose}>
+            <h4 className="modal-title">Add Your Own Feature</h4>
+            <a className="modal-exit-button disabled" onClick={this.props.onClose}>
               &times;
             </a>
           </div>
-          <hr style={{marginLeft: "-24px", marginRight: "-24px"}} />
+          <hr className="modal-hr"/>
           <br/>
         </div>
-        <p style={{fontWeight:"bold", fontSize:"1.25em"}}>
+        <p className="modal-subheader">
           Categorical features are qualitative.
         </p>
-        <p style={{fontSize:"1.25em"}}>
+        <p className="modal-text">
           Examples include gender, race, and neighborhood.
         </p>
 
-        <p style={{fontWeight:"bold", fontSize:"1.25em"}}>
+        <p className="modal-subheader">
           Continuous features are quantitative.
           </p>
-        <p style={{fontSize:"1.25em"}}>
+        <p className="modal-text">
           Examples include income level, the length of a part of a day, and the time a payment is issued.
         </p>
         <br />
-        <p style={{fontSize:"1.25em"}}>
+        <p className="modal-subheader">
           Is your feature categorical or continuous?
         </p>
 
         <form action="#" className = "add_form">
-          <label style={{display:"inline", marginRight:"5%"}}>
+          <label style={{display:"inline", marginRight:"5%", fontSize:"20px"}}>
             <input id="cat" className="with-gap" name="group3" type="radio" onClick={this.onRadioChange(true)}/>
-            <span style={{color:"black", fontSize:"1.3em"}}>Categorical</span>
+            <span className="modal-text">Categorical</span>
           </label>
           <br/> <br/>
-          <label style={{display:"inline", marginRight:"5%"}}>
+          <label style={{display:"inline", marginRight:"5%", fontSize:"20px",}}>
             <input id="con" className="with-gap" name="group3" type="radio" onClick={this.onRadioChange(false)} />
-            <span style={{color:"black", fontSize:"1.3em"}}>Continuous</span>
+            <span className="modal-text">Continuous</span>
           </label>
         </form>
 
         <a disabled={this.state.isCategorical === null}
-           className="waves-effect waves-dark btn" id="next_btn" style={{marginTop:"5%", marginLeft:"63%", width:"20.5%", paddingTop:"0.7%", paddingBottom:"5%", color:"#FFFFFF", backgroundColor:"#3d6ab1", fontWeight:"bol", fontSize:"1.2em"}}
+           className="modal-next-button" id="next_btn"
            onClick={this.goToNewFeaturePage}
         >
           NEXT
@@ -90,7 +88,7 @@ class NewFeatureModal extends React.Component {
 
   render() {
     return (
-      <div id="myModal" style={{paddingTop:"50px"}}>
+      <div id="myModal">
         <div className="modal-content" >
           {this.state.currPage === 0 && this.renderStartPage()}
           {

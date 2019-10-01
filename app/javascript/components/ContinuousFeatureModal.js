@@ -59,22 +59,22 @@ class ContinuousFeatureModal extends React.Component {
   render() {
     return (
       <div id = "con_con" className="container" style={{width: "100%"}} >
-        <h4 className="modal-header"> Add Continuous Feature </h4>
-        <a className="btn" onClick={this.props.onClose} style={{float: "right", marginTop:"-50px"}}>
+        <h4 className="modal-title"> Add Continuous Feature </h4>
+        <a className="btn" onClick={this.props.onClose} className="modal-exit-button">
           &times;
         </a>
         <hr className="modal-hr"/>
         <br/>
         <form>
-          <label htmlFor="feature-name" className="feature-label">
+          <label htmlFor="feature-name" className="modal-subheader">
             Feature Name
           </label>
-          <input id="feature-name" type="text" name="featurename" placeholder="Feature Name" onChange={this.onFeatureNameChange} />
+          <input id="feature-name" className="modal-input" type="text" name="featurename" placeholder="Feature Name" onChange={this.onFeatureNameChange} />
 
-          <label htmlFor="feature-units" className="feature-label">
+          <label htmlFor="feature-units" className="modal-subheader">
             Units
           </label>
-          <input id="feature-units" type="text" name="featureunits" placeholder="ex: miles" onChange={this.onUnitChange}/>
+          <input id="feature-units" className="modal-input" type="text" name="featureunits" placeholder="ex: miles" onChange={this.onUnitChange}/>
                   {/* <% if current_user.role == 'admin' %>
           <br/ > <br/>
                     <label for="con_category" style="color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
@@ -85,22 +85,22 @@ class ContinuousFeatureModal extends React.Component {
                         <% end %> */}
 
           {/* <!-- Range (Numeric vs. Percentage) --> */}
-          <p className="feature-label"> Range Options </p>
+          <p className="modal-subheader"> Range Options </p>
           <p>
             <label htmlFor="percentage">
               <input id="percentage" className="with-gap" type="radio" name="range-group5" onClick={this.setIsPercentage(true)} />
-              <span style={{color:"black", fontSize:"1.3em"}}>Percentage ( 0%~100% ) </span>
+              <span className="modal-text">Percentage ( 0%~100% ) </span>
               <br/>
-              <span style={{color: "#808080"}}>ex. The customer pays tips to couriers 57% of the time.</span>
+              <span className="modal-subtext">ex. The customer pays tips to couriers 57% of the time.</span>
             </label>
           </p>
 
           <p>
             <label htmlFor="numerical">
               <input id="numerical" className="with-gap" type="radio" name="range-group5" onClick={this.setIsPercentage(false)} />
-              <span style={{color:"black", fontSize:"1.3em"}}>Numerical</span>
+              <span className="modal-text">Numerical</span>
               <br />
-              <span style={{color: "#808080"}}>ex. Most customers are between 18 and 45 years old.</span>
+              <span className="modal-subtext">ex. Most customers are between 18 and 45 years old.</span>
             </label>
           </p>
 
@@ -109,11 +109,11 @@ class ContinuousFeatureModal extends React.Component {
             <div id="num_input_div" className="row">
               <div className="input-field col s6">
                 {/* <!-- TODO: add validations for numbers only (upper > lower, is a number, etc.) --> */}
-                <input id="lower-bound" type="text" placeholder="18" onChange={this.onMinValueChange} />
+                <input id="lower-bound" type="text" placeholder="1" onChange={this.onMinValueChange} />
                 <span className="helper-text">Minimum Value</span>
               </div>
               <div className="input-field col s6">
-                <input id="upper-bound" type="text" placeholder="45" onChange={this.onMaxValueChange}/>
+                <input id="upper-bound" type="text" placeholder="20" onChange={this.onMaxValueChange}/>
                 <span className="helper-text">Maximum Value</span>
               </div>
             </div>
@@ -122,7 +122,7 @@ class ContinuousFeatureModal extends React.Component {
           <br/>
         </form>
         <br/>
-        <a disabled={!this.canSubmit()} onClick={this.onSubmit} className="waves-effect waves-dark btn" id="submit_con_btn" style={{width:"20%", color: "#FFFFFF", display:"block", backgroundColor:"#3d6ab1"}}>
+        <a disabled={!this.canSubmit()} onClick={this.onSubmit} className="waves-effect waves-dark btn" id="submit_con_btn" className="modal-next-button" style={{marginTop:"-4%"}}>
           Submit
         </a>
       </div>

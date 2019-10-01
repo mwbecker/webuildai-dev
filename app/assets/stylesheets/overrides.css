@@ -126,11 +126,6 @@ a:hover
   font-weight:bold;
 }
 
-.modal-hr {
-  margin-left: -24px;
-  margin-right: -24px;
-}
-
 .feature-label {
   color: black;
   font-weight: bold;
@@ -402,4 +397,141 @@ a:hover
   font-weight:"bold";
   font-family: "Helvetica Neue", sans-serif;
   font-size:14px;
+}
+
+.new-feature-modal {
+  position: relative;
+  top: 10%;
+  left: 10%;
+  width:80%;
+  background-color: white;
+  z-index:10;
+  border: 2px solid #636363;
+  border-radius: 5px;
+  overflow-y: auto;
+  max-height: 1000px;
+}
+
+.modal-title {
+  margin-left:5%;
+  padding-top:10px;
+  color:#3d6ab1;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: bold;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.modal-hr {
+  width:100%;
+  z-index: -1;
+}
+
+.modal-subheader {
+  font-weight:bold;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 2%;
+  margin-left:5%;
+  font-family: "Helvetica Neue", sans-serif;
+  color:black;
+}
+
+.modal-text {
+  margin-left:5%;
+  width:80%;
+  font-size:16px !important;
+  font-weight:400;
+  line-height:1.5;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #636363;
+}
+
+.modal-subtext {
+  margin-left:5%;
+  width:80%;
+  font-size:14px !important;
+  font-weight:400;
+  line-height:1.5;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #636363;
+}
+
+.modal-exit-button {
+  float: right;
+  font-size:60px;
+  margin-top:20px;
+  margin-right:15px;
+  color: #636363;
+  cursor: pointer;
+}
+
+.modal-exit-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.modal-next-button {
+  margin-top:2%;
+  margin-right:4%;
+  float:right;
+  width:15%; 
+  padding-top:2%; 
+  padding-bottom:2%; 
+  color:#FFFFFF; 
+  background-color:#3d6ab1; 
+  text-align:center;
+  font-weight:bold; 
+  font-size:1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-next-button:hover {
+  background-color:#355ea1; 
+}
+
+.next-button {
+  z-index:0 !important;
+  margin-top:5%;
+  margin-right:10vw; 
+  margin-bottom:3%;
+  float:right;
+  width:12.5%;
+  padding-top:25px; 
+  padding-bottom:25px; 
+  color:#FFFFFF;
+  background-color:#3d6ab1;
+  font-weight:bold;
+  font-size:1.2em;
+  text-align:center;
+  border-radius: 5px;
+}
+
+.next-button:hover {
+  background-color:#355ea1; 
+}
+
+.modal-input {
+  margin-left:5% !important;
+  width:90% !important;
+}
+
+#lower-bound {
+  width:50%;
+  margin-left:10%;
+}
+
+#upper-bound {
+  width:50%;
+  margin-left:10%;
+}
+
+.helper-text {
+  margin-left:10%;
+  font-size:14px !important;
+  font-weight:400;
+  line-height:1.5;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #636363;
 }
