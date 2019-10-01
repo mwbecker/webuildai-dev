@@ -77,6 +77,7 @@ a:hover
   float:left;
   width:63%;
   z-index:3;
+  height: 100vh;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -535,4 +536,11 @@ a:hover
   line-height:1.5;
   font-family: "Helvetica Neue", sans-serif;
   color: #636363;
+}
+
+input:focus {
+  border-bottom: 1px solid !important;
+  -webkit-box-shadow: 0 1px 0 0 !important;
+  -moz-box-shadow: 0 1px 0 0 !important;
+  box-shadow: 0 1px 0 0 !important;
 }
