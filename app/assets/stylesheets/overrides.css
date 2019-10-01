@@ -368,6 +368,7 @@ a:hover
   font-size:22px;
   font-weight:400;
   font-family: "Helvetica Neue", sans-serif;
+  margin-top:-1% !important; 
 }
 
 #range_form {
