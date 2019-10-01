@@ -28,7 +28,7 @@ module Api
         @feats = feats
         @scenarios = []
         @num_pairs = NUM_PAIRS
-        30.times do
+        40.times do
           three_feats = feats.sample(feats.size)
 
           last_id = if !Scenario.all.empty?
@@ -41,10 +41,10 @@ module Api
             if data_range.is_categorical
               @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
             else
-              if f.name.downcase['distance'] # checks if distance is in the name
+              if f.name.downcase['distance'] || f.name.downcase['earning'] || f.name.downcase['cancel']# checks if distance/earning/cancel is in the name
                 @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(data_range.lower_bound..data_range.upper_bound) / 5).ceil * 5).to_s)
-              elsif f.name.downcase['rating'] && f.name != 'The rating the customer gave to their most recent driver' # checks if rating is in the name
-                @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand * (data_range.upper_bound-data_range.lower_bound) + data_range.lower_bound).round(2)).to_s)
+              elsif f.name.downcase['rating']
+                @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(data_range.lower_bound..data_range.upper_bound) * 4).round / 4.0).to_s)
               else
                 @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(data_range.lower_bound...data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
               end
