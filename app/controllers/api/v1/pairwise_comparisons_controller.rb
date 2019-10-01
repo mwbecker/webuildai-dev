@@ -10,9 +10,13 @@ module Api
       ML_URL = Rails.env.production? ? 'https://webuildai-ml-server.herokuapp.com' : 'http://localhost:5000'
 
       def generate_pairwise_comparisons
+        feat_ids = params[:selected_features]
         category = params[:category]
         # session[:pairwise_old_request] = nil
         # return
+        feat_ids.each do |f|
+          puts f
+        end
 
         if !session[:pairwise_old_request].nil?
           session[:pairwise_old_request].each do |id|
@@ -24,18 +28,16 @@ module Api
         end
 
         @pairwise_comparisons = []
-        feats = Feature.active.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
-        @feats = feats
-        feats.each do |f|
-          puts f
+        # feats = Feature.active.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
+
+        three_feats = feat_ids.map{|id| Feature.find(id)}
+        three_feats.each do |f|
+          puts f.inspect
         end
         @scenarios = []
         @num_pairs = NUM_PAIRS
         40.times do
-          three_feats = feats.sample(feats.size)
-          three_feats.each do |f|
-            puts f
-          end
+          # three_feats = # feats.sample(feats.size)
 
           last_id = if !Scenario.all.empty?
                       Scenario.all.last.group_id + 1
@@ -60,7 +62,7 @@ module Api
         counter = 0
         while counter < NUM_PAIRS
           group_num = Scenario.all.last.group_id
-          tote = @scenarios.size / feats.size
+          tote = @scenarios.size / three_feats.size
           start = group_num - tote
           group_ind_1 = rand(start...group_num + 1)
           group_ind_2 = rand(start...group_num + 1)

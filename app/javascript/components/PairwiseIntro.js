@@ -19,6 +19,7 @@ class PWIntro extends React.Component {
       },
       body: JSON.stringify({
         category: this.props.category,
+        selected_features: this.props.features.map(f => f.id),
       })
     })
       .then(response => response.json())
@@ -54,7 +55,7 @@ class PWIntro extends React.Component {
       title = <h3 className="title">Training Your Individual Preference Profile</h3>;
       part = <p className="pg-1-subheader"> Part 1. Personal Preference </p>;
       partDescription = <p className="feature-text">
-                          Please assume that the algorithm notifies you of two potential requests. 
+                          Please assume that the algorithm notifies you of two potential requests.
                           <b> Please choose which request you would prefer the algorithm to match you with. </b>
                           The information below are features you believe that algorithm should consider.
                         </p>
@@ -62,7 +63,7 @@ class PWIntro extends React.Component {
       title = <h3 className="title">Training Your Social Preference Profile</h3>;
       part = <p className="pg-1-subheader"> Part 2. Social Ranking </p>;
       partDescription = <p className="feature-text">
-                          Please assume that you are the algorithm and you have to assign a request to a driver. 
+                          Please assume that you are the algorithm and you have to assign a request to a driver.
                           <b> Please choose which driver you would prefer the algorithm to give the request. </b>
                           The information below are features you believe that algorithm should consider.
                         </p>
