@@ -26,10 +26,16 @@ module Api
         @pairwise_comparisons = []
         feats = Feature.active.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
         @feats = feats
+        feats.each do |f|
+          puts f
+        end
         @scenarios = []
         @num_pairs = NUM_PAIRS
         40.times do
           three_feats = feats.sample(feats.size)
+          three_feats.each do |f|
+            puts f
+          end
 
           last_id = if !Scenario.all.empty?
                       Scenario.all.last.group_id + 1
