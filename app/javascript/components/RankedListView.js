@@ -98,7 +98,7 @@ class RLView extends React.Component {
           </div>
           <div className="column right">
             <p className="feature-value"> {feature.feat_value} </p>
-            {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
+            {feature.feat_unit && <p className="feature-unit"> &nbsp;{feature.feat_unit} </p>}
           </div>
         </div>
       );
