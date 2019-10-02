@@ -28,7 +28,7 @@
 
     <%= yield %>
 <!-- Footer -->
-<% 
+<%
 =begin %>
 <footer class="footer" id="footer">
  <!-- Copyright -->
@@ -39,17 +39,17 @@
     </div>
  </div>
 </footer>
-<% 
+<%
 =end %>
 <!-- Footer -->
 <script>
- $(document).ready(function() {
-     var docHeight = $(window).height();
-     var footerHeight = $('#footer').height();
-     var footerTop = $('#footer').offset().top + footerHeight;
-     if (footerTop < docHeight)
-         $('#footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
- });
+//  $(document).ready(function() {
+//      var docHeight = $(window).height();
+//      var footerHeight = $('#footer').height();
+//      var footerTop = $('#footer').offset().top + footerHeight;
+//      if (footerTop < docHeight)
+//          $('#footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
+//  });
 </script>
   </body>
 </html>

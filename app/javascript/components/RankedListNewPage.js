@@ -9,8 +9,9 @@ class RLNew extends React.Component {
         fetch(`/api/v1/ranked_list/new?category=${this.props.category}&round=${this.props.round}`)
             .then(response => response.json())
             .then((data) => {
-                this.props.setPairwiseComparisons(JSON.parse(data.pairwiseComparisons))
-                this.props.setMLServerUrl(data.serverUrl);
+                const comps = JSON.parse(data.pairwiseComparisons);
+                this.props.setPairwiseComparisons(comps.comparisons);
+                // this.props.setMLServerUrl(data.serverUrl);
             }) // loading state
             .catch(error => console.log(error))
     }
@@ -111,7 +112,7 @@ class RLNew extends React.Component {
     }
 
     componentDidMount() {
-        // this.getPairwiseComparisons();
+        this.getPairwiseComparisons();
     }
 
     onClickGo = () => {

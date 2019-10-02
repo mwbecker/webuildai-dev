@@ -40,7 +40,7 @@ class Scenario < ApplicationRecord
         return false
       end
     else
-      if feature_value.to_i < feature.data_range.lower_bound || feature_value.to_i > feature.data_range.upper_bound
+      if feature_value.to_f < feature.data_range.lower_bound.to_f || feature_value.to_f > feature.data_range.upper_bound.to_f
         errors.add(:scenario, 'Feature value is out of range')
         return false
       end

@@ -8,6 +8,9 @@ class PWIntro extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      loading: false,
+    }
   }
 
   createAndFetchPairwiseComparisons = () => {
@@ -24,6 +27,7 @@ class PWIntro extends React.Component {
     })
       .then(response => response.json())
       .then((data) => {
+        this.setState({loading: false});
         console.log('generated pairwise', data);
         // data.isAdmin, data.pairwiseComparisons
         this.props.setPairwiseComparisons(data.pairwiseComparisons);
@@ -37,6 +41,7 @@ class PWIntro extends React.Component {
   }
 
   onClick = () => {
+    this.setState({loading: true});
     this.createAndFetchPairwiseComparisons();
   }
 
@@ -90,7 +95,9 @@ class PWIntro extends React.Component {
         </div>
         <p className="pg-1-subheader">Scenarios will include: </p>
         {this.renderSelectedFeatures()}
-        <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick} style={{ marginBottom:"5%", }}> Start </a>
+        {
+          !this.state.loading && <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick} style={{ marginBottom:"5%", }}> Start </a>
+        }
       </div>
     );
   }

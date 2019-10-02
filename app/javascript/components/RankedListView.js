@@ -36,6 +36,7 @@ class RLView extends React.Component {
       },
       body: JSON.stringify(data),
     })
+    .then(response => response.json())
       .then(() => {
         if (callback) callback();
       })
@@ -49,6 +50,7 @@ class RLView extends React.Component {
     if (this.props.round < 1) {
       // do another round of tuning
       callback = () => {
+        // this.props.setPairwiseComparisons([...this.props.pairwiseComparisons] + JSON.parse(data.pairwiseComparisons));
         this.props.setRound(this.props.round + 1);
         this.props.history.push('new');
       }
@@ -194,6 +196,7 @@ const mapStoreStateToProps = (storeState, givenProps) => {
     round: storeState.round,
     rankedList: storeState.rankedList,
     ranklistId: storeState.ranklistId,
+    pairwiseComparisons: storeState.pairwiseComparisons,
   }
 }
 
@@ -202,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
     setRankedList: (payload) => dispatch({ type: ACTION_TYPES.SET_RANKED_LIST, payload }),
     setRound: (payload) => dispatch({ type: ACTION_TYPES.SET_ROUND, payload }),
     setCategory: (payload) => dispatch({ type: ACTION_TYPES.SET_CATEGORY, payload }),
+    setPairwiseComparisons: (payload) => dispatch({ type: ACTION_TYPES.SET_PAIRWISE_COMPARISONS, payload }),
     endFlow: (payload) => dispatch({ type: ACTION_TYPES.END_RL_FLOW, payload }),
   }
 }

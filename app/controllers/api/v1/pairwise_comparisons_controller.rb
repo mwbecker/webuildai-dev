@@ -8,17 +8,15 @@ module Api
 
       NUM_PAIRS = Rails.env.development? ? 3 : 40
       ML_URL = Rails.env.production? ? 'https://webuildai-ml-server.herokuapp.com' : 'http://localhost:5000'
+      SCENS = Rails.env.development? ? 5 : 40
 
       def generate_pairwise_comparisons
         feat_ids = params[:selected_features]
         category = params[:category]
         # session[:pairwise_old_request] = nil
         # return
-        feat_ids.each do |f|
-          puts f
-        end
 
-        if !session[:pairwise_old_request].nil?
+        if Rails.env.development? && !session[:pairwise_old_request].nil?
           session[:pairwise_old_request].each do |id|
             pc = PairwiseComparison.find(id)
             if !pc.nil?
@@ -31,12 +29,9 @@ module Api
         # feats = Feature.active.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
 
         three_feats = feat_ids.map{|id| Feature.find(id)}
-        three_feats.each do |f|
-          puts f.inspect
-        end
         @scenarios = []
         @num_pairs = NUM_PAIRS
-        40.times do
+        SCENS.times do
           # three_feats = # feats.sample(feats.size)
 
           last_id = if !Scenario.all.empty?
@@ -50,9 +45,17 @@ module Api
               @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: f.categorical_data_options.sample.option_value)
             else
               if f.name.downcase['distance'] || f.name.downcase['earning'] || f.name.downcase['cancel']# checks if distance/earning/cancel is in the name
-                @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(data_range.lower_bound..data_range.upper_bound) / 5).ceil * 5).to_s)
-              elsif f.name.downcase['rating']
-                @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(data_range.lower_bound..data_range.upper_bound) * 4).round / 4.0).to_s)
+                @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(data_range.lower_bound..data_range.upper_bound) / 5).ceil * 5))
+              elsif f.name.downcase['rating'] && f.name.downcase['driver']
+                fval = (data_range.lower_bound+ 0.25 * (rand(((data_range.upper_bound.to_f - data_range.lower_bound.to_f)/0.25)+1)))
+                @scenarios << Scenario.create(group_id: last_id, feature_id: f.id,
+                  #feature_value: ((rand(data_range.lower_bound.to_f..data_range.upper_bound.to_f) * 4).round / 4.0).to_s)
+                  feature_value: fval)
+              elsif f.name.downcase['rating'] && f.name.downcase['customer']
+                fval = (data_range.lower_bound+ 0.1 * (rand(((data_range.upper_bound.to_f - data_range.lower_bound.to_f)/0.1)+1)))
+                @scenarios << Scenario.create(group_id: last_id, feature_id: f.id,
+                  #feature_value: ((rand(data_range.lower_bound.to_f..data_range.upper_bound.to_f) * 4).round / 4.0).to_s)
+                  feature_value: fval)
               else
                 @scenarios << Scenario.create(group_id: last_id, feature_id: f.id, feature_value: ((rand(data_range.lower_bound...data_range.upper_bound + 1) * 1).floor / 1.0).to_i.to_s)
               end
@@ -69,13 +72,14 @@ module Api
           ind1s = Scenario.where(group_id: group_ind_1)
           ind2s = Scenario.where(group_id: group_ind_2)
           if (ind1s != ind2s) && ind1s.map(&:feature_id).to_set == ind2s.map(&:feature_id).to_set
-            @pairwise_comparisons << PairwiseComparison.create(participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2, category: 'request')
+            @pairwise_comparisons << PairwiseComparison.create(
+              participant_id: current_user.id, scenario_1: group_ind_1, scenario_2: group_ind_2,
+              category: category)
             counter += 1
           end
         end
         session[:pairwise_old_request] = @pairwise_comparisons.map{|pc| pc["id"]}
         comparisons_json = @pairwise_comparisons.map{|pc| pc.pc_to_json()}
-        puts current_user.inspect
 
         render json: {
           pairwiseComparisons: comparisons_json,

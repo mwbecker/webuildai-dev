@@ -116,7 +116,7 @@ class PWChoose extends React.Component {
       title = <h3 id="titulo" className="title"> Which Request Would You Like to Receive? </h3>;
       description = <p id="prompt" className="feature-text">Please choose which request you prefer.</p>;
     } else {
-      title = <h3 id = "titulo" class="title"> Who Should Get the Request?? </h3>;
+      title = <h3 id = "titulo" className="title"> Who Should Get the Request?? </h3>;
       description = <p id="prompt" className="feature-text">Please choose which driver should get the ping.</p>;
     }
 
@@ -147,7 +147,12 @@ class PWChoose extends React.Component {
             Next Scenario
           </a>
         }
-        { [1, 2, 3, 11].includes(this.props.participantId) && <a className="btn" onClick={this.skipChoosing} >[Admin] Skip</a>}
+        { [1, 2, 3, 11, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65].includes(this.props.participantId) &&
+        <React.Fragment>
+        <a className="btn" onClick={this.skipChoosing} >[Admin] Skip</a>
+        <a className="btn" onClick={this.props.end} >[Admin] Reset Store (please logout after pushing this)</a>
+        </React.Fragment>
+        }
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
     );
@@ -157,6 +162,7 @@ class PWChoose extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     setPairwiseComparisons: (payload) => dispatch({ type: ACTION_TYPES.SET_PAIRWISE_COMPARISONS, payload }),
+    end: (payload) => dispatch({ type: ACTION_TYPES.END_RL_FLOW, payload}),
   }
 }
 

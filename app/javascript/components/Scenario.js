@@ -8,7 +8,7 @@ class Scenario extends React.Component {
     });
     return sorted_features.map((feature, i) => {
       return (
-        <div>
+        <div key={i}>
           <div>
             <p className="feature-value"> {feature.feat_value} </p>
             {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
