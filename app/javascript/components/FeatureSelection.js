@@ -246,8 +246,13 @@ class FeatSelection extends React.Component {
         <ReactModal
           isOpen={this.state.modalIsOpen}
           ariaHideApp={false}
+          className="new-feature-modal"
         >
-          <NewFeatureModal onClose={this.closeModal} category={this.props.category} addFeature={this.addFeature}/>
+          <NewFeatureModal 
+            onClose={this.closeModal} 
+            category={this.props.category} 
+            addFeature={this.addFeature}
+          />
         </ReactModal>
           {/* <table className="feature-table striped highlight" id="feat">
               <% if f.description == "Your Own Feature(s) - Continuous" or f.description == "Your Own Feature(s) - Categorical" %>
@@ -257,7 +262,7 @@ class FeatSelection extends React.Component {
 
 
             */}
-            <a onClick={this.finishFeatureSelection} className="waves-effect waves-dark btn" style={{zIndex:0, marginTop:"5%", marginRight:"10vw", float:"right", width:"12.5%", paddingTop:"0.7%", paddingBottom:"3%", color:"#FFFFFF", backgroundColor:"#3d6ab1", fontWeight:"bold", fontSize:"1.2em",zIndex:"5",marginBottom:"3%",}}>
+            <a onClick={this.finishFeatureSelection} className="next-button">
               NEXT
             </a>
             {/* <a onClick={this.props.end} className="btn">hi</a> */}
