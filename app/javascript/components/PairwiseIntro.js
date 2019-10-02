@@ -22,7 +22,7 @@ class PWIntro extends React.Component {
       },
       body: JSON.stringify({
         category: this.props.category,
-        selected_features: this.props.features.map(f => f.id),
+        // selected_features: this.props.features.map(f => f.id),
       })
     })
       .then(response => response.json())

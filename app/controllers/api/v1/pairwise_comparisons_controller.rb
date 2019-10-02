@@ -11,7 +11,7 @@ module Api
       SCENS = Rails.env.development? ? 5 : 40
 
       def generate_pairwise_comparisons
-        feat_ids = params[:selected_features]
+        # feat_ids = params[:selected_features]
         category = params[:category]
         # session[:pairwise_old_request] = nil
         # return
@@ -26,9 +26,9 @@ module Api
         end
 
         @pairwise_comparisons = []
-        # feats = Feature.active.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
+        three_feats = Feature.active.where(category: category).added_by(current_user.id).for_user(current_user.id, category)
 
-        three_feats = feat_ids.map{|id| Feature.find(id)}
+        # three_feats = feat_ids.map{|id| Feature.find(id)}
         @scenarios = []
         @num_pairs = NUM_PAIRS
         SCENS.times do
