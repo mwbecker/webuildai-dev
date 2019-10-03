@@ -93,13 +93,11 @@ class RLView extends React.Component {
     return rle.features.map((feature, i) => {
       return (
         <div className="cardRow" key={`${rle.id}_feature_${i}`}>
-          <div className="column left">
-            <p className="feature-name">  {feature.feat_name} </p>
-          </div>
-          <div className="column right">
+          <div>
             <p className="feature-value"> {feature.feat_value} </p>
-            {feature.feat_unit && <p className="feature-unit"> &nbsp;{feature.feat_unit} </p>}
+            {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
           </div>
+          <p className="feature-name">  {feature.feat_name} </p>
         </div>
       );
     });
