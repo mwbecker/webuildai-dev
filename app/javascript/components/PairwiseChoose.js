@@ -116,7 +116,7 @@ class PWChoose extends React.Component {
       title = <h3 id="titulo" className="title"> Which Request Would You Like to Receive? </h3>;
       description = <p id="prompt" className="feature-text">Please choose which request you prefer.</p>;
     } else {
-      title = <h3 id = "titulo" class="title"> Who Should Get the Request?? </h3>;
+      title = <h3 id = "titulo" class="title"> Who Should Get the Request? </h3>;
       description = <p id="prompt" className="feature-text">Please choose which driver should get the ping.</p>;
     }
 
