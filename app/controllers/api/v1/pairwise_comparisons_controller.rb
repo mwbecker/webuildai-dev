@@ -31,7 +31,7 @@ module Api
         all_feats = feat_ids.map{|id| Feature.find(id)}
         @scenarios = []
         @num_pairs = NUM_PAIRS
-        SCENS.times do
+        @num_pairs.times do
           # TO DO: use ScenarioGroup
           last_id = Scenario.all.empty? ? 1 : Scenario.all.last.group_id + 1
 
