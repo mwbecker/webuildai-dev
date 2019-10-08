@@ -1,5 +1,8 @@
 import React from "react"
 import WorkPrefImage from '../images/Work_Pref.png';
+import FeatureSelectionImage from '../images/Feature_Selection.png';
+import PCImage from '../images/Pairwise_Image.png';
+import RLImage from '../images/Ranked_List_Image.png';
 
 class WorkPreferenceOverview extends React.Component {
   render() {
@@ -15,6 +18,20 @@ class WorkPreferenceOverview extends React.Component {
             model will give you requests based on your preferences.
           </p>
           <h5 className="wp-subtitle2">To Build Your Model:</h5>
+          <div className="wp-image-row">
+            <div className="wp-image-col">
+              <img src={FeatureSelectionImage} className="wp-sub-image"/>
+              <h5 className="wp-subtitle">Feature Selection</h5>
+            </div>
+            <div className="wp-image-col">
+              <img src={PCImage} className="wp-sub-image" style={{ marginBottom: "-18px" }}/>
+              <h5 className="wp-subtitle">Pariwise Comparison</h5>
+            </div>
+            <div className="wp-image-col">
+              <img src={RLImage} className="wp-sub-image" style={{ marginBottom: "-18px" }}/>
+              <h5 className="wp-subtitle">Model Evaluation</h5>
+            </div>
+          </div>
         </div>
       </div>
     );

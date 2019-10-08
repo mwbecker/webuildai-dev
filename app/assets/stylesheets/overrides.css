@@ -590,3 +590,18 @@ input:focus {
   font-family: "Helvetica Neue bold", sans-serif;
   color:#ABBEDD;
 }
+
+#wp-page .wp-image-row {
+  margin-top:3%;
+}
+
+#wp-page .wp-image-col {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+}
+
+#wp-page .wp-sub-image {
+  height: auto;
+  width:80%;
+}
