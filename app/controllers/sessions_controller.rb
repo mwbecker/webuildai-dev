@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       session[:human_ranks] = []
       session[:pairwise_old_driver] = nil
       session[:pairwise_old_request] = nil
-      redirect_to new_pairwise_comparison_path, notice: 'Logged in!'
+      redirect_to "/react/work_preference_overview", notice: 'Logged in!'
     else
       flash.now.alert = 'Username and/or password is invalid'
       render 'new'

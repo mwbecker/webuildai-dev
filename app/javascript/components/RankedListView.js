@@ -60,7 +60,7 @@ class RLView extends React.Component {
         callback = () => {
           this.props.setRound(0);
           this.props.setCategory('driver');
-          this.props.history.push('/react/feature_selection/new');
+          this.props.history.push('/react/social_preference_overview');
         }
       } else {
         callback = () => {
@@ -82,7 +82,7 @@ class RLView extends React.Component {
     if (this.props.category === 'request') {
       this.props.setRound(0);
       this.props.setCategory('driver');
-      this.props.history.push('/react/feature_selection/new');
+      this.props.history.push('/react/social_preference_overview');
     } else {
       this.props.endFlow();
       this.props.history.push('done')
