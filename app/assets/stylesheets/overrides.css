@@ -566,7 +566,7 @@ input:focus {
 
 #wp-page .wp-title {
   font-family: "Helvetica Neue bold", sans-serif;
-  margin-top:5%;
+  margin-top:3%;
   color:#3D6AB1;
   font-weight:550;
 }
@@ -586,13 +586,13 @@ input:focus {
 }
 
 #wp-page .wp-subtitle2 {
-  margin-top:7%;
+  margin-top:5%;
   font-family: "Helvetica Neue bold", sans-serif;
   color:#ABBEDD;
 }
 
 #wp-page .wp-image-row {
-  margin-top:3%;
+  margin-top:2%;
 }
 
 #wp-page .wp-image-col {
@@ -602,6 +602,6 @@ input:focus {
 }
 
 #wp-page .wp-sub-image {
-  height: auto;
-  width:80%;
+  height:200px;
+  /* width:70%; */
 }

@@ -24,15 +24,18 @@ class WorkPreferenceOverview extends React.Component {
               <h5 className="wp-subtitle">Feature Selection</h5>
             </div>
             <div className="wp-image-col">
-              <img src={PCImage} className="wp-sub-image" style={{ marginBottom: "-18px" }}/>
+              <img src={PCImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Pariwise Comparison</h5>
             </div>
             <div className="wp-image-col">
-              <img src={RLImage} className="wp-sub-image" style={{ marginBottom: "-18px" }}/>
+              <img src={RLImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Model Evaluation</h5>
             </div>
           </div>
         </div>
+        <a className="next-button">
+          NEXT
+        </a>
       </div>
     );
   }
