@@ -566,7 +566,7 @@ input:focus {
 
 #wp-page .wp-title {
   font-family: "Helvetica Neue bold", sans-serif;
-  margin-top:3%;
+  margin-top:2%;
   color:#3D6AB1;
   font-weight:550;
 }
@@ -603,5 +603,19 @@ input:focus {
 
 #wp-page .wp-sub-image {
   height:200px;
+  margin-top:-10%;
   /* width:70%; */
+}
+
+#wp-page .num-circle {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  padding: 13px;
+  background: #4C83BF;
+  color: white;
+  text-align: center;
+  font-family: "Helvetica Neue bold", sans-serif;
+  font-weight:bold;
+  font-size:18px;
 }
