@@ -20,14 +20,17 @@ class WorkPreferenceOverview extends React.Component {
           <h5 className="wp-subtitle2">To Build Your Model:</h5>
           <div className="wp-image-row">
             <div className="wp-image-col">
+              <div className="num-circle">1</div>
               <img src={FeatureSelectionImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Feature Selection</h5>
             </div>
             <div className="wp-image-col">
+              <div className="num-circle">2</div>
               <img src={PCImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Pariwise Comparison</h5>
             </div>
             <div className="wp-image-col">
+              <div className="num-circle">3</div>
               <img src={RLImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Model Evaluation</h5>
             </div>
