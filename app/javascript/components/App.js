@@ -9,6 +9,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import FeatureSelection from './FeatureSelection';
 import PairwiseComparisonFlow from './PairwiseComparisonFlow'
 import WorkPreferenceOverview from './WorkPreferenceOverview'
+import SocialPreferenceOverview from './SocialPreferenceOverview'
 
 // this exists so we can namespace everything by /react
 const Routes = ({ match }) => {
@@ -19,6 +20,7 @@ const Routes = ({ match }) => {
       <Route path={match.url + '/feature_selection'} component={FeatureSelection} />
 
       <Route path={match.url + '/work_preference_overview'} component={WorkPreferenceOverview} />
+      <Route path={match.url + '/social_preference_overview'} component={SocialPreferenceOverview} />
 
       <Route path={match.url + '/pairwise_comparisons'} component={PairwiseComparisonFlow} />
       <Route path={match.url + '/ranked_list'} component={RankedListFlow} />

@@ -4,18 +4,19 @@ import FeatureSelectionImage from '../images/Feature_Selection.png';
 import PCImage from '../images/Pairwise_Image.png';
 import RLImage from '../images/Ranked_List_Image.png';
 
-class WorkPreferenceOverview extends React.Component {
+class SocialPreferenceOverview extends React.Component {
+
   render() {
     return (
       <div id="wp-page" className="wp-container">
         <img src={WorkPrefImage} className="wp-image"/>
         <div className="wp-text">
-          <h2 className="wp-title">Work Preference</h2>
+          <h2 className="wp-title">Work Distribution</h2>
           <h4 className="wp-subtitle">What request would you like to get?</h4>
           <p className="wp-description">
-            You will build an algorithmic model that chooses requests that you will like the most. 
-            Requests are based on proximity, but when there are multiple requests around you, the 
-            model will give you requests based on your preferences.
+            You will build an algorithmic model that distributes requests to drivers. 
+            Requests are based on proximity, but when there are multiple drivers around one request,
+            the model will distribute the request based on your criteria for drivers.
           </p>
           <h5 className="wp-subtitle2">To Build Your Model:</h5>
           <div className="wp-image-row">
@@ -33,7 +34,7 @@ class WorkPreferenceOverview extends React.Component {
             </div>
           </div>
         </div>
-        <a className="next-button white-text" href="/react/feature_selection">
+        <a className="next-button white-text" onClick={() => this.props.history.push('/react/feature_selection/new')}>
           NEXT
         </a>
       </div>
@@ -41,4 +42,4 @@ class WorkPreferenceOverview extends React.Component {
   }
 }
 
-export default WorkPreferenceOverview;
+export default SocialPreferenceOverview;
