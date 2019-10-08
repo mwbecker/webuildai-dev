@@ -545,3 +545,77 @@ input:focus {
   -moz-box-shadow: 0 1px 0 0 !important;
   box-shadow: 0 1px 0 0 !important;
 }
+
+/* Work Preference Page Styling */
+
+#wp-page .wp-container {
+  display:flex;
+}
+
+#wp-page .wp-image {
+  float:left;
+  height: 95vh;
+  width:auto;
+  margin-top:2px;
+}
+
+#wp-page .wp-text {
+  float:right;
+  max-width: 65%;
+}
+
+#wp-page .wp-title {
+  font-family: "Helvetica Neue bold", sans-serif;
+  margin-top:2%;
+  color:#3D6AB1;
+  font-weight:550;
+}
+
+#wp-page .wp-subtitle {
+  font-family: "Helvetica Neue bold", sans-serif;
+  color:#79A2CF;
+}
+
+#wp-page .wp-description {
+  font-family: "Helvetica Neue bold", sans-serif;
+  font-size:22px;
+  color: #636363;
+  width:90%;
+  line-height:1.4;
+  font-weight:400;
+}
+
+#wp-page .wp-subtitle2 {
+  margin-top:5%;
+  font-family: "Helvetica Neue bold", sans-serif;
+  color:#ABBEDD;
+}
+
+#wp-page .wp-image-row {
+  margin-top:2%;
+}
+
+#wp-page .wp-image-col {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+}
+
+#wp-page .wp-sub-image {
+  height:200px;
+  margin-top:-10%;
+  /* width:70%; */
+}
+
+#wp-page .num-circle {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  padding: 13px;
+  background: #4C83BF;
+  color: white;
+  text-align: center;
+  font-family: "Helvetica Neue bold", sans-serif;
+  font-weight:bold;
+  font-size:18px;
+}
