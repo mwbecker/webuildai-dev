@@ -92,16 +92,23 @@ class RLView extends React.Component {
   renderFeatures = (rle) => {
     return rle.features.map((feature, i) => {
       return (
-        <div className="cardRow" key={`${rle.id}_feature_${i}`}>
-          <div className="column left">
-            <p className="feature-name">  {feature.feat_name} </p>
-          </div>
-          <div className="column right">
+        <div key={`${rle.id}_feature_${i}`}>
             <p className="feature-value"> {feature.feat_value} </p>
-            {feature.feat_unit && <p className="feature-unit"> &nbsp;{feature.feat_unit} </p>}
-          </div>
+            {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
         </div>
       );
+    });
+  }
+
+  renderFeatureNames = () => {
+    return this.state.rankedList.map((rle) => {
+      return rle.features.map((feature, i) => {
+        return (
+          <div key={`${rle.id}_feature_${i}`}>
+            <p className="feature-name">  {feature.feat_name} </p>
+          </div>
+        );
+      });
     });
   }
 
@@ -110,20 +117,16 @@ class RLView extends React.Component {
       return (
         <Draggable draggableId={rle.id} index={i} key={rle.id}>
           {provided => (
-              <tr key={`rl_${i}`}>
-                <td>
-                  <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <div className="container">
-                          <div className="card default">
-                            <div className="card-content">
-                              <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
-                              {this.renderFeatures(rle)}
-                            </div>
-                          </div>
-                        </div>
+            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+              <div className="rl-col">
+                <div className="card default">
+                  <div className="card-content">
+                    <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
+                    {this.renderFeatures(rle)}
                   </div>
-                </td >
-              </tr>
+                </div>
+              </div>
+            </div>
           )}
         </Draggable>
       );
@@ -152,27 +155,46 @@ class RLView extends React.Component {
         </p>
 
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <div className="row">
-            <table>
-              <Droppable droppableId="table">
-                {provided => (
-                  <tbody {...provided.droppableProps} ref={provided.innerRef}>
-                    <tr>
-                      <td><h4 className="subheader"> Model List </h4></td>
-                    </tr>
+          <div>
+            <Droppable droppableId="row" direction="horizontal">
+              {provided => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  <div className="rl-row">
+                    <div className="rl-col">
+                      <h3></h3>
+                    </div>
+                    <div className="rl-col">
+                      <h3>1</h3>
+                    </div>
+                    <div className="rl-col">
+                      <h3>2</h3>
+                    </div>
+                    <div className="rl-col">
+                      <h3>3</h3>
+                    </div>
+                    <div className="rl-col">
+                      <h3>4</h3>
+                    </div>
+                    <div className="rl-col">
+                      <h3>5</h3>
+                    </div>
+                  </div>
+                  <div className="rl-row">
+                    <div className="rl-col">
+                      {this.renderFeatureNames()}
+                    </div>
                     {this.renderScenarios()}
-                  {provided.placeholder}
-                  </tbody>
-                )}
-              </Droppable>
-            </table>
+                  </div>
+                {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
           </div>
           <div className="row">
             <a className="btn" id="submit_btn" onClick={this.onSubmit} disabled={!this.state.changed} > Submit Changes </a>
             <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>
           </div>
         </DragDropContext>
-
       </div >
     );
   }

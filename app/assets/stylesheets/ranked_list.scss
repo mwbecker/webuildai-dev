@@ -38,11 +38,12 @@
 
 #rl-page .card {
   transition: 0.3s;
-  width: 100%;
+  width: 50%;
   border-radius: 5px;
 }
 
 #rl-page .feature-value {
+  margin-top:2%;
   font-size:22px;
   display:inline-block;
   font-family: "Helvetica Neue", sans-serif;
@@ -57,8 +58,8 @@
 }
 
 #rl-page .feature-name {
+  margin-top:1%;
   margin-bottom:2%;
-  margin-top:2%;
   font-size:20px;
   line-height:1.4;
   font-family: "Helvetica Neue", sans-serif;
@@ -142,4 +143,20 @@
 
 #rl-page .scenario-input {
   width: 20%;
+}
+
+#rl-page .rl-col {
+  float: left;
+  width: 16.6666%;
+}
+
+#rl-page .rl-row {
+  margin: 0 auto;
+  width: 90%;
+}
+
+#rl-page .rl-row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
