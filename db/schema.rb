@@ -162,11 +162,6 @@ ActiveRecord::Schema.define(version: 2019_10_07_163358) do
     t.index ["participant_id"], name: "index_ranklists_on_participant_id"
   end
 
-  create_table "scenario_groups", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "scenarios", force: :cascade do |t|
     t.integer "group_id"
     t.bigint "feature_id"
@@ -174,15 +169,6 @@ ActiveRecord::Schema.define(version: 2019_10_07_163358) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["feature_id"], name: "index_scenarios_on_feature_id"
-  end
-
-  create_table "sessions", force: :cascade do |t|
-    t.string "session_id", null: false
-    t.text "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   add_foreign_key "abouts", "participants"
