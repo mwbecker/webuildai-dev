@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PersonalPref from "../images/Personal_Pref.png";
+import SocialRanking from "../images/Social_Ranking.png";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from '../store';
 
@@ -56,6 +57,7 @@ class PWIntro extends React.Component {
     let title = "";
     let part = "";
     let partDescription = "";
+    let image = PersonalPref;
     if (this.props.category == 'request') {
       title = <h3 className="title">Training Your Individual Preference Profile</h3>;
       part = <p className="pg-1-subheader"> Part 1. Personal Preference </p>;
@@ -67,6 +69,7 @@ class PWIntro extends React.Component {
     } else {
       title = <h3 className="title">Training Your Social Preference Profile</h3>;
       part = <p className="pg-1-subheader"> Part 2. Social Ranking </p>;
+      image = SocialRanking;
       partDescription = <p className="feature-text">
                           Please assume that you are the algorithm and you have to assign a request to a driver.
                           <b> Please choose which driver you would prefer the algorithm to give the request. </b>
@@ -91,7 +94,7 @@ class PWIntro extends React.Component {
             {part}
             {partDescription}
           </div>
-          <img src={PersonalPref} className="personal-pref-image" />
+          <img src={image} className="personal-pref-image" />
         </div>
         <p className="pg-1-subheader">Scenarios will include: </p>
         {this.renderSelectedFeatures()}

@@ -107,7 +107,7 @@ class ContinuousFeatureModal extends React.Component {
           {/* <!-- If numeric, need to specify lower/upper bound --> */}
           { this.state.isPercentage === false  && (
             <div id="num_input_div" className="row">
-              <div className="input-field col s6">
+              <div className="input-field col s6" style={{marginRight:"-20%"}}>
                 {/* <!-- TODO: add validations for numbers only (upper > lower, is a number, etc.) --> */}
                 <input id="lower-bound" type="text" placeholder="1" onChange={this.onMinValueChange} />
                 <span className="helper-text">Minimum Value</span>
