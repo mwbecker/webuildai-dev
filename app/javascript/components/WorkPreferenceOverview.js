@@ -36,7 +36,7 @@ class WorkPreferenceOverview extends React.Component {
             </div>
           </div>
         </div>
-        <a className="next-button white-text" href="/react/feature_selection">
+        <a className="next-button white-text" onClick={() => this.props.history.push('/react/feature_selection/')}>
           NEXT
         </a>
       </div>
