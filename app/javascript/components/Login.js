@@ -37,6 +37,7 @@ class LoginComponent extends React.Component {
     .then(result => {
       if (result.status === 'ok') {
         this.props.setLogin();
+        this.props.setParticipantId(Number(this.state.id));
         this.props.history.push('/react/work_preference_overview')
       } else {
         alert("failed to log in");
@@ -108,7 +109,10 @@ const mapStoreStateToProps = (storeState, givenProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { setLogin: () => dispatch({ type: ACTION_TYPES.SET_LOGIN, payload: true }) };
+  return {
+    setLogin: () => dispatch({ type: ACTION_TYPES.SET_LOGIN, payload: true }),
+    setParticipantId: (payload) => dispatch({type: ACTION_TYPES.SET_PARTICIPANT_ID, payload }),
+  };
 }
 
 const Login = connect(mapStoreStateToProps, mapDispatchToProps)(LoginComponent);

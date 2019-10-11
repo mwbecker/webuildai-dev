@@ -6,7 +6,6 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const INITIAL_STATE = {
-    things: "",
     category: "request", // or "driver"
     pairwiseComparisons: [],
     round: 0,

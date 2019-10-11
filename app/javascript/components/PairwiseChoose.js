@@ -147,7 +147,7 @@ class PWChoose extends React.Component {
             Next Scenario
           </a>
         }
-        { [1, 2, 3, 11, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65].includes(this.props.participantId) &&
+        { [1, 2, 3, 4,5,6,7,8,9,10, 11, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65].includes(this.props.participantId) &&
         <React.Fragment>
         <a className="btn" onClick={this.skipChoosing} >[Admin] Skip</a>
         <a className="btn" onClick={this.props.end} >[Admin] Reset Store (please logout after pushing this)</a>

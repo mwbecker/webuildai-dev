@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ACTION_TYPES } from '../store';
-import Spinner from '../images/loading.gif';
 
 class HeaderComponent extends React.Component {
 
   logout = () => {
-    alert("logged out");
     this.props.setLogout();
     this.props.history.push('/react/');
     fetch('/api/v1/sessions/logout', {
@@ -17,6 +15,15 @@ class HeaderComponent extends React.Component {
       },
     }).then(response => response.json()).then(() => console.log("logged out!") // not sure if we need to do this
     );
+    if ([1,2,3,4,5,6,7,8,9,10].includes(this.props.participantId)) {
+      fetch('/api/v1/testing/reset', {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }).then(response => response.json()).then(() => alert("and reset everything")); // not sure if we need to do this
+    }
   }
 
   render () {
@@ -40,6 +47,7 @@ const mapStoreStateToProps = (storeState, givenProps) => {
   return {
     ...givenProps,
     isLoggedIn: storeState.isLoggedIn,
+    participantId: storeState.participantId,
   };
 }
 

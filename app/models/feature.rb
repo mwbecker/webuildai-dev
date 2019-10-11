@@ -12,6 +12,7 @@ class Feature < ApplicationRecord
   scope :added_by, ->(user_id) { where('added_by = ? OR added_by IS NULL', user_id.to_s) }
   scope :company, -> { where('(description != ? AND description != ?) or company = true', 'Your Own Feature(s) - Continuous', 'Your Own Feature(s) - Categorical') }
   scope :personal, -> { where(company: false) }
+  scope :strictly_added_by, ->(user_id) {where('added_by = ?', user_id.to_s)}
 
   def self.for_user(user_id, category)
     feats = []
