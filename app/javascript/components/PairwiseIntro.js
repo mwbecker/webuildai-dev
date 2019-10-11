@@ -59,7 +59,7 @@ class PWIntro extends React.Component {
     let partDescription = "";
     let image = PersonalPref;
     if (this.props.category == 'request') {
-      title = <h3 className="title">Training Your Individual Preference Profile</h3>;
+      title = <h3 className="title">Training Your Work Preference Model</h3>;
       part = <p className="pg-1-subheader"> Part 1. Personal Preference </p>;
       partDescription = <p className="feature-text">
                           Please assume that the algorithm notifies you of two potential requests.
@@ -67,7 +67,7 @@ class PWIntro extends React.Component {
                           The information below are features you believe that algorithm should consider.
                         </p>
     } else {
-      title = <h3 className="title">Training Your Social Preference Profile</h3>;
+      title = <h3 className="title">Training Your Work Distribution Model</h3>;
       part = <p className="pg-1-subheader"> Part 2. Social Ranking </p>;
       image = SocialRanking;
       partDescription = <p className="feature-text">

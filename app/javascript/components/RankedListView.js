@@ -95,8 +95,6 @@ class RLView extends React.Component {
         <div key={`${rle.id}_feature_${i}`}>
             <p className="feature-value"> {feature.feat_value} </p>
             {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
-<<<<<<< HEAD
-=======
         </div>
       );
     });
@@ -111,7 +109,6 @@ class RLView extends React.Component {
       return (
         <div key={`${elem.id}_feature_${i}`}>
           <p className="feature-name">  {feature.feat_name} </p>
->>>>>>> a661ed8b2b9ea9a44b3b10b2eb2559780a842196
         </div>
       );
     });
@@ -134,20 +131,11 @@ class RLView extends React.Component {
       return (
         <Draggable draggableId={rle.id} index={i} key={rle.id}>
           {provided => (
-<<<<<<< HEAD
-            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-              <div className="rl-col">
-=======
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="rl-col">
->>>>>>> a661ed8b2b9ea9a44b3b10b2eb2559780a842196
                 <div className="card default">
                   <div className="card-content">
                     <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
                     {this.renderFeatures(rle)}
-<<<<<<< HEAD
-                  </div>
-=======
->>>>>>> a661ed8b2b9ea9a44b3b10b2eb2559780a842196
                 </div>
               </div>
             </div>
@@ -181,41 +169,6 @@ class RLView extends React.Component {
 
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
-<<<<<<< HEAD
-            <Droppable droppableId="row" direction="horizontal">
-              {provided => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <div className="rl-row">
-                    <div className="rl-col">
-                      <h3></h3>
-                    </div>
-                    <div className="rl-col">
-                      <h3>1</h3>
-                    </div>
-                    <div className="rl-col">
-                      <h3>2</h3>
-                    </div>
-                    <div className="rl-col">
-                      <h3>3</h3>
-                    </div>
-                    <div className="rl-col">
-                      <h3>4</h3>
-                    </div>
-                    <div className="rl-col">
-                      <h3>5</h3>
-                    </div>
-                  </div>
-                  <div className="rl-row">
-                    <div className="rl-col">
-                      {this.renderFeatureNames()}
-                    </div>
-                    {this.renderScenarios()}
-                  </div>
-                {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-=======
             <div className="rl-row">
               <div className="rl-col">
                 <h3></h3>
@@ -252,7 +205,6 @@ class RLView extends React.Component {
                   </div>
                 )}
               </Droppable>
->>>>>>> a661ed8b2b9ea9a44b3b10b2eb2559780a842196
           </div>
           <div className="row">
             <a className="btn" id="submit_btn" onClick={this.onSubmit} disabled={!this.state.changed} > Submit Changes </a>

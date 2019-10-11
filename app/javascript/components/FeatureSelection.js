@@ -197,7 +197,7 @@ class FeatSelection extends React.Component {
                     </p>;
     } else {
       description = <p className = "feature-text" >
-                      Social preference means which driver should receive the request when there are multiple drivers waiting for a ping.
+                      Work distribution means which driver should receive the request when there are multiple drivers waiting for a ping.
                       In other words, <b>you act as the algorithm in this section.</b>
                     </p>;
     }
