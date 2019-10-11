@@ -5,6 +5,7 @@ module Api
     class FeaturesController < ApplicationController
       # TODO: remove this
       skip_before_action :verify_authenticity_token
+      before_action :check_login
 
       def get_all_features
         category = params[:category]

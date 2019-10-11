@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class FeaturesController < ApplicationController
+  # TODO add authentication for admins
   before_action :set_feature, only: %i[show edit update destroy]
 
   # GET /features

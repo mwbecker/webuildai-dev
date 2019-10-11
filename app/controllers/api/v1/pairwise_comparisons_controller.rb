@@ -5,6 +5,7 @@ module Api
     class PairwiseComparisonsController < ApplicationController
       # TODO: remove this
       skip_before_action :verify_authenticity_token
+      before_action :check_login
 
       NUM_PAIRS = Rails.env.development? ? 3 : 40
       ML_URL = Rails.env.production? ? 'https://webuildai-ml-server.herokuapp.com' : 'http://localhost:5000'
