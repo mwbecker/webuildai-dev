@@ -34,7 +34,11 @@ class SocialPreferenceOverview extends React.Component {
             </div>
           </div>
         </div>
-        <a className="next-button white-text" onClick={() => this.props.history.push('/react/feature_selection/new')}>
+        <a 
+          className="next-button" 
+          onClick={() => this.props.history.push('/react/feature_selection/new')}
+          style={{ marginTop:"3%" }}
+        >
           NEXT
         </a>
       </div>

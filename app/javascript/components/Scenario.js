@@ -23,7 +23,7 @@ class Scenario extends React.Component {
     return (
       <div className="card default">
         <div className="card-content">
-          <h5 className="pc-header" style={{textAlign: "center", marginBottom:"7%"}}>Scenario #{this.props.id}</h5>
+          <h5 className="pc-header" style={{textAlign: "center", marginBottom:"7%"}}>{this.props.categoryName} {this.props.location}</h5>
           {this.renderFeatures()}
         </div>
       </div>

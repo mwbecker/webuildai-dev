@@ -36,7 +36,11 @@ class WorkPreferenceOverview extends React.Component {
             </div>
           </div>
         </div>
-        <a className="next-button white-text" onClick={() => this.props.history.push('/react/feature_selection/')}>
+        <a 
+          className="next-button" 
+          onClick={() => this.props.history.push('/react/feature_selection/')}
+          style={{ marginTop:"3%" }}
+        >
           NEXT
         </a>
       </div>

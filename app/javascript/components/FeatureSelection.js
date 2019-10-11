@@ -203,7 +203,7 @@ class FeatSelection extends React.Component {
     }
     return (
       <div>
-        <h3 className="title">Feature Selection for Your {this.props.category === 'request' ? "Individual" : "Social"} Preference Profile</h3>
+        <h3 className="title">Feature Selection for Your {this.props.category === 'request' ? "Work Preference" : "Work Distribution"} Preference Model</h3>
         <hr className = "feature-hr"/>
         {description}
         <div className="feature-image-block">

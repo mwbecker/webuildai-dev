@@ -71,17 +71,19 @@ class PWChoose extends React.Component {
 
   renderPairwiseComparisons = () => {
     const pw = this.props.pairwiseComparisons[this.state.comparisonNum];
+    let categoryName = "";
+    this.props.category === 'request' ? categoryName="Request" : categoryName="Driver";
     return (
       <React.Fragment>
-        <PairwiseComparison left={pw.scenario_1} right={pw.scenario_2} category={this.props.category} />
+        <PairwiseComparison left={pw.scenario_1} right={pw.scenario_2} category={this.props.category} categoryName={categoryName} />
         <div style={{marginLeft:"35%"}} className="f-<%= pc.id %>">
           <label style={{display:"inline", marginRight:"5%" }}>
             <input id="<%=pc.id %>-A" className="with-gap" name="group3" type="radio" onChange={this.onChoose(1)} checked={this.state.choice === 1} />
-            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif",}}>Choose #{pw.scenario_1.group_id}</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif",}}>{categoryName} A</span>
           </label>
           <label style={{display:"inline", marginRight:"5%"}}>
             <input id="<%=pc.id %>-B" className="with-gap" name="group3" type="radio" onChange={this.onChoose(2)} checked={this.state.choice === 2} />
-            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif" }}>Choose #{pw.scenario_2.group_id}</span>
+            <span style={{ marginTop:"3%",fontWeight:"bold",fontFamily:"Helvetica Neue, sans-serif" }}>{categoryName} B</span>
           </label>
           <label style={{display:"inline"}}>
             <input id="<%=pc.id %>-N" className="with-gap" name="group3" type="radio" onChange={this.onChoose(-1)} checked={this.state.choice === -1} />
