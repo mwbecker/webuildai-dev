@@ -44,7 +44,9 @@ const mapStoreStateToProps = (storeState, givenProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { setLogout: () => dispatch({ type: ACTION_TYPES.SET_LOGIN, payload: false }) };
+  return {
+    setLogout: () => dispatch({ type: ACTION_TYPES.END_RL_FLOW }),
+  };
 }
 
 const Header = connect(mapStoreStateToProps, mapDispatchToProps)(HeaderComponent);
