@@ -10,6 +10,7 @@
             Lower Bound  :<%= feature_range.text_field :lower_bound %>
             Upper Bound  :<%= feature_range.text_field :upper_bound %>
           <% end %>
+          <%= f.input :icon, label_html: { class: 'active' } %>
           <%= f.text_field :active %>
       </div>
     </div>

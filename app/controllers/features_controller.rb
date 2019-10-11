@@ -41,6 +41,7 @@ class FeaturesController < ApplicationController
         a.active = true
         a.category = params[:category]
         a.unit = params[:unit]
+        a.icon = params[:icon]
         a.save!
         DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
       else
@@ -54,6 +55,7 @@ class FeaturesController < ApplicationController
         a.active = true
         a.category = params[:category]
         a.unit = params[:unit]
+        a.icon = params[:icon]
         a.save!
         d = a.data_range
         if !d.nil?
@@ -148,7 +150,7 @@ class FeaturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def feature_params
-    params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description, :company, :active, :unit)
+    params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description, :company, :active, :unit, :icon)
   end
 
   def data_range_params

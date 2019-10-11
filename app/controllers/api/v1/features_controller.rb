@@ -73,6 +73,7 @@ module Api
               a.active = true
               a.category = params[:category]
               a.unit = params[:unit]
+              a.icon = params[:icon]
               a.save!
               DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
             else
@@ -86,6 +87,7 @@ module Api
               a.active = true
               a.category = params[:category]
               a.unit = params[:unit]
+              a.icon = params[:icon]
               a.save!
               d = a.data_range
               if !d.nil?
