@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from "../store";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import CircleOne from '../images/numbers-01.png';
+import CircleTwo from '../images/numbers-02.png';
+import CircleThree from '../images/numbers-03.png';
+import CircleFour from '../images/numbers-04.png';
+import CircleFive from '../images/numbers-05.png';
 // import Scenario from "./Scenario";
 
 class RLView extends React.Component {
@@ -133,6 +138,36 @@ class RLView extends React.Component {
     });
   }
 
+  renderRLHeader = () => {
+    return (
+      <div className="rl-row">
+        <div className="rl-col">
+          <h3></h3>
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Most Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleOne} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleTwo} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Neutral</h3>
+          <img className="rl-header-cirlce" src={CircleThree} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Not Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleFour} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Least Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleFive} />
+        </div>
+      </div>
+    );
+  }
+
   onDragEnd = (e) => {
     const source = e.source;
     const dest = e.destination;
@@ -157,39 +192,20 @@ class RLView extends React.Component {
 
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
-            <div className="rl-row">
-              <div className="rl-col">
-                <h3></h3>
-              </div>
-              <div className="rl-col">
-                <h3>1</h3>
-              </div>
-              <div className="rl-col">
-                <h3>2</h3>
-              </div>
-              <div className="rl-col">
-                <h3>3</h3>
-              </div>
-              <div className="rl-col">
-                <h3>4</h3>
-              </div>
-              <div className="rl-col">
-                <h3>5</h3>
-              </div>
-            </div>
+            {this.renderRLHeader()}
               <Droppable droppableId="row" direction="horizontal" >
                 {provided => (
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
-            <div className="rl-row">
-              <div className="rl-col">
-                {this.renderFeatureNames()}
-              </div>
+                    <div className="rl-row">
+                      <div className="rl-col">
+                        {this.renderFeatureNames()}
+                      </div>
                       {this.renderScenarios()}
-                    {provided.placeholder}
-            </div>
+                      {provided.placeholder}
+                    </div>
                   </div>
                 )}
               </Droppable>
