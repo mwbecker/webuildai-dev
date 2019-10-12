@@ -113,7 +113,7 @@ class RLView extends React.Component {
     return elem.features.map((feature, i) => {
       return (
         <div key={`${elem.id}_feature_${i}`}>
-          <p className="feature-name">  {feature.feat_name} </p>
+          <p className="rl-feature-name">  {feature.feat_name} </p>
         </div>
       );
     });
@@ -125,10 +125,10 @@ class RLView extends React.Component {
         <Draggable draggableId={rle.id} index={i} key={rle.id}>
           {provided => (
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="rl-col">
-                <div className="card default">
-                  <div className="card-content">
-                    <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
-                    {this.renderFeatures(rle)}
+              <div className="card default">
+                <div className="card-content" style={{padding: "14px"}}>
+                  <h5 className="pc-header">Scenario #{rle.id}</h5>
+                  {this.renderFeatures(rle)}
                 </div>
               </div>
             </div>
@@ -141,7 +141,7 @@ class RLView extends React.Component {
   renderRLHeader = () => {
     return (
       <div className="rl-row">
-        <div className="rl-col">
+        <div className="rl-feature-col">
           <h3></h3>
         </div>
         <div className="rl-col">
@@ -200,7 +200,7 @@ class RLView extends React.Component {
                     {...provided.droppableProps}
                   >
                     <div className="rl-row">
-                      <div className="rl-col">
+                      <div className="rl-feature-col">
                         {this.renderFeatureNames()}
                       </div>
                       {this.renderScenarios()}
