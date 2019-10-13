@@ -19,7 +19,10 @@ class FeatureGroup extends React.Component {
       <div className="row" key={i}>
         <div className="card" style={{ width: "80%", marginLeft: "10%", }}>
           <div className="card-content" style={{ padding: "50px", marginRight: "-2%" }}>
-            <p className="feature-card-text" style={{ maxWidth: "70%", float:"left", wordWrap:"break-word", marginTop:"-1%"}}>
+            <p className="feature-icon">
+              {feature.icon}
+            </p>
+            <p className="feature-card-text">
               {feature.name}
             </p>
             <p className="range-field">
