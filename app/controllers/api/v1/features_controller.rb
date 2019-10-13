@@ -21,7 +21,7 @@ module Api
         features = Feature.active.where(category: category).added_by(current_user.id).group_by(&:description).to_a.shuffle
         result = Hash.new
         features.each do |description, feats|
-          result[description] = feats.map{|feature| {id: feature.id, name: feature.name, weight: 0} }
+          result[description] = feats.map{|feature| {id: feature.id, name: feature.name, icon: feature.icon, weight: 0} }
         end
         render json: { features_by_description: result }.to_json
       end

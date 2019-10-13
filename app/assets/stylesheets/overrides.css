@@ -241,6 +241,10 @@ a:hover
   font-family: "Helvetica Neue", sans-serif;
   color: #636363;
   display: block;
+  max-width: 70%;
+  float:left;
+  word-wrap:break-word;
+  margin-top:-1%;
 }
 
 
@@ -350,11 +354,6 @@ a:hover
   margin-left: 1%;
 }
 
-.pc-header {
-  color:#3d6ab1;
-  font-weight: bold;
-}
-
 #counter {
   text-align:center;
   font-weight:lighter;
@@ -392,6 +391,13 @@ a:hover
   display:inline-block;
   font-family: "Helvetica Neue", sans-serif;
   font-weight:bold;
+}
+
+.feature-icon {
+  font-size:50px;
+  float:left;
+  margin-left:-2% !important;
+  margin-right:1% !important;
 }
 
 .pc-selection {
