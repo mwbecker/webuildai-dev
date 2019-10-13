@@ -61,6 +61,9 @@ module Api
           scenario_json = {}
           scenario_json[:id] = new_indiv_scenario.id
           scenario_json[:features] = new_scenario_features
+          scenario_json[:model_rank] = 0
+          scenario_json[:human_rank] = 0
+          scenario_json[:score] = 0
 
           evaluations_json[:scenarios] << scenario_json
 

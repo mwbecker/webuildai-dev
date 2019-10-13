@@ -16,7 +16,7 @@ const INITIAL_STATE = {
     ranklistId: 0,
     selectedFeatures: [],
     participantId: 0,
-    featureWeights: {1: 3},
+    featureWeights: {},
 };
 
 export const ACTION_TYPES = {

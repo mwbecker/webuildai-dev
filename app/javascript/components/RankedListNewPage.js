@@ -52,7 +52,7 @@ class RLNew extends React.Component {
             .then((data) => {
                 console.log("rankedlist:", data);
                 this.setState({ isLoading: false });
-                this.updateModelRanks(data.order, samples);
+                this.updateModelRanks(data.order, samples, data.scores);
             })
             .then(() => this.props.history.push("view"))
     }
@@ -88,7 +88,7 @@ class RLNew extends React.Component {
             })
     }
 
-    updateModelRanks = (order, samples) => {
+    updateModelRanks = (order, samples, scores) => {
         let id;
         const scenarios = samples.scenarios;
         for (let i = 0; i < order.length; i++) {
@@ -96,6 +96,7 @@ class RLNew extends React.Component {
             for (let j = 0; j < scenarios.length; j++) {
                 if (scenarios[j].id === id) {
                     scenarios[j].model_rank = i + 1; // start at 1
+                    scenarios[j].score = scores[j];
                     break;
                 }
             }

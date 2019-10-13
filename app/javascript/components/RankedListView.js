@@ -27,7 +27,6 @@ class RLView extends React.Component {
     fetch(`/api/v1/ranked_list/obtain_weights?category=${this.props.category}`)
       .then(response => response.json())
       .then((data) => {
-        console.log("HERE")
         this.setState({ featureWeights: data.featureWeights});
       })
       .catch(error => console.log(error))
@@ -102,7 +101,6 @@ class RLView extends React.Component {
   }
 
   renderWeights = () => {
-    console.log(this.state.featureWeights);
     return this.state.featureWeights.map((feature) => {
       return (
               <div key={`${feature[0]}_feature_weight`}>
@@ -124,6 +122,19 @@ class RLView extends React.Component {
         </div>
       );
     });
+  }
+
+  renderScore = (rle, i) => {
+
+    return (
+            <div key={`${rle.id}_rle_score`}>
+              <br />
+              <p>
+                Model's score: {rle.score}
+              </p>
+
+            </div>
+    )
   }
 
   renderFeatureNames = () => {
@@ -150,6 +161,8 @@ class RLView extends React.Component {
                   <div className="card-content">
                     <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
                     {this.renderFeatures(rle)}
+                    {this.renderScore(rle, i)}
+
                 </div>
               </div>
             </div>
