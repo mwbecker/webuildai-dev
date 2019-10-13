@@ -21,4 +21,19 @@ class Feature < ApplicationRecord
     end
     feats
   end
+
+  # returns a list that matches feature id to its weight for a given user
+  def self.features_and_weights(user_id, category)
+    feature_weights = Array.new
+    category = (category == "request") ? "how_you" : "how_ai"
+    joins(:participant_feature_weights).where('participant_feature_weights.weight > 0 AND participant_feature_weights.participant_id = ? AND participant_feature_weights.method = ?', user_id, category).each do |f|
+      weight = []
+      weight << f.name
+      weight << f.participant_feature_weights.where(participant_id: user_id, method: category).first.weight
+      feature_weights << weight
+    end
+    feature_weights
+
+  end
+
 end

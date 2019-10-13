@@ -69,6 +69,23 @@ module Api
         render json: @generated_samples
       end
 
+      # weights_hash = {
+      #     featureWeights: { ... }
+      # }
+      # The featureWeights maps the id of a feature to the weight, if > 0.
+      def obtain_weights
+        category = params[:category]
+        weights = Hash.new
+        if category == 'request'
+          weights[:featureWeights] = Feature.request.active.added_by(current_user.id).features_and_weights(current_user.id, "request")
+        else
+          weights[:featureWeights] = Feature.driver.active.added_by(current_user.id).features_and_weights(current_user.id, "driver")
+        end
+        @featureWeights = weights
+
+        render json: @featureWeights
+      end
+
       def save_human_weights
         ranked_list = params[:rankedList]
         session[:round] = params[:round]

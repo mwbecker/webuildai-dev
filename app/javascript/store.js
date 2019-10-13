@@ -16,6 +16,7 @@ const INITIAL_STATE = {
     ranklistId: 0,
     selectedFeatures: [],
     participantId: 0,
+    featureWeights: {1: 3},
 };
 
 export const ACTION_TYPES = {
@@ -30,6 +31,7 @@ export const ACTION_TYPES = {
     SET_RANKLIST_ID: 'SET_RANKLIST_ID',
     SET_SELECTED_FEATURES: 'SET_SELECTED_FEATURES',
     SET_PARTICIPANT_ID: 'SET_PARTICIPANT_ID',
+    SET_FEATURE_WEIGHTS: 'SET_FEATURE_WEIGHTS',
 };
 
 const rootReducer = (state, action) => {
@@ -64,6 +66,9 @@ const rootReducer = (state, action) => {
             return oldState;
         case ACTION_TYPES.SET_SELECTED_FEATURES:
             oldState.selectedFeatures = payload;
+            return oldState;
+        case ACTION_TYPES.SET_FEATURE_WEIGHTS:
+            oldState.featureWeights = payload;
             return oldState;
         case ACTION_TYPES.END_RL_FLOW:
             return INITIAL_STATE;

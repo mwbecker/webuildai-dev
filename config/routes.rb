@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get 'ranked_list/new'
       post 'ranked_list/generate_samples'
       post 'ranked_list/save_human_weights'
+      get 'ranked_list/obtain_weights'
 
       post 'work_preference_overview'
     end

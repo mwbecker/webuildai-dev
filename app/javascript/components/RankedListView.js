@@ -12,6 +12,7 @@ class RLView extends React.Component {
     this.state = {
       rankedList: [],
       changed: false,
+      featureWeights: [],
     }
   }
 
@@ -19,6 +20,17 @@ class RLView extends React.Component {
     const rl = [...this.props.rankedList];
     rl.sort((a, b) => a.model_rank - b.model_rank);
     this.setState({ rankedList: rl });
+    this.getFeatureWeights();
+  }
+
+  getFeatureWeights = () => {
+    fetch(`/api/v1/ranked_list/obtain_weights?category=${this.props.category}`)
+      .then(response => response.json())
+      .then((data) => {
+        console.log("HERE")
+        this.setState({ featureWeights: data.featureWeights});
+      })
+      .catch(error => console.log(error))
   }
 
   saveRankedList = (rankedList, callback) => {
@@ -89,6 +101,20 @@ class RLView extends React.Component {
     }
   }
 
+  renderWeights = () => {
+    console.log(this.state.featureWeights);
+    return this.state.featureWeights.map((feature) => {
+      return (
+              <div key={`${feature[0]}_feature_weight`}>
+                <p className = "feature_weight_text">
+                  Feature Name: {feature[0]} <br />
+                  Weight: {feature[1]}% <br />
+                </p>
+              </div>
+              );
+    });
+  }
+
   renderFeatures = (rle) => {
     return rle.features.map((feature, i) => {
       return (
@@ -155,6 +181,12 @@ class RLView extends React.Component {
           <b> please drag and drop the scenarios into the correct rank. </b>
         </p>
 
+        <div className="feature_weights container">
+          <div className="row">
+            {this.renderWeights()}
+          </div>
+        </div>
+
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
             <div className="rl-row">
@@ -213,6 +245,8 @@ RLView.propTypes = {
   setRound: PropTypes.func.isRequired,
   setCategory: PropTypes.func.isRequired,
   endFlow: PropTypes.func.isRequired,
+  featureWeights: PropTypes.object.isRequired,
+  setFeatureWeights: PropTypes.func.isRequired,
 };
 
 const mapStoreStateToProps = (storeState, givenProps) => {
@@ -223,6 +257,7 @@ const mapStoreStateToProps = (storeState, givenProps) => {
     rankedList: storeState.rankedList,
     ranklistId: storeState.ranklistId,
     pairwiseComparisons: storeState.pairwiseComparisons,
+    featureWeights: storeState.featureWeights,
   }
 }
 
@@ -233,6 +268,7 @@ const mapDispatchToProps = (dispatch) => {
     setCategory: (payload) => dispatch({ type: ACTION_TYPES.SET_CATEGORY, payload }),
     setPairwiseComparisons: (payload) => dispatch({ type: ACTION_TYPES.SET_PAIRWISE_COMPARISONS, payload }),
     endFlow: (payload) => dispatch({ type: ACTION_TYPES.END_RL_FLOW, payload }),
+    setFeatureWeights: (payload) => dispatch({type: ACTION_TYPES.SET_FEATURE_WEIGHTS, payload}),
   }
 }
 

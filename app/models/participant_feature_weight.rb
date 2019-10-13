@@ -6,4 +6,5 @@ class ParticipantFeatureWeight < ApplicationRecord
 
   scope :how_you, -> { where(method: 'how_you') }
   scope :how_ai, -> { where(method: 'how_ai') }
+
 end
