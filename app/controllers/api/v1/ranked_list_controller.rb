@@ -5,6 +5,7 @@ module Api
     class RankedListController < ApplicationController
       # TODO: remove this
       skip_before_action :verify_authenticity_token
+      before_action :check_login
       require 'set'
       def new
         category = params[:category] || 'request'

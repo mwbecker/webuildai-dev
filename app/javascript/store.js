@@ -6,7 +6,6 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const INITIAL_STATE = {
-    things: "",
     category: "request", // or "driver"
     pairwiseComparisons: [],
     round: 0,
@@ -17,6 +16,7 @@ const INITIAL_STATE = {
     selectedFeatures: [],
     participantId: 0,
     featureWeights: {},
+    isLoggedIn: false,
 };
 
 export const ACTION_TYPES = {
@@ -32,6 +32,7 @@ export const ACTION_TYPES = {
     SET_SELECTED_FEATURES: 'SET_SELECTED_FEATURES',
     SET_PARTICIPANT_ID: 'SET_PARTICIPANT_ID',
     SET_FEATURE_WEIGHTS: 'SET_FEATURE_WEIGHTS',
+    SET_LOGIN: 'SET_LOGIN',
 };
 
 const rootReducer = (state, action) => {
@@ -72,6 +73,9 @@ const rootReducer = (state, action) => {
             return oldState;
         case ACTION_TYPES.END_RL_FLOW:
             return INITIAL_STATE;
+        case ACTION_TYPES.SET_LOGIN:
+            oldState.isLoggedIn = payload;
+            return oldState;
         default:
             return state;
     }

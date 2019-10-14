@@ -21,6 +21,7 @@ a:hover
   margin-right: 4vw;
   width:33%;
   float:right;
+  padding-left: 10px;
 }
 
 
@@ -41,6 +42,11 @@ a:hover
   width: 125%;
   margin-top: 60px;
   margin-bottom: 35px;
+}
+
+.login-b1 form
+{
+  margin-left: 3.5vw;
 }
 
 .control-group-id label {
@@ -92,11 +98,6 @@ a:hover
  font-style: italic;
  font-size: 1.2em;
  font-weight: normal;
-}
-
-.login-b1 form
-{
-  margin-left: 3.5vw;
 }
 
 
@@ -369,7 +370,7 @@ a:hover
   font-size:22px;
   font-weight:400;
   font-family: "Helvetica Neue", sans-serif;
-  margin-top:-1% !important; 
+  margin-top:-1% !important;
 }
 
 #range_form {
@@ -478,31 +479,31 @@ a:hover
   margin-right:4%;
   margin-bottom:1%;
   float:right;
-  width:15%; 
-  padding-top:2%; 
-  padding-bottom:2%; 
-  color:#FFFFFF; 
-  background-color:#3d6ab1; 
+  width:15%;
+  padding-top:2%;
+  padding-bottom:2%;
+  color:#FFFFFF;
+  background-color:#3d6ab1;
   text-align:center;
-  font-weight:bold; 
+  font-weight:bold;
   font-size:1.2em;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .modal-next-button:hover {
-  background-color:#355ea1; 
+  background-color:#355ea1;
 }
 
 .next-button {
   z-index:0 !important;
   margin-top:5%;
-  margin-right:10vw; 
+  margin-right:10vw;
   margin-bottom:3%;
   float:right;
   width:12.5%;
-  padding-top:25px; 
-  padding-bottom:25px; 
+  padding-top:25px;
+  padding-bottom:25px;
   color:#FFFFFF;
   background-color:#3d6ab1;
   font-weight:bold;
@@ -512,7 +513,7 @@ a:hover
 }
 
 .next-button:hover {
-  background-color:#355ea1; 
+  background-color:#355ea1;
 }
 
 .modal-input {

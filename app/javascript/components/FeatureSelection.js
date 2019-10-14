@@ -124,7 +124,7 @@ class FeatSelection extends React.Component {
     console.log("new features", allFeatures[featType]);
   }
 
-  createNewFeat = (feat, i) => {
+  createNewFeat = (feat) => {
     // this will also update the weight
     fetch('/api/v1/features/new_feature', {
       method: 'POST',
@@ -148,9 +148,9 @@ class FeatSelection extends React.Component {
     const cat_vals = this.state.allFeatures[cat_key];
     const cont_key = keys[1];
     const cont_vals = this.state.allFeatures[cont_key];
+    console.log("yolo", this.state.allFeatures, cat_vals, cont_vals);
 
     if (cat_vals) {
-      let i = 0
       for (let newCatFeature of cat_vals){
         if (newCatFeature.weight === 0) continue;
         this.createNewFeat({
@@ -159,12 +159,10 @@ class FeatSelection extends React.Component {
           opts: newCatFeature.type,
           category: this.props.category,
           weight: newCatFeature.weight,
-        }, i);
-        i++;
+        });
       }
     }
     if (cont_vals) {
-      let j = 0;
       for (let newContFeature of cont_vals) {
         if (newContFeature.weight === 0) continue;
         this.createNewFeat({
@@ -175,8 +173,7 @@ class FeatSelection extends React.Component {
           unit: newContFeature.units,
           category: this.props.category,
           weight: newContFeature.weight,
-        }, j)
-        j++;
+        })
       }
     }
   }
@@ -248,9 +245,9 @@ class FeatSelection extends React.Component {
           ariaHideApp={false}
           className="new-feature-modal"
         >
-          <NewFeatureModal 
-            onClose={this.closeModal} 
-            category={this.props.category} 
+          <NewFeatureModal
+            onClose={this.closeModal}
+            category={this.props.category}
             addFeature={this.addFeature}
           />
         </ReactModal>
