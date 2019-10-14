@@ -182,15 +182,26 @@ class RLView extends React.Component {
   }
 
   render() {
+    let description = <p className="about-text">
+                        This is a list of scenarios that the AI has ranked from most preferable to least preferable.
+                        Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
+                        <b> please drag and drop the scenarios into the correct rank. </b>
+                      </p>;
+    let title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model</h3>;
+    if (this.props.round > 0) {
+      description = <p className="about-text">
+                      Using your input in the previous round, we have tuned your algorithm and has given it 5 new scenarios
+                      that the AI has ranked from most preferable to least preferable. Please go through the list and see 
+                      if the algorithm ranked these scenarios correctly. 
+                      <b> This will be the last tuning round before we show you your model. </b>
+                    </p>
+      title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model Round 2</h3>;
+    };
     return (
       <div id="rl-page">
-        <h3 className="title">{this.props.category === 'request' ? 'Individual ' : 'Social '} Preference Models</h3>
+        {title}
         <hr className="feature-hr" />
-        <p className="about-text">
-          The model list is a list of scenarios that the AI has ranked from most preferable to least preferable.
-          Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
-          <b> please drag and drop the scenarios into the correct rank. </b>
-        </p>
+        {description}
 
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
