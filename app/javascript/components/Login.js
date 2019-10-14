@@ -56,8 +56,7 @@ class LoginComponent extends React.Component {
     return (
       <div className="row" style={{marginBottom:"0px"}} >
         <div className="login-b2">
-          <h3> Help us understand how algorithms affect you.
-          </h3>
+          <h3> Help us understand how algorithms affect you.</h3>
           <p>
             Thank you for voluntarily participating in our research. The goal of this
             online session is understand your work practice around your
@@ -89,11 +88,11 @@ class LoginComponent extends React.Component {
               <div className="control-group-password">
                 <label>Password</label>
                 <div className="controls">
-                  <input onChange={this.setPassword} onKeyDown={this.onKeyDown} type="password" placeholder="password" />
+                  <input onChange={this.setPassword} onKeyDown={this.onKeyDown} type="password" placeholder="Password" />
                 </div>
               </div>
               <div className="actions-login">
-                <a onClick={this.login} className="btn" style={{color: "#ffffff", background: "#3d6ab1"}}>Login</a>
+                <a onClick={this.login} className="login-button">Login</a>
               </div>
             </div>
           </div>
