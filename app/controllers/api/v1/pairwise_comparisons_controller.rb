@@ -73,6 +73,7 @@ module Api
       def create_scenario(feats, group_id)
         scenarios = Array.new
         feats.each do |f|
+          puts f.inspect
           data_range = f.data_range
 
           if data_range.is_categorical
