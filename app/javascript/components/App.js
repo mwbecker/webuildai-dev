@@ -10,21 +10,25 @@ import FeatureSelection from './FeatureSelection';
 import PairwiseComparisonFlow from './PairwiseComparisonFlow'
 import WorkPreferenceOverview from './WorkPreferenceOverview'
 import SocialPreferenceOverview from './SocialPreferenceOverview'
+import Login from "./Login";
+import Header from "./Header";
 
 // this exists so we can namespace everything by /react
-const Routes = ({ match }) => {
-  console.log("match", match);
+const Routes = ({ match, history }) => {
   return (
-    <Switch>
-      <Route exact path={match.url + '/'} render={() => "homepage"} />
-      <Route path={match.url + '/feature_selection'} component={FeatureSelection} />
+    <React.Fragment>
+      <Header history={history}/>
+      <Switch>
+        <Route exact path={match.url + '/'} component={Login} />
+        <Route path={match.url + '/feature_selection'} component={FeatureSelection} />
 
-      <Route path={match.url + '/work_preference_overview'} component={WorkPreferenceOverview} />
-      <Route path={match.url + '/social_preference_overview'} component={SocialPreferenceOverview} />
+        <Route path={match.url + '/work_preference_overview'} component={WorkPreferenceOverview} />
+        <Route path={match.url + '/social_preference_overview'} component={SocialPreferenceOverview} />
 
-      <Route path={match.url + '/pairwise_comparisons'} component={PairwiseComparisonFlow} />
-      <Route path={match.url + '/ranked_list'} component={RankedListFlow} />
-    </Switch>
+        <Route path={match.url + '/pairwise_comparisons'} component={PairwiseComparisonFlow} />
+        <Route path={match.url + '/ranked_list'} component={RankedListFlow} />
+      </Switch>
+    </React.Fragment>
   );
 }
 
@@ -33,7 +37,7 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate loading={<LoadingSpinner />} persistor={persistor}>
-          < BrowserRouter >
+          <BrowserRouter >
             <Switch>
               <Route path="/react" component={Routes} />
             </Switch>

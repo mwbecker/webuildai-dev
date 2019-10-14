@@ -5,6 +5,7 @@ module Api
     class FeaturesController < ApplicationController
       # TODO: remove this
       skip_before_action :verify_authenticity_token
+      before_action :check_login
 
       def get_all_features
         category = params[:category]
@@ -53,109 +54,111 @@ module Api
       make_weight(fid, weight, params[:category])
     end
 
-      def new_feature
-          name = params[:name]
-          cat = params[:cat]
-          weight = params[:weight]
-          category = params[:category]
-          # continuous feature creation code
-          if cat.to_i == 0
-            lower = params[:lower]
-            upper = params[:upper]
-            if Feature.where(name: name).empty?
-              a = Feature.create(name: name)
-              a.description = params[:description]
-              if params[:description].blank?
-                a.description = 'Your Own Feature(s) - Continuous'
-                a.added_by = current_user.id
-                a.company = true if params[:company] == 'true'
-              end
-              a.active = true
-              a.category = params[:category]
-              a.unit = params[:unit]
-              a.icon = params[:icon]
-              a.save!
-              DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
-            else
-              a = Feature.where(name: name).first
-              a.description = params[:description]
-              if params[:description].blank?
-                a.description = 'Your Own Feature(s) - Continuous'
-                a.added_by = current_user.id
-                a.company = true if params[:company] == 'true'
-              end
-              a.active = true
-              a.category = params[:category]
-              a.unit = params[:unit]
-              a.icon = params[:icon]
-              a.save!
-              d = a.data_range
-              if !d.nil?
-                unless d.categorical_data_options.empty?
-                  d.categorical_data_options.each(&:destroy!)
-                end
-                d.lower_bound = lower.to_i
-                d.upper_bound = upper.to_i
-                d.is_categorical = false
-                d.save!
-              else
-                DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
-              end
+    def new_feature
+        name = params[:name]
+        cat = params[:cat]
+        weight = params[:weight]
+        category = params[:category]
+        # continuous feature creation code
+        if cat.to_i == 0
+          lower = params[:lower]
+          upper = params[:upper]
+          if Feature.where(name: name).empty?
+            a = Feature.create(name: name)
+            a.description = params[:description]
+            if params[:description].blank?
+              a.description = 'Your Own Feature(s) - Continuous'
+              a.added_by = current_user.id
+              a.company = true if params[:company] == 'true'
             end
+            a.active = true
+            a.category = params[:category]
+            a.unit = params[:unit]
+            a.icon = params[:icon]
+            a.save!
+            DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
           else
-            opts = params[:opts].split('*')
-            if Feature.where(name: name).empty?
-              a = Feature.create(name: name)
-              a.category = params[:category]
-              a.description = params[:description]
-              if params[:description].blank?
-                a.description = 'Your Own Feature(s) - Categorical'
-                a.added_by = current_user.id
-                a.company = true if params[:company] == 'true'
+            a = Feature.where(name: name).first
+            a.description = params[:description]
+            if params[:description].blank?
+              a.description = 'Your Own Feature(s) - Continuous'
+              a.added_by = current_user.id
+              a.company = true if params[:company] == 'true'
+            end
+            a.active = true
+            a.category = params[:category]
+            a.unit = params[:unit]
+            a.icon = params[:icon]
+            a.save!
+            d = a.data_range
+            if !d.nil?
+              unless d.categorical_data_options.empty?
+                d.categorical_data_options.each(&:destroy!)
               end
-              a.active = true
-              a.save!
-              rng = DataRange.create(feature_id: a.id, is_categorical: true, lower_bound: nil, upper_bound: nil)
-              params[:opts].split('*').each do |o|
-                CategoricalDataOption.create(data_range_id: rng.id, option_value: o)
-              end
+              d.lower_bound = lower.to_i
+              d.upper_bound = upper.to_i
+              d.is_categorical = false
+              d.save!
             else
-              a = Feature.where(name: name).first
-              a.description = params[:description]
-              if params[:description].blank?
-                a.description = 'Your Own Feature(s) - Categorical'
-                a.added_by = current_user.id
-                a.company = true if params[:company] == 'true'
-              end
-              a.active = true
-              a.category = params[:category]
-              a.save!
-              d = a.data_range
-              if !d.nil?
-                unless d.categorical_data_options.empty?
-                  d.categorical_data_options.each(&:destroy!)
-                end
-                d.lower_bound = nil
-                d.upper_bound = nil
-                d.is_categorical = true
-                d.save!
-              else
-                d = DataRange.create(feature_id: a.id, is_categorical: true, lower_bound: nil, upper_bound: nil)
-              end
-
-              params[:opts].split('*').each do |o|
-                CategoricalDataOption.create(data_range_id: d.id, option_value: o)
-              end
-
+              DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
             end
           end
-          puts 'new feature and weight'
-          puts a.id
-          puts weight
-          puts category
-          make_weight(a.id, weight, category)
-          render json: { id: a.id}.to_json
+        else
+          puts "making categorical feature"
+          puts params
+          opts = params[:opts].split('*')
+          if Feature.where(name: name).empty?
+            a = Feature.create(name: name)
+            a.category = params[:category]
+            a.description = params[:description]
+            if params[:description].blank?
+              a.description = 'Your Own Feature(s) - Categorical'
+              a.added_by = current_user.id
+              a.company = true if params[:company] == 'true'
+            end
+            a.active = true
+            a.save!
+            rng = DataRange.create(feature_id: a.id, is_categorical: true, lower_bound: nil, upper_bound: nil)
+            opts.each do |o|
+              CategoricalDataOption.create(data_range_id: rng.id, option_value: o)
+            end
+          else
+            a = Feature.where(name: name).first
+            a.description = params[:description]
+            if params[:description].blank?
+              a.description = 'Your Own Feature(s) - Categorical'
+              a.added_by = current_user.id
+              a.company = true if params[:company] == 'true'
+            end
+            a.active = true
+            a.category = params[:category]
+            a.save!
+            d = a.data_range
+            if !d.nil?
+              unless d.categorical_data_options.empty?
+                d.categorical_data_options.each(&:destroy!)
+              end
+              d.lower_bound = nil
+              d.upper_bound = nil
+              d.is_categorical = true
+              d.save!
+            else
+              d = DataRange.create(feature_id: a.id, is_categorical: true, lower_bound: nil, upper_bound: nil)
+            end
+
+            params[:opts].split('*').each do |o|
+              CategoricalDataOption.create(data_range_id: d.id, option_value: o)
+            end
+
+          end
         end
+        puts 'new feature and weight'
+        puts a.id
+        puts weight
+        puts category
+        make_weight(a.id, weight, category)
+        render json: { id: a.id}.to_json
+      end
 
     end
   end

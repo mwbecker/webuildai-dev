@@ -5,6 +5,7 @@ module Api
     class RankedListController < ApplicationController
       # TODO: remove this
       skip_before_action :verify_authenticity_token
+      before_action :check_login
       require 'set'
       def new
         category = params[:category] || 'request'
@@ -61,12 +62,32 @@ module Api
           scenario_json = {}
           scenario_json[:id] = new_indiv_scenario.id
           scenario_json[:features] = new_scenario_features
+          scenario_json[:model_rank] = 0
+          scenario_json[:human_rank] = 0
+          scenario_json[:score] = 0
 
           evaluations_json[:scenarios] << scenario_json
 
         end
         @generated_samples = evaluations_json.to_json
         render json: @generated_samples
+      end
+
+      # weights_hash = {
+      #     featureWeights: { ... }
+      # }
+      # The featureWeights maps the id of a feature to the weight, if > 0.
+      def obtain_weights
+        category = params[:category]
+        weights = Hash.new
+        if category == 'request'
+          weights[:featureWeights] = Feature.request.active.added_by(current_user.id).features_and_weights(current_user.id, "request")
+        else
+          weights[:featureWeights] = Feature.driver.active.added_by(current_user.id).features_and_weights(current_user.id, "driver")
+        end
+        @featureWeights = weights
+
+        render json: @featureWeights
       end
 
       def save_human_weights

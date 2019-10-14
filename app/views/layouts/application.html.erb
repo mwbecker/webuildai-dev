@@ -8,24 +8,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-
-
-    <nav class="white">
-      <div class="nav-wrapper">
-        <div class="col s12" style="padding-left: 70px; padding-right: 70px;">
-          <a href="<%= "/react/feature_selection/new" %>" class="brand-logo brand-text">WeBuildAI</a>
-          <ul id="nav-mobile" class="right">
-            <% if logged_in? %>
-            <li><a href="<%= logout_path %>" class="wbai">Logout</a></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-
-    </nav>
-
     <%= yield %>
 <!-- Footer -->
 <%
@@ -42,14 +25,5 @@
 <%
 =end %>
 <!-- Footer -->
-<script>
-//  $(document).ready(function() {
-//      var docHeight = $(window).height();
-//      var footerHeight = $('#footer').height();
-//      var footerTop = $('#footer').offset().top + footerHeight;
-//      if (footerTop < docHeight)
-//          $('#footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
-//  });
-</script>
   </body>
 </html>

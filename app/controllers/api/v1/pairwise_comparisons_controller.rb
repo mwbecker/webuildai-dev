@@ -5,6 +5,7 @@ module Api
     class PairwiseComparisonsController < ApplicationController
       # TODO: remove this
       skip_before_action :verify_authenticity_token
+      before_action :check_login
 
       NUM_PAIRS = Rails.env.development? ? 3 : 40
       ML_URL = Rails.env.production? ? 'https://webuildai-ml-server.herokuapp.com' : 'http://localhost:5000'
@@ -72,6 +73,7 @@ module Api
       def create_scenario(feats, group_id)
         scenarios = Array.new
         feats.each do |f|
+          puts f.inspect
           data_range = f.data_range
 
           if data_range.is_categorical
