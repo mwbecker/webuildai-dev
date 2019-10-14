@@ -8,6 +8,7 @@ import CircleTwo from '../images/numbers-02.png';
 import CircleThree from '../images/numbers-03.png';
 import CircleFour from '../images/numbers-04.png';
 import CircleFive from '../images/numbers-05.png';
+import DndIndicator from '../images/dndIndicator.png';
 // import Scenario from "./Scenario";
 
 class RLView extends React.Component {
@@ -119,24 +120,13 @@ class RLView extends React.Component {
     });
   }
 
-  renderFeatureNames = () => {
-    return this.state.rankedList.map((rle) => {
-      return rle.features.map((feature, i) => {
-        return (
-          <div key={`${rle.id}_feature_${i}`}>
-            <p className="feature-name">  {feature.feat_name} </p>
-          </div>
-        );
-      });
-    });
-  }
-
   renderScenarios = () => {
     return this.state.rankedList.map((rle, i) => {
       return (
         <Draggable draggableId={rle.id} index={i} key={rle.id}>
           {provided => (
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="rl-col">
+              <img className="dnd-indicator"src={DndIndicator} />
               <div className="card default">
                 <div className="card-content" style={{padding: "14px"}}>
                   <h5 className="pc-header">Scenario #{rle.id}</h5>
