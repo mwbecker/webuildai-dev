@@ -8,8 +8,7 @@ import RankedListFlow from './RankedListFlow';
 import LoadingSpinner from "./LoadingSpinner";
 import FeatureSelection from './FeatureSelection';
 import PairwiseComparisonFlow from './PairwiseComparisonFlow'
-import WorkPreferenceOverview from './WorkPreferenceOverview'
-import SocialPreferenceOverview from './SocialPreferenceOverview'
+import Overview from './Overview'
 import Login from "./Login";
 import Header from "./Header";
 
@@ -22,8 +21,8 @@ const Routes = ({ match, history }) => {
         <Route exact path={match.url + '/'} component={Login} />
         <Route path={match.url + '/feature_selection'} component={FeatureSelection} />
 
-        <Route path={match.url + '/work_preference_overview'} component={WorkPreferenceOverview} />
-        <Route path={match.url + '/social_preference_overview'} component={SocialPreferenceOverview} />
+        <Route path={match.url + '/work_preference_overview'} render={(props) => <Overview {...props} model={"preference"} />} />
+        <Route path={match.url + '/social_preference_overview'} render={(props) => <Overview {...props} model={"distribution"} />} />
 
         <Route path={match.url + '/pairwise_comparisons'} component={PairwiseComparisonFlow} />
         <Route path={match.url + '/ranked_list'} component={RankedListFlow} />
