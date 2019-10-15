@@ -636,6 +636,7 @@ input:focus {
 
 #wp-page .wp-image-row {
   margin-top:2%;
+  width:90%;
 }
 
 #wp-page .wp-image-col {
@@ -646,19 +647,4 @@ input:focus {
 
 #wp-page .wp-sub-image {
   height:200px;
-  margin-top:-10%;
-  /* width:70%; */
-}
-
-#wp-page .num-circle {
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  padding: 13px;
-  background: #4C83BF;
-  color: white;
-  text-align: center;
-  font-family: "Helvetica Neue bold", sans-serif;
-  font-weight:bold;
-  font-size:18px;
 }
