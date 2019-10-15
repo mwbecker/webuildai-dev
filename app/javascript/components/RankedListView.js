@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from "../store";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import CircleOne from '../images/numbers-01.png';
+import CircleTwo from '../images/numbers-02.png';
+import CircleThree from '../images/numbers-03.png';
+import CircleFour from '../images/numbers-04.png';
+import CircleFive from '../images/numbers-05.png';
+import DndIndicator from '../images/dndIndicator.png';
 // import Scenario from "./Scenario";
 
 class RLView extends React.Component {
@@ -145,7 +151,7 @@ class RLView extends React.Component {
     return elem.features.map((feature, i) => {
       return (
         <div key={`${elem.id}_feature_${i}`}>
-          <p className="feature-name">  {feature.feat_name} </p>
+          <p className="rl-feature-name">  {feature.feat_name} </p>
         </div>
       );
     });
@@ -157,12 +163,11 @@ class RLView extends React.Component {
         <Draggable draggableId={rle.id} index={i} key={rle.id}>
           {provided => (
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="rl-col">
-                <div className="card default">
-                  <div className="card-content">
-                    <h5 className="pc-header" style={{marginTop:"1%"}}>Scenario #{rle.id}</h5>
-                    {this.renderFeatures(rle)}
-                    {this.renderScore(rle, i)}
-
+              <img className="dnd-indicator"src={DndIndicator} />
+              <div className="card default">
+                <div className="card-content" style={{padding: "14px"}}>
+                  <h5 className="pc-header">Scenario #{rle.id}</h5>
+                  {this.renderFeatures(rle)}
                 </div>
               </div>
             </div>
@@ -170,6 +175,36 @@ class RLView extends React.Component {
         </Draggable>
       );
     });
+  }
+
+  renderRLHeader = () => {
+    return (
+      <div className="rl-row">
+        <div className="rl-feature-col">
+          <h3></h3>
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Most Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleOne} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleTwo} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Neutral</h3>
+          <img className="rl-header-cirlce" src={CircleThree} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Not Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleFour} />
+        </div>
+        <div className="rl-col">
+          <h3 className="rl-header">Least Preferable</h3>
+          <img className="rl-header-cirlce" src={CircleFive} />
+        </div>
+      </div>
+    );
   }
 
   onDragEnd = (e) => {
@@ -184,15 +219,26 @@ class RLView extends React.Component {
   }
 
   render() {
+    let description = <p className="about-text">
+                        This is a list of scenarios that the AI has ranked from most preferable to least preferable.
+                        Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
+                        <b> please drag and drop the scenarios into the correct rank. </b>
+                      </p>;
+    let title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model</h3>;
+    if (this.props.round > 0) {
+      description = <p className="about-text">
+                      Using your input in the previous round, we have tuned your algorithm and has given it 5 new scenarios
+                      that the AI has ranked from most preferable to least preferable. Please go through the list and see 
+                      if the algorithm ranked these scenarios correctly. 
+                      <b> This will be the last tuning round before we show you your model. </b>
+                    </p>
+      title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model Round 2</h3>;
+    };
     return (
       <div id="rl-page">
-        <h3 className="title">{this.props.category === 'request' ? 'Individual ' : 'Social '} Preference Models</h3>
+        {title}
         <hr className="feature-hr" />
-        <p className="about-text">
-          The model list is a list of scenarios that the AI has ranked from most preferable to least preferable.
-          Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
-          <b> please drag and drop the scenarios into the correct rank. </b>
-        </p>
+        {description}
 
         <div className="feature_weights container">
           <div className="row">
@@ -202,39 +248,20 @@ class RLView extends React.Component {
 
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
-            <div className="rl-row">
-              <div className="rl-col">
-                <h3></h3>
-              </div>
-              <div className="rl-col">
-                <h3>1</h3>
-              </div>
-              <div className="rl-col">
-                <h3>2</h3>
-              </div>
-              <div className="rl-col">
-                <h3>3</h3>
-              </div>
-              <div className="rl-col">
-                <h3>4</h3>
-              </div>
-              <div className="rl-col">
-                <h3>5</h3>
-              </div>
-            </div>
+            {this.renderRLHeader()}
               <Droppable droppableId="row" direction="horizontal" >
                 {provided => (
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
-            <div className="rl-row">
-              <div className="rl-col">
-                {this.renderFeatureNames()}
-              </div>
+                    <div className="rl-row">
+                      <div className="rl-feature-col">
+                        {this.renderFeatureNames()}
+                      </div>
                       {this.renderScenarios()}
-                    {provided.placeholder}
-            </div>
+                      {provided.placeholder}
+                    </div>
                   </div>
                 )}
               </Droppable>

@@ -22,7 +22,7 @@ module Api
         features = Feature.active.where(category: category).added_by(current_user.id).group_by(&:description).to_a.shuffle
         result = Hash.new
         features.each do |description, feats|
-          result[description] = feats.map{|feature| {id: feature.id, name: feature.name, weight: 0} }
+          result[description] = feats.map{|feature| {id: feature.id, name: feature.name, icon: feature.icon, weight: 0} }
         end
         render json: { features_by_description: result }.to_json
       end
@@ -74,6 +74,7 @@ module Api
             a.active = true
             a.category = params[:category]
             a.unit = params[:unit]
+            a.icon = params[:icon]
             a.save!
             DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
           else
@@ -87,6 +88,7 @@ module Api
             a.active = true
             a.category = params[:category]
             a.unit = params[:unit]
+            a.icon = params[:icon]
             a.save!
             d = a.data_range
             if !d.nil?

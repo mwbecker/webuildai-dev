@@ -20,6 +20,7 @@ class Scenario < ApplicationRecord
     result[:feat_id] = self.feature_id
     result[:feat_name] = feature.name
     result[:feat_unit] = feature.unit
+    result[:feat_icon] = feature.icon
     result[:feat_category] = 0 # TODO: idk what this is
     result[:feat_value] = self.feature_value
     result[:feat_type] = is_categorical ? 'categorical' : 'continuous'

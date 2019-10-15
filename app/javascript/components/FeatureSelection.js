@@ -194,13 +194,13 @@ class FeatSelection extends React.Component {
                     </p>;
     } else {
       description = <p className = "feature-text" >
-                      Social preference means which driver should receive the request when there are multiple drivers waiting for a ping.
+                      Work distribution means which driver should receive the request when there are multiple drivers waiting for a ping.
                       In other words, <b>you act as the algorithm in this section.</b>
                     </p>;
     }
     return (
       <div>
-        <h3 className="title">Feature Selection for Your {this.props.category === 'request' ? "Individual" : "Social"} Preference Profile</h3>
+        <h3 className="title">Feature Selection for Your {this.props.category === 'request' ? "Work Preference" : "Work Distribution"} Preference Model</h3>
         <hr className = "feature-hr"/>
         {description}
         <div className="feature-image-block">

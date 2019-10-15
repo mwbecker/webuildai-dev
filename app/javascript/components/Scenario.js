@@ -10,6 +10,7 @@ class Scenario extends React.Component {
       return (
         <div key={i}>
           <div>
+            <p className="pc-feature-icon"> {feature.feat_icon} </p>
             <p className="feature-value"> {feature.feat_value} </p>
             {feature.feat_unit && <p className="feature-value"> &nbsp;{feature.feat_unit} </p>}
           </div>
@@ -23,7 +24,7 @@ class Scenario extends React.Component {
     return (
       <div className="card default">
         <div className="card-content">
-          <h5 className="pc-header" style={{textAlign: "center", marginBottom:"7%"}}>Scenario #{this.props.id}</h5>
+          <h5 className="pc-header" style={{textAlign: "center", marginBottom:"7%"}}>{this.props.categoryName} {this.props.location}</h5>
           {this.renderFeatures()}
         </div>
       </div>

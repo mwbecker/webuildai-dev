@@ -19,13 +19,16 @@ class FeatureGroup extends React.Component {
       <div className="row" key={i}>
         <div className="card" style={{ width: "80%", marginLeft: "10%", }}>
           <div className="card-content" style={{ padding: "50px", marginRight: "-2%" }}>
-            <p className="feature-card-text" style={{ maxWidth: "70%", float:"left", wordWrap:"break-word", marginTop:"-1%"}}>
+            <p className="feature-icon">
+              {feature.icon}
+            </p>
+            <p className="feature-card-text">
               {feature.name}
             </p>
             <p className="range-field">
               Importance: {feature.weight / 100}
             {/* <input type="text" className="weight" style={{ borderBottom: "none", width: "11%", marginRight: "7%", marginTop: "0%", fontWeight:300, fontSize:"24px", fontFamily: "Helvetica Neue"}} id="textInput-<%=f.id%>" value={feature.weight} /> */}
-            <input type="range" style={{ width: "40%", float: "right", marginTop:"1%",}}
+            <input type="range" style={{ width: "40%", float: "right", marginTop:"2.5%"}}
                id="test5-<%=f.id%>" min="0" max="100" value={feature.weight}
                className="range-importance" onChange={this.onWeightChange(i)} />
             </p>
