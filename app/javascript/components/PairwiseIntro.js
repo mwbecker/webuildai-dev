@@ -4,6 +4,7 @@ import PersonalPref from "../images/Personal_Pref.png";
 import SocialRanking from "../images/Social_Ranking.png";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from '../store';
+import LoadingSpinner from './LoadingSpinner';
 
 class PWIntro extends React.Component {
 
@@ -99,7 +100,9 @@ class PWIntro extends React.Component {
         <p className="pg-1-subheader">Scenarios will include: </p>
         {this.renderSelectedFeatures()}
         {
-          !this.state.loading && <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick} style={{ marginBottom:"5%", }}> Start </a>
+          this.state.loading ? <LoadingSpinner /> : (
+            <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick} style={{ marginBottom:"5%", }}> Start </a>
+          )
         }
       </div>
     );
