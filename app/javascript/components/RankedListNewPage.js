@@ -54,7 +54,10 @@ class RLNew extends React.Component {
                 this.setState({ isLoading: false });
                 this.updateModelRanks(data.order, samples, data.scores);
             })
-            .then(() => this.props.history.push("view"))
+            .then(() => {
+              console.log(this.props);
+              this.props.history.push("view");
+            });
     }
 
     getPairwiseFeatures = (comp) => {
@@ -160,6 +163,7 @@ const mapStoreStateToProps = (storeState, givenProps) => {
         pairwiseComparisons: storeState.pairwiseComparisons,
         mlServerUrl: storeState.model_url || 'https://webuildai-ml-server.herokuapp.com',
         participantId: storeState.participantId,
+        model_weights: storeState.model_weights,
     };
 }
 

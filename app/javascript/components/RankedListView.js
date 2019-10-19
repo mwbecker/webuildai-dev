@@ -15,17 +15,21 @@ class RLView extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       rankedList: [],
       changed: false,
       featureWeights: [],
+      model_weights: [],
     }
   }
 
   componentDidMount() {
     const rl = [...this.props.rankedList];
+    // console.log(this.props);
+    const mw = [...this.props.model_weights]
     rl.sort((a, b) => a.model_rank - b.model_rank);
-    this.setState({ rankedList: rl });
+    this.setState({ rankedList: rl, model_weights: mw });
     this.getFeatureWeights();
   }
 
@@ -106,14 +110,27 @@ class RLView extends React.Component {
     }
   }
 
+  renderFeatureWeightsFromModel = (index) => {
+    return this.state.model_weights.map((weight, i) => {
+      if (index === i) {
+      return (
+              <div key={`model-weight-${index}`}>
+                <p>Model weight: {weight.toFixed(2)}</p>
+              </div>
+              );
+      }
+    });
+  }
+
   renderWeights = () => {
-    return this.state.featureWeights.map((feature) => {
+    return this.state.featureWeights.map((feature, i) => {
       return (
               <div key={`${feature[0]}_feature_weight`}>
                 <p className = "feature_weight_text">
                   Feature Name: {feature[0]} <br />
                   Weight: {feature[1]}% <br />
                 </p>
+                {this.renderFeatureWeightsFromModel(i)}
               </div>
               );
     });
@@ -130,7 +147,7 @@ class RLView extends React.Component {
     });
   }
 
-  renderScore = (rle, i) => {
+  renderScore = (rle) => {
 
     return (
             <div key={`${rle.id}_rle_score`}>
@@ -168,6 +185,7 @@ class RLView extends React.Component {
                 <div className="card-content" style={{padding: "14px"}}>
                   <h5 className="pc-header">Scenario #{rle.id}</h5>
                   {this.renderFeatures(rle)}
+                  {this.renderScore(rle)}
                 </div>
               </div>
             </div>
@@ -298,6 +316,7 @@ const mapStoreStateToProps = (storeState, givenProps) => {
     ranklistId: storeState.ranklistId,
     pairwiseComparisons: storeState.pairwiseComparisons,
     featureWeights: storeState.featureWeights,
+    model_weights: storeState.model_weights,
   }
 }
 
