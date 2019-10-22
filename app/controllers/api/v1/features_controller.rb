@@ -110,6 +110,7 @@ module Api
           if Feature.where(name: name).empty?
             a = Feature.create(name: name)
             a.category = params[:category]
+            a.icon = params[:icon]
             a.description = params[:description]
             if params[:description].blank?
               a.description = 'Your Own Feature(s) - Categorical'

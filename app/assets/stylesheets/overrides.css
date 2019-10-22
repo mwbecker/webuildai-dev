@@ -648,3 +648,8 @@ input:focus {
 #wp-page .wp-sub-image {
   height:200px;
 }
+
+.new-feature-form {
+  margin-left:10%; 
+  margin-right:30%
+}

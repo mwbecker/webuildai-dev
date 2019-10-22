@@ -1,16 +1,18 @@
-<div style = "width:90%;margin-left:5%;">
-<h1>Add Categorical Feature </h1>
+<h3 class="title">New Feature</h3>
+<hr id = "hhr" class="about-hr" >
 
-<form action="#">
+<h5 class="subheader">Add Categorical Feature </h1>
+
+<form action="#" class="new-feature-form">
   Feature Name:<br>
-  <input id = "feature-name" type="text" name="featurename" value="">
+  <input id="feature-name" type="text" name="featurename" value="">
   <br><br>
 </form>
 
 <a class="waves-effect waves-dark btn" id = "next_btn" style = "width:20%;color:#FFFFFF;"> Next </a>
 
 <br> <br> <br> <br>
-<form action="#" id = "opts" style = "display:none;">
+<form action="#" id = "opts" class="new-feature-form" style = "display:none;">
   <div class = "opt-1">
   Option 1 :<br>
   <input id = "opt-1" type="text" name="opt" value="">
@@ -63,11 +65,11 @@
     let lower = 0;
 
     $.ajax({
-      url: "/features?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options,
+      url: "/features/create?cat="+cat+"&name="+name+"&upper="+upper +"&lower="+lower +"&opts="+options,
       type: "post",
       success: function(){
         console.log('Saved Successfully');
-        window.location.href = "/pairwise_comparisons/new"
+        window.location.href = "/features"
       },
       error:function($xhr){
         console.log($xhr);
@@ -81,10 +83,9 @@
 </script>
 
 
-<div style = "width:90%;margin-left:5%;">
-<h1>Add Continuous Feature </h1>
+<h5 class="subheader">Add Continuous Feature </h1>
 
-<form action="#">
+<form action="#" class="new-feature-form">
   Feature Name:<br>
   <input id = "feature-name" type="text" name="featurename" value="">
   <br><br>
@@ -102,8 +103,6 @@
 
 <a class="waves-effect waves-dark btn" id = "submit_btn" style = "width:20%;color:#FFFFFF;display:none;"> Submit </a>
 
-
-</div>
 
 
 

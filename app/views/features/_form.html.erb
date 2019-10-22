@@ -5,6 +5,7 @@
         <div class="form-inputs">
           <%= f.input :name, label_html: { class: 'active' } %>
           <%= f.input :description, label_html: { class: 'active' } %>
+          <%= f.input :category, label_html: { class: 'active' } %>
           <%= f.input :unit, label_html: { class: 'active' } %>
           <%= fields_for :data_range, @feature.data_range do |feature_range| %>
             Lower Bound  :<%= feature_range.text_field :lower_bound %>
