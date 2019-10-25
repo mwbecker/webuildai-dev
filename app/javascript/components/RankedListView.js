@@ -68,7 +68,7 @@ class RLView extends React.Component {
     const newRl = this.state.rankedList.map((rl, i) => ({ ...rl, human_rank: i+1 }));
     this.props.setRankedList(newRl);
     let callback;
-    if (this.props.round < 1) {
+    if (this.props.round < 2) {
       // do another round of tuning
       callback = () => {
         // this.props.setPairwiseComparisons([...this.props.pairwiseComparisons] + JSON.parse(data.pairwiseComparisons));
@@ -237,20 +237,38 @@ class RLView extends React.Component {
   }
 
   render() {
-    let description = <p className="about-text">
+    if (this.props.round == 2) {
+      var description = <p className="about-text">
+                        This is a list of scenarios that the AI has ranked from most preferable to least preferable.
+                        We are done with the tuning round at this point, <b>please review and press next to go onto the 
+                        next part of the study.</b>
+                        </p>;
+      var title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model Round 3</h3>;
+      var noChangesNeededButton = <a></a>;
+      var submitButton = <a className="btn" id="submit_btn" onClick={this.onSubmit}> Next </a>;
+
+      } else {
+      var description = <p className="about-text">
                         This is a list of scenarios that the AI has ranked from most preferable to least preferable.
                         Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
                         <b> please drag and drop the scenarios into the correct rank. </b>
                       </p>;
-    let title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model</h3>;
-    if (this.props.round > 0) {
-      description = <p className="about-text">
+      var submitButton = <a className="btn" id="submit_btn" onClick={this.onSubmit} disabled={!this.state.changed} > Submit Changes </a>;
+      var noChangesNeededButton = <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>;
+    }
+
+    if (this.props.round != 2) {
+      var title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model</h3>;
+    }
+
+    if (this.props.round == 1) {
+      var description = <p className="about-text">
                       Using your input in the previous round, we have tuned your algorithm and has given it 5 new scenarios
                       that the AI has ranked from most preferable to least preferable. Please go through the list and see 
                       if the algorithm ranked these scenarios correctly. 
                       <b> This will be the last tuning round before we show you your model. </b>
                     </p>
-      title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model Round 2</h3>;
+      var title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model Round 2</h3>;
     };
     return (
       <div id="rl-page">
@@ -264,10 +282,10 @@ class RLView extends React.Component {
           </div>
         </div>
 
-        <DragDropContext onDragEnd={this.onDragEnd}>
+        <DragDropContext onDragEnd={this.onDragEnd} isDragDisabled={this.props.round > 1}>
           <div>
             {this.renderRLHeader()}
-              <Droppable droppableId="row" direction="horizontal" >
+              <Droppable droppableId="row" direction="horizontal" isDropDisabled={this.props.round > 1} >
                 {provided => (
                   <div
                     ref={provided.innerRef}
@@ -285,8 +303,8 @@ class RLView extends React.Component {
               </Droppable>
           </div>
           <div className="row">
-            <a className="btn" id="submit_btn" onClick={this.onSubmit} disabled={!this.state.changed} > Submit Changes </a>
-            <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>
+            {submitButton}
+            {noChangesNeededButton}
           </div>
         </DragDropContext>
       </div >
