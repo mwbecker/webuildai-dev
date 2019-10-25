@@ -7,7 +7,7 @@ module Api
       skip_before_action :verify_authenticity_token
       before_action :check_login
 
-      NUM_PAIRS = Rails.env.development? ? 3 : 40
+      NUM_PAIRS = Rails.env.development? ? 15 : 40
       ML_URL = Rails.env.production? ? 'https://webuildai-ml-server.herokuapp.com' : 'http://localhost:5000'
       SCENS = Rails.env.development? ? 5 : 40
 
@@ -34,19 +34,30 @@ module Api
         @num_pairs = NUM_PAIRS
         @num_pairs.times do
           # TO DO: use ScenarioGroup
-          last_id = Scenario.all.empty? ? 1 : Scenario.all.last.group_id + 1
+          # puts(ScenarioGroup.all.first(10))
+          first_scenario_group = ScenarioGroup.create()
+          second_scenario_group = ScenarioGroup.create()
 
-          first_scenario = create_scenario(all_feats, last_id)
-          second_scenario = create_scenario(all_feats, last_id + 1)
+          first_id = first_scenario_group.id
+          second_id = second_scenario_group.id
+
+          first_scenario = create_scenario(all_feats, first_scenario_group.id)
+          second_scenario = create_scenario(all_feats, second_scenario_group.id)
           @scenarios += first_scenario
           @scenarios += second_scenario
 
           new_pairwise = PairwiseComparison.create(participant_id: current_user.id,
-                                                   scenario_1: last_id, scenario_2: last_id + 1,
+                                                   scenario_1: first_scenario_group, 
+                                                   scenario_2: second_scenario_group,
                                                    category: category)
-          puts new_pairwise
+
           @pairwise_comparisons << new_pairwise
         end
+
+        # @pairwise_comparisons.each do |pc|
+        #   puts pc.scenario_1
+        #   puts pc.scenario_2
+        # end
 
         session[:pairwise_old_request] = @pairwise_comparisons.map{|pc| pc["id"]}
         comparisons_json = @pairwise_comparisons.map{|pc| pc.pc_to_json()}

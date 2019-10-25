@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_07_163358) do
+ActiveRecord::Schema.define(version: 2019_10_25_222018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,11 @@ ActiveRecord::Schema.define(version: 2019_10_07_163358) do
     t.index ["participant_id"], name: "index_ranklists_on_participant_id"
   end
 
+  create_table "scenario_groups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "scenarios", force: :cascade do |t|
     t.integer "group_id"
     t.bigint "feature_id"
@@ -177,7 +182,10 @@ ActiveRecord::Schema.define(version: 2019_10_07_163358) do
   add_foreign_key "evaluations", "participants"
   add_foreign_key "individual_scenarios", "participants"
   add_foreign_key "pairwise_comparisons", "participants"
+  add_foreign_key "pairwise_comparisons", "scenario_groups", column: "scenario_1"
+  add_foreign_key "pairwise_comparisons", "scenario_groups", column: "scenario_2"
   add_foreign_key "participant_feature_weights", "features"
   add_foreign_key "participant_feature_weights", "participants"
   add_foreign_key "scenarios", "features"
+  add_foreign_key "scenarios", "scenario_groups", column: "group_id"
 end
