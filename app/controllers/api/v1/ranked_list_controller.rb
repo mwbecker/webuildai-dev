@@ -111,7 +111,8 @@ module Api
 
       def generate_new_pairs(ranked_list, category)
         cache = {}
-        group_id = Scenario.maximum('group_id') + 1
+        group = ScenarioGroup.create()
+        group_id = group.id
         all_comps = Array.new
         ranked_list.each.with_index do |scen_1, i|
           ranked_list.each.with_index do |scen_2, j|
@@ -125,9 +126,10 @@ module Api
                                   feature_id: feature[:feat_id],
                                   feature_value: feature[:feat_value])
                 end
-                cache[scen_1[:id]] = group_id
-                scenario_1 = group_id
-                group_id += 1
+                cache[scen_1[:id]] = group
+                scenario_1 = group
+                group = ScenarioGroup.create() # increment group id by creating a new ScenarioGroup
+                group_id = group.id
 
               if cache.key?(scen_2[:id])
                 scenario_2 = cache[scen_2[:id]]
@@ -137,9 +139,10 @@ module Api
                                   feature_id: feature[:feat_id],
                                   feature_value: feature[:feat_value])
                 end
-                cache[scen_2[:id]] = group_id
-                scenario_2 = group_id
-                group_id += 1
+                cache[scen_2[:id]] = group
+                scenario_2 = group
+                group = ScenarioGroup.create()
+                group_id = group.id
               end
 
               pwc = PairwiseComparison.create(participant_id: current_user.id,

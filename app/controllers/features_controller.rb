@@ -25,38 +25,41 @@ class FeaturesController < ApplicationController
   # POST /features
   # POST /features.json
   def create
-    name = params[:name]
-    cat = params[:cat]
+    feature_params = params[:feature]
+    name = feature_params[:name]
+    cat = feature_params[:cat]
+    weight = feature_params[:weight]
+    category = feature_params[:category]
     # continuous feature creation code
     if cat.to_i == 0
-      lower = params[:lower]
-      upper = params[:upper]
+      lower = feature_params[:lower]
+      upper = feature_params[:upper]
       if Feature.where(name: name).empty?
         a = Feature.create(name: name)
-        a.description = params[:description]
-        if params[:description].blank?
+        a.description = feature_params[:description]
+        if feature_params[:description].blank?
           a.description = 'Your Own Feature(s) - Continuous'
           a.added_by = current_user.id
-          a.company = true if params[:company] == 'true'
+          a.company = true if feature_params[:company] == 'true'
         end
         a.active = true
-        a.category = params[:category]
-        a.unit = params[:unit]
-        a.icon = params[:icon]
+        a.category = feature_params[:category]
+        a.unit = feature_params[:unit]
+        a.icon = feature_params[:icon]
         a.save!
         DataRange.create(feature_id: a.id, is_categorical: false, lower_bound: lower.to_i, upper_bound: upper.to_i)
       else
         a = Feature.where(name: name).first
-        a.description = params[:description]
-        if params[:description].blank?
+        a.description = feature_params[:description]
+        if feature_params[:description].blank?
           a.description = 'Your Own Feature(s) - Continuous'
           a.added_by = current_user.id
-          a.company = true if params[:company] == 'true'
+          a.company = true if feature_params[:company] == 'true'
         end
         a.active = true
-        a.category = params[:category]
-        a.unit = params[:unit]
-        a.icon = params[:icon]
+        a.category = feature_params[:category]
+        a.unit = feature_params[:unit]
+        a.icon = feature_params[:icon]
         a.save!
         d = a.data_range
         if !d.nil?
@@ -72,32 +75,34 @@ class FeaturesController < ApplicationController
         end
       end
     else
-      opts = params[:opts].split('*')
+      puts "making categorical feature"
+      putsfeature_ params
+      opts = feature_params[:opts].split('*')
       if Feature.where(name: name).empty?
         a = Feature.create(name: name)
-        a.category = params[:category]
-        a.description = params[:description]
-        if params[:description].blank?
+        a.category = feature_params[:category]
+        a.description = feature_params[:description]
+        if feature_params[:description].blank?
           a.description = 'Your Own Feature(s) - Categorical'
           a.added_by = current_user.id
-          a.company = true if params[:company] == 'true'
+          a.company = true if feature_params[:company] == 'true'
         end
         a.active = true
         a.save!
         rng = DataRange.create(feature_id: a.id, is_categorical: true, lower_bound: nil, upper_bound: nil)
-        params[:opts].split('*').each do |o|
+        opts.each do |o|
           CategoricalDataOption.create(data_range_id: rng.id, option_value: o)
         end
       else
         a = Feature.where(name: name).first
-        a.description = params[:description]
-        if params[:description].blank?
+        a.description = feature_params[:description]
+        if feature_params[:description].blank?
           a.description = 'Your Own Feature(s) - Categorical'
           a.added_by = current_user.id
-          a.company = true if params[:company] == 'true'
+          a.company = true if feature_params[:company] == 'true'
         end
         a.active = true
-        a.category = params[:category]
+        a.category = feature_params[:category]
         a.save!
         d = a.data_range
         if !d.nil?
@@ -112,18 +117,22 @@ class FeaturesController < ApplicationController
           d = DataRange.create(feature_id: a.id, is_categorical: true, lower_bound: nil, upper_bound: nil)
         end
 
-        params[:opts].split('*').each do |o|
+        feature_params[:opts].split('*').each do |o|
           CategoricalDataOption.create(data_range_id: d.id, option_value: o)
         end
 
       end
     end
+    puts 'new feature and weight'
+    puts a.id
+    puts a.inspect
+    redirect_to features_path
   end
 
   # PATCH/PUT /features/1
   # PATCH/PUT /features/1.json
   def update
-    if @feature.update_attributes(feature_params)
+    if @feature.update_attributes(feature_params_filter)
       @data_range = @feature.data_range.update_attributes(data_range_params)
       redirect_to @feature, notice: 'Updated information'
     else
@@ -150,7 +159,7 @@ class FeaturesController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def feature_params
+  def feature_params_filter
     params.require(:feature).permit(:name, :cat, :lower, :upper, :opts, :category, :description, :company, :active, :unit, :icon)
   end
 

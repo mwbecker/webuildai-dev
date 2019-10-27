@@ -1,4 +1,4 @@
-<div class="card">    
+<div class="card">
   <div class="card-content">
     <%= simple_form_for(@feature) do |f| %>
       <div class="row">
@@ -12,6 +12,7 @@
             Upper Bound  :<%= feature_range.text_field :upper_bound %>
           <% end %>
           <%= f.input :icon, label_html: { class: 'active' } %>
+          <label>Active</label>
           <%= f.text_field :active %>
       </div>
     </div>

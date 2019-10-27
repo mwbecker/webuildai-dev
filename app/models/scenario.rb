@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-
 class Scenario < ApplicationRecord
   belongs_to :feature
+  belongs_to :group, class_name: 'ScenarioGroup'
   validate :check_feature_value
 
   def self.for_group(group_id)
