@@ -61,7 +61,7 @@
   font-size:20px;
   font-family:"Helvetica Neue", sans-serif;
   font-weight:400;
-  height:62px;
+  height:60px;
 }
 
 #rl-page .column {
@@ -146,11 +146,12 @@
   display: inline-block;
   width: 25%;
   text-align: left;
+  vertical-align: top;
   margin-right:2%;
+  margin-top:100px;
 }
 
 #rl-page .rl-col {
-  // float: left;
   display: inline-block;
   width: 12%;
   text-align: center;
