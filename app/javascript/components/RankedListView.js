@@ -115,25 +115,33 @@ class RLView extends React.Component {
       if (index === i) {
       return (
               <div key={`model-weight-${index}`}>
-                <p>Model weight: {weight.toFixed(2)}</p>
+                <p>{weight.toFixed(2)}</p>
               </div>
               );
       }
     });
   }
 
-  renderWeights = () => {
+  renderFeatureWeights = () => {
     return this.state.featureWeights.map((feature, i) => {
       return (
-              <div key={`${feature[0]}_feature_weight`}>
-                <p className = "feature_weight_text">
-                  Feature Name: {feature[0]} <br />
-                  Weight: {feature[1]}% <br />
-                </p>
-                {this.renderFeatureWeightsFromModel(i)}
-              </div>
-              );
-    });
+         <tr>
+           <td>{feature[1]}%</td>
+           <td>{this.renderFeatureWeightsFromModel(i)}</td>
+           <td>{feature[0]}</td>
+         </tr>
+      )
+   });
+    // return this.state.featureWeights.map((feature, i) => {
+    //   return (
+    //           <div key={`${feature[0]}_feature_weight`}>
+    //             <tr>
+    //               <td>{feature[1]}%</td>
+    //               <td>{this.renderFeatureWeightsFromModel(i)}</td>
+    //               <td>{feature[0]}</td>
+    //             </tr>
+    //           </div>);
+    // });
   }
 
   renderFeatures = (rle) => {
@@ -147,15 +155,13 @@ class RLView extends React.Component {
     });
   }
 
-  renderScore = (rle) => {
-
+  renderScenarioScore = (rle) => {
     return (
             <div key={`${rle.id}_rle_score`}>
               <br />
               <p>
-                Model's score: {rle.score}
+                Scenario Score: {rle.score}
               </p>
-
             </div>
     )
   }
@@ -183,9 +189,9 @@ class RLView extends React.Component {
               <img className="dnd-indicator"src={DndIndicator} />
               <div className="card default">
                 <div className="card-content" style={{padding: "14px"}}>
-                  <h5 className="pc-header">Scenario #{rle.id}</h5>
+                  <h5 className="scenario-header">Scenario #{rle.id}</h5>
                   {this.renderFeatures(rle)}
-                  {this.renderScore(rle)}
+                  {this.renderScenarioScore(rle)}
                 </div>
               </div>
             </div>
@@ -206,15 +212,12 @@ class RLView extends React.Component {
           <img className="rl-header-cirlce" src={CircleOne} />
         </div>
         <div className="rl-col">
-          <h3 className="rl-header">Preferable</h3>
           <img className="rl-header-cirlce" src={CircleTwo} />
         </div>
         <div className="rl-col">
-          <h3 className="rl-header">Neutral</h3>
           <img className="rl-header-cirlce" src={CircleThree} />
         </div>
         <div className="rl-col">
-          <h3 className="rl-header">Not Preferable</h3>
           <img className="rl-header-cirlce" src={CircleFour} />
         </div>
         <div className="rl-col">
@@ -237,51 +240,52 @@ class RLView extends React.Component {
   }
 
   render() {
-    if (this.props.round == 2) {
-      var description = <p className="about-text">
-                        This is a list of scenarios that the AI has ranked from most preferable to least preferable.
-                        We are done with the tuning round at this point, <b>please review and press next to go onto the 
-                        next part of the study.</b>
-                        </p>;
-      var title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model Round 3</h3>;
-      var noChangesNeededButton = <a></a>;
-      var submitButton = <a className="btn" id="submit_btn" onClick={this.onSubmit}> Next </a>;
-
-      } else {
-      var description = <p className="about-text">
-                        This is a list of scenarios that the AI has ranked from most preferable to least preferable.
-                        Please go through the list and see if the algorithm ranked these scenarios correctly. If not,
-                        <b> please drag and drop the scenarios into the correct rank. </b>
-                      </p>;
+    if (this.props.round != 2) {
       var submitButton = <a className="btn" id="submit_btn" onClick={this.onSubmit} disabled={!this.state.changed} > Submit Changes </a>;
       var noChangesNeededButton = <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>;
-    }
-
-    if (this.props.round != 2) {
-      var title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model</h3>;
-    }
-
-    if (this.props.round == 1) {
-      var description = <p className="about-text">
-                      Using your input in the previous round, we have tuned your algorithm and has given it 5 new scenarios
-                      that the AI has ranked from most preferable to least preferable. Please go through the list and see 
-                      if the algorithm ranked these scenarios correctly. 
-                      <b> This will be the last tuning round before we show you your model. </b>
-                    </p>
-      var title = <h3 className="title">{this.props.category === 'request' ? 'Work Preference ' : 'Work Distribution '} Model Round 2</h3>;
-    };
+      if (this.props.round == 0) {
+        var title = <h3 className="title">Model Ranking</h3>;
+      } else {
+        var title = <h3 className="title">Model Ranking Round 2</h3>;
+      }
+    } else {
+      var title = <h3 className="title">Model Ranking Round 3</h3>;
+      var noChangesNeededButton = <a></a>;
+      var submitButton = <a className="btn" id="submit_btn" onClick={this.onSubmit}> Next </a>;
+    } 
     return (
       <div id="rl-page">
         {title}
         <hr className="feature-hr" />
-        {description}
 
-        <div className="feature_weights container">
-          <div className="row">
-            {this.renderWeights()}
+        <div>
+          <h5 className="rl-subtitle">Algorithm Accuracy</h5>
+          <div>
+            <div class="number-circle">##</div>
+            <p className="about-text">
+              By looking at the accuracy score, you can see the overall percentage of the time that the model chose correctly. 
+              For instance, if the accuracy score is 90%, the model you trained made the same choices as you 90% of the time 
+              when it was presented the same set of comparisons.
+            </p>
           </div>
         </div>
 
+
+        <table className="accuracy-table">
+          <tbody>
+            <tr>
+              <th>Selected</th>
+              <th>Learned</th>
+            </tr>
+            {this.renderFeatureWeights()}
+          </tbody>
+        </table>
+
+        <h5 className="rl-subtitle">Rank Modification</h5>
+        <p className="about-text">
+          This is a list of scenarios that the algorithm has ranked from most to least preferable. Please go through the lsit and see if the 
+          algorithm ranked these scenarios correctly. If not, <b>please drag and drop the scenarios into the correct rank</b>.
+        </p>
         <DragDropContext onDragEnd={this.onDragEnd} isDragDisabled={this.props.round > 1}>
           <div>
             {this.renderRLHeader()}
