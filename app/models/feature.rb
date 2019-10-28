@@ -7,6 +7,7 @@ class Feature < ApplicationRecord
   has_many :participant_feature_weights
 
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
   scope :request, -> { where(category: 'request') }
   scope :driver, -> { where(category: 'driver') }
   scope :added_by, ->(user_id) { where('added_by = ? OR added_by IS NULL', user_id.to_s) }

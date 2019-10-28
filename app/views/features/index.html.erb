@@ -1,9 +1,5 @@
-<h1>Features</h1>
-<button class="btn">
-  <%= link_to new_feature_path do %>
-    New feature
-  <% end %>
-</button>
+<h3 class="title">Features</h3>
+<hr className="feature-hr" />
 <table class="striped highlight" style="width:60%;margin: 0 auto;">
   <thead>
     <th>Name</th>
@@ -15,7 +11,7 @@
     <th>Added By</th>
     <th class="align_center">Edit</th>
   </thead>
-  <% for feature in @features %>
+  <% for feature in @active_features %>
     <tr>
       <td><%= feature.name %></td>
       <td><%= feature.description %></td>
@@ -31,4 +27,26 @@
       </td>
     </tr>
   <% end %>
+  <% for feature in @inactive_features %>
+  <tr>
+    <td><%= feature.name %></td>
+    <td><%= feature.description %></td>
+    <td><%= feature.category %></td>
+    <td><%= feature.active %></td>
+    <td><%= feature.unit %></td>
+    <td><%= feature.icon %></td>
+    <td><%= feature.added_by %></td>
+    <td class="align_center">
+      <%= link_to edit_feature_path(feature) do %>
+          <i class="material-icons">edit</i>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+  
 </table>
+<button class="btn">
+  <%= link_to new_feature_path do %>
+    New feature
+  <% end %>
+</button>

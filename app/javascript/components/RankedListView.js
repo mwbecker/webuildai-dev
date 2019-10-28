@@ -115,7 +115,7 @@ class RLView extends React.Component {
       if (index === i) {
       return (
               <div key={`model-weight-${index}`}>
-                <p>{weight.toFixed(2)}</p>
+                <p className="learned-accuracy">{weight.toFixed(2)}</p>
               </div>
               );
       }
@@ -128,7 +128,7 @@ class RLView extends React.Component {
          <tr>
            <td>{feature[1]}%</td>
            <td>{this.renderFeatureWeightsFromModel(i)}</td>
-           <td>{feature[0]}</td>
+           <td style={{color: "#5A80BD"}}>{feature[0]}</td>
          </tr>
       )
    });
@@ -158,7 +158,6 @@ class RLView extends React.Component {
   renderScenarioScore = (rle) => {
     return (
             <div key={`${rle.id}_rle_score`}>
-              <br />
               <p>
                 Scenario Score: {rle.score}
               </p>
