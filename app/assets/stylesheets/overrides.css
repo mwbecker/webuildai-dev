@@ -291,7 +291,7 @@ a:hover
 .pg-1-image-block {
   display: flex;
   align-items: center;
-  margin-top: -4%;
+  margin-top: 1%;
   margin-left: 3%;
   width: 80%;
 }
@@ -661,4 +661,10 @@ input:focus {
   font-family: "Helvetica Neue bold", sans-serif;
   font-weight:bold;
   font-size:18px;
+}
+
+.loading-gif {
+  height:50%;
+  width:50%;
+  margin: 0 auto;
 }

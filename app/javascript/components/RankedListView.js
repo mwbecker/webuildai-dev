@@ -243,12 +243,12 @@ class RLView extends React.Component {
       var submitButton = <a className="btn" id="submit_btn" onClick={this.onSubmit} disabled={!this.state.changed} > Submit Changes </a>;
       var noChangesNeededButton = <a className="btn" id="lgtm_btn" onClick={() => this.endFlow(false)}> No Changes Needed </a>;
       if (this.props.round == 0) {
-        var title = <h3 className="title">Model Ranking</h3>;
+        var title = <h3 className="title">{this.props.category === 'request' ? "Work Preference" : "Work Distribution"} Model</h3>;
       } else {
-        var title = <h3 className="title">Model Ranking Round 2</h3>;
+        var title = <h3 className="title">{this.props.category === 'request' ? "Work Preference" : "Work Distribution"} Model Round 2</h3>
       }
     } else {
-      var title = <h3 className="title">Model Ranking Round 3</h3>;
+      var title = <h3 className="title">{this.props.category === 'request' ? "Work Preference" : "Work Distribution"} Final Model</h3>;
       var noChangesNeededButton = <a></a>;
       var submitButton = <a className="btn" id="submit_btn" onClick={this.onSubmit}> Next </a>;
     } 

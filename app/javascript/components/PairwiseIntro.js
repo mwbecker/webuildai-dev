@@ -4,7 +4,7 @@ import PersonalPref from "../images/Personal_Pref.png";
 import SocialRanking from "../images/Social_Ranking.png";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from '../store';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingGif from './LoadingGif';
 
 class PWIntro extends React.Component {
 
@@ -55,9 +55,9 @@ class PWIntro extends React.Component {
   }
 
   render() {
-    let title = "";
-    let part = "";
-    let partDescription = "";
+    let title;
+    let part;
+    let partDescription;
     let image = PersonalPref;
     if (this.props.category == 'request') {
       title = <h3 className="title">Training Your Work Preference Model</h3>;
@@ -66,7 +66,7 @@ class PWIntro extends React.Component {
                           Please assume that the algorithm notifies you of two potential requests.
                           <b> Please choose which request you would prefer the algorithm to match you with. </b>
                           The information below are features you believe that algorithm should consider.
-                        </p>
+                        </p>;
     } else {
       title = <h3 className="title">Training Your Work Distribution Model</h3>;
       part = <p className="pg-1-subheader"> Part 2. Social Ranking </p>;
@@ -75,7 +75,7 @@ class PWIntro extends React.Component {
                           Please assume that you are the algorithm and you have to assign a request to a driver.
                           <b> Please choose which driver you would prefer the algorithm to give the request. </b>
                           The information below are features you believe that algorithm should consider.
-                        </p>
+                        </p>;
     }
 
     return (
@@ -88,8 +88,6 @@ class PWIntro extends React.Component {
           Each set will have two options, and it is up to your discretion to choose which is the better option.
           Your decisions will be used to help train our own matching algorithm.
         </p>
-        <br /> <br /> <br />
-        <br /> <br /> <br />
         <div className="pg-1-image-block">
           <div className="text-image-container">
             {part}
@@ -100,7 +98,7 @@ class PWIntro extends React.Component {
         <p className="pg-1-subheader">Scenarios will include: </p>
         {this.renderSelectedFeatures()}
         {
-          this.state.loading ? <LoadingSpinner /> : (
+          this.state.loading ? <LoadingGif /> : ( 
             <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick} style={{ marginBottom:"5%", }}> Start </a>
           )
         }

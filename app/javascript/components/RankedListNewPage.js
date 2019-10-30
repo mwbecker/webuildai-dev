@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ACTION_TYPES } from "../store";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingGif from "./LoadingGif";
+
 
 class RLNew extends React.Component {
     getPairwiseComparisons = () => {
@@ -137,7 +138,7 @@ class RLNew extends React.Component {
                     <div className="col s5"></div>
                     <div className="col s1">
                         {this.state.isLoading ? (
-                            <LoadingSpinner />
+                            <LoadingGif />
                         ) : (
                                 <a
                                     className="waves-effect waves-dark btn"
