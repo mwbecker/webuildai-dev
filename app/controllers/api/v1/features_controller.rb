@@ -156,7 +156,9 @@ module Api
         puts a.id
         puts weight
         puts category
-        make_weight(a.id, weight, category)
+        unless params[:feature_only]
+          make_weight(a.id, weight, category)
+        end
         render json: { id: a.id}.to_json
       end
 

@@ -6,6 +6,10 @@ module Api
       skip_before_action :verify_authenticity_token
       def new; end
 
+      def get_id
+        render json: { participantId: current_user.id }.to_json
+      end
+
       def login
         id = params[:auth][:id]
         pwd = params[:auth][:password]
