@@ -129,9 +129,9 @@ class RLNew extends React.Component {
         return (
             <div className="container">
                 <h1 className="title">
-                    Let’s check the results of your
-                    {this.props.category == 'request' ? ' individual ' : ' social '}
-                    preference model.
+                    Let’s check the results of your Work
+                    {this.props.category == 'request' ? ' Preference ' : ' Distribution '}
+                    Model.
                     {this.props.round > 0 && ` (Tuning Round ${this.props.round + 1})`}
                 </h1>
                 <div className="row">

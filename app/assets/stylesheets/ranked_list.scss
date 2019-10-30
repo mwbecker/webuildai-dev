@@ -41,7 +41,7 @@
   display:inline-block;
   font-family: "Helvetica Neue", sans-serif;
   font-weight:bold;
-  margin-bottom: 40%;
+  margin-bottom: 75px;
 }
 
 #rl-page .feature-unit {
@@ -55,7 +55,7 @@
   font-size:20px;
   font-family:"Helvetica Neue", sans-serif;
   font-weight:400;
-  height:60px;
+  height:70px;
 }
 
 #rl-page .column {
@@ -142,7 +142,7 @@
   text-align: left;
   vertical-align: top;
   margin-right:2%;
-  margin-top:100px;
+  margin-top:70px;
 }
 
 #rl-page .rl-col {
@@ -178,9 +178,11 @@
 #rl-page .scenario-header {
   color:#3d6ab1;
   font-weight: bold;
-  margin-bottom: 20%;
-  margin-top: -2%;
+  margin-bottom: 75px;
   text-align: center;
+  font-size:22px;
+  display:inline-block;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 #rl-page .dnd-indicator {
@@ -206,6 +208,13 @@
   margin-bottom:3%;
 }
 
+#rl-page .rl-subtitle3 {
+  font-family: "Helvetica Neue bold", sans-serif;
+  color:#6488C1;
+  font-weight:550;
+  margin-bottom:65px;
+}
+
 #rl-page .number-circle {
   margin-left:10%;
   margin-right:5%;
@@ -223,7 +232,7 @@
 #rl-page .accuracy-table {
   margin-top:5%;
   margin-bottom:5%;
-  margin-left:15%;
+  margin-left:10%;
   width:60%;
   font-family: "Helvetica Neue bold", sans-serif;
   border-collapse: collapse;
@@ -250,4 +259,12 @@
 #rl-page .learned-accuracy {
   font-size:16px;
   font-weight:500;
+}
+
+#rl-page .accuracy-image {
+  margin-left:10%;
+  margin-right:5%;
+  width:175px;
+  height:auto;
+  float:left;
 }

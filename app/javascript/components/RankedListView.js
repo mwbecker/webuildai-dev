@@ -9,6 +9,7 @@ import CircleThree from '../images/numbers-03.png';
 import CircleFour from '../images/numbers-04.png';
 import CircleFive from '../images/numbers-05.png';
 import DndIndicator from '../images/dndIndicator.png';
+import Accuracy from '../images/Accuracy.png';
 // import Scenario from "./Scenario";
 
 class RLView extends React.Component {
@@ -126,22 +127,12 @@ class RLView extends React.Component {
     return this.state.featureWeights.map((feature, i) => {
       return (
          <tr>
-           <td>{feature[1]}%</td>
            <td>{this.renderFeatureWeightsFromModel(i)}</td>
            <td style={{color: "#5A80BD"}}>{feature[0]}</td>
+           <td>Initial: {feature[1]}%</td>
          </tr>
       )
    });
-    // return this.state.featureWeights.map((feature, i) => {
-    //   return (
-    //           <div key={`${feature[0]}_feature_weight`}>
-    //             <tr>
-    //               <td>{feature[1]}%</td>
-    //               <td>{this.renderFeatureWeightsFromModel(i)}</td>
-    //               <td>{feature[0]}</td>
-    //             </tr>
-    //           </div>);
-    // });
   }
 
   renderFeatures = (rle) => {
@@ -158,9 +149,7 @@ class RLView extends React.Component {
   renderScenarioScore = (rle) => {
     return (
             <div key={`${rle.id}_rle_score`}>
-              <p>
-                Scenario Score: {rle.score}
-              </p>
+              <p>{rle.score}</p>
             </div>
     )
   }
@@ -188,9 +177,8 @@ class RLView extends React.Component {
               <img className="dnd-indicator"src={DndIndicator} />
               <div className="card default">
                 <div className="card-content" style={{padding: "14px"}}>
-                  <h5 className="scenario-header">Scenario #{rle.id}</h5>
+                  <h5 className="scenario-header">{this.renderScenarioScore(rle)}</h5>
                   {this.renderFeatures(rle)}
-                  {this.renderScenarioScore(rle)}
                 </div>
               </div>
             </div>
@@ -256,31 +244,29 @@ class RLView extends React.Component {
       <div id="rl-page">
         {title}
         <hr className="feature-hr" />
-
+        <p className="about-text">
+          Insert Text Here
+        </p>
+        <h5 className="rl-subtitle">Algorithm Profile</h5>
         <div>
-          <h5 className="rl-subtitle">Algorithm Accuracy</h5>
-          <div>
-            <div class="number-circle">##</div>
-            <p className="about-text">
-              By looking at the accuracy score, you can see the overall percentage of the time that the model chose correctly. 
-              For instance, if the accuracy score is 90%, the model you trained made the same choices as you 90% of the time 
-              when it was presented the same set of comparisons.
-            </p>
-          </div>
+        <img className="accuracy-image" src={Accuracy} />
+          <h6 className="rl-subtitle2">Algorithm Accuracy: ###</h6>
+          <p className="about-text">
+            By looking at the accuracy score, you can see the overall percentage of the time that the model chose correctly. 
+            For instance, if the accuracy score is 90%, the model you trained made the same choices as you 90% of the time 
+            when it was presented the same set of comparisons.
+          </p>
         </div>
-
-
         <table className="accuracy-table">
           <tbody>
             <tr>
-              <th>Selected</th>
               <th>Learned</th>
             </tr>
             {this.renderFeatureWeights()}
           </tbody>
         </table>
 
-        <h5 className="rl-subtitle">Rank Modification</h5>
+        <h5 className="rl-subtitle">Example Decision From Model</h5>
         <p className="about-text">
           This is a list of scenarios that the algorithm has ranked from most to least preferable. Please go through the lsit and see if the 
           algorithm ranked these scenarios correctly. If not, <b>please drag and drop the scenarios into the correct rank</b>.
@@ -296,6 +282,7 @@ class RLView extends React.Component {
                   >
                     <div className="rl-row">
                       <div className="rl-feature-col">
+                        <h5 className="rl-subtitle3">Scenario Score</h5>
                         {this.renderFeatureNames()}
                       </div>
                       {this.renderScenarios()}
