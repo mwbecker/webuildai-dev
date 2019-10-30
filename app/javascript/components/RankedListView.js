@@ -126,14 +126,20 @@ class RLView extends React.Component {
   renderFeatureWeights = () => {
     return this.state.featureWeights.map((feature, i) => {
       return (
-         <tr>
-           <td>{this.renderFeatureWeightsFromModel(i)}</td>
-           <td style={{color: "#5A80BD"}}>{feature[0]}</td>
-           <td>Initial: {feature[1]}%</td>
-         </tr>
+        <tbody>
+          <tr>
+            <td>{this.renderFeatureWeightsFromModel(i)}</td>
+            <td>{feature[0]}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style={{color: "#5A80BD"}}>Initial: {feature[1]}%</td>
+          </tr>
+        </tbody>
       )
    });
   }
+
 
   renderFeatures = (rle) => {
     return rle.features.map((feature, i) => {
@@ -258,12 +264,10 @@ class RLView extends React.Component {
           </p>
         </div>
         <table className="accuracy-table">
-          <tbody>
-            <tr>
-              <th>Learned</th>
-            </tr>
-            {this.renderFeatureWeights()}
-          </tbody>
+          <tr>
+            <th>Learned Weight</th>
+          </tr>
+          {this.renderFeatureWeights()}
         </table>
 
         <h5 className="rl-subtitle">Example Decision From Model</h5>
