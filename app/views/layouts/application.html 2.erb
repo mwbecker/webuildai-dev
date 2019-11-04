@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WeBuildAi</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <%= yield %>
+<!-- Footer -->
+<%
+=begin %>
+<footer class="footer" id="footer">
+ <!-- Copyright -->
+ <div class = "containeri-foot">
+     <div class = "center" style = "margin-left:5%;">
+          <%= image_tag ('CMU_Logo_Horiz_White.png'), :class => "logo" %>
+          <span class = "text-muted"> Questions or comments? Contact dkusbit@gmail.com</span>
+    </div>
+ </div>
+</footer>
+<%
+=end %>
+<!-- Footer -->
+  </body>
+</html>

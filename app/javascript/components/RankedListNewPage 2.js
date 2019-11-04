@@ -87,7 +87,7 @@ class RLNew extends React.Component {
             .then((data) => {
                 console.log("weights", data);
                 this.props.setModelWeights(data.weights);
-                this.props.setAccuracy(this.average(data.accuracy));
+                this.props.setAccuracy = this.average(data.accuracy);
                 this.evaluateModel(samples);
             })
     }
@@ -117,7 +117,7 @@ class RLNew extends React.Component {
     }
 
     average(accuracies) {
-      return ((accuracies.reduce( (total, num) => total + parseFloat(num)) / accuracies.length) * 100).toFixed(2);
+      return (accuracies.reduce( (total, num) => total + parseFloat(num)) / accuracies.length).toFixed(2);
     }
 
     componentDidMount() {

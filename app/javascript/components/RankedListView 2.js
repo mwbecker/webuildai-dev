@@ -280,7 +280,8 @@ class RLView extends React.Component {
         <div className="feature_weights container">
           <div className="row">
             {this.renderWeights()}
-            <br />The accuracy for this model is: {`${this.props.accuracy}%`}
+            {console.log(this.props.accuracy)}
+            <br />The accuracy for this model is: {`${this.state.accuracy}`}
           </div>
         </div>
 

@@ -1,0 +1,193 @@
+#rl-page h1 {
+  text-align: center;
+  color: #3d6ab1;
+}
+
+#rl-page h4 {
+  margin-left:19%;
+  display: inline-block;
+}
+
+#rl-page h5 {
+  color:#3d6ab1;
+  text-align: center;
+  margin-top: -2%;
+}
+
+#rl-page h5.human-rank {
+  margin-bottom: 8%;
+  text-align: left;
+  margin-left: 20%;
+  display: inline-block;
+}
+
+#rl-page .directions {
+  margin-left:10%;
+  color:black;
+  width:80%;
+  font-size:1.5em;
+  line-height:22pt;
+  font-weight:normal;
+}
+
+#rl-page .container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+#rl-page .card {
+  transition: 0.3s;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+#rl-page .feature-value {
+  font-size:22px;
+  display:inline-block;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight:bold;
+  margin-bottom: 40%;
+}
+
+#rl-page .feature-unit {
+  font-size:20px;
+  display:inline-block;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight:bold;
+}
+
+#rl-page .rl-feature-name {
+  font-size:20px;
+  font-family:"Helvetica Neue", sans-serif;
+  font-weight:400;
+  height:62px;
+}
+
+#rl-page .column {
+  width: 50%;
+}
+
+#rl-page .row {
+  width: 80%;
+}
+
+#rl-page .left {
+  width: 60%;
+}
+
+#rl-page .right {
+  width: 40%;
+  margin-top: 2%;
+  text-align: right;
+}
+
+#rl-page .default {
+  cursor: default;
+}
+
+#rl-page .numberCircle {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 9px;
+  background: #3d6ab1;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#reorder_btn {
+  margin-bottom: 2%;
+  margin-left: 8%;
+  background-color: lightgray;
+  color: black;
+  font-weight: bold;
+}
+
+#submit_btn {
+  margin-bottom: 5%;
+  margin-top: 5%;
+  margin-right: 7.5%;
+  background: #3d6ab1;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 7.5vh;
+  font-weight: bold;
+  font-size: 1.38em;
+  line-height: 70px;
+  float: right;
+}
+
+#lgtm_btn {
+  margin-bottom: 5%;
+  margin-top: 5%;
+  margin-right: 7.5%;
+  background: #3d6ab1;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 7.5vh;
+  font-weight: bold;
+  font-size: 1.38em;
+  line-height: 70px;
+  float: right;
+}
+
+#rl-page .human-rank-container {
+  margin-top: 10%;
+}
+
+#rl-page .scenario-input {
+  width: 20%;
+}
+
+#rl-page .rl-feature-col {
+  display: inline-block;
+  width: 25%;
+  text-align: left;
+  margin-right:2%;
+}
+
+#rl-page .rl-col {
+  // float: left;
+  display: inline-block;
+  width: 12%;
+  text-align: center;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+#rl-page .rl-row {
+  margin: 0 auto;
+  width: 95%;
+}
+
+#rl-page .rl-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#rl-page .rl-header {
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #7595C7;
+}
+
+#rl-page .rl-header-cirlce {
+  width:40%;
+}
+
+#rl-page .pc-header {
+  color:#3d6ab1;
+  font-weight: bold;
+  margin-bottom: 20%;
+}
+
+#rl-page .dnd-indicator {
+  width: 35px;
+  height: auto;
+  margin-top: 20px;
+}
