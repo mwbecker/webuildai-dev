@@ -10,7 +10,6 @@ import FeatureSelection from './FeatureSelection';
 import PairwiseComparisonFlow from './PairwiseComparisonFlow'
 import Overview from './Overview'
 import Login from "./Login";
-import NewFeature from './NewFeature';
 import Header from "./Header";
 
 // this exists so we can namespace everything by /react
@@ -27,7 +26,6 @@ const Routes = ({ match, history }) => {
 
         <Route path={match.url + '/pairwise_comparisons'} component={PairwiseComparisonFlow} />
         <Route path={match.url + '/ranked_list'} component={RankedListFlow} />
-        <Route path={match.url + '/new_feature'} component={NewFeature} />
       </Switch>
     </React.Fragment>
   );

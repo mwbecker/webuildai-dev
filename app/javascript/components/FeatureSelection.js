@@ -156,7 +156,7 @@ class FeatSelection extends React.Component {
         this.createNewFeat({
           cat: 1,
           name: newCatFeature.name,
-          opts: newCatFeature.opts,
+          opts: newCatFeature.type,
           category: this.props.category,
           weight: newCatFeature.weight,
         });
