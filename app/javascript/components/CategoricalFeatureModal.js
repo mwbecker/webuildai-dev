@@ -7,7 +7,8 @@ class CategoricalFeatureModal extends React.Component {
     super(props);
     this.state = {
       name: "",
-      type: "",
+      opts: "",
+      description: "",
     }
   }
 
@@ -15,16 +16,20 @@ class CategoricalFeatureModal extends React.Component {
     this.setState({ name: e.target.value });
   }
 
-  setType = (type) => {
-    return () => this.setState({ type })
+  setOpts = (opts) => {
+    return () => this.setState({ opts })
   }
 
   canSubmit = () => {
-    return (this.state.name !== "" && this.state.type !== "");
+    return (this.state.name !== "" && this.state.opts !== "");
   }
 
   onSubmit = () => {
     this.props.onSubmit({ ...this.state, weight: 0 });
+  }
+
+  onCategoryChange = (e) => {
+    this.setState({description: e.target.value});
   }
 
   render() {
@@ -42,20 +47,22 @@ class CategoricalFeatureModal extends React.Component {
           </label>
           <input id="feature-name" type="text" name="featurename" placeholder="Feature Name" onChange={this.onFeatureNameChange} />
 
-          {/* <% if current_user.role == 'admin' %>
-          <br/ > <br/>
-                    <label for="con_category" style="color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
-                    <input id="con_category" type="text" name="featurename" value="" placeholder="Category Name">
-                      <% else %>
-       <label for="con_category" style="color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
-                      <input id="con_category" type="text" name="featurename" value="" placeholder="Category Name" style="display:none">
-                        <% end %> */}
+          {
+            this.props.displayDescription && (
+              <React.Fragment>
+                <br/>
+                <br/>
+                <label htmlFor="con_category" className="model-subheader"> Category/Type </label>
+                <input id="con_category" type="text" placeholder="Category Name" onChange={this.onCategoryChange}></input>
+              </React.Fragment>
+            )
+          }
 
           {/* <!-- Range (Numeric vs. Percentage) --> */}
           <p className="feature-label"> Range Options </p>
           <p>
             <label htmlFor="percentage">
-              <input id="percentage" className="with-gap" type="radio" name="range-group5" onClick={this.setType("High*Medium*Low")} />
+              <input id="percentage" className="with-gap" type="radio" name="range-group5" onClick={this.setOpts("High*Medium*Low")} />
               <span style={{ color: "black", fontSize: "1.3em" }}>High / Mid / Low</span>
               <br />
               <span style={{ color: "#808080" }}>ex. A person's preference towards a destination.</span>
@@ -64,7 +71,7 @@ class CategoricalFeatureModal extends React.Component {
 
           <p>
             <label htmlFor="numerical">
-              <input id="numerical" className="with-gap" type="radio" name="range-group5" onClick={this.setType("Yes*No")} />
+              <input id="numerical" className="with-gap" type="radio" name="range-group5" onClick={this.setOpts("Yes*No")} />
               <span style={{ color: "black", fontSize: "1.3em" }}>Yes / No</span>
               <br />
               <span style={{ color: "#808080" }}>ex. Does the customer have a pet?</span>
@@ -108,6 +115,7 @@ class CategoricalFeatureModal extends React.Component {
 CategoricalFeatureModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  displayDescription: PropTypes.bool,
 }
 
 export default CategoricalFeatureModal;

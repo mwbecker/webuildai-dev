@@ -11,6 +11,7 @@ class ContinuousFeatureModal extends React.Component {
       isPercentage: null,
       minValue: 0,
       maxValue: 0,
+      description: "",
     }
   }
 
@@ -20,6 +21,10 @@ class ContinuousFeatureModal extends React.Component {
 
   onUnitChange = (e) => {
     this.setState({units: e.target.value});
+  }
+
+  onCategoryChange = (e) => {
+    this.setState({description: e.target.value});
   }
 
   setIsPercentage = (isPercentage) => {
@@ -75,14 +80,16 @@ class ContinuousFeatureModal extends React.Component {
             Units
           </label>
           <input id="feature-units" className="modal-input" type="text" name="featureunits" placeholder="ex: miles" onChange={this.onUnitChange}/>
-                  {/* <% if current_user.role == 'admin' %>
-          <br/ > <br/>
-                    <label for="con_category" style="color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;"> Category/Type </label>
-                    <input id="con_category" type="text" name="featurename" value="" placeholder="Category Name">
-                      <% else %>
-       <label for="con_category" style="color:black;font-weight:bold;font-size:1.38em;margin-bottom:0.5vh;display:none"> Category/Type </label>
-                      <input id="con_category" type="text" name="featurename" value="" placeholder="Category Name" style="display:none">
-                        <% end %> */}
+          {
+            this.props.displayDescription && (
+              <React.Fragment>
+                <br/>
+                <br/>
+                <label htmlFor="con_category" className="model-subheader"> Category/Type </label>
+                <input id="con_category" type="text" placeholder="Category Name" onChange={this.onCategoryChange}></input>
+              </React.Fragment>
+            )
+          }
 
           {/* <!-- Range (Numeric vs. Percentage) --> */}
           <p className="modal-subheader"> Range Options </p>
@@ -133,6 +140,7 @@ class ContinuousFeatureModal extends React.Component {
 ContinuousFeatureModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  displayDescription: PropTypes.bool,
 }
 
 export default ContinuousFeatureModal;
