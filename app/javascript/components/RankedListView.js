@@ -128,12 +128,12 @@ class RLView extends React.Component {
       return (
         <tbody>
           <tr>
-            <td>{this.renderFeatureWeightsFromModel(i)}</td>
+            <td style={{width:"160px"}}>{this.renderFeatureWeightsFromModel(i)}</td>
             <td>{feature[0]}</td>
           </tr>
           <tr>
             <td></td>
-            <td style={{color: "#5A80BD"}}>Initial: {feature[1]}%</td>
+            <td style={{color: "#5A80BD", paddingTop: "0px", paddingBottom: "40px"}}>Your chosen importance: {feature[1]}%</td>
           </tr>
         </tbody>
       )
@@ -251,9 +251,11 @@ class RLView extends React.Component {
         {title}
         <hr className="feature-hr" />
         <p className="about-text">
-          Insert Text Here
+          This is going to be an overview page of the algorithm you've just created. Here, you can see the overally accuracy of your algorithm as well
+          as look at the difference in weight your algorithm put on each feature compared to your initial importance rating. You will also be able to 
+          see an example of 5 scenarios that your algoritm has ranked. If the ranking is incorrect, you will be able to adjust it to tune your algorithm.
         </p>
-        <h5 className="rl-subtitle">Algorithm Profile</h5>
+        <h4 className="rl-subtitle">Algorithm Profile</h4>
         <div>
         <img className="accuracy-image" src={Accuracy} />
           <h6 className="rl-subtitle2">Algorithm Accuracy: ###</h6>
