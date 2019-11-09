@@ -42,6 +42,7 @@
   font-family: "Helvetica Neue", sans-serif;
   font-weight:bold;
   margin-bottom: 75px;
+  color: #636363;
 }
 
 #rl-page .feature-unit {
@@ -56,6 +57,7 @@
   font-family:"Helvetica Neue", sans-serif;
   font-weight:400;
   height:70px;
+  color: #636363;
 }
 
 #rl-page .column {
@@ -212,6 +214,13 @@
   color:#6488C1;
   font-weight:550;
   margin-bottom:65px;
+}
+
+#rl-page .scenario-score {
+  font-family: "Helvetica Neue bold", sans-serif;
+  color:#6488C1;
+  font-weight:550;
+  font-size: 25px;
 }
 
 #rl-page .number-circle {

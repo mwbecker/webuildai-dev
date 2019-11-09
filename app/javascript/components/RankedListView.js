@@ -128,8 +128,8 @@ class RLView extends React.Component {
       return (
         <tbody>
           <tr>
-            <td style={{width:"160px"}}>{this.renderFeatureWeightsFromModel(i)}</td>
-            <td>{feature[0]}</td>
+            <td style={{width:"160px",color: "#636363"}}>{this.renderFeatureWeightsFromModel(i)}</td>
+            <td style={{color: "#636363"}}>{feature[0]}</td>
           </tr>
           <tr>
             <td></td>
@@ -155,7 +155,7 @@ class RLView extends React.Component {
   renderScenarioScore = (rle) => {
     return (
             <div key={`${rle.id}_rle_score`}>
-              <p>{rle.score}</p>
+              <p className="scenario-score">{rle.score}</p>
             </div>
     )
   }
