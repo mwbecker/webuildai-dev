@@ -34,7 +34,6 @@ Rails.application.routes.draw do
       post 'work_preference_overview'
       post 'sessions/login'
       post 'sessions/logout'
-      get 'sessions/get_id'
       post 'testing/reset'
     end
   end

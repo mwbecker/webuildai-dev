@@ -1,0 +1,3 @@
+class ScenarioGroup < ApplicationRecord
+
+end

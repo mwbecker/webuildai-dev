@@ -88,6 +88,7 @@ class RLNew extends React.Component {
             .then((data) => {
                 console.log("weights", data);
                 this.props.setModelWeights(data.weights);
+                this.props.setAccuracy(this.average(data.accuracy));
                 this.evaluateModel(samples);
             })
     }
@@ -114,6 +115,10 @@ class RLNew extends React.Component {
             isLoading: false,
             samples: [],
         };
+    }
+
+    average(accuracies) {
+      return ((accuracies.reduce( (total, num) => total + parseFloat(num)) / accuracies.length) * 100).toFixed(2);
     }
 
     componentDidMount() {
@@ -165,6 +170,7 @@ const mapStoreStateToProps = (storeState, givenProps) => {
         mlServerUrl: storeState.model_url || 'https://webuildai-ml-server.herokuapp.com',
         participantId: storeState.participantId,
         model_weights: storeState.model_weights,
+        accuracy: storeState.accuracy,
     };
 }
 
@@ -174,6 +180,7 @@ const mapDispatchToProps = (dispatch) => {
         setRankedList: (payload) => dispatch({ type: ACTION_TYPES.SET_RANKED_LIST, payload }),
         setModelWeights: (payload) => dispatch({ type: ACTION_TYPES.SET_MODEL_WEIGHTS, payload }),
         setRanklistId: (payload) => dispatch({ type: ACTION_TYPES.SET_RANKLIST_ID, payload }),
+        setAccuracy: (payload) => dispatch({type: ACTION_TYPES.SET_ACCURACY, payload}),
     };
 }
 

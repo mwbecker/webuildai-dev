@@ -22,6 +22,7 @@ class RLView extends React.Component {
       changed: false,
       featureWeights: [],
       model_weights: [],
+      accuracy: 0,
     }
   }
 
@@ -258,7 +259,7 @@ class RLView extends React.Component {
         <h4 className="rl-subtitle">Algorithm Profile</h4>
         <div>
         <img className="accuracy-image" src={Accuracy} />
-          <h6 className="rl-subtitle2">Algorithm Accuracy: ###</h6>
+          <h6 className="rl-subtitle2">Algorithm Accuracy: {`${this.props.accuracy}%`}</h6>
           <p className="about-text">
             By looking at the accuracy score, you can see the overall percentage of the time that the model chose correctly. 
             For instance, if the accuracy score is 90%, the model you trained made the same choices as you 90% of the time 
@@ -319,6 +320,7 @@ RLView.propTypes = {
   endFlow: PropTypes.func.isRequired,
   featureWeights: PropTypes.object.isRequired,
   setFeatureWeights: PropTypes.func.isRequired,
+  setAccuracy: PropTypes.func.isRequired,
 };
 
 const mapStoreStateToProps = (storeState, givenProps) => {
@@ -331,6 +333,7 @@ const mapStoreStateToProps = (storeState, givenProps) => {
     pairwiseComparisons: storeState.pairwiseComparisons,
     featureWeights: storeState.featureWeights,
     model_weights: storeState.model_weights,
+    accuracy: storeState.accuracy,
   }
 }
 
@@ -342,6 +345,7 @@ const mapDispatchToProps = (dispatch) => {
     setPairwiseComparisons: (payload) => dispatch({ type: ACTION_TYPES.SET_PAIRWISE_COMPARISONS, payload }),
     endFlow: (payload) => dispatch({ type: ACTION_TYPES.END_RL_FLOW, payload }),
     setFeatureWeights: (payload) => dispatch({type: ACTION_TYPES.SET_FEATURE_WEIGHTS, payload}),
+    setAccuracy: (payload) => dispatch({type: ACTION_TYPES.SET_ACCURACY, payload}),
   }
 }
 

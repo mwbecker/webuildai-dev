@@ -17,6 +17,7 @@ const INITIAL_STATE = {
     participantId: 0,
     featureWeights: {},
     isLoggedIn: false,
+    accuracy: 0,
 };
 
 export const ACTION_TYPES = {
@@ -33,6 +34,7 @@ export const ACTION_TYPES = {
     SET_PARTICIPANT_ID: 'SET_PARTICIPANT_ID',
     SET_FEATURE_WEIGHTS: 'SET_FEATURE_WEIGHTS',
     SET_LOGIN: 'SET_LOGIN',
+    SET_ACCURACY: 'SET_ACCURACY',
 };
 
 const rootReducer = (state, action) => {
@@ -75,6 +77,9 @@ const rootReducer = (state, action) => {
             return INITIAL_STATE;
         case ACTION_TYPES.SET_LOGIN:
             oldState.isLoggedIn = payload;
+            return oldState;
+        case ACTION_TYPES.SET_ACCURACY:
+            oldState.accuracy = payload;
             return oldState;
         default:
             return state;
