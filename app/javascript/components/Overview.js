@@ -1,9 +1,12 @@
 import React from "react"
 import WorkPrefImage from '../images/Work_Pref.png';
 import SocialPrefImage from '../images/Social_Pref.png';
-import FeatureSelectionImage from '../images/Feature_Selection.png';
-import PCImage from '../images/Pairwise_Image.png';
-import RLImage from '../images/Ranked_List_Image.png';
+// import FeatureSelectionImage from '../images/Feature_Selection.png';
+// import PCImage from '../images/Pairwise_Image.png';
+// import RLImage from '../images/Ranked_List_Image.png';
+import FeatureSelectionImage from '../images/forNathan-14.png';
+import PCImage from '../images/forNathan-15.png';
+import RLImage from '../images/forNathan-06.png';
 
 class Overview extends React.Component {
   render() {
@@ -50,17 +53,14 @@ class Overview extends React.Component {
           <h5 className="wp-subtitle2">To Build Your Model:</h5>
           <div className="wp-image-row">
             <div className="wp-image-col">
-              <div className="num-circle">1</div>
               <img src={FeatureSelectionImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Feature Selection</h5>
             </div>
             <div className="wp-image-col">
-              <div className="num-circle">2</div>
               <img src={PCImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Pariwise Comparison</h5>
             </div>
             <div className="wp-image-col">
-              <div className="num-circle">3</div>
               <img src={RLImage} className="wp-sub-image"/>
               <h5 className="wp-subtitle">Model Evaluation</h5>
             </div>

@@ -291,7 +291,7 @@ a:hover
 .pg-1-image-block {
   display: flex;
   align-items: center;
-  margin-top: -4%;
+  margin-top: 1%;
   margin-left: 3%;
   width: 80%;
 }
@@ -353,7 +353,9 @@ a:hover
 }
 
 #rank_yes_btn {
-  margin-top: 100%;
+  text-align: center;
+  margin-top:10%;
+  margin-left:40%;
   background: #3d6ab1;
   color: #ffffff;
   border-radius: 5px;
@@ -636,6 +638,7 @@ input:focus {
 
 #wp-page .wp-image-row {
   margin-top:2%;
+  width:90%;
 }
 
 #wp-page .wp-image-col {
@@ -646,8 +649,6 @@ input:focus {
 
 #wp-page .wp-sub-image {
   height:200px;
-  margin-top:-10%;
-  /* width:70%; */
 }
 
 #wp-page .num-circle {
@@ -661,4 +662,18 @@ input:focus {
   font-family: "Helvetica Neue bold", sans-serif;
   font-weight:bold;
   font-size:18px;
+}
+
+.loading-gif {
+  height:30%;
+  width:30%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:5%;
+}
+
+.new-feature-form {
+  margin-left:10%; 
+  margin-right:30%
 }

@@ -98,12 +98,12 @@ module Api
               scenarios << Scenario.create(group_id: group_id, feature_id: f.id,
                                            feature_value: fval)
 
-            elsif f.name.downcase['rating'] && f.name.downcase['driver']
+            elsif f.name.downcase == "driver rating"
               fval = (data_range.lower_bound+ 0.25 * (rand(((data_range.upper_bound.to_f - data_range.lower_bound.to_f)/0.25)+1)))
               scenarios << Scenario.create(group_id: group_id, feature_id: f.id,
                                            feature_value: fval)
 
-            elsif f.name.downcase['rating'] && f.name.downcase['customer']
+            elsif f.name.downcase == "customer rating"
               fval = (data_range.lower_bound+ 0.1 * (rand(((data_range.upper_bound.to_f - data_range.lower_bound.to_f)/0.1)+1)))
               scenarios << Scenario.create(group_id: group_id, feature_id: f.id,
                                            feature_value: fval)

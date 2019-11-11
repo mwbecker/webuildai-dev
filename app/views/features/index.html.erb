@@ -11,7 +11,7 @@ To make a new feature, visit /react/new_feature as admin
     <th>Added By</th>
     <th class="align_center">Edit</th>
   </thead>
-  <% for feature in @features %>
+  <% for feature in @active_features %>
     <tr>
       <td><%= feature.name %></td>
       <td><%= feature.description %></td>
@@ -27,4 +27,26 @@ To make a new feature, visit /react/new_feature as admin
       </td>
     </tr>
   <% end %>
+  <% for feature in @inactive_features %>
+  <tr>
+    <td><%= feature.name %></td>
+    <td><%= feature.description %></td>
+    <td><%= feature.category %></td>
+    <td><%= feature.active %></td>
+    <td><%= feature.unit %></td>
+    <td><%= feature.icon %></td>
+    <td><%= feature.added_by %></td>
+    <td class="align_center">
+      <%= link_to edit_feature_path(feature) do %>
+          <i class="material-icons">edit</i>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+  
 </table>
+<button class="btn">
+  <%= link_to new_feature_path do %>
+    New feature
+  <% end %>
+</button>
