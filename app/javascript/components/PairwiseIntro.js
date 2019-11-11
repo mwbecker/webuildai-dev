@@ -80,26 +80,28 @@ class PWIntro extends React.Component {
 
     return (
       <div id="pg_1" >
-        {title}
-        <hr className="feature-hr" />
-        <br />
-        <p className="feature-text">
-          We are now going to give you some sets of hypothetical scenarios based on your chosen features.
-          Each set will have two options, and it is up to your discretion to choose which is the better option.
-          Your decisions will be used to help train our own matching algorithm.
-        </p>
-        <div className="pg-1-image-block">
-          <div className="text-image-container">
-            {part}
-            {partDescription}
-          </div>
-          <img src={image} className="personal-pref-image" />
-        </div>
-        <p className="pg-1-subheader">Scenarios will include: </p>
-        {this.renderSelectedFeatures()}
         {
           this.state.loading ? <LoadingGif /> : ( 
-            <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick} style={{ marginBottom:"5%", }}> Start </a>
+            <div>
+              {title}
+              <hr className="feature-hr" />
+              <br />
+              <p className="feature-text">
+                We are now going to give you some sets of hypothetical scenarios based on your chosen features.
+                Each set will have two options, and it is up to your discretion to choose which is the better option.
+                Your decisions will be used to help train our own matching algorithm.
+              </p>
+              <div className="pg-1-image-block">
+                <div className="text-image-container">
+                  {part}
+                  {partDescription}
+                </div>
+                <img src={image} className="personal-pref-image" />
+              </div>
+              <p className="pg-1-subheader">Scenarios will include: </p>
+              {this.renderSelectedFeatures()}
+              <a className="waves-effect waves-dark start_btn btn" id="start_btn_1" onClick={this.onClick} style={{ marginBottom:"5%", }}> Start </a>
+            </div>
           )
         }
       </div>

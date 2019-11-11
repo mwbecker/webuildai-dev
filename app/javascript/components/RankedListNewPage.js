@@ -132,31 +132,32 @@ class RLNew extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <h1 className="title">
-                    Let’s check the results of your Work
-                    {this.props.category == 'request' ? ' Preference ' : ' Distribution '}
-                    Model.
-                    {this.props.round > 0 && ` (Tuning Round ${this.props.round + 1})`}
-                </h1>
-                <div className="row">
-                    <div className="col s5"></div>
-                    <div className="col s1">
-                        {this.state.isLoading ? (
-                            <LoadingGif />
-                        ) : (
-                                <a
-                                    className="waves-effect waves-dark btn"
-                                    id="rank_yes_btn"
-                                    onClick={this.onClickGo}
-                                >
-                                    Go!
-                            </a>
-                            )
-                        }
+            <div>
+                {this.state.isLoading ? (
+                    <LoadingGif />
+                ) : (
+                    <div>
+                        <h1 className="title" style={{width:"50%", marginTop:"3%", marginLeft:"25%"}}>
+                            Let’s check the results of your Work
+                            {this.props.category == 'request' ? ' Preference ' : ' Distribution '}
+                            Model.
+                            {this.props.round > 0 && ` (Tuning Round ${this.props.round + 1})`}
+                        </h1>
+                        <a
+                            className="waves-effect waves-dark btn"
+                            id="rank_yes_btn"
+                            onClick={this.onClickGo}
+                        >
+                            Go!
+                        </a>
                     </div>
-                </div>
+                    )
+                }
             </div>
+
+
+
+
         )
     }
 }
